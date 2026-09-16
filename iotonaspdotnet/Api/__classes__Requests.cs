@@ -1,4 +1,4 @@
-#set( $className = classObject.getName() )
+#set( $className = $classObject.getName() )
 #set( $singleAssociations = $classObject.getSingleAssociations() )
 #set( $totalSingleAssociations = singleAssociations.size() )
 namespace ${appName}.Api.${className};
