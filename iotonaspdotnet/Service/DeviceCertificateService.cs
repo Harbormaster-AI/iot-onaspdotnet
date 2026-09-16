@@ -1,0 +1,114 @@
+using iotonaspdotnet.Domain
+using iotonaspdotnet.Persistence
+using iotonaspdotnet.Persistence.IoTDevices;
+using iotonaspdotnet.Persistence.Gateways;
+
+namespace iotonaspdotnet.Service
+
+public interface IDeviceCertificateService
+{
+    Task<DeviceCertificate?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+    Task<IReadOnlyList<DeviceCertificate>> GetAllAsync(CancellationToken cancellationToken);
+    Task CreateAsync(DeviceCertificate deviceCertificate, CancellationToken cancellationToken);
+    Task<bool> UpdateAsync(DeviceCertificate deviceCertificate, CancellationToken cancellationToken);
+    Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken);
+}
+
+public class DeviceCertificateService : IDeviceCertificateService
+{
+    private readonly IDeviceCertificateRepository _repository;
+    private readonly IIoTDeviceRepository _ioTDevices;
+    private readonly IGatewayRepository _gateways;
+
+    public DeviceCertificateService(
+        IIoTDeviceRepository ioTDevices,
+        IGatewayRepository gateways,
+        IDeviceCertificateRepository repository )
+    {
+        _repository = repository;
+        _gateways = gateways;
+        _gateways = gateways;
+    }
+
+    public Task<DeviceCertificate?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+        => _repository.GetByIdAsync(id, cancellationToken);
+
+    public Task<IReadOnlyList<DeviceCertificate>> GetAllAsync(CancellationToken cancellationToken)
+        => _repository.GetAllAsync(cancellationToken);
+
+    public async Task CreateAsync(DeviceCertificate deviceCertificate, CancellationToken cancellationToken)
+    {
+        var ioTDevice = await _ioTDevices.GetByIdAsync(deviceCertificate.IoTDeviceId, cancellationToken)
+            ?? throw new InvalidOperationException("IoTDevice not found.");
+
+        if (ioTDevice.DeviceCertificate is not null)
+        {
+            throw new InvalidOperationException("IoTDevice already has a(n) deviceCertificate (1:1 relationship).");
+        }
+
+        var gateway = await _gateways.GetByIdAsync(deviceCertificate.GatewayId, cancellationToken)
+            ?? throw new InvalidOperationException("Gateway not found.");
+
+        if (gateway.DeviceCertificate is not null)
+        {
+            throw new InvalidOperationException("Gateway already has a(n) deviceCertificate (1:1 relationship).");
+        }
+
+        await _repository.AddAsync(deviceCertificate, cancellationToken);
+    }
+
+    public async Task<bool> UpdateAsync(DeviceCertificate deviceCertificate, CancellationToken cancellationToken)
+    {
+        var existing = await _repository.GetByIdAsync(deviceCertificate.Id, cancellationToken);
+        if (existing is null)
+        {
+            return false;
+        }
+
+        // Keep 1:1 â do not reassign to a gateway who already has another deviceCertificate.
+        if (existing.GatewayId != deviceCertificate.GatewayId)
+        {
+            var target;
+            target = await _ioTDevices.GetByIdAsync(deviceCertificate.IoTDeviceId, cancellationToken)
+                ?? throw new InvalidOperationException("IoTDevice not found.");
+
+            if (target.DeviceCertificate is not null && target.DeviceCertificate.Id != existing.Id)
+            {
+                throw new InvalidOperationException("Target ioTDevice already has an deviceCertificate (1:1 relationship).");
+            }
+
+        }
+            target = await _gateways.GetByIdAsync(deviceCertificate.GatewayId, cancellationToken)
+                ?? throw new InvalidOperationException("Gateway not found.");
+
+            if (target.DeviceCertificate is not null && target.DeviceCertificate.Id != existing.Id)
+            {
+                throw new InvalidOperationException("Target gateway already has an deviceCertificate (1:1 relationship).");
+            }
+
+        }
+
+        existing.attributeName = deviceCertificate.attributeName;
+        existing.attributeName = deviceCertificate.attributeName;
+        existing.attributeName = deviceCertificate.attributeName;
+        existing.attributeName = deviceCertificate.attributeName;
+        existing.attributeName = deviceCertificate.attributeName;
+
+        existing.IoTDeviceId = deviceCertificate.IoTDeviceId;
+        existing.GatewayId = deviceCertificate.GatewayId;
+        await _repository.UpdateAsync(existing, cancellationToken);
+        return true;
+    }
+
+    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    {
+        var existing = await _repository.GetByIdAsync(id, cancellationToken);
+        if (existing is null)
+        {
+            return false;
+        }
+
+        await _repository.DeleteAsync(existing, cancellationToken);
+        return true;
+    }
+}
