@@ -49,7 +49,7 @@ public static class EdgeApplicationEndpoints
                 Image = request.Image,
                 Status = request.Status,
 
-                GatewayId = request.GatewayId
+                GatewayId = request.GatewayId,
 
         };
 

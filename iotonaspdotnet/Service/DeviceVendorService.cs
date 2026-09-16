@@ -1,7 +1,7 @@
 using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface IDeviceVendorService
 {
@@ -44,7 +44,6 @@ public class DeviceVendorService : IDeviceVendorService
         // Keep 1:1 â do not reassign to a connectivityPlan who already has another deviceVendor.
         if (existing.ConnectivityPlanId != deviceVendor.ConnectivityPlanId)
         {
-            var target;
         }
 
         existing.Name = deviceVendor.Name;

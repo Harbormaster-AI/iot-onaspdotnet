@@ -2,7 +2,7 @@ using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.Tenants;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface ISiteService
 {
@@ -56,11 +56,10 @@ public class SiteService : ISiteService
         // Keep 1:1 â do not reassign to a tenant who already has another site.
         if (existing.TenantId != site.TenantId)
         {
-            var target;
-            target = await _tenants.GetByIdAsync(site.TenantId, cancellationToken)
+            var Tenant = await _tenants.GetByIdAsync(site.TenantId, cancellationToken)
                 ?? throw new InvalidOperationException("Tenant not found.");
 
-            if (target.Site is not null && target.Site.Id != existing.Id)
+            if (Tenant.Site is not null && Tenant.Site.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target tenant already has an site (1:1 relationship).");
             }

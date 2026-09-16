@@ -49,7 +49,7 @@ public static class ApiKeyEndpoints
                 CreatedAt = request.CreatedAt,
                 LastUsedAt = request.LastUsedAt,
 
-                AccessPolicyId = request.AccessPolicyId
+                AccessPolicyId = request.AccessPolicyId,
 
         };
 

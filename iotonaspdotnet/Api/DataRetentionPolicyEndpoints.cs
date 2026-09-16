@@ -47,7 +47,7 @@ public static class DataRetentionPolicyEndpoints
                 Name = request.Name,
                 RetentionDays = request.RetentionDays,
 
-                TenantId = request.TenantId
+                TenantId = request.TenantId,
 
         };
 

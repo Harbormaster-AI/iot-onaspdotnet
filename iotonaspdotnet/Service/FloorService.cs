@@ -2,7 +2,7 @@ using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.Buildings;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface IFloorService
 {
@@ -56,11 +56,10 @@ public class FloorService : IFloorService
         // Keep 1:1 â do not reassign to a building who already has another floor.
         if (existing.BuildingId != floor.BuildingId)
         {
-            var target;
-            target = await _buildings.GetByIdAsync(floor.BuildingId, cancellationToken)
+            var Building = await _buildings.GetByIdAsync(floor.BuildingId, cancellationToken)
                 ?? throw new InvalidOperationException("Building not found.");
 
-            if (target.Floor is not null && target.Floor.Id != existing.Id)
+            if (Building.Floor is not null && Building.Floor.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target building already has an floor (1:1 relationship).");
             }

@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.FirmwareReleases;
 using iotonaspdotnet.Persistence.DeviceGroups;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface ISoftwareUpdateCampaignService
 {
@@ -68,18 +68,17 @@ public class SoftwareUpdateCampaignService : ISoftwareUpdateCampaignService
         // Keep 1:1 â do not reassign to a deviceGroup who already has another softwareUpdateCampaign.
         if (existing.DeviceGroupId != softwareUpdateCampaign.DeviceGroupId)
         {
-            var target;
-            target = await _firmwareReleases.GetByIdAsync(softwareUpdateCampaign.FirmwareReleaseId, cancellationToken)
+            var FirmwareRelease = await _firmwareReleases.GetByIdAsync(softwareUpdateCampaign.FirmwareReleaseId, cancellationToken)
                 ?? throw new InvalidOperationException("FirmwareRelease not found.");
 
-            if (target.SoftwareUpdateCampaign is not null && target.SoftwareUpdateCampaign.Id != existing.Id)
+            if (FirmwareRelease.SoftwareUpdateCampaign is not null && FirmwareRelease.SoftwareUpdateCampaign.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target firmwareRelease already has an softwareUpdateCampaign (1:1 relationship).");
             }
-            target = await _deviceGroups.GetByIdAsync(softwareUpdateCampaign.DeviceGroupId, cancellationToken)
+            var DeviceGroup = await _deviceGroups.GetByIdAsync(softwareUpdateCampaign.DeviceGroupId, cancellationToken)
                 ?? throw new InvalidOperationException("DeviceGroup not found.");
 
-            if (target.SoftwareUpdateCampaign is not null && target.SoftwareUpdateCampaign.Id != existing.Id)
+            if (DeviceGroup.SoftwareUpdateCampaign is not null && DeviceGroup.SoftwareUpdateCampaign.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target deviceGroup already has an softwareUpdateCampaign (1:1 relationship).");
             }

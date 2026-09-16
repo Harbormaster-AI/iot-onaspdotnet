@@ -49,9 +49,9 @@ public static class NetworkProfileEndpoints
                 Apn = request.Apn,
                 ConnectivityType = request.ConnectivityType,
 
-                IoTDeviceId = request.IoTDeviceId
-                GatewayId = request.GatewayId
-                SimCardId = request.SimCardId
+                IoTDeviceId = request.IoTDeviceId,
+                GatewayId = request.GatewayId,
+                SimCardId = request.SimCardId,
 
         };
 

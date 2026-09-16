@@ -51,13 +51,13 @@ public static class IoTDeviceEndpoints
                 Status = request.Status,
                 PowerSource = request.PowerSource,
 
-                DeviceModelId = request.DeviceModelId
-                TenantId = request.TenantId
-                SiteId = request.SiteId
-                RoomId = request.RoomId
-                GatewayId = request.GatewayId
-                DigitalTwinId = request.DigitalTwinId
-                ProvisioningRecordId = request.ProvisioningRecordId
+                DeviceModelId = request.DeviceModelId,
+                TenantId = request.TenantId,
+                SiteId = request.SiteId,
+                RoomId = request.RoomId,
+                GatewayId = request.GatewayId,
+                DigitalTwinId = request.DigitalTwinId,
+                ProvisioningRecordId = request.ProvisioningRecordId,
 
         };
 

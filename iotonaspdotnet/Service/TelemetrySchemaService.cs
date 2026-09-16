@@ -1,7 +1,7 @@
 using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface ITelemetrySchemaService
 {
@@ -44,7 +44,6 @@ public class TelemetrySchemaService : ITelemetrySchemaService
         // Keep 1:1 â do not reassign to a ioTDevice who already has another telemetrySchema.
         if (existing.IoTDeviceId != telemetrySchema.IoTDeviceId)
         {
-            var target;
         }
 
         existing.SchemaId = telemetrySchema.SchemaId;

@@ -48,7 +48,7 @@ public static class ActuatorInstanceEndpoints
                 CommandTopic = request.CommandTopic,
                 ActuatorType = request.ActuatorType,
 
-                IoTDeviceId = request.IoTDeviceId
+                IoTDeviceId = request.IoTDeviceId,
 
         };
 

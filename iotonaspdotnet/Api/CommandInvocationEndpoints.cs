@@ -49,10 +49,10 @@ public static class CommandInvocationEndpoints
                 CompletedAt = request.CompletedAt,
                 Status = request.Status,
 
-                IoTDeviceId = request.IoTDeviceId
-                CommandDefinitionId = request.CommandDefinitionId
-                ActuatorInstanceId = request.ActuatorInstanceId
-                TenantUserId = request.TenantUserId
+                IoTDeviceId = request.IoTDeviceId,
+                CommandDefinitionId = request.CommandDefinitionId,
+                ActuatorInstanceId = request.ActuatorInstanceId,
+                TenantUserId = request.TenantUserId,
 
         };
 

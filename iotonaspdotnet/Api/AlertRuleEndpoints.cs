@@ -48,7 +48,7 @@ public static class AlertRuleEndpoints
                 Expression = request.Expression,
                 Severity = request.Severity,
 
-                TenantId = request.TenantId
+                TenantId = request.TenantId,
 
         };
 

@@ -48,11 +48,11 @@ public static class TelemetryStreamEndpoints
                 RetentionDays = request.RetentionDays,
                 Qos = request.Qos,
 
-                IoTDeviceId = request.IoTDeviceId
-                SensorInstanceId = request.SensorInstanceId
-                TelemetrySchemaId = request.TelemetrySchemaId
-                MessagingEndpointId = request.MessagingEndpointId
-                DataRetentionPolicyId = request.DataRetentionPolicyId
+                IoTDeviceId = request.IoTDeviceId,
+                SensorInstanceId = request.SensorInstanceId,
+                TelemetrySchemaId = request.TelemetrySchemaId,
+                MessagingEndpointId = request.MessagingEndpointId,
+                DataRetentionPolicyId = request.DataRetentionPolicyId,
 
         };
 

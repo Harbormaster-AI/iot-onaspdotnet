@@ -48,7 +48,7 @@ public static class TwinChangeEventEndpoints
                 OccurredAt = request.OccurredAt,
                 ChangeType = request.ChangeType,
 
-                DigitalTwinId = request.DigitalTwinId
+                DigitalTwinId = request.DigitalTwinId,
 
         };
 

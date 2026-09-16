@@ -2,7 +2,7 @@ using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.Sites;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface IBuildingService
 {
@@ -56,11 +56,10 @@ public class BuildingService : IBuildingService
         // Keep 1:1 â do not reassign to a site who already has another building.
         if (existing.SiteId != building.SiteId)
         {
-            var target;
-            target = await _sites.GetByIdAsync(building.SiteId, cancellationToken)
+            var Site = await _sites.GetByIdAsync(building.SiteId, cancellationToken)
                 ?? throw new InvalidOperationException("Site not found.");
 
-            if (target.Building is not null && target.Building.Id != existing.Id)
+            if (Site.Building is not null && Site.Building.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target site already has an building (1:1 relationship).");
             }

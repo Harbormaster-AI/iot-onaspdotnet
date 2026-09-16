@@ -4,7 +4,7 @@ using iotonaspdotnet.Persistence.IoTDevices;
 using iotonaspdotnet.Persistence.Gateways;
 using iotonaspdotnet.Persistence.SimCards;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface INetworkProfileService
 {
@@ -80,25 +80,24 @@ public class NetworkProfileService : INetworkProfileService
         // Keep 1:1 â do not reassign to a simCard who already has another networkProfile.
         if (existing.SimCardId != networkProfile.SimCardId)
         {
-            var target;
-            target = await _ioTDevices.GetByIdAsync(networkProfile.IoTDeviceId, cancellationToken)
+            var Device = await _ioTDevices.GetByIdAsync(networkProfile.IoTDeviceId, cancellationToken)
                 ?? throw new InvalidOperationException("IoTDevice not found.");
 
-            if (target.NetworkProfile is not null && target.NetworkProfile.Id != existing.Id)
+            if (Device.NetworkProfile is not null && Device.NetworkProfile.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target ioTDevice already has an networkProfile (1:1 relationship).");
             }
-            target = await _gateways.GetByIdAsync(networkProfile.GatewayId, cancellationToken)
+            var Gateway = await _gateways.GetByIdAsync(networkProfile.GatewayId, cancellationToken)
                 ?? throw new InvalidOperationException("Gateway not found.");
 
-            if (target.NetworkProfile is not null && target.NetworkProfile.Id != existing.Id)
+            if (Gateway.NetworkProfile is not null && Gateway.NetworkProfile.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target gateway already has an networkProfile (1:1 relationship).");
             }
-            target = await _simCards.GetByIdAsync(networkProfile.SimCardId, cancellationToken)
+            var SimCard = await _simCards.GetByIdAsync(networkProfile.SimCardId, cancellationToken)
                 ?? throw new InvalidOperationException("SimCard not found.");
 
-            if (target.NetworkProfile is not null && target.NetworkProfile.Id != existing.Id)
+            if (SimCard.NetworkProfile is not null && SimCard.NetworkProfile.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target simCard already has an networkProfile (1:1 relationship).");
             }

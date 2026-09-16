@@ -2,7 +2,7 @@ using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.IoTDevices;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface ISensorInstanceService
 {
@@ -56,11 +56,10 @@ public class SensorInstanceService : ISensorInstanceService
         // Keep 1:1 â do not reassign to a ioTDevice who already has another sensorInstance.
         if (existing.IoTDeviceId != sensorInstance.IoTDeviceId)
         {
-            var target;
-            target = await _ioTDevices.GetByIdAsync(sensorInstance.IoTDeviceId, cancellationToken)
+            var Device = await _ioTDevices.GetByIdAsync(sensorInstance.IoTDeviceId, cancellationToken)
                 ?? throw new InvalidOperationException("IoTDevice not found.");
 
-            if (target.SensorInstance is not null && target.SensorInstance.Id != existing.Id)
+            if (Device.SensorInstance is not null && Device.SensorInstance.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target ioTDevice already has an sensorInstance (1:1 relationship).");
             }

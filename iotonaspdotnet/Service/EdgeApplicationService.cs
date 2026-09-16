@@ -2,7 +2,7 @@ using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.Gateways;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface IEdgeApplicationService
 {
@@ -56,11 +56,10 @@ public class EdgeApplicationService : IEdgeApplicationService
         // Keep 1:1 â do not reassign to a gateway who already has another edgeApplication.
         if (existing.GatewayId != edgeApplication.GatewayId)
         {
-            var target;
-            target = await _gateways.GetByIdAsync(edgeApplication.GatewayId, cancellationToken)
+            var Gateway = await _gateways.GetByIdAsync(edgeApplication.GatewayId, cancellationToken)
                 ?? throw new InvalidOperationException("Gateway not found.");
 
-            if (target.EdgeApplication is not null && target.EdgeApplication.Id != existing.Id)
+            if (Gateway.EdgeApplication is not null && Gateway.EdgeApplication.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target gateway already has an edgeApplication (1:1 relationship).");
             }

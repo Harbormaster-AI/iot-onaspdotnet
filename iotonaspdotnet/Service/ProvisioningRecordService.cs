@@ -4,7 +4,7 @@ using iotonaspdotnet.Persistence.IoTDevices;
 using iotonaspdotnet.Persistence.DeviceCertificates;
 using iotonaspdotnet.Persistence.Tenants;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface IProvisioningRecordService
 {
@@ -80,25 +80,24 @@ public class ProvisioningRecordService : IProvisioningRecordService
         // Keep 1:1 â do not reassign to a tenant who already has another provisioningRecord.
         if (existing.TenantId != provisioningRecord.TenantId)
         {
-            var target;
-            target = await _ioTDevices.GetByIdAsync(provisioningRecord.IoTDeviceId, cancellationToken)
+            var Device = await _ioTDevices.GetByIdAsync(provisioningRecord.IoTDeviceId, cancellationToken)
                 ?? throw new InvalidOperationException("IoTDevice not found.");
 
-            if (target.ProvisioningRecord is not null && target.ProvisioningRecord.Id != existing.Id)
+            if (Device.ProvisioningRecord is not null && Device.ProvisioningRecord.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target ioTDevice already has an provisioningRecord (1:1 relationship).");
             }
-            target = await _deviceCertificates.GetByIdAsync(provisioningRecord.DeviceCertificateId, cancellationToken)
+            var Certificate = await _deviceCertificates.GetByIdAsync(provisioningRecord.DeviceCertificateId, cancellationToken)
                 ?? throw new InvalidOperationException("DeviceCertificate not found.");
 
-            if (target.ProvisioningRecord is not null && target.ProvisioningRecord.Id != existing.Id)
+            if (Certificate.ProvisioningRecord is not null && Certificate.ProvisioningRecord.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target deviceCertificate already has an provisioningRecord (1:1 relationship).");
             }
-            target = await _tenants.GetByIdAsync(provisioningRecord.TenantId, cancellationToken)
+            var Tenant = await _tenants.GetByIdAsync(provisioningRecord.TenantId, cancellationToken)
                 ?? throw new InvalidOperationException("Tenant not found.");
 
-            if (target.ProvisioningRecord is not null && target.ProvisioningRecord.Id != existing.Id)
+            if (Tenant.ProvisioningRecord is not null && Tenant.ProvisioningRecord.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target tenant already has an provisioningRecord (1:1 relationship).");
             }

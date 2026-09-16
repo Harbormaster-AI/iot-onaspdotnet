@@ -48,7 +48,7 @@ public static class HardwareModuleEndpoints
                 DatasheetUri = request.DatasheetUri,
                 ModuleType = request.ModuleType,
 
-                DeviceVendorId = request.DeviceVendorId
+                DeviceVendorId = request.DeviceVendorId,
 
         };
 

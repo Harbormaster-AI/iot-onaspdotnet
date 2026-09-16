@@ -49,7 +49,7 @@ public static class SensorInstanceEndpoints
                 SamplingIntervalMs = request.SamplingIntervalMs,
                 SensorType = request.SensorType,
 
-                IoTDeviceId = request.IoTDeviceId
+                IoTDeviceId = request.IoTDeviceId,
 
         };
 

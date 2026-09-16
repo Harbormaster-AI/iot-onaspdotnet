@@ -46,7 +46,7 @@ public static class RoomEndpoints
 
                 Name = request.Name,
 
-                FloorId = request.FloorId
+                FloorId = request.FloorId,
 
         };
 

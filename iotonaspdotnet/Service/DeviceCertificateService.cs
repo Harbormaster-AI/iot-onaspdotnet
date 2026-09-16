@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.IoTDevices;
 using iotonaspdotnet.Persistence.Gateways;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface IDeviceCertificateService
 {
@@ -68,18 +68,17 @@ public class DeviceCertificateService : IDeviceCertificateService
         // Keep 1:1 â do not reassign to a gateway who already has another deviceCertificate.
         if (existing.GatewayId != deviceCertificate.GatewayId)
         {
-            var target;
-            target = await _ioTDevices.GetByIdAsync(deviceCertificate.IoTDeviceId, cancellationToken)
+            var Device = await _ioTDevices.GetByIdAsync(deviceCertificate.IoTDeviceId, cancellationToken)
                 ?? throw new InvalidOperationException("IoTDevice not found.");
 
-            if (target.DeviceCertificate is not null && target.DeviceCertificate.Id != existing.Id)
+            if (Device.DeviceCertificate is not null && Device.DeviceCertificate.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target ioTDevice already has an deviceCertificate (1:1 relationship).");
             }
-            target = await _gateways.GetByIdAsync(deviceCertificate.GatewayId, cancellationToken)
+            var Gateway = await _gateways.GetByIdAsync(deviceCertificate.GatewayId, cancellationToken)
                 ?? throw new InvalidOperationException("Gateway not found.");
 
-            if (target.DeviceCertificate is not null && target.DeviceCertificate.Id != existing.Id)
+            if (Gateway.DeviceCertificate is not null && Gateway.DeviceCertificate.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target gateway already has an deviceCertificate (1:1 relationship).");
             }

@@ -49,7 +49,7 @@ public static class TenantUserEndpoints
                 Email = request.Email,
                 Role = request.Role,
 
-                TenantId = request.TenantId
+                TenantId = request.TenantId,
 
         };
 

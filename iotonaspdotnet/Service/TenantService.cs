@@ -1,7 +1,7 @@
 using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface ITenantService
 {
@@ -44,7 +44,6 @@ public class TenantService : ITenantService
         // Keep 1:1 â do not reassign to a alertRule who already has another tenant.
         if (existing.AlertRuleId != tenant.AlertRuleId)
         {
-            var target;
         }
 
         existing.Name = tenant.Name;

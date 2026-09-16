@@ -1,7 +1,7 @@
 using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface ITwinTemplateService
 {
@@ -44,7 +44,6 @@ public class TwinTemplateService : ITwinTemplateService
         // Keep 1:1 â do not reassign to a twinTemplate who already has another twinTemplate.
         if (existing.TwinTemplateId != twinTemplate.TwinTemplateId)
         {
-            var target;
         }
 
         existing.Name = twinTemplate.Name;

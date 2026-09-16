@@ -2,7 +2,7 @@ using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.DeviceModels;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface IFirmwareReleaseService
 {
@@ -56,11 +56,10 @@ public class FirmwareReleaseService : IFirmwareReleaseService
         // Keep 1:1 â do not reassign to a deviceModel who already has another firmwareRelease.
         if (existing.DeviceModelId != firmwareRelease.DeviceModelId)
         {
-            var target;
-            target = await _deviceModels.GetByIdAsync(firmwareRelease.DeviceModelId, cancellationToken)
+            var DeviceModel = await _deviceModels.GetByIdAsync(firmwareRelease.DeviceModelId, cancellationToken)
                 ?? throw new InvalidOperationException("DeviceModel not found.");
 
-            if (target.FirmwareRelease is not null && target.FirmwareRelease.Id != existing.Id)
+            if (DeviceModel.FirmwareRelease is not null && DeviceModel.FirmwareRelease.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target deviceModel already has an firmwareRelease (1:1 relationship).");
             }

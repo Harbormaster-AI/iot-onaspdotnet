@@ -48,7 +48,7 @@ public static class ConnectivityPlanEndpoints
                 DataCapMB = request.DataCapMB,
                 BillingCycleDays = request.BillingCycleDays,
 
-                TenantId = request.TenantId
+                TenantId = request.TenantId,
 
         };
 

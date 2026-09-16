@@ -48,7 +48,7 @@ public static class AccessPolicyEndpoints
                 Scope = request.Scope,
                 ExpiresAt = request.ExpiresAt,
 
-                TenantId = request.TenantId
+                TenantId = request.TenantId,
 
         };
 

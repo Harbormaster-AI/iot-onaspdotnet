@@ -2,7 +2,7 @@ using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.Tenants;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface IAlertRuleService
 {
@@ -56,11 +56,10 @@ public class AlertRuleService : IAlertRuleService
         // Keep 1:1 â do not reassign to a tenant who already has another alertRule.
         if (existing.TenantId != alertRule.TenantId)
         {
-            var target;
-            target = await _tenants.GetByIdAsync(alertRule.TenantId, cancellationToken)
+            var Tenant = await _tenants.GetByIdAsync(alertRule.TenantId, cancellationToken)
                 ?? throw new InvalidOperationException("Tenant not found.");
 
-            if (target.AlertRule is not null && target.AlertRule.Id != existing.Id)
+            if (Tenant.AlertRule is not null && Tenant.AlertRule.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target tenant already has an alertRule (1:1 relationship).");
             }

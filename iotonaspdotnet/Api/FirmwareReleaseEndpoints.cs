@@ -49,7 +49,7 @@ public static class FirmwareReleaseEndpoints
                 ReleaseNotes = request.ReleaseNotes,
                 Checksum = request.Checksum,
 
-                DeviceModelId = request.DeviceModelId
+                DeviceModelId = request.DeviceModelId,
 
         };
 

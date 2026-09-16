@@ -2,7 +2,7 @@ using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.DigitalTwins;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface ITwinChangeEventService
 {
@@ -56,11 +56,10 @@ public class TwinChangeEventService : ITwinChangeEventService
         // Keep 1:1 â do not reassign to a digitalTwin who already has another twinChangeEvent.
         if (existing.DigitalTwinId != twinChangeEvent.DigitalTwinId)
         {
-            var target;
-            target = await _digitalTwins.GetByIdAsync(twinChangeEvent.DigitalTwinId, cancellationToken)
+            var Twin = await _digitalTwins.GetByIdAsync(twinChangeEvent.DigitalTwinId, cancellationToken)
                 ?? throw new InvalidOperationException("DigitalTwin not found.");
 
-            if (target.TwinChangeEvent is not null && target.TwinChangeEvent.Id != existing.Id)
+            if (Twin.TwinChangeEvent is not null && Twin.TwinChangeEvent.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target digitalTwin already has an twinChangeEvent (1:1 relationship).");
             }

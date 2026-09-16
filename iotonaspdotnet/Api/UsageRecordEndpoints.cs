@@ -49,9 +49,9 @@ public static class UsageRecordEndpoints
                 MessagesSent = request.MessagesSent,
                 DataVolumeMB = request.DataVolumeMB,
 
-                TenantId = request.TenantId
-                IoTDeviceId = request.IoTDeviceId
-                ConnectivityPlanId = request.ConnectivityPlanId
+                TenantId = request.TenantId,
+                IoTDeviceId = request.IoTDeviceId,
+                ConnectivityPlanId = request.ConnectivityPlanId,
 
         };
 

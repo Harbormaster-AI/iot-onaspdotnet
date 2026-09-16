@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.DeviceVendors;
 using iotonaspdotnet.Persistence.TwinTemplates;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface IDeviceModelService
 {
@@ -68,18 +68,17 @@ public class DeviceModelService : IDeviceModelService
         // Keep 1:1 â do not reassign to a twinTemplate who already has another deviceModel.
         if (existing.TwinTemplateId != deviceModel.TwinTemplateId)
         {
-            var target;
-            target = await _deviceVendors.GetByIdAsync(deviceModel.DeviceVendorId, cancellationToken)
+            var Vendor = await _deviceVendors.GetByIdAsync(deviceModel.DeviceVendorId, cancellationToken)
                 ?? throw new InvalidOperationException("DeviceVendor not found.");
 
-            if (target.DeviceModel is not null && target.DeviceModel.Id != existing.Id)
+            if (Vendor.DeviceModel is not null && Vendor.DeviceModel.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target deviceVendor already has an deviceModel (1:1 relationship).");
             }
-            target = await _twinTemplates.GetByIdAsync(deviceModel.TwinTemplateId, cancellationToken)
+            var TwinTemplate = await _twinTemplates.GetByIdAsync(deviceModel.TwinTemplateId, cancellationToken)
                 ?? throw new InvalidOperationException("TwinTemplate not found.");
 
-            if (target.DeviceModel is not null && target.DeviceModel.Id != existing.Id)
+            if (TwinTemplate.DeviceModel is not null && TwinTemplate.DeviceModel.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target twinTemplate already has an deviceModel (1:1 relationship).");
             }

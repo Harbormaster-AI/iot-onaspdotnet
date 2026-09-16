@@ -50,8 +50,8 @@ public static class DeviceCertificateEndpoints
                 Fingerprint = request.Fingerprint,
                 CertificateType = request.CertificateType,
 
-                IoTDeviceId = request.IoTDeviceId
-                GatewayId = request.GatewayId
+                IoTDeviceId = request.IoTDeviceId,
+                GatewayId = request.GatewayId,
 
         };
 

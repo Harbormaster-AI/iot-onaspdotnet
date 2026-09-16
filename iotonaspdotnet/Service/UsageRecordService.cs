@@ -4,7 +4,7 @@ using iotonaspdotnet.Persistence.Tenants;
 using iotonaspdotnet.Persistence.IoTDevices;
 using iotonaspdotnet.Persistence.ConnectivityPlans;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface IUsageRecordService
 {
@@ -80,25 +80,24 @@ public class UsageRecordService : IUsageRecordService
         // Keep 1:1 â do not reassign to a connectivityPlan who already has another usageRecord.
         if (existing.ConnectivityPlanId != usageRecord.ConnectivityPlanId)
         {
-            var target;
-            target = await _tenants.GetByIdAsync(usageRecord.TenantId, cancellationToken)
+            var Tenant = await _tenants.GetByIdAsync(usageRecord.TenantId, cancellationToken)
                 ?? throw new InvalidOperationException("Tenant not found.");
 
-            if (target.UsageRecord is not null && target.UsageRecord.Id != existing.Id)
+            if (Tenant.UsageRecord is not null && Tenant.UsageRecord.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target tenant already has an usageRecord (1:1 relationship).");
             }
-            target = await _ioTDevices.GetByIdAsync(usageRecord.IoTDeviceId, cancellationToken)
+            var Device = await _ioTDevices.GetByIdAsync(usageRecord.IoTDeviceId, cancellationToken)
                 ?? throw new InvalidOperationException("IoTDevice not found.");
 
-            if (target.UsageRecord is not null && target.UsageRecord.Id != existing.Id)
+            if (Device.UsageRecord is not null && Device.UsageRecord.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target ioTDevice already has an usageRecord (1:1 relationship).");
             }
-            target = await _connectivityPlans.GetByIdAsync(usageRecord.ConnectivityPlanId, cancellationToken)
+            var ConnectivityPlan = await _connectivityPlans.GetByIdAsync(usageRecord.ConnectivityPlanId, cancellationToken)
                 ?? throw new InvalidOperationException("ConnectivityPlan not found.");
 
-            if (target.UsageRecord is not null && target.UsageRecord.Id != existing.Id)
+            if (ConnectivityPlan.UsageRecord is not null && ConnectivityPlan.UsageRecord.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target connectivityPlan already has an usageRecord (1:1 relationship).");
             }

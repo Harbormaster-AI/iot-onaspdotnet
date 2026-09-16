@@ -49,9 +49,9 @@ public static class DigitalTwinEndpoints
                 ReportedStateVersion = request.ReportedStateVersion,
                 LastSyncAt = request.LastSyncAt,
 
-                IoTDeviceId = request.IoTDeviceId
-                GatewayId = request.GatewayId
-                TwinTemplateId = request.TwinTemplateId
+                IoTDeviceId = request.IoTDeviceId,
+                GatewayId = request.GatewayId,
+                TwinTemplateId = request.TwinTemplateId,
 
         };
 

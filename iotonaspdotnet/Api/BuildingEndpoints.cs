@@ -46,7 +46,7 @@ public static class BuildingEndpoints
 
                 Name = request.Name,
 
-                SiteId = request.SiteId
+                SiteId = request.SiteId,
 
         };
 

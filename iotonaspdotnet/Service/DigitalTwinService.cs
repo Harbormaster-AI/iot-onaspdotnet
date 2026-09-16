@@ -4,7 +4,7 @@ using iotonaspdotnet.Persistence.IoTDevices;
 using iotonaspdotnet.Persistence.Gateways;
 using iotonaspdotnet.Persistence.TwinTemplates;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface IDigitalTwinService
 {
@@ -80,25 +80,24 @@ public class DigitalTwinService : IDigitalTwinService
         // Keep 1:1 â do not reassign to a twinTemplate who already has another digitalTwin.
         if (existing.TwinTemplateId != digitalTwin.TwinTemplateId)
         {
-            var target;
-            target = await _ioTDevices.GetByIdAsync(digitalTwin.IoTDeviceId, cancellationToken)
+            var Device = await _ioTDevices.GetByIdAsync(digitalTwin.IoTDeviceId, cancellationToken)
                 ?? throw new InvalidOperationException("IoTDevice not found.");
 
-            if (target.DigitalTwin is not null && target.DigitalTwin.Id != existing.Id)
+            if (Device.DigitalTwin is not null && Device.DigitalTwin.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target ioTDevice already has an digitalTwin (1:1 relationship).");
             }
-            target = await _gateways.GetByIdAsync(digitalTwin.GatewayId, cancellationToken)
+            var Gateway = await _gateways.GetByIdAsync(digitalTwin.GatewayId, cancellationToken)
                 ?? throw new InvalidOperationException("Gateway not found.");
 
-            if (target.DigitalTwin is not null && target.DigitalTwin.Id != existing.Id)
+            if (Gateway.DigitalTwin is not null && Gateway.DigitalTwin.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target gateway already has an digitalTwin (1:1 relationship).");
             }
-            target = await _twinTemplates.GetByIdAsync(digitalTwin.TwinTemplateId, cancellationToken)
+            var Template = await _twinTemplates.GetByIdAsync(digitalTwin.TwinTemplateId, cancellationToken)
                 ?? throw new InvalidOperationException("TwinTemplate not found.");
 
-            if (target.DigitalTwin is not null && target.DigitalTwin.Id != existing.Id)
+            if (Template.DigitalTwin is not null && Template.DigitalTwin.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target twinTemplate already has an digitalTwin (1:1 relationship).");
             }

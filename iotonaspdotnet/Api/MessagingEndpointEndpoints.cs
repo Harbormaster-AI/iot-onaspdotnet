@@ -49,7 +49,7 @@ public static class MessagingEndpointEndpoints
                 Secure = request.Secure,
                 Protocol = request.Protocol,
 
-                TenantId = request.TenantId
+                TenantId = request.TenantId,
 
         };
 

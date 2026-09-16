@@ -2,7 +2,7 @@ using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.AccessPolicys;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface IApiKeyService
 {
@@ -56,11 +56,10 @@ public class ApiKeyService : IApiKeyService
         // Keep 1:1 â do not reassign to a accessPolicy who already has another apiKey.
         if (existing.AccessPolicyId != apiKey.AccessPolicyId)
         {
-            var target;
-            target = await _accessPolicys.GetByIdAsync(apiKey.AccessPolicyId, cancellationToken)
+            var AccessPolicy = await _accessPolicys.GetByIdAsync(apiKey.AccessPolicyId, cancellationToken)
                 ?? throw new InvalidOperationException("AccessPolicy not found.");
 
-            if (target.ApiKey is not null && target.ApiKey.Id != existing.Id)
+            if (AccessPolicy.ApiKey is not null && AccessPolicy.ApiKey.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target accessPolicy already has an apiKey (1:1 relationship).");
             }

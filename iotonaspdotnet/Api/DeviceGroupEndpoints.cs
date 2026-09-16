@@ -47,7 +47,7 @@ public static class DeviceGroupEndpoints
                 Name = request.Name,
                 Criteria = request.Criteria,
 
-                TenantId = request.TenantId
+                TenantId = request.TenantId,
 
         };
 

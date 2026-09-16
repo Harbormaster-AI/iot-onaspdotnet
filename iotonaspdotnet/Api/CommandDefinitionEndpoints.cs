@@ -49,7 +49,7 @@ public static class CommandDefinitionEndpoints
                 ResponseSchemaUri = request.ResponseSchemaUri,
                 TimeoutSeconds = request.TimeoutSeconds,
 
-                DeviceModelId = request.DeviceModelId
+                DeviceModelId = request.DeviceModelId,
 
         };
 

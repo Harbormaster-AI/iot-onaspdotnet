@@ -2,7 +2,7 @@ using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.Tenants;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface IMessagingEndpointService
 {
@@ -56,11 +56,10 @@ public class MessagingEndpointService : IMessagingEndpointService
         // Keep 1:1 â do not reassign to a tenant who already has another messagingEndpoint.
         if (existing.TenantId != messagingEndpoint.TenantId)
         {
-            var target;
-            target = await _tenants.GetByIdAsync(messagingEndpoint.TenantId, cancellationToken)
+            var Tenant = await _tenants.GetByIdAsync(messagingEndpoint.TenantId, cancellationToken)
                 ?? throw new InvalidOperationException("Tenant not found.");
 
-            if (target.MessagingEndpoint is not null && target.MessagingEndpoint.Id != existing.Id)
+            if (Tenant.MessagingEndpoint is not null && Tenant.MessagingEndpoint.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target tenant already has an messagingEndpoint (1:1 relationship).");
             }

@@ -2,7 +2,7 @@ using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.DeviceModels;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface ICommandDefinitionService
 {
@@ -56,11 +56,10 @@ public class CommandDefinitionService : ICommandDefinitionService
         // Keep 1:1 â do not reassign to a deviceModel who already has another commandDefinition.
         if (existing.DeviceModelId != commandDefinition.DeviceModelId)
         {
-            var target;
-            target = await _deviceModels.GetByIdAsync(commandDefinition.DeviceModelId, cancellationToken)
+            var DeviceModel = await _deviceModels.GetByIdAsync(commandDefinition.DeviceModelId, cancellationToken)
                 ?? throw new InvalidOperationException("DeviceModel not found.");
 
-            if (target.CommandDefinition is not null && target.CommandDefinition.Id != existing.Id)
+            if (DeviceModel.CommandDefinition is not null && DeviceModel.CommandDefinition.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target deviceModel already has an commandDefinition (1:1 relationship).");
             }

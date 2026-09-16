@@ -2,7 +2,7 @@ using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.Tenants;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface IDeviceGroupService
 {
@@ -56,11 +56,10 @@ public class DeviceGroupService : IDeviceGroupService
         // Keep 1:1 â do not reassign to a tenant who already has another deviceGroup.
         if (existing.TenantId != deviceGroup.TenantId)
         {
-            var target;
-            target = await _tenants.GetByIdAsync(deviceGroup.TenantId, cancellationToken)
+            var Tenant = await _tenants.GetByIdAsync(deviceGroup.TenantId, cancellationToken)
                 ?? throw new InvalidOperationException("Tenant not found.");
 
-            if (target.DeviceGroup is not null && target.DeviceGroup.Id != existing.Id)
+            if (Tenant.DeviceGroup is not null && Tenant.DeviceGroup.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target tenant already has an deviceGroup (1:1 relationship).");
             }

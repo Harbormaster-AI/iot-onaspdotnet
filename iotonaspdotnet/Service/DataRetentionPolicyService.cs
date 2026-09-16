@@ -2,7 +2,7 @@ using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.Tenants;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface IDataRetentionPolicyService
 {
@@ -56,11 +56,10 @@ public class DataRetentionPolicyService : IDataRetentionPolicyService
         // Keep 1:1 â do not reassign to a tenant who already has another dataRetentionPolicy.
         if (existing.TenantId != dataRetentionPolicy.TenantId)
         {
-            var target;
-            target = await _tenants.GetByIdAsync(dataRetentionPolicy.TenantId, cancellationToken)
+            var Tenant = await _tenants.GetByIdAsync(dataRetentionPolicy.TenantId, cancellationToken)
                 ?? throw new InvalidOperationException("Tenant not found.");
 
-            if (target.DataRetentionPolicy is not null && target.DataRetentionPolicy.Id != existing.Id)
+            if (Tenant.DataRetentionPolicy is not null && Tenant.DataRetentionPolicy.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target tenant already has an dataRetentionPolicy (1:1 relationship).");
             }

@@ -49,9 +49,9 @@ public static class ProvisioningRecordEndpoints
                 Method = request.Method,
                 Status = request.Status,
 
-                IoTDeviceId = request.IoTDeviceId
-                DeviceCertificateId = request.DeviceCertificateId
-                TenantId = request.TenantId
+                IoTDeviceId = request.IoTDeviceId,
+                DeviceCertificateId = request.DeviceCertificateId,
+                TenantId = request.TenantId,
 
         };
 

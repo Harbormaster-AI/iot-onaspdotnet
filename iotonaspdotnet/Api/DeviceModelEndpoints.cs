@@ -50,8 +50,8 @@ public static class DeviceModelEndpoints
                 SupportedConnectivity = request.SupportedConnectivity,
                 DefaultTelemetryEncoding = request.DefaultTelemetryEncoding,
 
-                DeviceVendorId = request.DeviceVendorId
-                TwinTemplateId = request.TwinTemplateId
+                DeviceVendorId = request.DeviceVendorId,
+                TwinTemplateId = request.TwinTemplateId,
 
         };
 

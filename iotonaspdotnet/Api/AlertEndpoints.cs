@@ -49,8 +49,8 @@ public static class AlertEndpoints
                 Message = request.Message,
                 Status = request.Status,
 
-                IoTDeviceId = request.IoTDeviceId
-                AlertRuleId = request.AlertRuleId
+                IoTDeviceId = request.IoTDeviceId,
+                AlertRuleId = request.AlertRuleId,
 
         };
 

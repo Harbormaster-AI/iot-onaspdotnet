@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.Tenants;
 using iotonaspdotnet.Persistence.ConnectivityPlans;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface ISimCardService
 {
@@ -68,18 +68,17 @@ public class SimCardService : ISimCardService
         // Keep 1:1 â do not reassign to a connectivityPlan who already has another simCard.
         if (existing.ConnectivityPlanId != simCard.ConnectivityPlanId)
         {
-            var target;
-            target = await _tenants.GetByIdAsync(simCard.TenantId, cancellationToken)
+            var Tenant = await _tenants.GetByIdAsync(simCard.TenantId, cancellationToken)
                 ?? throw new InvalidOperationException("Tenant not found.");
 
-            if (target.SimCard is not null && target.SimCard.Id != existing.Id)
+            if (Tenant.SimCard is not null && Tenant.SimCard.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target tenant already has an simCard (1:1 relationship).");
             }
-            target = await _connectivityPlans.GetByIdAsync(simCard.ConnectivityPlanId, cancellationToken)
+            var ConnectivityPlan = await _connectivityPlans.GetByIdAsync(simCard.ConnectivityPlanId, cancellationToken)
                 ?? throw new InvalidOperationException("ConnectivityPlan not found.");
 
-            if (target.SimCard is not null && target.SimCard.Id != existing.Id)
+            if (ConnectivityPlan.SimCard is not null && ConnectivityPlan.SimCard.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target connectivityPlan already has an simCard (1:1 relationship).");
             }

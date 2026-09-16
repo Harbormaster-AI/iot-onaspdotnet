@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.IoTDevices;
 using iotonaspdotnet.Persistence.Tenants;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface IMaintenanceTicketService
 {
@@ -68,18 +68,17 @@ public class MaintenanceTicketService : IMaintenanceTicketService
         // Keep 1:1 â do not reassign to a tenant who already has another maintenanceTicket.
         if (existing.TenantId != maintenanceTicket.TenantId)
         {
-            var target;
-            target = await _ioTDevices.GetByIdAsync(maintenanceTicket.IoTDeviceId, cancellationToken)
+            var Device = await _ioTDevices.GetByIdAsync(maintenanceTicket.IoTDeviceId, cancellationToken)
                 ?? throw new InvalidOperationException("IoTDevice not found.");
 
-            if (target.MaintenanceTicket is not null && target.MaintenanceTicket.Id != existing.Id)
+            if (Device.MaintenanceTicket is not null && Device.MaintenanceTicket.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target ioTDevice already has an maintenanceTicket (1:1 relationship).");
             }
-            target = await _tenants.GetByIdAsync(maintenanceTicket.TenantId, cancellationToken)
+            var Tenant = await _tenants.GetByIdAsync(maintenanceTicket.TenantId, cancellationToken)
                 ?? throw new InvalidOperationException("Tenant not found.");
 
-            if (target.MaintenanceTicket is not null && target.MaintenanceTicket.Id != existing.Id)
+            if (Tenant.MaintenanceTicket is not null && Tenant.MaintenanceTicket.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target tenant already has an maintenanceTicket (1:1 relationship).");
             }

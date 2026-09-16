@@ -5,7 +5,7 @@ using iotonaspdotnet.Persistence.CommandDefinitions;
 using iotonaspdotnet.Persistence.ActuatorInstances;
 using iotonaspdotnet.Persistence.TenantUsers;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface ICommandInvocationService
 {
@@ -92,32 +92,31 @@ public class CommandInvocationService : ICommandInvocationService
         // Keep 1:1 â do not reassign to a tenantUser who already has another commandInvocation.
         if (existing.TenantUserId != commandInvocation.TenantUserId)
         {
-            var target;
-            target = await _ioTDevices.GetByIdAsync(commandInvocation.IoTDeviceId, cancellationToken)
+            var Device = await _ioTDevices.GetByIdAsync(commandInvocation.IoTDeviceId, cancellationToken)
                 ?? throw new InvalidOperationException("IoTDevice not found.");
 
-            if (target.CommandInvocation is not null && target.CommandInvocation.Id != existing.Id)
+            if (Device.CommandInvocation is not null && Device.CommandInvocation.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target ioTDevice already has an commandInvocation (1:1 relationship).");
             }
-            target = await _commandDefinitions.GetByIdAsync(commandInvocation.CommandDefinitionId, cancellationToken)
+            var CommandDefinition = await _commandDefinitions.GetByIdAsync(commandInvocation.CommandDefinitionId, cancellationToken)
                 ?? throw new InvalidOperationException("CommandDefinition not found.");
 
-            if (target.CommandInvocation is not null && target.CommandInvocation.Id != existing.Id)
+            if (CommandDefinition.CommandInvocation is not null && CommandDefinition.CommandInvocation.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target commandDefinition already has an commandInvocation (1:1 relationship).");
             }
-            target = await _actuatorInstances.GetByIdAsync(commandInvocation.ActuatorInstanceId, cancellationToken)
+            var Actuator = await _actuatorInstances.GetByIdAsync(commandInvocation.ActuatorInstanceId, cancellationToken)
                 ?? throw new InvalidOperationException("ActuatorInstance not found.");
 
-            if (target.CommandInvocation is not null && target.CommandInvocation.Id != existing.Id)
+            if (Actuator.CommandInvocation is not null && Actuator.CommandInvocation.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target actuatorInstance already has an commandInvocation (1:1 relationship).");
             }
-            target = await _tenantUsers.GetByIdAsync(commandInvocation.TenantUserId, cancellationToken)
+            var User = await _tenantUsers.GetByIdAsync(commandInvocation.TenantUserId, cancellationToken)
                 ?? throw new InvalidOperationException("TenantUser not found.");
 
-            if (target.CommandInvocation is not null && target.CommandInvocation.Id != existing.Id)
+            if (User.CommandInvocation is not null && User.CommandInvocation.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target tenantUser already has an commandInvocation (1:1 relationship).");
             }

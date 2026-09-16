@@ -48,8 +48,8 @@ public static class SoftwareUpdateExecutionEndpoints
                 CompletedAt = request.CompletedAt,
                 Status = request.Status,
 
-                SoftwareUpdateCampaignId = request.SoftwareUpdateCampaignId
-                IoTDeviceId = request.IoTDeviceId
+                SoftwareUpdateCampaignId = request.SoftwareUpdateCampaignId,
+                IoTDeviceId = request.IoTDeviceId,
 
         };
 

@@ -47,7 +47,7 @@ public static class FloorEndpoints
                 Name = request.Name,
                 Level = request.Level,
 
-                BuildingId = request.BuildingId
+                BuildingId = request.BuildingId,
 
         };
 

@@ -2,7 +2,7 @@ using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.DeviceVendors;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface IHardwareModuleService
 {
@@ -56,11 +56,10 @@ public class HardwareModuleService : IHardwareModuleService
         // Keep 1:1 â do not reassign to a deviceVendor who already has another hardwareModule.
         if (existing.DeviceVendorId != hardwareModule.DeviceVendorId)
         {
-            var target;
-            target = await _deviceVendors.GetByIdAsync(hardwareModule.DeviceVendorId, cancellationToken)
+            var Vendor = await _deviceVendors.GetByIdAsync(hardwareModule.DeviceVendorId, cancellationToken)
                 ?? throw new InvalidOperationException("DeviceVendor not found.");
 
-            if (target.HardwareModule is not null && target.HardwareModule.Id != existing.Id)
+            if (Vendor.HardwareModule is not null && Vendor.HardwareModule.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target deviceVendor already has an hardwareModule (1:1 relationship).");
             }

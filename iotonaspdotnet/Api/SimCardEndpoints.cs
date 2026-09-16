@@ -49,8 +49,8 @@ public static class SimCardEndpoints
                 Carrier = request.Carrier,
                 Status = request.Status,
 
-                TenantId = request.TenantId
-                ConnectivityPlanId = request.ConnectivityPlanId
+                TenantId = request.TenantId,
+                ConnectivityPlanId = request.ConnectivityPlanId,
 
         };
 

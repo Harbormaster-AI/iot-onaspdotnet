@@ -6,7 +6,7 @@ using iotonaspdotnet.Persistence.TelemetrySchemas;
 using iotonaspdotnet.Persistence.MessagingEndpoints;
 using iotonaspdotnet.Persistence.DataRetentionPolicys;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface ITelemetryStreamService
 {
@@ -104,39 +104,38 @@ public class TelemetryStreamService : ITelemetryStreamService
         // Keep 1:1 â do not reassign to a dataRetentionPolicy who already has another telemetryStream.
         if (existing.DataRetentionPolicyId != telemetryStream.DataRetentionPolicyId)
         {
-            var target;
-            target = await _ioTDevices.GetByIdAsync(telemetryStream.IoTDeviceId, cancellationToken)
+            var Device = await _ioTDevices.GetByIdAsync(telemetryStream.IoTDeviceId, cancellationToken)
                 ?? throw new InvalidOperationException("IoTDevice not found.");
 
-            if (target.TelemetryStream is not null && target.TelemetryStream.Id != existing.Id)
+            if (Device.TelemetryStream is not null && Device.TelemetryStream.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target ioTDevice already has an telemetryStream (1:1 relationship).");
             }
-            target = await _sensorInstances.GetByIdAsync(telemetryStream.SensorInstanceId, cancellationToken)
+            var Sensor = await _sensorInstances.GetByIdAsync(telemetryStream.SensorInstanceId, cancellationToken)
                 ?? throw new InvalidOperationException("SensorInstance not found.");
 
-            if (target.TelemetryStream is not null && target.TelemetryStream.Id != existing.Id)
+            if (Sensor.TelemetryStream is not null && Sensor.TelemetryStream.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target sensorInstance already has an telemetryStream (1:1 relationship).");
             }
-            target = await _telemetrySchemas.GetByIdAsync(telemetryStream.TelemetrySchemaId, cancellationToken)
+            var Schema = await _telemetrySchemas.GetByIdAsync(telemetryStream.TelemetrySchemaId, cancellationToken)
                 ?? throw new InvalidOperationException("TelemetrySchema not found.");
 
-            if (target.TelemetryStream is not null && target.TelemetryStream.Id != existing.Id)
+            if (Schema.TelemetryStream is not null && Schema.TelemetryStream.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target telemetrySchema already has an telemetryStream (1:1 relationship).");
             }
-            target = await _messagingEndpoints.GetByIdAsync(telemetryStream.MessagingEndpointId, cancellationToken)
+            var MessagingEndpoint = await _messagingEndpoints.GetByIdAsync(telemetryStream.MessagingEndpointId, cancellationToken)
                 ?? throw new InvalidOperationException("MessagingEndpoint not found.");
 
-            if (target.TelemetryStream is not null && target.TelemetryStream.Id != existing.Id)
+            if (MessagingEndpoint.TelemetryStream is not null && MessagingEndpoint.TelemetryStream.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target messagingEndpoint already has an telemetryStream (1:1 relationship).");
             }
-            target = await _dataRetentionPolicys.GetByIdAsync(telemetryStream.DataRetentionPolicyId, cancellationToken)
+            var RetentionPolicy = await _dataRetentionPolicys.GetByIdAsync(telemetryStream.DataRetentionPolicyId, cancellationToken)
                 ?? throw new InvalidOperationException("DataRetentionPolicy not found.");
 
-            if (target.TelemetryStream is not null && target.TelemetryStream.Id != existing.Id)
+            if (RetentionPolicy.TelemetryStream is not null && RetentionPolicy.TelemetryStream.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target dataRetentionPolicy already has an telemetryStream (1:1 relationship).");
             }

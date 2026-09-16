@@ -47,9 +47,9 @@ public static class GatewayEndpoints
                 SoftwareVersion = request.SoftwareVersion,
                 Status = request.Status,
 
-                SiteId = request.SiteId
-                RoomId = request.RoomId
-                DigitalTwinId = request.DigitalTwinId
+                SiteId = request.SiteId,
+                RoomId = request.RoomId,
+                DigitalTwinId = request.DigitalTwinId,
 
         };
 

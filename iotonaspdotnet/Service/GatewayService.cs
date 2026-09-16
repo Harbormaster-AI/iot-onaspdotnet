@@ -4,7 +4,7 @@ using iotonaspdotnet.Persistence.Sites;
 using iotonaspdotnet.Persistence.Rooms;
 using iotonaspdotnet.Persistence.DigitalTwins;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface IGatewayService
 {
@@ -80,25 +80,24 @@ public class GatewayService : IGatewayService
         // Keep 1:1 â do not reassign to a digitalTwin who already has another gateway.
         if (existing.DigitalTwinId != gateway.DigitalTwinId)
         {
-            var target;
-            target = await _sites.GetByIdAsync(gateway.SiteId, cancellationToken)
+            var Site = await _sites.GetByIdAsync(gateway.SiteId, cancellationToken)
                 ?? throw new InvalidOperationException("Site not found.");
 
-            if (target.Gateway is not null && target.Gateway.Id != existing.Id)
+            if (Site.Gateway is not null && Site.Gateway.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target site already has an gateway (1:1 relationship).");
             }
-            target = await _rooms.GetByIdAsync(gateway.RoomId, cancellationToken)
+            var Room = await _rooms.GetByIdAsync(gateway.RoomId, cancellationToken)
                 ?? throw new InvalidOperationException("Room not found.");
 
-            if (target.Gateway is not null && target.Gateway.Id != existing.Id)
+            if (Room.Gateway is not null && Room.Gateway.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target room already has an gateway (1:1 relationship).");
             }
-            target = await _digitalTwins.GetByIdAsync(gateway.DigitalTwinId, cancellationToken)
+            var DigitalTwin = await _digitalTwins.GetByIdAsync(gateway.DigitalTwinId, cancellationToken)
                 ?? throw new InvalidOperationException("DigitalTwin not found.");
 
-            if (target.Gateway is not null && target.Gateway.Id != existing.Id)
+            if (DigitalTwin.Gateway is not null && DigitalTwin.Gateway.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target digitalTwin already has an gateway (1:1 relationship).");
             }

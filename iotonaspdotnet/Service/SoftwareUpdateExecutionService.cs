@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.SoftwareUpdateCampaigns;
 using iotonaspdotnet.Persistence.IoTDevices;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface ISoftwareUpdateExecutionService
 {
@@ -68,18 +68,17 @@ public class SoftwareUpdateExecutionService : ISoftwareUpdateExecutionService
         // Keep 1:1 â do not reassign to a ioTDevice who already has another softwareUpdateExecution.
         if (existing.IoTDeviceId != softwareUpdateExecution.IoTDeviceId)
         {
-            var target;
-            target = await _softwareUpdateCampaigns.GetByIdAsync(softwareUpdateExecution.SoftwareUpdateCampaignId, cancellationToken)
+            var Campaign = await _softwareUpdateCampaigns.GetByIdAsync(softwareUpdateExecution.SoftwareUpdateCampaignId, cancellationToken)
                 ?? throw new InvalidOperationException("SoftwareUpdateCampaign not found.");
 
-            if (target.SoftwareUpdateExecution is not null && target.SoftwareUpdateExecution.Id != existing.Id)
+            if (Campaign.SoftwareUpdateExecution is not null && Campaign.SoftwareUpdateExecution.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target softwareUpdateCampaign already has an softwareUpdateExecution (1:1 relationship).");
             }
-            target = await _ioTDevices.GetByIdAsync(softwareUpdateExecution.IoTDeviceId, cancellationToken)
+            var Device = await _ioTDevices.GetByIdAsync(softwareUpdateExecution.IoTDeviceId, cancellationToken)
                 ?? throw new InvalidOperationException("IoTDevice not found.");
 
-            if (target.SoftwareUpdateExecution is not null && target.SoftwareUpdateExecution.Id != existing.Id)
+            if (Device.SoftwareUpdateExecution is not null && Device.SoftwareUpdateExecution.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target ioTDevice already has an softwareUpdateExecution (1:1 relationship).");
             }

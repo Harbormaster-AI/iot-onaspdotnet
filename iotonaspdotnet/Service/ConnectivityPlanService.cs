@@ -2,7 +2,7 @@ using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.Tenants;
 
-namespace iotonaspdotnet.Service
+namespace iotonaspdotnet.Service;
 
 public interface IConnectivityPlanService
 {
@@ -56,11 +56,10 @@ public class ConnectivityPlanService : IConnectivityPlanService
         // Keep 1:1 â do not reassign to a tenant who already has another connectivityPlan.
         if (existing.TenantId != connectivityPlan.TenantId)
         {
-            var target;
-            target = await _tenants.GetByIdAsync(connectivityPlan.TenantId, cancellationToken)
+            var Tenant = await _tenants.GetByIdAsync(connectivityPlan.TenantId, cancellationToken)
                 ?? throw new InvalidOperationException("Tenant not found.");
 
-            if (target.ConnectivityPlan is not null && target.ConnectivityPlan.Id != existing.Id)
+            if (Tenant.ConnectivityPlan is not null && Tenant.ConnectivityPlan.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target tenant already has an connectivityPlan (1:1 relationship).");
             }

@@ -49,8 +49,8 @@ public static class SoftwareUpdateCampaignEndpoints
                 ScheduledEnd = request.ScheduledEnd,
                 Status = request.Status,
 
-                FirmwareReleaseId = request.FirmwareReleaseId
-                DeviceGroupId = request.DeviceGroupId
+                FirmwareReleaseId = request.FirmwareReleaseId,
+                DeviceGroupId = request.DeviceGroupId,
 
         };
 

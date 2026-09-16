@@ -50,8 +50,8 @@ public static class MaintenanceTicketEndpoints
                 Priority = request.Priority,
                 Status = request.Status,
 
-                IoTDeviceId = request.IoTDeviceId
-                TenantId = request.TenantId
+                IoTDeviceId = request.IoTDeviceId,
+                TenantId = request.TenantId,
 
         };
 

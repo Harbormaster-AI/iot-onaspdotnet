@@ -50,7 +50,7 @@ public static class SiteEndpoints
                 Latitude = request.Latitude,
                 Longitude = request.Longitude,
 
-                TenantId = request.TenantId
+                TenantId = request.TenantId,
 
         };
 
