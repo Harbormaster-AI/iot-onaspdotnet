@@ -4,7 +4,7 @@
 namespace ${appName}.Api.${className};
 
 #set( $singleAssociationsAsArgs = "" )
-#foreach( $singleAssociation = $singleAssociations )
+#foreach( $singleAssociation in $singleAssociations )
 #set( $type = $singleAssociation.getType() )
 #set( $lcType = $Utils.lowercaseFirstLetter( $type ) )
 #set( $singleAssociationsAsArgs = "${singleAssociationsAsArgs}Guid ${type}Id" )

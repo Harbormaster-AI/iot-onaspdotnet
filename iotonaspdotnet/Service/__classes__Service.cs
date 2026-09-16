@@ -3,7 +3,7 @@
 #set( $singleAssociations = $classObject.getSingleAssociations() )
 using ${appName}.Domain
 using ${appName}.Persistence
-#foreach( $singleAssociation = $singleAssociations )
+#foreach( $singleAssociation in $singleAssociations )
 #set( $type = $singleAssociation.getType() )
 using ${appName}.Persistence.${type}s;
 #end
@@ -22,14 +22,14 @@ public interface I${className}Service
 public class ${className}Service : I${className}Service
 {
     private readonly I${className}Repository _repository;
-#foreach( $singleAssociation = $singleAssociations )
+#foreach( $singleAssociation in $singleAssociations )
 #set( $type = $singleAssociation.getType() )
 #set( $lcType = $Utils.lowercaseFirstLetter( $type ) )
     private readonly I${type}Repository _${lcType}s;
 #end
 
     public ${className}Service(
-#foreach( $singleAssociation = $singleAssociations )
+#foreach( $singleAssociation in $singleAssociations )
 #set( $type = $singleAssociation.getType() )
 #set( $lcType = $Utils.lowercaseFirstLetter( $type ) )
         I${type}Repository ${lcType}s,
@@ -37,7 +37,7 @@ public class ${className}Service : I${className}Service
         I${className}Repository repository )
     {
         _repository = repository;
-#foreach( $singleAssociation = $singleAssociations )
+#foreach( $singleAssociation in $singleAssociations )
 #set( $lcType = $Utils.lowercaseFirstLetter( $type ) )
         _${lcType}s = ${lcType}s;
 #end
@@ -51,7 +51,7 @@ public class ${className}Service : I${className}Service
 
     public async Task CreateAsync(${className} ${lowercaseClassName}, CancellationToken cancellationToken)
     {
-#foreach( $singleAssociation = $singleAssociations )
+#foreach( $singleAssociation in $singleAssociations )
 #set( $type = $singleAssociation.getType() )
 #set( $lcType = $Utils.lowercaseFirstLetter( $type ) )
         var ${lcType} = await _${lcType}s.GetByIdAsync(${lowercaseClassName}.${type}Id, cancellationToken)
@@ -78,7 +78,7 @@ public class ${className}Service : I${className}Service
         if (existing.${type}Id != ${lowercaseClassName}.${type}Id)
         {
             var target;
-#foreach( $singleAssociation = $singleAssociations )
+#foreach( $singleAssociation in $singleAssociations )
 #set( $type = $singleAssociation.getType() )
 #set( $lcType = $Utils.lowercaseFirstLetter( $type ) )
             target = await _${lcType}s.GetByIdAsync(${lowercaseClassName}.${type}Id, cancellationToken)
@@ -99,7 +99,7 @@ public class ${className}Service : I${className}Service
         existing.attributeName = ${lowercaseClassName}.attributeName;
 #end
 
-#foreach( $singleAssociation = $singleAssociations )
+#foreach( $singleAssociation in $singleAssociations )
 #set( $type = $singleAssociation.getType() )
         existing.${type}Id = ${lowercaseClassName}.${type}Id;
 #end

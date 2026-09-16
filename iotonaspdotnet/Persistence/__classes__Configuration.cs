@@ -39,7 +39,7 @@ builder.OwnsOne(x => x.${type}, ${attributeName} =>
         builder.Property(x => x.${attributeName});
 #end
 
-#foreach( $singleAssociation = $singleAssociations )
+#foreach( $singleAssociation in $singleAssociations )
 #set( $type = $singleAssociation.getType() )
         builder.Property(x => x.${type}Id).IsRequired();
         // Exactly one $type per $className (1:1)
