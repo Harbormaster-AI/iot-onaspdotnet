@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.DeviceModels;
 
 namespace iotonaspdotnet.Service
@@ -64,13 +64,12 @@ public class CommandDefinitionService : ICommandDefinitionService
             {
                 throw new InvalidOperationException("Target deviceModel already has an commandDefinition (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = commandDefinition.attributeName;
-        existing.attributeName = commandDefinition.attributeName;
-        existing.attributeName = commandDefinition.attributeName;
-        existing.attributeName = commandDefinition.attributeName;
+        existing.Name = commandDefinition.Name;
+        existing.RequestSchemaUri = commandDefinition.RequestSchemaUri;
+        existing.ResponseSchemaUri = commandDefinition.ResponseSchemaUri;
+        existing.TimeoutSeconds = commandDefinition.TimeoutSeconds;
 
         existing.DeviceModelId = commandDefinition.DeviceModelId;
         await _repository.UpdateAsync(existing, cancellationToken);

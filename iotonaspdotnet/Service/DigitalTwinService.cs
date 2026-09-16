@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.IoTDevices;
 using iotonaspdotnet.Persistence.Gateways;
 using iotonaspdotnet.Persistence.TwinTemplates;
@@ -88,8 +88,6 @@ public class DigitalTwinService : IDigitalTwinService
             {
                 throw new InvalidOperationException("Target ioTDevice already has an digitalTwin (1:1 relationship).");
             }
-
-        }
             target = await _gateways.GetByIdAsync(digitalTwin.GatewayId, cancellationToken)
                 ?? throw new InvalidOperationException("Gateway not found.");
 
@@ -97,8 +95,6 @@ public class DigitalTwinService : IDigitalTwinService
             {
                 throw new InvalidOperationException("Target gateway already has an digitalTwin (1:1 relationship).");
             }
-
-        }
             target = await _twinTemplates.GetByIdAsync(digitalTwin.TwinTemplateId, cancellationToken)
                 ?? throw new InvalidOperationException("TwinTemplate not found.");
 
@@ -106,13 +102,12 @@ public class DigitalTwinService : IDigitalTwinService
             {
                 throw new InvalidOperationException("Target twinTemplate already has an digitalTwin (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = digitalTwin.attributeName;
-        existing.attributeName = digitalTwin.attributeName;
-        existing.attributeName = digitalTwin.attributeName;
-        existing.attributeName = digitalTwin.attributeName;
+        existing.TwinId = digitalTwin.TwinId;
+        existing.DesiredStateVersion = digitalTwin.DesiredStateVersion;
+        existing.ReportedStateVersion = digitalTwin.ReportedStateVersion;
+        existing.LastSyncAt = digitalTwin.LastSyncAt;
 
         existing.IoTDeviceId = digitalTwin.IoTDeviceId;
         existing.GatewayId = digitalTwin.GatewayId;

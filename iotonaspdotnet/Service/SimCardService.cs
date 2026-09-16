@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.Tenants;
 using iotonaspdotnet.Persistence.ConnectivityPlans;
 
@@ -76,8 +76,6 @@ public class SimCardService : ISimCardService
             {
                 throw new InvalidOperationException("Target tenant already has an simCard (1:1 relationship).");
             }
-
-        }
             target = await _connectivityPlans.GetByIdAsync(simCard.ConnectivityPlanId, cancellationToken)
                 ?? throw new InvalidOperationException("ConnectivityPlan not found.");
 
@@ -85,13 +83,12 @@ public class SimCardService : ISimCardService
             {
                 throw new InvalidOperationException("Target connectivityPlan already has an simCard (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = simCard.attributeName;
-        existing.attributeName = simCard.attributeName;
-        existing.attributeName = simCard.attributeName;
-        existing.attributeName = simCard.attributeName;
+        existing.Iccid = simCard.Iccid;
+        existing.Imsi = simCard.Imsi;
+        existing.Carrier = simCard.Carrier;
+        existing.Status = simCard.Status;
 
         existing.TenantId = simCard.TenantId;
         existing.ConnectivityPlanId = simCard.ConnectivityPlanId;

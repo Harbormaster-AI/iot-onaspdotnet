@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.Tenants;
 
 namespace iotonaspdotnet.Service
@@ -64,11 +64,10 @@ public class DataRetentionPolicyService : IDataRetentionPolicyService
             {
                 throw new InvalidOperationException("Target tenant already has an dataRetentionPolicy (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = dataRetentionPolicy.attributeName;
-        existing.attributeName = dataRetentionPolicy.attributeName;
+        existing.Name = dataRetentionPolicy.Name;
+        existing.RetentionDays = dataRetentionPolicy.RetentionDays;
 
         existing.TenantId = dataRetentionPolicy.TenantId;
         await _repository.UpdateAsync(existing, cancellationToken);

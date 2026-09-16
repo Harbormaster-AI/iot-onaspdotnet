@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.Tenants;
 
 namespace iotonaspdotnet.Service
@@ -64,12 +64,11 @@ public class ConnectivityPlanService : IConnectivityPlanService
             {
                 throw new InvalidOperationException("Target tenant already has an connectivityPlan (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = connectivityPlan.attributeName;
-        existing.attributeName = connectivityPlan.attributeName;
-        existing.attributeName = connectivityPlan.attributeName;
+        existing.Name = connectivityPlan.Name;
+        existing.DataCapMB = connectivityPlan.DataCapMB;
+        existing.BillingCycleDays = connectivityPlan.BillingCycleDays;
 
         existing.TenantId = connectivityPlan.TenantId;
         await _repository.UpdateAsync(existing, cancellationToken);

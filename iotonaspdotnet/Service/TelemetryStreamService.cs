@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.IoTDevices;
 using iotonaspdotnet.Persistence.SensorInstances;
 using iotonaspdotnet.Persistence.TelemetrySchemas;
@@ -112,8 +112,6 @@ public class TelemetryStreamService : ITelemetryStreamService
             {
                 throw new InvalidOperationException("Target ioTDevice already has an telemetryStream (1:1 relationship).");
             }
-
-        }
             target = await _sensorInstances.GetByIdAsync(telemetryStream.SensorInstanceId, cancellationToken)
                 ?? throw new InvalidOperationException("SensorInstance not found.");
 
@@ -121,8 +119,6 @@ public class TelemetryStreamService : ITelemetryStreamService
             {
                 throw new InvalidOperationException("Target sensorInstance already has an telemetryStream (1:1 relationship).");
             }
-
-        }
             target = await _telemetrySchemas.GetByIdAsync(telemetryStream.TelemetrySchemaId, cancellationToken)
                 ?? throw new InvalidOperationException("TelemetrySchema not found.");
 
@@ -130,8 +126,6 @@ public class TelemetryStreamService : ITelemetryStreamService
             {
                 throw new InvalidOperationException("Target telemetrySchema already has an telemetryStream (1:1 relationship).");
             }
-
-        }
             target = await _messagingEndpoints.GetByIdAsync(telemetryStream.MessagingEndpointId, cancellationToken)
                 ?? throw new InvalidOperationException("MessagingEndpoint not found.");
 
@@ -139,8 +133,6 @@ public class TelemetryStreamService : ITelemetryStreamService
             {
                 throw new InvalidOperationException("Target messagingEndpoint already has an telemetryStream (1:1 relationship).");
             }
-
-        }
             target = await _dataRetentionPolicys.GetByIdAsync(telemetryStream.DataRetentionPolicyId, cancellationToken)
                 ?? throw new InvalidOperationException("DataRetentionPolicy not found.");
 
@@ -148,12 +140,11 @@ public class TelemetryStreamService : ITelemetryStreamService
             {
                 throw new InvalidOperationException("Target dataRetentionPolicy already has an telemetryStream (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = telemetryStream.attributeName;
-        existing.attributeName = telemetryStream.attributeName;
-        existing.attributeName = telemetryStream.attributeName;
+        existing.StreamName = telemetryStream.StreamName;
+        existing.RetentionDays = telemetryStream.RetentionDays;
+        existing.Qos = telemetryStream.Qos;
 
         existing.IoTDeviceId = telemetryStream.IoTDeviceId;
         existing.SensorInstanceId = telemetryStream.SensorInstanceId;

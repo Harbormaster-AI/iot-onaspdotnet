@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.Tenants;
 
 namespace iotonaspdotnet.Service
@@ -64,12 +64,11 @@ public class AlertRuleService : IAlertRuleService
             {
                 throw new InvalidOperationException("Target tenant already has an alertRule (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = alertRule.attributeName;
-        existing.attributeName = alertRule.attributeName;
-        existing.attributeName = alertRule.attributeName;
+        existing.Name = alertRule.Name;
+        existing.Expression = alertRule.Expression;
+        existing.Severity = alertRule.Severity;
 
         existing.TenantId = alertRule.TenantId;
         await _repository.UpdateAsync(existing, cancellationToken);

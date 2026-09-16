@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.Buildings;
 
 namespace iotonaspdotnet.Service
@@ -64,11 +64,10 @@ public class FloorService : IFloorService
             {
                 throw new InvalidOperationException("Target building already has an floor (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = floor.attributeName;
-        existing.attributeName = floor.attributeName;
+        existing.Name = floor.Name;
+        existing.Level = floor.Level;
 
         existing.BuildingId = floor.BuildingId;
         await _repository.UpdateAsync(existing, cancellationToken);

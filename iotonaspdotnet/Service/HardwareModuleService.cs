@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.DeviceVendors;
 
 namespace iotonaspdotnet.Service
@@ -64,12 +64,11 @@ public class HardwareModuleService : IHardwareModuleService
             {
                 throw new InvalidOperationException("Target deviceVendor already has an hardwareModule (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = hardwareModule.attributeName;
-        existing.attributeName = hardwareModule.attributeName;
-        existing.attributeName = hardwareModule.attributeName;
+        existing.ModuleCode = hardwareModule.ModuleCode;
+        existing.DatasheetUri = hardwareModule.DatasheetUri;
+        existing.ModuleType = hardwareModule.ModuleType;
 
         existing.DeviceVendorId = hardwareModule.DeviceVendorId;
         await _repository.UpdateAsync(existing, cancellationToken);

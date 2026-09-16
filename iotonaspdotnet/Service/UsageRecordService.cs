@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.Tenants;
 using iotonaspdotnet.Persistence.IoTDevices;
 using iotonaspdotnet.Persistence.ConnectivityPlans;
@@ -88,8 +88,6 @@ public class UsageRecordService : IUsageRecordService
             {
                 throw new InvalidOperationException("Target tenant already has an usageRecord (1:1 relationship).");
             }
-
-        }
             target = await _ioTDevices.GetByIdAsync(usageRecord.IoTDeviceId, cancellationToken)
                 ?? throw new InvalidOperationException("IoTDevice not found.");
 
@@ -97,8 +95,6 @@ public class UsageRecordService : IUsageRecordService
             {
                 throw new InvalidOperationException("Target ioTDevice already has an usageRecord (1:1 relationship).");
             }
-
-        }
             target = await _connectivityPlans.GetByIdAsync(usageRecord.ConnectivityPlanId, cancellationToken)
                 ?? throw new InvalidOperationException("ConnectivityPlan not found.");
 
@@ -106,13 +102,12 @@ public class UsageRecordService : IUsageRecordService
             {
                 throw new InvalidOperationException("Target connectivityPlan already has an usageRecord (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = usageRecord.attributeName;
-        existing.attributeName = usageRecord.attributeName;
-        existing.attributeName = usageRecord.attributeName;
-        existing.attributeName = usageRecord.attributeName;
+        existing.PeriodStart = usageRecord.PeriodStart;
+        existing.PeriodEnd = usageRecord.PeriodEnd;
+        existing.MessagesSent = usageRecord.MessagesSent;
+        existing.DataVolumeMB = usageRecord.DataVolumeMB;
 
         existing.TenantId = usageRecord.TenantId;
         existing.IoTDeviceId = usageRecord.IoTDeviceId;

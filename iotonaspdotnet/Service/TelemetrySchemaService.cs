@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service
 
@@ -45,10 +45,11 @@ public class TelemetrySchemaService : ITelemetrySchemaService
         if (existing.IoTDeviceId != telemetrySchema.IoTDeviceId)
         {
             var target;
+        }
 
-        existing.attributeName = telemetrySchema.attributeName;
-        existing.attributeName = telemetrySchema.attributeName;
-        existing.attributeName = telemetrySchema.attributeName;
+        existing.SchemaId = telemetrySchema.SchemaId;
+        existing.SchemaUri = telemetrySchema.SchemaUri;
+        existing.Encoding = telemetrySchema.Encoding;
 
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;

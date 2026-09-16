@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.Floors;
 
 namespace iotonaspdotnet.Service
@@ -64,10 +64,9 @@ public class RoomService : IRoomService
             {
                 throw new InvalidOperationException("Target floor already has an room (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = room.attributeName;
+        existing.Name = room.Name;
 
         existing.FloorId = room.FloorId;
         await _repository.UpdateAsync(existing, cancellationToken);

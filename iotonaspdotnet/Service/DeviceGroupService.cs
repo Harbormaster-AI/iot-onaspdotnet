@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.Tenants;
 
 namespace iotonaspdotnet.Service
@@ -64,11 +64,10 @@ public class DeviceGroupService : IDeviceGroupService
             {
                 throw new InvalidOperationException("Target tenant already has an deviceGroup (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = deviceGroup.attributeName;
-        existing.attributeName = deviceGroup.attributeName;
+        existing.Name = deviceGroup.Name;
+        existing.Criteria = deviceGroup.Criteria;
 
         existing.TenantId = deviceGroup.TenantId;
         await _repository.UpdateAsync(existing, cancellationToken);

@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.FirmwareReleases;
 using iotonaspdotnet.Persistence.DeviceGroups;
 
@@ -76,8 +76,6 @@ public class SoftwareUpdateCampaignService : ISoftwareUpdateCampaignService
             {
                 throw new InvalidOperationException("Target firmwareRelease already has an softwareUpdateCampaign (1:1 relationship).");
             }
-
-        }
             target = await _deviceGroups.GetByIdAsync(softwareUpdateCampaign.DeviceGroupId, cancellationToken)
                 ?? throw new InvalidOperationException("DeviceGroup not found.");
 
@@ -85,13 +83,12 @@ public class SoftwareUpdateCampaignService : ISoftwareUpdateCampaignService
             {
                 throw new InvalidOperationException("Target deviceGroup already has an softwareUpdateCampaign (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = softwareUpdateCampaign.attributeName;
-        existing.attributeName = softwareUpdateCampaign.attributeName;
-        existing.attributeName = softwareUpdateCampaign.attributeName;
-        existing.attributeName = softwareUpdateCampaign.attributeName;
+        existing.CampaignCode = softwareUpdateCampaign.CampaignCode;
+        existing.ScheduledStart = softwareUpdateCampaign.ScheduledStart;
+        existing.ScheduledEnd = softwareUpdateCampaign.ScheduledEnd;
+        existing.Status = softwareUpdateCampaign.Status;
 
         existing.FirmwareReleaseId = softwareUpdateCampaign.FirmwareReleaseId;
         existing.DeviceGroupId = softwareUpdateCampaign.DeviceGroupId;

@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.IoTDevices;
 using iotonaspdotnet.Persistence.Gateways;
 
@@ -76,8 +76,6 @@ public class DeviceCertificateService : IDeviceCertificateService
             {
                 throw new InvalidOperationException("Target ioTDevice already has an deviceCertificate (1:1 relationship).");
             }
-
-        }
             target = await _gateways.GetByIdAsync(deviceCertificate.GatewayId, cancellationToken)
                 ?? throw new InvalidOperationException("Gateway not found.");
 
@@ -85,14 +83,13 @@ public class DeviceCertificateService : IDeviceCertificateService
             {
                 throw new InvalidOperationException("Target gateway already has an deviceCertificate (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = deviceCertificate.attributeName;
-        existing.attributeName = deviceCertificate.attributeName;
-        existing.attributeName = deviceCertificate.attributeName;
-        existing.attributeName = deviceCertificate.attributeName;
-        existing.attributeName = deviceCertificate.attributeName;
+        existing.SerialNumber = deviceCertificate.SerialNumber;
+        existing.NotBefore = deviceCertificate.NotBefore;
+        existing.NotAfter = deviceCertificate.NotAfter;
+        existing.Fingerprint = deviceCertificate.Fingerprint;
+        existing.CertificateType = deviceCertificate.CertificateType;
 
         existing.IoTDeviceId = deviceCertificate.IoTDeviceId;
         existing.GatewayId = deviceCertificate.GatewayId;

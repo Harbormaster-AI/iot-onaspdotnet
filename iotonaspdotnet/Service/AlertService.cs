@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.IoTDevices;
 using iotonaspdotnet.Persistence.AlertRules;
 
@@ -76,8 +76,6 @@ public class AlertService : IAlertService
             {
                 throw new InvalidOperationException("Target ioTDevice already has an alert (1:1 relationship).");
             }
-
-        }
             target = await _alertRules.GetByIdAsync(alert.AlertRuleId, cancellationToken)
                 ?? throw new InvalidOperationException("AlertRule not found.");
 
@@ -85,13 +83,12 @@ public class AlertService : IAlertService
             {
                 throw new InvalidOperationException("Target alertRule already has an alert (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = alert.attributeName;
-        existing.attributeName = alert.attributeName;
-        existing.attributeName = alert.attributeName;
-        existing.attributeName = alert.attributeName;
+        existing.RaisedAt = alert.RaisedAt;
+        existing.ClearedAt = alert.ClearedAt;
+        existing.Message = alert.Message;
+        existing.Status = alert.Status;
 
         existing.IoTDeviceId = alert.IoTDeviceId;
         existing.AlertRuleId = alert.AlertRuleId;

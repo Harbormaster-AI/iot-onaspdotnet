@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.IoTDevices;
 
 namespace iotonaspdotnet.Service
@@ -64,12 +64,11 @@ public class ActuatorInstanceService : IActuatorInstanceService
             {
                 throw new InvalidOperationException("Target ioTDevice already has an actuatorInstance (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = actuatorInstance.attributeName;
-        existing.attributeName = actuatorInstance.attributeName;
-        existing.attributeName = actuatorInstance.attributeName;
+        existing.Name = actuatorInstance.Name;
+        existing.CommandTopic = actuatorInstance.CommandTopic;
+        existing.ActuatorType = actuatorInstance.ActuatorType;
 
         existing.IoTDeviceId = actuatorInstance.IoTDeviceId;
         await _repository.UpdateAsync(existing, cancellationToken);

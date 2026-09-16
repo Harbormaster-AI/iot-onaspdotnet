@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.Sites;
 using iotonaspdotnet.Persistence.Rooms;
 using iotonaspdotnet.Persistence.DigitalTwins;
@@ -88,8 +88,6 @@ public class GatewayService : IGatewayService
             {
                 throw new InvalidOperationException("Target site already has an gateway (1:1 relationship).");
             }
-
-        }
             target = await _rooms.GetByIdAsync(gateway.RoomId, cancellationToken)
                 ?? throw new InvalidOperationException("Room not found.");
 
@@ -97,8 +95,6 @@ public class GatewayService : IGatewayService
             {
                 throw new InvalidOperationException("Target room already has an gateway (1:1 relationship).");
             }
-
-        }
             target = await _digitalTwins.GetByIdAsync(gateway.DigitalTwinId, cancellationToken)
                 ?? throw new InvalidOperationException("DigitalTwin not found.");
 
@@ -106,11 +102,10 @@ public class GatewayService : IGatewayService
             {
                 throw new InvalidOperationException("Target digitalTwin already has an gateway (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = gateway.attributeName;
-        existing.attributeName = gateway.attributeName;
+        existing.SoftwareVersion = gateway.SoftwareVersion;
+        existing.Status = gateway.Status;
 
         existing.SiteId = gateway.SiteId;
         existing.RoomId = gateway.RoomId;

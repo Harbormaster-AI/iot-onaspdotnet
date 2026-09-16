@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service
 
@@ -45,11 +45,12 @@ public class DeviceVendorService : IDeviceVendorService
         if (existing.ConnectivityPlanId != deviceVendor.ConnectivityPlanId)
         {
             var target;
+        }
 
-        existing.attributeName = deviceVendor.attributeName;
-        existing.attributeName = deviceVendor.attributeName;
-        existing.attributeName = deviceVendor.attributeName;
-        existing.attributeName = deviceVendor.attributeName;
+        existing.Name = deviceVendor.Name;
+        existing.LegalName = deviceVendor.LegalName;
+        existing.HeadquartersCountry = deviceVendor.HeadquartersCountry;
+        existing.Website = deviceVendor.Website;
 
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;

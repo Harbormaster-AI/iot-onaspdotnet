@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.DeviceModels;
 using iotonaspdotnet.Persistence.Tenants;
 using iotonaspdotnet.Persistence.Sites;
@@ -136,8 +136,6 @@ public class IoTDeviceService : IIoTDeviceService
             {
                 throw new InvalidOperationException("Target deviceModel already has an ioTDevice (1:1 relationship).");
             }
-
-        }
             target = await _tenants.GetByIdAsync(ioTDevice.TenantId, cancellationToken)
                 ?? throw new InvalidOperationException("Tenant not found.");
 
@@ -145,8 +143,6 @@ public class IoTDeviceService : IIoTDeviceService
             {
                 throw new InvalidOperationException("Target tenant already has an ioTDevice (1:1 relationship).");
             }
-
-        }
             target = await _sites.GetByIdAsync(ioTDevice.SiteId, cancellationToken)
                 ?? throw new InvalidOperationException("Site not found.");
 
@@ -154,8 +150,6 @@ public class IoTDeviceService : IIoTDeviceService
             {
                 throw new InvalidOperationException("Target site already has an ioTDevice (1:1 relationship).");
             }
-
-        }
             target = await _rooms.GetByIdAsync(ioTDevice.RoomId, cancellationToken)
                 ?? throw new InvalidOperationException("Room not found.");
 
@@ -163,8 +157,6 @@ public class IoTDeviceService : IIoTDeviceService
             {
                 throw new InvalidOperationException("Target room already has an ioTDevice (1:1 relationship).");
             }
-
-        }
             target = await _gateways.GetByIdAsync(ioTDevice.GatewayId, cancellationToken)
                 ?? throw new InvalidOperationException("Gateway not found.");
 
@@ -172,8 +164,6 @@ public class IoTDeviceService : IIoTDeviceService
             {
                 throw new InvalidOperationException("Target gateway already has an ioTDevice (1:1 relationship).");
             }
-
-        }
             target = await _digitalTwins.GetByIdAsync(ioTDevice.DigitalTwinId, cancellationToken)
                 ?? throw new InvalidOperationException("DigitalTwin not found.");
 
@@ -181,8 +171,6 @@ public class IoTDeviceService : IIoTDeviceService
             {
                 throw new InvalidOperationException("Target digitalTwin already has an ioTDevice (1:1 relationship).");
             }
-
-        }
             target = await _provisioningRecords.GetByIdAsync(ioTDevice.ProvisioningRecordId, cancellationToken)
                 ?? throw new InvalidOperationException("ProvisioningRecord not found.");
 
@@ -190,15 +178,14 @@ public class IoTDeviceService : IIoTDeviceService
             {
                 throw new InvalidOperationException("Target provisioningRecord already has an ioTDevice (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = ioTDevice.attributeName;
-        existing.attributeName = ioTDevice.attributeName;
-        existing.attributeName = ioTDevice.attributeName;
-        existing.attributeName = ioTDevice.attributeName;
-        existing.attributeName = ioTDevice.attributeName;
-        existing.attributeName = ioTDevice.attributeName;
+        existing.DeviceId = ioTDevice.DeviceId;
+        existing.SerialNumber = ioTDevice.SerialNumber;
+        existing.LastSeen = ioTDevice.LastSeen;
+        existing.FirmwareVersion = ioTDevice.FirmwareVersion;
+        existing.Status = ioTDevice.Status;
+        existing.PowerSource = ioTDevice.PowerSource;
 
         existing.DeviceModelId = ioTDevice.DeviceModelId;
         existing.TenantId = ioTDevice.TenantId;

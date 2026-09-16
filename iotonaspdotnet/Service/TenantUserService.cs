@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.Tenants;
 
 namespace iotonaspdotnet.Service
@@ -64,13 +64,12 @@ public class TenantUserService : ITenantUserService
             {
                 throw new InvalidOperationException("Target tenant already has an tenantUser (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = tenantUser.attributeName;
-        existing.attributeName = tenantUser.attributeName;
-        existing.attributeName = tenantUser.attributeName;
-        existing.attributeName = tenantUser.attributeName;
+        existing.FirstName = tenantUser.FirstName;
+        existing.LastName = tenantUser.LastName;
+        existing.Email = tenantUser.Email;
+        existing.Role = tenantUser.Role;
 
         existing.TenantId = tenantUser.TenantId;
         await _repository.UpdateAsync(existing, cancellationToken);

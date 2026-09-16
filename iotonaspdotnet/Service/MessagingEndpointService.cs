@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.Tenants;
 
 namespace iotonaspdotnet.Service
@@ -64,13 +64,12 @@ public class MessagingEndpointService : IMessagingEndpointService
             {
                 throw new InvalidOperationException("Target tenant already has an messagingEndpoint (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = messagingEndpoint.attributeName;
-        existing.attributeName = messagingEndpoint.attributeName;
-        existing.attributeName = messagingEndpoint.attributeName;
-        existing.attributeName = messagingEndpoint.attributeName;
+        existing.Host = messagingEndpoint.Host;
+        existing.Port = messagingEndpoint.Port;
+        existing.Secure = messagingEndpoint.Secure;
+        existing.Protocol = messagingEndpoint.Protocol;
 
         existing.TenantId = messagingEndpoint.TenantId;
         await _repository.UpdateAsync(existing, cancellationToken);

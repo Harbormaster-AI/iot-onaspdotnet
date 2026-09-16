@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.SoftwareUpdateCampaigns;
 using iotonaspdotnet.Persistence.IoTDevices;
 
@@ -76,8 +76,6 @@ public class SoftwareUpdateExecutionService : ISoftwareUpdateExecutionService
             {
                 throw new InvalidOperationException("Target softwareUpdateCampaign already has an softwareUpdateExecution (1:1 relationship).");
             }
-
-        }
             target = await _ioTDevices.GetByIdAsync(softwareUpdateExecution.IoTDeviceId, cancellationToken)
                 ?? throw new InvalidOperationException("IoTDevice not found.");
 
@@ -85,12 +83,11 @@ public class SoftwareUpdateExecutionService : ISoftwareUpdateExecutionService
             {
                 throw new InvalidOperationException("Target ioTDevice already has an softwareUpdateExecution (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = softwareUpdateExecution.attributeName;
-        existing.attributeName = softwareUpdateExecution.attributeName;
-        existing.attributeName = softwareUpdateExecution.attributeName;
+        existing.StartedAt = softwareUpdateExecution.StartedAt;
+        existing.CompletedAt = softwareUpdateExecution.CompletedAt;
+        existing.Status = softwareUpdateExecution.Status;
 
         existing.SoftwareUpdateCampaignId = softwareUpdateExecution.SoftwareUpdateCampaignId;
         existing.IoTDeviceId = softwareUpdateExecution.IoTDeviceId;

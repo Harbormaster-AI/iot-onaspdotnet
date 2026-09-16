@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.AccessPolicys;
 
 namespace iotonaspdotnet.Service
@@ -64,13 +64,12 @@ public class ApiKeyService : IApiKeyService
             {
                 throw new InvalidOperationException("Target accessPolicy already has an apiKey (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = apiKey.attributeName;
-        existing.attributeName = apiKey.attributeName;
-        existing.attributeName = apiKey.attributeName;
-        existing.attributeName = apiKey.attributeName;
+        existing.KeyId = apiKey.KeyId;
+        existing.HashedSecret = apiKey.HashedSecret;
+        existing.CreatedAt = apiKey.CreatedAt;
+        existing.LastUsedAt = apiKey.LastUsedAt;
 
         existing.AccessPolicyId = apiKey.AccessPolicyId;
         await _repository.UpdateAsync(existing, cancellationToken);

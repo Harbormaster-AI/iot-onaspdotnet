@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.Sites;
 
 namespace iotonaspdotnet.Service
@@ -64,10 +64,9 @@ public class BuildingService : IBuildingService
             {
                 throw new InvalidOperationException("Target site already has an building (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = building.attributeName;
+        existing.Name = building.Name;
 
         existing.SiteId = building.SiteId;
         await _repository.UpdateAsync(existing, cancellationToken);

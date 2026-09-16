@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.IoTDevices;
 using iotonaspdotnet.Persistence.DeviceCertificates;
 using iotonaspdotnet.Persistence.Tenants;
@@ -88,8 +88,6 @@ public class ProvisioningRecordService : IProvisioningRecordService
             {
                 throw new InvalidOperationException("Target ioTDevice already has an provisioningRecord (1:1 relationship).");
             }
-
-        }
             target = await _deviceCertificates.GetByIdAsync(provisioningRecord.DeviceCertificateId, cancellationToken)
                 ?? throw new InvalidOperationException("DeviceCertificate not found.");
 
@@ -97,8 +95,6 @@ public class ProvisioningRecordService : IProvisioningRecordService
             {
                 throw new InvalidOperationException("Target deviceCertificate already has an provisioningRecord (1:1 relationship).");
             }
-
-        }
             target = await _tenants.GetByIdAsync(provisioningRecord.TenantId, cancellationToken)
                 ?? throw new InvalidOperationException("Tenant not found.");
 
@@ -106,13 +102,12 @@ public class ProvisioningRecordService : IProvisioningRecordService
             {
                 throw new InvalidOperationException("Target tenant already has an provisioningRecord (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = provisioningRecord.attributeName;
-        existing.attributeName = provisioningRecord.attributeName;
-        existing.attributeName = provisioningRecord.attributeName;
-        existing.attributeName = provisioningRecord.attributeName;
+        existing.EnrolledAt = provisioningRecord.EnrolledAt;
+        existing.ProvisioningService = provisioningRecord.ProvisioningService;
+        existing.Method = provisioningRecord.Method;
+        existing.Status = provisioningRecord.Status;
 
         existing.IoTDeviceId = provisioningRecord.IoTDeviceId;
         existing.DeviceCertificateId = provisioningRecord.DeviceCertificateId;

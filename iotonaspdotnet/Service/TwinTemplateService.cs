@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service
 
@@ -45,10 +45,11 @@ public class TwinTemplateService : ITwinTemplateService
         if (existing.TwinTemplateId != twinTemplate.TwinTemplateId)
         {
             var target;
+        }
 
-        existing.attributeName = twinTemplate.attributeName;
-        existing.attributeName = twinTemplate.attributeName;
-        existing.attributeName = twinTemplate.attributeName;
+        existing.Name = twinTemplate.Name;
+        existing.SchemaUri = twinTemplate.SchemaUri;
+        existing.Version = twinTemplate.Version;
 
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;

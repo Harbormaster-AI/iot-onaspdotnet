@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.Tenants;
 
 namespace iotonaspdotnet.Service
@@ -64,14 +64,13 @@ public class SiteService : ISiteService
             {
                 throw new InvalidOperationException("Target tenant already has an site (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = site.attributeName;
-        existing.attributeName = site.attributeName;
-        existing.attributeName = site.attributeName;
-        existing.attributeName = site.attributeName;
-        existing.attributeName = site.attributeName;
+        existing.Name = site.Name;
+        existing.Address = site.Address;
+        existing.Timezone = site.Timezone;
+        existing.Latitude = site.Latitude;
+        existing.Longitude = site.Longitude;
 
         existing.TenantId = site.TenantId;
         await _repository.UpdateAsync(existing, cancellationToken);

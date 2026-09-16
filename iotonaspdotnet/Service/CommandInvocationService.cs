@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.IoTDevices;
 using iotonaspdotnet.Persistence.CommandDefinitions;
 using iotonaspdotnet.Persistence.ActuatorInstances;
@@ -100,8 +100,6 @@ public class CommandInvocationService : ICommandInvocationService
             {
                 throw new InvalidOperationException("Target ioTDevice already has an commandInvocation (1:1 relationship).");
             }
-
-        }
             target = await _commandDefinitions.GetByIdAsync(commandInvocation.CommandDefinitionId, cancellationToken)
                 ?? throw new InvalidOperationException("CommandDefinition not found.");
 
@@ -109,8 +107,6 @@ public class CommandInvocationService : ICommandInvocationService
             {
                 throw new InvalidOperationException("Target commandDefinition already has an commandInvocation (1:1 relationship).");
             }
-
-        }
             target = await _actuatorInstances.GetByIdAsync(commandInvocation.ActuatorInstanceId, cancellationToken)
                 ?? throw new InvalidOperationException("ActuatorInstance not found.");
 
@@ -118,8 +114,6 @@ public class CommandInvocationService : ICommandInvocationService
             {
                 throw new InvalidOperationException("Target actuatorInstance already has an commandInvocation (1:1 relationship).");
             }
-
-        }
             target = await _tenantUsers.GetByIdAsync(commandInvocation.TenantUserId, cancellationToken)
                 ?? throw new InvalidOperationException("TenantUser not found.");
 
@@ -127,13 +121,12 @@ public class CommandInvocationService : ICommandInvocationService
             {
                 throw new InvalidOperationException("Target tenantUser already has an commandInvocation (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = commandInvocation.attributeName;
-        existing.attributeName = commandInvocation.attributeName;
-        existing.attributeName = commandInvocation.attributeName;
-        existing.attributeName = commandInvocation.attributeName;
+        existing.InvocationId = commandInvocation.InvocationId;
+        existing.RequestedAt = commandInvocation.RequestedAt;
+        existing.CompletedAt = commandInvocation.CompletedAt;
+        existing.Status = commandInvocation.Status;
 
         existing.IoTDeviceId = commandInvocation.IoTDeviceId;
         existing.CommandDefinitionId = commandInvocation.CommandDefinitionId;

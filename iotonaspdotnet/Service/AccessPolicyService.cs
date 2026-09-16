@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.Tenants;
 
 namespace iotonaspdotnet.Service
@@ -64,12 +64,11 @@ public class AccessPolicyService : IAccessPolicyService
             {
                 throw new InvalidOperationException("Target tenant already has an accessPolicy (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = accessPolicy.attributeName;
-        existing.attributeName = accessPolicy.attributeName;
-        existing.attributeName = accessPolicy.attributeName;
+        existing.Name = accessPolicy.Name;
+        existing.Scope = accessPolicy.Scope;
+        existing.ExpiresAt = accessPolicy.ExpiresAt;
 
         existing.TenantId = accessPolicy.TenantId;
         await _repository.UpdateAsync(existing, cancellationToken);

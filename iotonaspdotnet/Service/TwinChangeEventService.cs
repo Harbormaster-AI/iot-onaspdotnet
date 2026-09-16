@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.DigitalTwins;
 
 namespace iotonaspdotnet.Service
@@ -64,12 +64,11 @@ public class TwinChangeEventService : ITwinChangeEventService
             {
                 throw new InvalidOperationException("Target digitalTwin already has an twinChangeEvent (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = twinChangeEvent.attributeName;
-        existing.attributeName = twinChangeEvent.attributeName;
-        existing.attributeName = twinChangeEvent.attributeName;
+        existing.EventId = twinChangeEvent.EventId;
+        existing.OccurredAt = twinChangeEvent.OccurredAt;
+        existing.ChangeType = twinChangeEvent.ChangeType;
 
         existing.DigitalTwinId = twinChangeEvent.DigitalTwinId;
         await _repository.UpdateAsync(existing, cancellationToken);

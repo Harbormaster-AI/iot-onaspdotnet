@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.Gateways;
 
 namespace iotonaspdotnet.Service
@@ -64,13 +64,12 @@ public class EdgeApplicationService : IEdgeApplicationService
             {
                 throw new InvalidOperationException("Target gateway already has an edgeApplication (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = edgeApplication.attributeName;
-        existing.attributeName = edgeApplication.attributeName;
-        existing.attributeName = edgeApplication.attributeName;
-        existing.attributeName = edgeApplication.attributeName;
+        existing.Name = edgeApplication.Name;
+        existing.Version = edgeApplication.Version;
+        existing.Image = edgeApplication.Image;
+        existing.Status = edgeApplication.Status;
 
         existing.GatewayId = edgeApplication.GatewayId;
         await _repository.UpdateAsync(existing, cancellationToken);

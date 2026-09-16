@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.DeviceModels;
 
 namespace iotonaspdotnet.Service
@@ -64,13 +64,12 @@ public class FirmwareReleaseService : IFirmwareReleaseService
             {
                 throw new InvalidOperationException("Target deviceModel already has an firmwareRelease (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = firmwareRelease.attributeName;
-        existing.attributeName = firmwareRelease.attributeName;
-        existing.attributeName = firmwareRelease.attributeName;
-        existing.attributeName = firmwareRelease.attributeName;
+        existing.Version = firmwareRelease.Version;
+        existing.ReleaseDate = firmwareRelease.ReleaseDate;
+        existing.ReleaseNotes = firmwareRelease.ReleaseNotes;
+        existing.Checksum = firmwareRelease.Checksum;
 
         existing.DeviceModelId = firmwareRelease.DeviceModelId;
         await _repository.UpdateAsync(existing, cancellationToken);

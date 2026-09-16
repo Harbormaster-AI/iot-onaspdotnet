@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.IoTDevices;
 
 namespace iotonaspdotnet.Service
@@ -64,13 +64,12 @@ public class SensorInstanceService : ISensorInstanceService
             {
                 throw new InvalidOperationException("Target ioTDevice already has an sensorInstance (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = sensorInstance.attributeName;
-        existing.attributeName = sensorInstance.attributeName;
-        existing.attributeName = sensorInstance.attributeName;
-        existing.attributeName = sensorInstance.attributeName;
+        existing.Name = sensorInstance.Name;
+        existing.Unit = sensorInstance.Unit;
+        existing.SamplingIntervalMs = sensorInstance.SamplingIntervalMs;
+        existing.SensorType = sensorInstance.SensorType;
 
         existing.IoTDeviceId = sensorInstance.IoTDeviceId;
         await _repository.UpdateAsync(existing, cancellationToken);

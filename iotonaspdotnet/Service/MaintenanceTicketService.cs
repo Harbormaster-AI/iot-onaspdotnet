@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.IoTDevices;
 using iotonaspdotnet.Persistence.Tenants;
 
@@ -76,8 +76,6 @@ public class MaintenanceTicketService : IMaintenanceTicketService
             {
                 throw new InvalidOperationException("Target ioTDevice already has an maintenanceTicket (1:1 relationship).");
             }
-
-        }
             target = await _tenants.GetByIdAsync(maintenanceTicket.TenantId, cancellationToken)
                 ?? throw new InvalidOperationException("Tenant not found.");
 
@@ -85,14 +83,13 @@ public class MaintenanceTicketService : IMaintenanceTicketService
             {
                 throw new InvalidOperationException("Target tenant already has an maintenanceTicket (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = maintenanceTicket.attributeName;
-        existing.attributeName = maintenanceTicket.attributeName;
-        existing.attributeName = maintenanceTicket.attributeName;
-        existing.attributeName = maintenanceTicket.attributeName;
-        existing.attributeName = maintenanceTicket.attributeName;
+        existing.TicketNumber = maintenanceTicket.TicketNumber;
+        existing.OpenedAt = maintenanceTicket.OpenedAt;
+        existing.ClosedAt = maintenanceTicket.ClosedAt;
+        existing.Priority = maintenanceTicket.Priority;
+        existing.Status = maintenanceTicket.Status;
 
         existing.IoTDeviceId = maintenanceTicket.IoTDeviceId;
         existing.TenantId = maintenanceTicket.TenantId;

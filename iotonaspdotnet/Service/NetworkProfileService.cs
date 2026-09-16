@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.IoTDevices;
 using iotonaspdotnet.Persistence.Gateways;
 using iotonaspdotnet.Persistence.SimCards;
@@ -88,8 +88,6 @@ public class NetworkProfileService : INetworkProfileService
             {
                 throw new InvalidOperationException("Target ioTDevice already has an networkProfile (1:1 relationship).");
             }
-
-        }
             target = await _gateways.GetByIdAsync(networkProfile.GatewayId, cancellationToken)
                 ?? throw new InvalidOperationException("Gateway not found.");
 
@@ -97,8 +95,6 @@ public class NetworkProfileService : INetworkProfileService
             {
                 throw new InvalidOperationException("Target gateway already has an networkProfile (1:1 relationship).");
             }
-
-        }
             target = await _simCards.GetByIdAsync(networkProfile.SimCardId, cancellationToken)
                 ?? throw new InvalidOperationException("SimCard not found.");
 
@@ -106,13 +102,12 @@ public class NetworkProfileService : INetworkProfileService
             {
                 throw new InvalidOperationException("Target simCard already has an networkProfile (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = networkProfile.attributeName;
-        existing.attributeName = networkProfile.attributeName;
-        existing.attributeName = networkProfile.attributeName;
-        existing.attributeName = networkProfile.attributeName;
+        existing.ProfileName = networkProfile.ProfileName;
+        existing.Ssid = networkProfile.Ssid;
+        existing.Apn = networkProfile.Apn;
+        existing.ConnectivityType = networkProfile.ConnectivityType;
 
         existing.IoTDeviceId = networkProfile.IoTDeviceId;
         existing.GatewayId = networkProfile.GatewayId;

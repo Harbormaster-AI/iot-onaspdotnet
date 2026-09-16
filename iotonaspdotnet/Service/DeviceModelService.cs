@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Persistence.DeviceVendors;
 using iotonaspdotnet.Persistence.TwinTemplates;
 
@@ -76,8 +76,6 @@ public class DeviceModelService : IDeviceModelService
             {
                 throw new InvalidOperationException("Target deviceVendor already has an deviceModel (1:1 relationship).");
             }
-
-        }
             target = await _twinTemplates.GetByIdAsync(deviceModel.TwinTemplateId, cancellationToken)
                 ?? throw new InvalidOperationException("TwinTemplate not found.");
 
@@ -85,14 +83,13 @@ public class DeviceModelService : IDeviceModelService
             {
                 throw new InvalidOperationException("Target twinTemplate already has an deviceModel (1:1 relationship).");
             }
-
         }
 
-        existing.attributeName = deviceModel.attributeName;
-        existing.attributeName = deviceModel.attributeName;
-        existing.attributeName = deviceModel.attributeName;
-        existing.attributeName = deviceModel.attributeName;
-        existing.attributeName = deviceModel.attributeName;
+        existing.Name = deviceModel.Name;
+        existing.ModelNumber = deviceModel.ModelNumber;
+        existing.HardwareRevision = deviceModel.HardwareRevision;
+        existing.SupportedConnectivity = deviceModel.SupportedConnectivity;
+        existing.DefaultTelemetryEncoding = deviceModel.DefaultTelemetryEncoding;
 
         existing.DeviceVendorId = deviceModel.DeviceVendorId;
         existing.TwinTemplateId = deviceModel.TwinTemplateId;

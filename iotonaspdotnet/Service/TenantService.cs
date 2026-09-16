@@ -1,5 +1,5 @@
-using iotonaspdotnet.Domain
-using iotonaspdotnet.Persistence
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service
 
@@ -45,9 +45,10 @@ public class TenantService : ITenantService
         if (existing.AlertRuleId != tenant.AlertRuleId)
         {
             var target;
+        }
 
-        existing.attributeName = tenant.attributeName;
-        existing.attributeName = tenant.attributeName;
+        existing.Name = tenant.Name;
+        existing.TenantType = tenant.TenantType;
 
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
