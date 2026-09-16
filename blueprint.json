@@ -1,8 +1,8 @@
 {
     "name": "ASP.NET-10",
     "shortName": "ASP.NET",
-    "description": "",
-    "summary": "",
+    "description": "ASP.NET 10 is Microsoftâs latest cross-platform web framework for building high-performance, cloud-ready applications and APIs with modern C# and .NET. It provides a unified platform for building scalable backend services, including REST APIs, Minimal APIs, web applications, and enterprise systems.",
+    "summary": "ASP.NET 10 is Microsoftâs latest cross-platform web framework for building high-performance, cloud-ready applications and APIs with modern C# and .NET.",
     "iconUrl": "blueprints/asp-dot-net-blueprint-header-image.png",
     "infoPageUrl": "http://www.harbormaster.net/infopages/asp.net.blueprint",
     "version": "1.1",

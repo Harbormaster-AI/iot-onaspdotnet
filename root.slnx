@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="iotonaspdotnet/iotonaspdotnet.Api.csproj" />
+  <Project Path="iotonaspdotnet/Tests/iotonaspdotnet.Tests.csproj" />
+</Solution>
