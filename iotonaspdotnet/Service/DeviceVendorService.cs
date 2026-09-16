@@ -41,7 +41,7 @@ public class DeviceVendorService : IDeviceVendorService
             return false;
         }
 
-        // Keep 1:1 â do not reassign to a ${lcType} who already has another deviceVendor.
+        // Keep 1:1 â do not reassign to a connectivityPlan who already has another deviceVendor.
         if (existing.ConnectivityPlanId != deviceVendor.ConnectivityPlanId)
         {
             var target;
