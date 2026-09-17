@@ -66,7 +66,7 @@ UsageRecord
 DeviceId
 FirmwareVersion
 Address
-Uri
+Uri_
 TopicName
 Checksum
 

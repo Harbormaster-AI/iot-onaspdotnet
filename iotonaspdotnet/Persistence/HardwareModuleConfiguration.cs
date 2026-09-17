@@ -15,7 +15,7 @@ public class HardwareModuleConfiguration : IEntityTypeConfiguration<HardwareModu
         builder.Property(x => x.Id).ValueGeneratedNever();
 
         builder.Property(x => x.ModuleCode);
-builder.OwnsOne(x => x.Uri, DatasheetUri =>
+builder.OwnsOne(x => x.Uri_, DatasheetUri =>
 {
     DatasheetUri.Property(x => x.Value).HasColumnName("DatasheetUri_value");
 });

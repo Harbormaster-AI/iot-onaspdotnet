@@ -12,7 +12,7 @@ namespace iotonaspdotnet.Domain.ValueObjects;
     string PostalCode,
     string Country
     );
-    public record Uri(
+    public record Uri_(
     string Value
     );
     public record TopicName(

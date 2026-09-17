@@ -15,7 +15,7 @@ public class TwinTemplateConfiguration : IEntityTypeConfiguration<TwinTemplate>
         builder.Property(x => x.Id).ValueGeneratedNever();
 
         builder.Property(x => x.Name);
-builder.OwnsOne(x => x.Uri, SchemaUri =>
+builder.OwnsOne(x => x.Uri_, SchemaUri =>
 {
     SchemaUri.Property(x => x.Value).HasColumnName("SchemaUri_value");
 });

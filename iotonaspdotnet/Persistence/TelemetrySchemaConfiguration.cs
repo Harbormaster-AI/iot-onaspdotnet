@@ -15,7 +15,7 @@ public class TelemetrySchemaConfiguration : IEntityTypeConfiguration<TelemetrySc
         builder.Property(x => x.Id).ValueGeneratedNever();
 
         builder.Property(x => x.SchemaId);
-builder.OwnsOne(x => x.Uri, SchemaUri =>
+builder.OwnsOne(x => x.Uri_, SchemaUri =>
 {
     SchemaUri.Property(x => x.Value).HasColumnName("SchemaUri_value");
 });
