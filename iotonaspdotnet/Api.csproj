@@ -20,4 +20,8 @@
 
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Test\**" />
+  </ItemGroup>
+
 </Project>
