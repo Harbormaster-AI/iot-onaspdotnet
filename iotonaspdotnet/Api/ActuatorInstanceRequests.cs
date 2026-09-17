@@ -1,7 +1,6 @@
 namespace iotonaspdotnet.Api;
 
-, String, TopicName, ActuatorType
-, Guid IoTDeviceId
-public record CreateActuatorInstanceRequest(string ActuatorInstanceNumber, decimal Balance, Guid IoTDeviceId);
-public record UpdateActuatorInstanceRequest(string ActuatorInstanceNumber, decimal Balance, Guid IoTDeviceId);
-public record ActuatorInstanceResponse(Guid Id, string ActuatorInstanceNumber, decimal Balance, Guid IoTDeviceId);
+
+public record CreateActuatorInstanceRequest( , String, TopicName, ActuatorType , Guid IoTDeviceId );
+public record UpdateActuatorInstanceRequest( , String, TopicName, ActuatorType , Guid IoTDeviceId );
+public record ActuatorInstanceResponse( Guid Id, , String, TopicName, ActuatorType , Guid IoTDeviceId );

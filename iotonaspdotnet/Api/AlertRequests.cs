@@ -1,7 +1,6 @@
 namespace iotonaspdotnet.Api;
 
-, DateTime, DateTime, String, AlertStatus
-, Guid IoTDeviceId, Guid AlertRuleId
-public record CreateAlertRequest(string AlertNumber, decimal Balance, Guid IoTDeviceId, Guid AlertRuleId);
-public record UpdateAlertRequest(string AlertNumber, decimal Balance, Guid IoTDeviceId, Guid AlertRuleId);
-public record AlertResponse(Guid Id, string AlertNumber, decimal Balance, Guid IoTDeviceId, Guid AlertRuleId);
+
+public record CreateAlertRequest( , DateTime, DateTime, String, AlertStatus , Guid IoTDeviceId, Guid AlertRuleId );
+public record UpdateAlertRequest( , DateTime, DateTime, String, AlertStatus , Guid IoTDeviceId, Guid AlertRuleId );
+public record AlertResponse( Guid Id, , DateTime, DateTime, String, AlertStatus , Guid IoTDeviceId, Guid AlertRuleId );

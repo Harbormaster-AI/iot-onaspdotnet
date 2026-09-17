@@ -1,7 +1,6 @@
 namespace iotonaspdotnet.Api;
 
-, String, String, String, String
 
-public record CreateDeviceVendorRequest(string DeviceVendorNumber, decimal Balance);
-public record UpdateDeviceVendorRequest(string DeviceVendorNumber, decimal Balance);
-public record DeviceVendorResponse(Guid Id, string DeviceVendorNumber, decimal Balance);
+public record CreateDeviceVendorRequest( , String, String, String, String  );
+public record UpdateDeviceVendorRequest( , String, String, String, String  );
+public record DeviceVendorResponse( Guid Id, , String, String, String, String  );

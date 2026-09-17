@@ -1,7 +1,6 @@
 namespace iotonaspdotnet.Api;
 
-, String, Uri_, String
 
-public record CreateTwinTemplateRequest(string TwinTemplateNumber, decimal Balance);
-public record UpdateTwinTemplateRequest(string TwinTemplateNumber, decimal Balance);
-public record TwinTemplateResponse(Guid Id, string TwinTemplateNumber, decimal Balance);
+public record CreateTwinTemplateRequest( , String, Uri_, String  );
+public record UpdateTwinTemplateRequest( , String, Uri_, String  );
+public record TwinTemplateResponse( Guid Id, , String, Uri_, String  );

@@ -1,7 +1,6 @@
 namespace iotonaspdotnet.Api;
 
-, String, Uri_, ModuleType
-, Guid DeviceVendorId
-public record CreateHardwareModuleRequest(string HardwareModuleNumber, decimal Balance, Guid DeviceVendorId);
-public record UpdateHardwareModuleRequest(string HardwareModuleNumber, decimal Balance, Guid DeviceVendorId);
-public record HardwareModuleResponse(Guid Id, string HardwareModuleNumber, decimal Balance, Guid DeviceVendorId);
+
+public record CreateHardwareModuleRequest( , String, Uri_, ModuleType , Guid DeviceVendorId );
+public record UpdateHardwareModuleRequest( , String, Uri_, ModuleType , Guid DeviceVendorId );
+public record HardwareModuleResponse( Guid Id, , String, Uri_, ModuleType , Guid DeviceVendorId );
