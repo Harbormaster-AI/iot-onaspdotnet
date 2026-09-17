@@ -24,6 +24,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace iotonaspdotnet.Domain.Enums;
 
@@ -44,27 +45,24 @@ public static class MessageQoSExtensions
     //************************************************************************
     // static implementations
     //************************************************************************
-    public static class MessageQoSExtensions
+    public static List<MessageQoS> GetValues()
     {
-        public static List<MessageQoS> GetValues()
+        return Enum.GetValues<MessageQoS>().ToList();
+    }
+
+    public static MessageQoS GetDefaultValue()
+    {
+        return Enum.GetValues<MessageQoS>().First();
+    }
+
+    public static MessageQoS WhichOne(string name)
+    {
+        if (Enum.TryParse<MessageQoS>(name, true, out var value))
         {
-            return Enum.GetValues<MessageQoS>().ToList();
+            return value;
         }
 
-        public static MessageQoS GetDefaultValue()
-        {
-            return Enum.GetValues<MessageQoS>().First();
-        }
-
-        public static MessageQoS WhichOne(string name)
-        {
-            if (Enum.TryParse<MessageQoS>(name, true, out var value))
-            {
-                return value;
-            }
-
-            return GetDefaultValue();
-        }
+        return GetDefaultValue();
     }
 }
 

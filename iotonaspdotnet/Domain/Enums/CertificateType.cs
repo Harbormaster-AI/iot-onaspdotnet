@@ -24,6 +24,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace iotonaspdotnet.Domain.Enums;
 
@@ -44,27 +45,24 @@ public static class CertificateTypeExtensions
     //************************************************************************
     // static implementations
     //************************************************************************
-    public static class CertificateTypeExtensions
+    public static List<CertificateType> GetValues()
     {
-        public static List<CertificateType> GetValues()
+        return Enum.GetValues<CertificateType>().ToList();
+    }
+
+    public static CertificateType GetDefaultValue()
+    {
+        return Enum.GetValues<CertificateType>().First();
+    }
+
+    public static CertificateType WhichOne(string name)
+    {
+        if (Enum.TryParse<CertificateType>(name, true, out var value))
         {
-            return Enum.GetValues<CertificateType>().ToList();
+            return value;
         }
 
-        public static CertificateType GetDefaultValue()
-        {
-            return Enum.GetValues<CertificateType>().First();
-        }
-
-        public static CertificateType WhichOne(string name)
-        {
-            if (Enum.TryParse<CertificateType>(name, true, out var value))
-            {
-                return value;
-            }
-
-            return GetDefaultValue();
-        }
+        return GetDefaultValue();
     }
 }
 

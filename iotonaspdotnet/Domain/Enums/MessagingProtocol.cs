@@ -24,6 +24,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace iotonaspdotnet.Domain.Enums;
 
@@ -44,27 +45,24 @@ public static class MessagingProtocolExtensions
     //************************************************************************
     // static implementations
     //************************************************************************
-    public static class MessagingProtocolExtensions
+    public static List<MessagingProtocol> GetValues()
     {
-        public static List<MessagingProtocol> GetValues()
+        return Enum.GetValues<MessagingProtocol>().ToList();
+    }
+
+    public static MessagingProtocol GetDefaultValue()
+    {
+        return Enum.GetValues<MessagingProtocol>().First();
+    }
+
+    public static MessagingProtocol WhichOne(string name)
+    {
+        if (Enum.TryParse<MessagingProtocol>(name, true, out var value))
         {
-            return Enum.GetValues<MessagingProtocol>().ToList();
+            return value;
         }
 
-        public static MessagingProtocol GetDefaultValue()
-        {
-            return Enum.GetValues<MessagingProtocol>().First();
-        }
-
-        public static MessagingProtocol WhichOne(string name)
-        {
-            if (Enum.TryParse<MessagingProtocol>(name, true, out var value))
-            {
-                return value;
-            }
-
-            return GetDefaultValue();
-        }
+        return GetDefaultValue();
     }
 }
 

@@ -24,6 +24,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace iotonaspdotnet.Domain.Enums;
 
@@ -44,27 +45,24 @@ public static class ProvisioningStatusExtensions
     //************************************************************************
     // static implementations
     //************************************************************************
-    public static class ProvisioningStatusExtensions
+    public static List<ProvisioningStatus> GetValues()
     {
-        public static List<ProvisioningStatus> GetValues()
+        return Enum.GetValues<ProvisioningStatus>().ToList();
+    }
+
+    public static ProvisioningStatus GetDefaultValue()
+    {
+        return Enum.GetValues<ProvisioningStatus>().First();
+    }
+
+    public static ProvisioningStatus WhichOne(string name)
+    {
+        if (Enum.TryParse<ProvisioningStatus>(name, true, out var value))
         {
-            return Enum.GetValues<ProvisioningStatus>().ToList();
+            return value;
         }
 
-        public static ProvisioningStatus GetDefaultValue()
-        {
-            return Enum.GetValues<ProvisioningStatus>().First();
-        }
-
-        public static ProvisioningStatus WhichOne(string name)
-        {
-            if (Enum.TryParse<ProvisioningStatus>(name, true, out var value))
-            {
-                return value;
-            }
-
-            return GetDefaultValue();
-        }
+        return GetDefaultValue();
     }
 }
 

@@ -24,6 +24,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace iotonaspdotnet.Domain.Enums;
 
@@ -44,27 +45,24 @@ public static class DeploymentStatusExtensions
     //************************************************************************
     // static implementations
     //************************************************************************
-    public static class DeploymentStatusExtensions
+    public static List<DeploymentStatus> GetValues()
     {
-        public static List<DeploymentStatus> GetValues()
+        return Enum.GetValues<DeploymentStatus>().ToList();
+    }
+
+    public static DeploymentStatus GetDefaultValue()
+    {
+        return Enum.GetValues<DeploymentStatus>().First();
+    }
+
+    public static DeploymentStatus WhichOne(string name)
+    {
+        if (Enum.TryParse<DeploymentStatus>(name, true, out var value))
         {
-            return Enum.GetValues<DeploymentStatus>().ToList();
+            return value;
         }
 
-        public static DeploymentStatus GetDefaultValue()
-        {
-            return Enum.GetValues<DeploymentStatus>().First();
-        }
-
-        public static DeploymentStatus WhichOne(string name)
-        {
-            if (Enum.TryParse<DeploymentStatus>(name, true, out var value))
-            {
-                return value;
-            }
-
-            return GetDefaultValue();
-        }
+        return GetDefaultValue();
     }
 }
 

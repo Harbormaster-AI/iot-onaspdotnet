@@ -24,6 +24,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace iotonaspdotnet.Domain.Enums;
 
@@ -44,27 +45,24 @@ public static class UpdateCampaignStatusExtensions
     //************************************************************************
     // static implementations
     //************************************************************************
-    public static class UpdateCampaignStatusExtensions
+    public static List<UpdateCampaignStatus> GetValues()
     {
-        public static List<UpdateCampaignStatus> GetValues()
+        return Enum.GetValues<UpdateCampaignStatus>().ToList();
+    }
+
+    public static UpdateCampaignStatus GetDefaultValue()
+    {
+        return Enum.GetValues<UpdateCampaignStatus>().First();
+    }
+
+    public static UpdateCampaignStatus WhichOne(string name)
+    {
+        if (Enum.TryParse<UpdateCampaignStatus>(name, true, out var value))
         {
-            return Enum.GetValues<UpdateCampaignStatus>().ToList();
+            return value;
         }
 
-        public static UpdateCampaignStatus GetDefaultValue()
-        {
-            return Enum.GetValues<UpdateCampaignStatus>().First();
-        }
-
-        public static UpdateCampaignStatus WhichOne(string name)
-        {
-            if (Enum.TryParse<UpdateCampaignStatus>(name, true, out var value))
-            {
-                return value;
-            }
-
-            return GetDefaultValue();
-        }
+        return GetDefaultValue();
     }
 }
 

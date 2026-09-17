@@ -24,6 +24,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace iotonaspdotnet.Domain.Enums;
 
@@ -44,27 +45,24 @@ public static class AlertSeverityExtensions
     //************************************************************************
     // static implementations
     //************************************************************************
-    public static class AlertSeverityExtensions
+    public static List<AlertSeverity> GetValues()
     {
-        public static List<AlertSeverity> GetValues()
+        return Enum.GetValues<AlertSeverity>().ToList();
+    }
+
+    public static AlertSeverity GetDefaultValue()
+    {
+        return Enum.GetValues<AlertSeverity>().First();
+    }
+
+    public static AlertSeverity WhichOne(string name)
+    {
+        if (Enum.TryParse<AlertSeverity>(name, true, out var value))
         {
-            return Enum.GetValues<AlertSeverity>().ToList();
+            return value;
         }
 
-        public static AlertSeverity GetDefaultValue()
-        {
-            return Enum.GetValues<AlertSeverity>().First();
-        }
-
-        public static AlertSeverity WhichOne(string name)
-        {
-            if (Enum.TryParse<AlertSeverity>(name, true, out var value))
-            {
-                return value;
-            }
-
-            return GetDefaultValue();
-        }
+        return GetDefaultValue();
     }
 }
 

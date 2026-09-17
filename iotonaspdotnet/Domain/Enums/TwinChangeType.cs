@@ -24,6 +24,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace iotonaspdotnet.Domain.Enums;
 
@@ -44,27 +45,24 @@ public static class TwinChangeTypeExtensions
     //************************************************************************
     // static implementations
     //************************************************************************
-    public static class TwinChangeTypeExtensions
+    public static List<TwinChangeType> GetValues()
     {
-        public static List<TwinChangeType> GetValues()
+        return Enum.GetValues<TwinChangeType>().ToList();
+    }
+
+    public static TwinChangeType GetDefaultValue()
+    {
+        return Enum.GetValues<TwinChangeType>().First();
+    }
+
+    public static TwinChangeType WhichOne(string name)
+    {
+        if (Enum.TryParse<TwinChangeType>(name, true, out var value))
         {
-            return Enum.GetValues<TwinChangeType>().ToList();
+            return value;
         }
 
-        public static TwinChangeType GetDefaultValue()
-        {
-            return Enum.GetValues<TwinChangeType>().First();
-        }
-
-        public static TwinChangeType WhichOne(string name)
-        {
-            if (Enum.TryParse<TwinChangeType>(name, true, out var value))
-            {
-                return value;
-            }
-
-            return GetDefaultValue();
-        }
+        return GetDefaultValue();
     }
 }
 

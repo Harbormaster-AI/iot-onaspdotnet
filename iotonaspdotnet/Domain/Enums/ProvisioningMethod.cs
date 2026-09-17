@@ -24,6 +24,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace iotonaspdotnet.Domain.Enums;
 
@@ -44,27 +45,24 @@ public static class ProvisioningMethodExtensions
     //************************************************************************
     // static implementations
     //************************************************************************
-    public static class ProvisioningMethodExtensions
+    public static List<ProvisioningMethod> GetValues()
     {
-        public static List<ProvisioningMethod> GetValues()
+        return Enum.GetValues<ProvisioningMethod>().ToList();
+    }
+
+    public static ProvisioningMethod GetDefaultValue()
+    {
+        return Enum.GetValues<ProvisioningMethod>().First();
+    }
+
+    public static ProvisioningMethod WhichOne(string name)
+    {
+        if (Enum.TryParse<ProvisioningMethod>(name, true, out var value))
         {
-            return Enum.GetValues<ProvisioningMethod>().ToList();
+            return value;
         }
 
-        public static ProvisioningMethod GetDefaultValue()
-        {
-            return Enum.GetValues<ProvisioningMethod>().First();
-        }
-
-        public static ProvisioningMethod WhichOne(string name)
-        {
-            if (Enum.TryParse<ProvisioningMethod>(name, true, out var value))
-            {
-                return value;
-            }
-
-            return GetDefaultValue();
-        }
+        return GetDefaultValue();
     }
 }
 

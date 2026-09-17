@@ -24,6 +24,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace iotonaspdotnet.Domain.Enums;
 
@@ -44,27 +45,24 @@ public static class PowerSourceExtensions
     //************************************************************************
     // static implementations
     //************************************************************************
-    public static class PowerSourceExtensions
+    public static List<PowerSource> GetValues()
     {
-        public static List<PowerSource> GetValues()
+        return Enum.GetValues<PowerSource>().ToList();
+    }
+
+    public static PowerSource GetDefaultValue()
+    {
+        return Enum.GetValues<PowerSource>().First();
+    }
+
+    public static PowerSource WhichOne(string name)
+    {
+        if (Enum.TryParse<PowerSource>(name, true, out var value))
         {
-            return Enum.GetValues<PowerSource>().ToList();
+            return value;
         }
 
-        public static PowerSource GetDefaultValue()
-        {
-            return Enum.GetValues<PowerSource>().First();
-        }
-
-        public static PowerSource WhichOne(string name)
-        {
-            if (Enum.TryParse<PowerSource>(name, true, out var value))
-            {
-                return value;
-            }
-
-            return GetDefaultValue();
-        }
+        return GetDefaultValue();
     }
 }
 

@@ -24,6 +24,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace iotonaspdotnet.Domain.Enums;
 
@@ -44,27 +45,24 @@ public static class AlertStatusExtensions
     //************************************************************************
     // static implementations
     //************************************************************************
-    public static class AlertStatusExtensions
+    public static List<AlertStatus> GetValues()
     {
-        public static List<AlertStatus> GetValues()
+        return Enum.GetValues<AlertStatus>().ToList();
+    }
+
+    public static AlertStatus GetDefaultValue()
+    {
+        return Enum.GetValues<AlertStatus>().First();
+    }
+
+    public static AlertStatus WhichOne(string name)
+    {
+        if (Enum.TryParse<AlertStatus>(name, true, out var value))
         {
-            return Enum.GetValues<AlertStatus>().ToList();
+            return value;
         }
 
-        public static AlertStatus GetDefaultValue()
-        {
-            return Enum.GetValues<AlertStatus>().First();
-        }
-
-        public static AlertStatus WhichOne(string name)
-        {
-            if (Enum.TryParse<AlertStatus>(name, true, out var value))
-            {
-                return value;
-            }
-
-            return GetDefaultValue();
-        }
+        return GetDefaultValue();
     }
 }
 

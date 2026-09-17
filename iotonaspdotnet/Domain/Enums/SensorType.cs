@@ -24,6 +24,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace iotonaspdotnet.Domain.Enums;
 
@@ -44,27 +45,24 @@ public static class SensorTypeExtensions
     //************************************************************************
     // static implementations
     //************************************************************************
-    public static class SensorTypeExtensions
+    public static List<SensorType> GetValues()
     {
-        public static List<SensorType> GetValues()
+        return Enum.GetValues<SensorType>().ToList();
+    }
+
+    public static SensorType GetDefaultValue()
+    {
+        return Enum.GetValues<SensorType>().First();
+    }
+
+    public static SensorType WhichOne(string name)
+    {
+        if (Enum.TryParse<SensorType>(name, true, out var value))
         {
-            return Enum.GetValues<SensorType>().ToList();
+            return value;
         }
 
-        public static SensorType GetDefaultValue()
-        {
-            return Enum.GetValues<SensorType>().First();
-        }
-
-        public static SensorType WhichOne(string name)
-        {
-            if (Enum.TryParse<SensorType>(name, true, out var value))
-            {
-                return value;
-            }
-
-            return GetDefaultValue();
-        }
+        return GetDefaultValue();
     }
 }
 

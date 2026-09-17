@@ -24,6 +24,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace iotonaspdotnet.Domain.Enums;
 
@@ -44,27 +45,24 @@ public static class UserRoleExtensions
     //************************************************************************
     // static implementations
     //************************************************************************
-    public static class UserRoleExtensions
+    public static List<UserRole> GetValues()
     {
-        public static List<UserRole> GetValues()
+        return Enum.GetValues<UserRole>().ToList();
+    }
+
+    public static UserRole GetDefaultValue()
+    {
+        return Enum.GetValues<UserRole>().First();
+    }
+
+    public static UserRole WhichOne(string name)
+    {
+        if (Enum.TryParse<UserRole>(name, true, out var value))
         {
-            return Enum.GetValues<UserRole>().ToList();
+            return value;
         }
 
-        public static UserRole GetDefaultValue()
-        {
-            return Enum.GetValues<UserRole>().First();
-        }
-
-        public static UserRole WhichOne(string name)
-        {
-            if (Enum.TryParse<UserRole>(name, true, out var value))
-            {
-                return value;
-            }
-
-            return GetDefaultValue();
-        }
+        return GetDefaultValue();
     }
 }
 

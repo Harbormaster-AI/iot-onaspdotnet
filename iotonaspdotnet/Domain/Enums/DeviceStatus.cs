@@ -24,6 +24,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace iotonaspdotnet.Domain.Enums;
 
@@ -44,27 +45,24 @@ public static class DeviceStatusExtensions
     //************************************************************************
     // static implementations
     //************************************************************************
-    public static class DeviceStatusExtensions
+    public static List<DeviceStatus> GetValues()
     {
-        public static List<DeviceStatus> GetValues()
+        return Enum.GetValues<DeviceStatus>().ToList();
+    }
+
+    public static DeviceStatus GetDefaultValue()
+    {
+        return Enum.GetValues<DeviceStatus>().First();
+    }
+
+    public static DeviceStatus WhichOne(string name)
+    {
+        if (Enum.TryParse<DeviceStatus>(name, true, out var value))
         {
-            return Enum.GetValues<DeviceStatus>().ToList();
+            return value;
         }
 
-        public static DeviceStatus GetDefaultValue()
-        {
-            return Enum.GetValues<DeviceStatus>().First();
-        }
-
-        public static DeviceStatus WhichOne(string name)
-        {
-            if (Enum.TryParse<DeviceStatus>(name, true, out var value))
-            {
-                return value;
-            }
-
-            return GetDefaultValue();
-        }
+        return GetDefaultValue();
     }
 }
 

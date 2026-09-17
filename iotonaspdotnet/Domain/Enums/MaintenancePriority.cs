@@ -24,6 +24,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace iotonaspdotnet.Domain.Enums;
 
@@ -44,27 +45,24 @@ public static class MaintenancePriorityExtensions
     //************************************************************************
     // static implementations
     //************************************************************************
-    public static class MaintenancePriorityExtensions
+    public static List<MaintenancePriority> GetValues()
     {
-        public static List<MaintenancePriority> GetValues()
+        return Enum.GetValues<MaintenancePriority>().ToList();
+    }
+
+    public static MaintenancePriority GetDefaultValue()
+    {
+        return Enum.GetValues<MaintenancePriority>().First();
+    }
+
+    public static MaintenancePriority WhichOne(string name)
+    {
+        if (Enum.TryParse<MaintenancePriority>(name, true, out var value))
         {
-            return Enum.GetValues<MaintenancePriority>().ToList();
+            return value;
         }
 
-        public static MaintenancePriority GetDefaultValue()
-        {
-            return Enum.GetValues<MaintenancePriority>().First();
-        }
-
-        public static MaintenancePriority WhichOne(string name)
-        {
-            if (Enum.TryParse<MaintenancePriority>(name, true, out var value))
-            {
-                return value;
-            }
-
-            return GetDefaultValue();
-        }
+        return GetDefaultValue();
     }
 }
 

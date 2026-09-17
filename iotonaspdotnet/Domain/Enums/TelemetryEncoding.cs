@@ -24,6 +24,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace iotonaspdotnet.Domain.Enums;
 
@@ -44,27 +45,24 @@ public static class TelemetryEncodingExtensions
     //************************************************************************
     // static implementations
     //************************************************************************
-    public static class TelemetryEncodingExtensions
+    public static List<TelemetryEncoding> GetValues()
     {
-        public static List<TelemetryEncoding> GetValues()
+        return Enum.GetValues<TelemetryEncoding>().ToList();
+    }
+
+    public static TelemetryEncoding GetDefaultValue()
+    {
+        return Enum.GetValues<TelemetryEncoding>().First();
+    }
+
+    public static TelemetryEncoding WhichOne(string name)
+    {
+        if (Enum.TryParse<TelemetryEncoding>(name, true, out var value))
         {
-            return Enum.GetValues<TelemetryEncoding>().ToList();
+            return value;
         }
 
-        public static TelemetryEncoding GetDefaultValue()
-        {
-            return Enum.GetValues<TelemetryEncoding>().First();
-        }
-
-        public static TelemetryEncoding WhichOne(string name)
-        {
-            if (Enum.TryParse<TelemetryEncoding>(name, true, out var value))
-            {
-                return value;
-            }
-
-            return GetDefaultValue();
-        }
+        return GetDefaultValue();
     }
 }
 

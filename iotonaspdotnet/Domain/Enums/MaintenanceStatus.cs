@@ -24,6 +24,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace iotonaspdotnet.Domain.Enums;
 
@@ -44,27 +45,24 @@ public static class MaintenanceStatusExtensions
     //************************************************************************
     // static implementations
     //************************************************************************
-    public static class MaintenanceStatusExtensions
+    public static List<MaintenanceStatus> GetValues()
     {
-        public static List<MaintenanceStatus> GetValues()
+        return Enum.GetValues<MaintenanceStatus>().ToList();
+    }
+
+    public static MaintenanceStatus GetDefaultValue()
+    {
+        return Enum.GetValues<MaintenanceStatus>().First();
+    }
+
+    public static MaintenanceStatus WhichOne(string name)
+    {
+        if (Enum.TryParse<MaintenanceStatus>(name, true, out var value))
         {
-            return Enum.GetValues<MaintenanceStatus>().ToList();
+            return value;
         }
 
-        public static MaintenanceStatus GetDefaultValue()
-        {
-            return Enum.GetValues<MaintenanceStatus>().First();
-        }
-
-        public static MaintenanceStatus WhichOne(string name)
-        {
-            if (Enum.TryParse<MaintenanceStatus>(name, true, out var value))
-            {
-                return value;
-            }
-
-            return GetDefaultValue();
-        }
+        return GetDefaultValue();
     }
 }
 

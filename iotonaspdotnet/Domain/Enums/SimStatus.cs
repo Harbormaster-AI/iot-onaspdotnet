@@ -24,6 +24,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace iotonaspdotnet.Domain.Enums;
 
@@ -44,27 +45,24 @@ public static class SimStatusExtensions
     //************************************************************************
     // static implementations
     //************************************************************************
-    public static class SimStatusExtensions
+    public static List<SimStatus> GetValues()
     {
-        public static List<SimStatus> GetValues()
+        return Enum.GetValues<SimStatus>().ToList();
+    }
+
+    public static SimStatus GetDefaultValue()
+    {
+        return Enum.GetValues<SimStatus>().First();
+    }
+
+    public static SimStatus WhichOne(string name)
+    {
+        if (Enum.TryParse<SimStatus>(name, true, out var value))
         {
-            return Enum.GetValues<SimStatus>().ToList();
+            return value;
         }
 
-        public static SimStatus GetDefaultValue()
-        {
-            return Enum.GetValues<SimStatus>().First();
-        }
-
-        public static SimStatus WhichOne(string name)
-        {
-            if (Enum.TryParse<SimStatus>(name, true, out var value))
-            {
-                return value;
-            }
-
-            return GetDefaultValue();
-        }
+        return GetDefaultValue();
     }
 }
 

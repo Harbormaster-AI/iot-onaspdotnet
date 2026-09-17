@@ -24,6 +24,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace iotonaspdotnet.Domain.Enums;
 
@@ -44,27 +45,24 @@ public static class ConnectivityTypeExtensions
     //************************************************************************
     // static implementations
     //************************************************************************
-    public static class ConnectivityTypeExtensions
+    public static List<ConnectivityType> GetValues()
     {
-        public static List<ConnectivityType> GetValues()
+        return Enum.GetValues<ConnectivityType>().ToList();
+    }
+
+    public static ConnectivityType GetDefaultValue()
+    {
+        return Enum.GetValues<ConnectivityType>().First();
+    }
+
+    public static ConnectivityType WhichOne(string name)
+    {
+        if (Enum.TryParse<ConnectivityType>(name, true, out var value))
         {
-            return Enum.GetValues<ConnectivityType>().ToList();
+            return value;
         }
 
-        public static ConnectivityType GetDefaultValue()
-        {
-            return Enum.GetValues<ConnectivityType>().First();
-        }
-
-        public static ConnectivityType WhichOne(string name)
-        {
-            if (Enum.TryParse<ConnectivityType>(name, true, out var value))
-            {
-                return value;
-            }
-
-            return GetDefaultValue();
-        }
+        return GetDefaultValue();
     }
 }
 

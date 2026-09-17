@@ -24,6 +24,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace iotonaspdotnet.Domain.Enums;
 
@@ -44,27 +45,24 @@ public static class CommandStatusExtensions
     //************************************************************************
     // static implementations
     //************************************************************************
-    public static class CommandStatusExtensions
+    public static List<CommandStatus> GetValues()
     {
-        public static List<CommandStatus> GetValues()
+        return Enum.GetValues<CommandStatus>().ToList();
+    }
+
+    public static CommandStatus GetDefaultValue()
+    {
+        return Enum.GetValues<CommandStatus>().First();
+    }
+
+    public static CommandStatus WhichOne(string name)
+    {
+        if (Enum.TryParse<CommandStatus>(name, true, out var value))
         {
-            return Enum.GetValues<CommandStatus>().ToList();
+            return value;
         }
 
-        public static CommandStatus GetDefaultValue()
-        {
-            return Enum.GetValues<CommandStatus>().First();
-        }
-
-        public static CommandStatus WhichOne(string name)
-        {
-            if (Enum.TryParse<CommandStatus>(name, true, out var value))
-            {
-                return value;
-            }
-
-            return GetDefaultValue();
-        }
+        return GetDefaultValue();
     }
 }
 

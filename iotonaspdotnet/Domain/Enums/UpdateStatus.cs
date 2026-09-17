@@ -24,6 +24,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace iotonaspdotnet.Domain.Enums;
 
@@ -44,27 +45,24 @@ public static class UpdateStatusExtensions
     //************************************************************************
     // static implementations
     //************************************************************************
-    public static class UpdateStatusExtensions
+    public static List<UpdateStatus> GetValues()
     {
-        public static List<UpdateStatus> GetValues()
+        return Enum.GetValues<UpdateStatus>().ToList();
+    }
+
+    public static UpdateStatus GetDefaultValue()
+    {
+        return Enum.GetValues<UpdateStatus>().First();
+    }
+
+    public static UpdateStatus WhichOne(string name)
+    {
+        if (Enum.TryParse<UpdateStatus>(name, true, out var value))
         {
-            return Enum.GetValues<UpdateStatus>().ToList();
+            return value;
         }
 
-        public static UpdateStatus GetDefaultValue()
-        {
-            return Enum.GetValues<UpdateStatus>().First();
-        }
-
-        public static UpdateStatus WhichOne(string name)
-        {
-            if (Enum.TryParse<UpdateStatus>(name, true, out var value))
-            {
-                return value;
-            }
-
-            return GetDefaultValue();
-        }
+        return GetDefaultValue();
     }
 }
 

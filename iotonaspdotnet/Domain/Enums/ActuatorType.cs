@@ -24,6 +24,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace iotonaspdotnet.Domain.Enums;
 
@@ -44,27 +45,24 @@ public static class ActuatorTypeExtensions
     //************************************************************************
     // static implementations
     //************************************************************************
-    public static class ActuatorTypeExtensions
+    public static List<ActuatorType> GetValues()
     {
-        public static List<ActuatorType> GetValues()
+        return Enum.GetValues<ActuatorType>().ToList();
+    }
+
+    public static ActuatorType GetDefaultValue()
+    {
+        return Enum.GetValues<ActuatorType>().First();
+    }
+
+    public static ActuatorType WhichOne(string name)
+    {
+        if (Enum.TryParse<ActuatorType>(name, true, out var value))
         {
-            return Enum.GetValues<ActuatorType>().ToList();
+            return value;
         }
 
-        public static ActuatorType GetDefaultValue()
-        {
-            return Enum.GetValues<ActuatorType>().First();
-        }
-
-        public static ActuatorType WhichOne(string name)
-        {
-            if (Enum.TryParse<ActuatorType>(name, true, out var value))
-            {
-                return value;
-            }
-
-            return GetDefaultValue();
-        }
+        return GetDefaultValue();
     }
 }
 

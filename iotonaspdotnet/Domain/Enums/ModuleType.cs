@@ -24,6 +24,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace iotonaspdotnet.Domain.Enums;
 
@@ -44,27 +45,24 @@ public static class ModuleTypeExtensions
     //************************************************************************
     // static implementations
     //************************************************************************
-    public static class ModuleTypeExtensions
+    public static List<ModuleType> GetValues()
     {
-        public static List<ModuleType> GetValues()
+        return Enum.GetValues<ModuleType>().ToList();
+    }
+
+    public static ModuleType GetDefaultValue()
+    {
+        return Enum.GetValues<ModuleType>().First();
+    }
+
+    public static ModuleType WhichOne(string name)
+    {
+        if (Enum.TryParse<ModuleType>(name, true, out var value))
         {
-            return Enum.GetValues<ModuleType>().ToList();
+            return value;
         }
 
-        public static ModuleType GetDefaultValue()
-        {
-            return Enum.GetValues<ModuleType>().First();
-        }
-
-        public static ModuleType WhichOne(string name)
-        {
-            if (Enum.TryParse<ModuleType>(name, true, out var value))
-            {
-                return value;
-            }
-
-            return GetDefaultValue();
-        }
+        return GetDefaultValue();
     }
 }
 

@@ -24,6 +24,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace iotonaspdotnet.Domain.Enums;
 
@@ -44,27 +45,24 @@ public static class TenantTypeExtensions
     //************************************************************************
     // static implementations
     //************************************************************************
-    public static class TenantTypeExtensions
+    public static List<TenantType> GetValues()
     {
-        public static List<TenantType> GetValues()
+        return Enum.GetValues<TenantType>().ToList();
+    }
+
+    public static TenantType GetDefaultValue()
+    {
+        return Enum.GetValues<TenantType>().First();
+    }
+
+    public static TenantType WhichOne(string name)
+    {
+        if (Enum.TryParse<TenantType>(name, true, out var value))
         {
-            return Enum.GetValues<TenantType>().ToList();
+            return value;
         }
 
-        public static TenantType GetDefaultValue()
-        {
-            return Enum.GetValues<TenantType>().First();
-        }
-
-        public static TenantType WhichOne(string name)
-        {
-            if (Enum.TryParse<TenantType>(name, true, out var value))
-            {
-                return value;
-            }
-
-            return GetDefaultValue();
-        }
+        return GetDefaultValue();
     }
 }
 
