@@ -7,4 +7,8 @@ public class Building
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
-										
+										 public virtual Gateway buildingId { get; set; }
+								 public virtual Gateway name { get; set; }
+								public virtual Site Site { get; set; }
+								public virtual Floor Floors { get; set; }
+			}
