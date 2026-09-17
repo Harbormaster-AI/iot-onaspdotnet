@@ -1,6 +1,7 @@
 using iotonaspdotnet.Service;
 using iotonaspdotnet.Domain;
 
+
 namespace iotonaspdotnet.Api;
 
 public static class DataRetentionPolicyEndpoints
@@ -9,47 +10,28 @@ public static class DataRetentionPolicyEndpoints
     {
         var group = app.MapGroup("/api/dataRetentionPolicy").WithTags("DataRetentionPolicys");
 
-        group.MapGet("/", GetAll);
-        group.MapGet("/{id:guid}", GetById);
-        group.MapPost("/", Create);
-        group.MapPut("/{id:guid}", Update);
-        group.MapDelete("/{id:guid}", Delete);
+        group.MapPost("/", create);
+        group.MapGet("/", get);
+        group.MapGet("/", getAll);
+        group.MapPut("/", update);
+        group.MapDelete("/", delete);
+
+        group.MapDelete("/", assignTenant);
+        group.MapDelete("/", unassignTenant);
+
+    group.MapDelete("/", addToStreams);
+    group.MapDelete("/", removeFromStreams);
+
 
         return app;
     }
 
-    private static async Task<IResult> GetAll(
-        IDataRetentionPolicyService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassNames = await service.GetAllAsync(cancellationToken);
-        return Results.Ok(lowercaseClassNames.Select(ToResponse));
-    }
-
-    private static async Task<IResult> GetById(
-        Guid id,
-        IDataRetentionPolicyService service,
-        CancellationToken cancellationToken)
-    {
-        var dataRetentionPolicy = await service.GetByIdAsync(id, cancellationToken);
-        return dataRetentionPolicy is null ? Results.NotFound() : Results.Ok(ToResponse( dataRetentionPolicy ));
-    }
-
     private static async Task<IResult> Create(
-        CreateDataRetentionPolicyRequest request,
+        DataRetentionPolicyRequest request,
         IDataRetentionPolicyService service,
-        CancellationToken cancellationToken)
-    {
-        var dataRetentionPolicy = new DataRetentionPolicy
-        {
-            Id = Guid.NewGuid(),
+        CancellationToken cancellationToken) {
 
-                Name = request.Name,
-                RetentionDays = request.RetentionDays,
-
-                TenantId = request.TenantId,
-
-        };
+        var model = mapRequestTo( request );
 
         try
         {
@@ -60,27 +42,19 @@ public static class DataRetentionPolicyEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/dataRetentionPolicys/dataRetentionPolicy.Id", ToResponse(lowercaseClassName));
+        return Results.NoContent();
     }
 
     private static async Task<IResult> Update(
-        Guid id,
-        UpdateDataRetentionPolicyRequest request,
+        DataRetentionPolicyRequest request,
         IDataRetentionPolicyService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassName = new DataRetentionPolicy
-        {
-            Id = id,
-            Name = request.Name,
-            RetentionDays = request.RetentionDays,
+        CancellationToken cancellationToken) {
 
-            TenantId = request.TenantId,
-        };
+        var model = mapRequestTo( request );
 
         try
         {
-            var updated = await service.UpdateAsync(lowercaseClassName, cancellationToken);
+            var updated = await service.UpdateAsync(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -89,18 +63,74 @@ public static class DataRetentionPolicyEndpoints
         }
     }
 
-    private static async Task<IResult> Delete(
-        Guid id,
+    private static async Task<IResult> GetAll(
         IDataRetentionPolicyService service,
-        CancellationToken cancellationToken)
-    {
-        var deleted = await service.DeleteAsync(id, cancellationToken);
+        CancellationToken cancellationToken) {
+
+        var all; = await service.GetAllAsync(cancellationToken);
+        return Results.Ok( all.Select( DataRetentionPolicyResponse.FromModel ) );
+    }
+
+    private static async Task<IResult> Get(
+        IdentifierRequest identifier,
+        IDataRetentionPolicyService service,
+        CancellationToken cancellationToken) {
+
+        var dataRetentionPolicy = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        return dataRetentionPolicy is null ? Results.NotFound() : Results.Ok( dataRetentionPolicy );
+    }
+
+
+    private static async Task<IResult> Delete(
+        IdentifierRequest identifier,
+        IDataRetentionPolicyService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.DeleteAsync(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private static DataRetentionPolicyResponse ToResponse(DataRetentionPolicy lowercaseClassName)
-        => new( dataRetentionPolicy.Id,
-                , String, Integer
-                , TenantId );
+    private static async Task<IResult> AssignTenant(
+        AssociationRequest request,
+        IDataRetentionPolicyService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AssignTenantAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
 
+    private static async Task<IResult> AssignTenant(
+    AssociationRequest request,
+    IDataRetentionPolicyService service,
+    CancellationToken cancellationToken) {
+        var deleted = await service.AssignTenantAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+
+    private static async Task<IResult> AssignStreams(
+        AssociationRequest request,
+        IDataRetentionPolicyService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AddToStreamsAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignStreams(
+        AssociationRequest request,
+        IDataRetentionPolicyService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.RemoveFromStreamsAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private com.harbormaster.codetemplate.model.classes.ClassObject@1535259a mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@1535259a( com.harbormaster.codetemplate.model.classes.ClassObject@1535259aRequest request ) {
+        var model = new DataRetentionPolicy
+        {
+            Id = request.id,
+        Name = request.Name
+        RetentionDays = request.RetentionDays
+        Tenant = request.Tenant
+        Streams = request.Streams
+        }
+        return model;
+    }
 }

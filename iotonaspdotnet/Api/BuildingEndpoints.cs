@@ -1,6 +1,7 @@
 using iotonaspdotnet.Service;
 using iotonaspdotnet.Domain;
 
+
 namespace iotonaspdotnet.Api;
 
 public static class BuildingEndpoints
@@ -9,46 +10,28 @@ public static class BuildingEndpoints
     {
         var group = app.MapGroup("/api/building").WithTags("Buildings");
 
-        group.MapGet("/", GetAll);
-        group.MapGet("/{id:guid}", GetById);
-        group.MapPost("/", Create);
-        group.MapPut("/{id:guid}", Update);
-        group.MapDelete("/{id:guid}", Delete);
+        group.MapPost("/", create);
+        group.MapGet("/", get);
+        group.MapGet("/", getAll);
+        group.MapPut("/", update);
+        group.MapDelete("/", delete);
+
+        group.MapDelete("/", assignSite);
+        group.MapDelete("/", unassignSite);
+
+    group.MapDelete("/", addToFloors);
+    group.MapDelete("/", removeFromFloors);
+
 
         return app;
     }
 
-    private static async Task<IResult> GetAll(
-        IBuildingService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassNames = await service.GetAllAsync(cancellationToken);
-        return Results.Ok(lowercaseClassNames.Select(ToResponse));
-    }
-
-    private static async Task<IResult> GetById(
-        Guid id,
-        IBuildingService service,
-        CancellationToken cancellationToken)
-    {
-        var building = await service.GetByIdAsync(id, cancellationToken);
-        return building is null ? Results.NotFound() : Results.Ok(ToResponse( building ));
-    }
-
     private static async Task<IResult> Create(
-        CreateBuildingRequest request,
+        BuildingRequest request,
         IBuildingService service,
-        CancellationToken cancellationToken)
-    {
-        var building = new Building
-        {
-            Id = Guid.NewGuid(),
+        CancellationToken cancellationToken) {
 
-                Name = request.Name,
-
-                SiteId = request.SiteId,
-
-        };
+        var model = mapRequestTo( request );
 
         try
         {
@@ -59,26 +42,19 @@ public static class BuildingEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/buildings/building.Id", ToResponse(lowercaseClassName));
+        return Results.NoContent();
     }
 
     private static async Task<IResult> Update(
-        Guid id,
-        UpdateBuildingRequest request,
+        BuildingRequest request,
         IBuildingService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassName = new Building
-        {
-            Id = id,
-            Name = request.Name,
+        CancellationToken cancellationToken) {
 
-            SiteId = request.SiteId,
-        };
+        var model = mapRequestTo( request );
 
         try
         {
-            var updated = await service.UpdateAsync(lowercaseClassName, cancellationToken);
+            var updated = await service.UpdateAsync(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -87,18 +63,73 @@ public static class BuildingEndpoints
         }
     }
 
-    private static async Task<IResult> Delete(
-        Guid id,
+    private static async Task<IResult> GetAll(
         IBuildingService service,
-        CancellationToken cancellationToken)
-    {
-        var deleted = await service.DeleteAsync(id, cancellationToken);
+        CancellationToken cancellationToken) {
+
+        var all; = await service.GetAllAsync(cancellationToken);
+        return Results.Ok( all.Select( BuildingResponse.FromModel ) );
+    }
+
+    private static async Task<IResult> Get(
+        IdentifierRequest identifier,
+        IBuildingService service,
+        CancellationToken cancellationToken) {
+
+        var building = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        return building is null ? Results.NotFound() : Results.Ok( building );
+    }
+
+
+    private static async Task<IResult> Delete(
+        IdentifierRequest identifier,
+        IBuildingService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.DeleteAsync(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private static BuildingResponse ToResponse(Building lowercaseClassName)
-        => new( building.Id,
-                , String
-                , SiteId );
+    private static async Task<IResult> AssignSite(
+        AssociationRequest request,
+        IBuildingService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AssignSiteAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
 
+    private static async Task<IResult> AssignSite(
+    AssociationRequest request,
+    IBuildingService service,
+    CancellationToken cancellationToken) {
+        var deleted = await service.AssignSiteAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+
+    private static async Task<IResult> AssignFloors(
+        AssociationRequest request,
+        IBuildingService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AddToFloorsAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignFloors(
+        AssociationRequest request,
+        IBuildingService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.RemoveFromFloorsAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private com.harbormaster.codetemplate.model.classes.ClassObject@6a1e8848 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@6a1e8848( com.harbormaster.codetemplate.model.classes.ClassObject@6a1e8848Request request ) {
+        var model = new Building
+        {
+            Id = request.id,
+        Name = request.Name
+        Site = request.Site
+        Floors = request.Floors
+        }
+        return model;
+    }
 }

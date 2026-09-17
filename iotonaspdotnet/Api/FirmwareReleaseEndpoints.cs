@@ -1,6 +1,7 @@
 using iotonaspdotnet.Service;
 using iotonaspdotnet.Domain;
 
+
 namespace iotonaspdotnet.Api;
 
 public static class FirmwareReleaseEndpoints
@@ -9,49 +10,25 @@ public static class FirmwareReleaseEndpoints
     {
         var group = app.MapGroup("/api/firmwareRelease").WithTags("FirmwareReleases");
 
-        group.MapGet("/", GetAll);
-        group.MapGet("/{id:guid}", GetById);
-        group.MapPost("/", Create);
-        group.MapPut("/{id:guid}", Update);
-        group.MapDelete("/{id:guid}", Delete);
+        group.MapPost("/", create);
+        group.MapGet("/", get);
+        group.MapGet("/", getAll);
+        group.MapPut("/", update);
+        group.MapDelete("/", delete);
+
+        group.MapDelete("/", assignDeviceModel);
+        group.MapDelete("/", unassignDeviceModel);
+
 
         return app;
     }
 
-    private static async Task<IResult> GetAll(
-        IFirmwareReleaseService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassNames = await service.GetAllAsync(cancellationToken);
-        return Results.Ok(lowercaseClassNames.Select(ToResponse));
-    }
-
-    private static async Task<IResult> GetById(
-        Guid id,
-        IFirmwareReleaseService service,
-        CancellationToken cancellationToken)
-    {
-        var firmwareRelease = await service.GetByIdAsync(id, cancellationToken);
-        return firmwareRelease is null ? Results.NotFound() : Results.Ok(ToResponse( firmwareRelease ));
-    }
-
     private static async Task<IResult> Create(
-        CreateFirmwareReleaseRequest request,
+        FirmwareReleaseRequest request,
         IFirmwareReleaseService service,
-        CancellationToken cancellationToken)
-    {
-        var firmwareRelease = new FirmwareRelease
-        {
-            Id = Guid.NewGuid(),
+        CancellationToken cancellationToken) {
 
-                Version = request.Version,
-                ReleaseDate = request.ReleaseDate,
-                ReleaseNotes = request.ReleaseNotes,
-                Checksum = request.Checksum,
-
-                DeviceModelId = request.DeviceModelId,
-
-        };
+        var model = mapRequestTo( request );
 
         try
         {
@@ -62,29 +39,19 @@ public static class FirmwareReleaseEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/firmwareReleases/firmwareRelease.Id", ToResponse(lowercaseClassName));
+        return Results.NoContent();
     }
 
     private static async Task<IResult> Update(
-        Guid id,
-        UpdateFirmwareReleaseRequest request,
+        FirmwareReleaseRequest request,
         IFirmwareReleaseService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassName = new FirmwareRelease
-        {
-            Id = id,
-            Version = request.Version,
-            ReleaseDate = request.ReleaseDate,
-            ReleaseNotes = request.ReleaseNotes,
-            Checksum = request.Checksum,
+        CancellationToken cancellationToken) {
 
-            DeviceModelId = request.DeviceModelId,
-        };
+        var model = mapRequestTo( request );
 
         try
         {
-            var updated = await service.UpdateAsync(lowercaseClassName, cancellationToken);
+            var updated = await service.UpdateAsync(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -93,18 +60,47 @@ public static class FirmwareReleaseEndpoints
         }
     }
 
-    private static async Task<IResult> Delete(
-        Guid id,
+    private static async Task<IResult> GetAll(
         IFirmwareReleaseService service,
-        CancellationToken cancellationToken)
-    {
-        var deleted = await service.DeleteAsync(id, cancellationToken);
+        CancellationToken cancellationToken) {
+
+        var all; = await service.GetAllAsync(cancellationToken);
+        return Results.Ok( all.Select( FirmwareReleaseResponse.FromModel ) );
+    }
+
+    private static async Task<IResult> Get(
+        IdentifierRequest identifier,
+        IFirmwareReleaseService service,
+        CancellationToken cancellationToken) {
+
+        var firmwareRelease = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        return firmwareRelease is null ? Results.NotFound() : Results.Ok( firmwareRelease );
+    }
+
+
+    private static async Task<IResult> Delete(
+        IdentifierRequest identifier,
+        IFirmwareReleaseService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.DeleteAsync(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private static FirmwareReleaseResponse ToResponse(FirmwareRelease lowercaseClassName)
-        => new( firmwareRelease.Id,
-                , FirmwareVersion, Date, String, Checksum
-                , DeviceModelId );
+    private static async Task<IResult> AssignDeviceModel(
+        AssociationRequest request,
+        IFirmwareReleaseService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AssignDeviceModelAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignDeviceModel(
+    AssociationRequest request,
+    IFirmwareReleaseService service,
+    CancellationToken cancellationToken) {
+        var deleted = await service.AssignDeviceModelAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
 
 }

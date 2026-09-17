@@ -5,11 +5,13 @@ namespace iotonaspdotnet.Service;
 
 public interface ITenantService
 {
-    Task<Tenant?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-    Task<IReadOnlyList<Tenant>> GetAllAsync(CancellationToken cancellationToken);
-    Task CreateAsync(Tenant tenant, CancellationToken cancellationToken);
-    Task<bool> UpdateAsync(Tenant tenant, CancellationToken cancellationToken);
-    Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken);
+    Task<Tenant?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<Tenant>> GetAll(CancellationToken cancellationToken);
+    Task Create(TenantRequest request , CancellationToken cancellationToken);
+    Task<bool> Update(TenantRequest request, CancellationToken cancellationToken);
+    Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+
 }
 
 public class TenantService : ITenantService
@@ -22,29 +24,40 @@ public class TenantService : ITenantService
         _repository = repository;
     }
 
-    public Task<Tenant?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(id, cancellationToken);
+    public Task<Tenant?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<Tenant>> GetAllAsync(CancellationToken cancellationToken)
+    public Task<IReadOnlyList<Tenant>> GetAll(CancellationToken cancellationToken)
         => _repository.GetAllAsync(cancellationToken);
 
-    public async Task CreateAsync(Tenant tenant, CancellationToken cancellationToken)
+    public async Task Create(TenantRequest request, CancellationToken cancellationToken)
     {
-        await _repository.AddAsync(tenant, cancellationToken);
+        await _repository.AddAsync(request, cancellationToken);
     }
 
-    public async Task<bool> UpdateAsync(Tenant tenant, CancellationToken cancellationToken)
+    public async Task<bool> Update(TenantRequest request, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(tenant.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-
-        // Keep 1:1 â do not reassign to a alertRule who already has another tenant.
-        if (existing.Id != tenant.Id)
-        {
-        }
+        existing.Name = request.Name
+        existing.Sites = request.Sites
+        existing.Users = request.Users
+        existing.Devices = request.Devices
+        existing.DataRetentionPolicies = request.DataRetentionPolicies
+        existing.ConnectivityPlans = request.ConnectivityPlans
+        existing.SimCards = request.SimCards
+        existing.MessagingEndpoints = request.MessagingEndpoints
+        existing.AccessPolicies = request.AccessPolicies
+        existing.DeviceGroups = request.DeviceGroups
+        existing.AlertRules = request.AlertRules
+        existing.MaintenanceTickets = request.MaintenanceTickets
+        existing.UsageRecords = request.UsageRecords
+        existing.TenantType = request.TenantType
+        await _repository.UpdateAsync(existing, cancellationToken);
+    }
 
         existing.Name = tenant.Name;
         existing.TenantType = tenant.TenantType;
@@ -53,9 +66,9 @@ public class TenantService : ITenantService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
         {
             return false;
@@ -64,4 +77,6 @@ public class TenantService : ITenantService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+
 }

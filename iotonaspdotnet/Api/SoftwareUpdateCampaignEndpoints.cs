@@ -1,6 +1,7 @@
 using iotonaspdotnet.Service;
 using iotonaspdotnet.Domain;
 
+
 namespace iotonaspdotnet.Api;
 
 public static class SoftwareUpdateCampaignEndpoints
@@ -9,50 +10,30 @@ public static class SoftwareUpdateCampaignEndpoints
     {
         var group = app.MapGroup("/api/softwareUpdateCampaign").WithTags("SoftwareUpdateCampaigns");
 
-        group.MapGet("/", GetAll);
-        group.MapGet("/{id:guid}", GetById);
-        group.MapPost("/", Create);
-        group.MapPut("/{id:guid}", Update);
-        group.MapDelete("/{id:guid}", Delete);
+        group.MapPost("/", create);
+        group.MapGet("/", get);
+        group.MapGet("/", getAll);
+        group.MapPut("/", update);
+        group.MapDelete("/", delete);
+
+        group.MapDelete("/", assignFirmwareRelease);
+        group.MapDelete("/", unassignFirmwareRelease);
+        group.MapDelete("/", assignDeviceGroup);
+        group.MapDelete("/", unassignDeviceGroup);
+
+    group.MapDelete("/", addToExecutions);
+    group.MapDelete("/", removeFromExecutions);
+
 
         return app;
     }
 
-    private static async Task<IResult> GetAll(
-        ISoftwareUpdateCampaignService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassNames = await service.GetAllAsync(cancellationToken);
-        return Results.Ok(lowercaseClassNames.Select(ToResponse));
-    }
-
-    private static async Task<IResult> GetById(
-        Guid id,
-        ISoftwareUpdateCampaignService service,
-        CancellationToken cancellationToken)
-    {
-        var softwareUpdateCampaign = await service.GetByIdAsync(id, cancellationToken);
-        return softwareUpdateCampaign is null ? Results.NotFound() : Results.Ok(ToResponse( softwareUpdateCampaign ));
-    }
-
     private static async Task<IResult> Create(
-        CreateSoftwareUpdateCampaignRequest request,
+        SoftwareUpdateCampaignRequest request,
         ISoftwareUpdateCampaignService service,
-        CancellationToken cancellationToken)
-    {
-        var softwareUpdateCampaign = new SoftwareUpdateCampaign
-        {
-            Id = Guid.NewGuid(),
+        CancellationToken cancellationToken) {
 
-                CampaignCode = request.CampaignCode,
-                ScheduledStart = request.ScheduledStart,
-                ScheduledEnd = request.ScheduledEnd,
-                Status = request.Status,
-
-                FirmwareReleaseId = request.FirmwareReleaseId,
-                DeviceGroupId = request.DeviceGroupId,
-
-        };
+        var model = mapRequestTo( request );
 
         try
         {
@@ -63,30 +44,19 @@ public static class SoftwareUpdateCampaignEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/softwareUpdateCampaigns/softwareUpdateCampaign.Id", ToResponse(lowercaseClassName));
+        return Results.NoContent();
     }
 
     private static async Task<IResult> Update(
-        Guid id,
-        UpdateSoftwareUpdateCampaignRequest request,
+        SoftwareUpdateCampaignRequest request,
         ISoftwareUpdateCampaignService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassName = new SoftwareUpdateCampaign
-        {
-            Id = id,
-            CampaignCode = request.CampaignCode,
-            ScheduledStart = request.ScheduledStart,
-            ScheduledEnd = request.ScheduledEnd,
-            Status = request.Status,
+        CancellationToken cancellationToken) {
 
-            FirmwareReleaseId = request.FirmwareReleaseId,
-            DeviceGroupId = request.DeviceGroupId,
-        };
+        var model = mapRequestTo( request );
 
         try
         {
-            var updated = await service.UpdateAsync(lowercaseClassName, cancellationToken);
+            var updated = await service.UpdateAsync(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -95,18 +65,93 @@ public static class SoftwareUpdateCampaignEndpoints
         }
     }
 
-    private static async Task<IResult> Delete(
-        Guid id,
+    private static async Task<IResult> GetAll(
         ISoftwareUpdateCampaignService service,
-        CancellationToken cancellationToken)
-    {
-        var deleted = await service.DeleteAsync(id, cancellationToken);
+        CancellationToken cancellationToken) {
+
+        var all; = await service.GetAllAsync(cancellationToken);
+        return Results.Ok( all.Select( SoftwareUpdateCampaignResponse.FromModel ) );
+    }
+
+    private static async Task<IResult> Get(
+        IdentifierRequest identifier,
+        ISoftwareUpdateCampaignService service,
+        CancellationToken cancellationToken) {
+
+        var softwareUpdateCampaign = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        return softwareUpdateCampaign is null ? Results.NotFound() : Results.Ok( softwareUpdateCampaign );
+    }
+
+
+    private static async Task<IResult> Delete(
+        IdentifierRequest identifier,
+        ISoftwareUpdateCampaignService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.DeleteAsync(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private static SoftwareUpdateCampaignResponse ToResponse(SoftwareUpdateCampaign lowercaseClassName)
-        => new( softwareUpdateCampaign.Id,
-                , String, DateTime, DateTime, UpdateCampaignStatus
-                , FirmwareReleaseId, DeviceGroupId );
+    private static async Task<IResult> AssignFirmwareRelease(
+        AssociationRequest request,
+        ISoftwareUpdateCampaignService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AssignFirmwareReleaseAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
 
+    private static async Task<IResult> AssignFirmwareRelease(
+    AssociationRequest request,
+    ISoftwareUpdateCampaignService service,
+    CancellationToken cancellationToken) {
+        var deleted = await service.AssignFirmwareReleaseAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignDeviceGroup(
+        AssociationRequest request,
+        ISoftwareUpdateCampaignService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AssignDeviceGroupAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignDeviceGroup(
+    AssociationRequest request,
+    ISoftwareUpdateCampaignService service,
+    CancellationToken cancellationToken) {
+        var deleted = await service.AssignDeviceGroupAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+
+    private static async Task<IResult> AssignExecutions(
+        AssociationRequest request,
+        ISoftwareUpdateCampaignService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AddToExecutionsAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignExecutions(
+        AssociationRequest request,
+        ISoftwareUpdateCampaignService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.RemoveFromExecutionsAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private com.harbormaster.codetemplate.model.classes.ClassObject@576ec83e mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@576ec83e( com.harbormaster.codetemplate.model.classes.ClassObject@576ec83eRequest request ) {
+        var model = new SoftwareUpdateCampaign
+        {
+            Id = request.id,
+        CampaignCode = request.CampaignCode
+        ScheduledStart = request.ScheduledStart
+        ScheduledEnd = request.ScheduledEnd
+        FirmwareRelease = request.FirmwareRelease
+        DeviceGroup = request.DeviceGroup
+        Executions = request.Executions
+        Status = request.Status
+        }
+        return model;
+    }
 }

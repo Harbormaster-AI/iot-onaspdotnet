@@ -1,6 +1,7 @@
 using iotonaspdotnet.Service;
 using iotonaspdotnet.Domain;
 
+
 namespace iotonaspdotnet.Api;
 
 public static class MessagingEndpointEndpoints
@@ -9,49 +10,28 @@ public static class MessagingEndpointEndpoints
     {
         var group = app.MapGroup("/api/messagingEndpoint").WithTags("MessagingEndpoints");
 
-        group.MapGet("/", GetAll);
-        group.MapGet("/{id:guid}", GetById);
-        group.MapPost("/", Create);
-        group.MapPut("/{id:guid}", Update);
-        group.MapDelete("/{id:guid}", Delete);
+        group.MapPost("/", create);
+        group.MapGet("/", get);
+        group.MapGet("/", getAll);
+        group.MapPut("/", update);
+        group.MapDelete("/", delete);
+
+        group.MapDelete("/", assignTenant);
+        group.MapDelete("/", unassignTenant);
+
+    group.MapDelete("/", addToStreams);
+    group.MapDelete("/", removeFromStreams);
+
 
         return app;
     }
 
-    private static async Task<IResult> GetAll(
-        IMessagingEndpointService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassNames = await service.GetAllAsync(cancellationToken);
-        return Results.Ok(lowercaseClassNames.Select(ToResponse));
-    }
-
-    private static async Task<IResult> GetById(
-        Guid id,
-        IMessagingEndpointService service,
-        CancellationToken cancellationToken)
-    {
-        var messagingEndpoint = await service.GetByIdAsync(id, cancellationToken);
-        return messagingEndpoint is null ? Results.NotFound() : Results.Ok(ToResponse( messagingEndpoint ));
-    }
-
     private static async Task<IResult> Create(
-        CreateMessagingEndpointRequest request,
+        MessagingEndpointRequest request,
         IMessagingEndpointService service,
-        CancellationToken cancellationToken)
-    {
-        var messagingEndpoint = new MessagingEndpoint
-        {
-            Id = Guid.NewGuid(),
+        CancellationToken cancellationToken) {
 
-                Host = request.Host,
-                Port = request.Port,
-                Secure = request.Secure,
-                Protocol = request.Protocol,
-
-                TenantId = request.TenantId,
-
-        };
+        var model = mapRequestTo( request );
 
         try
         {
@@ -62,29 +42,19 @@ public static class MessagingEndpointEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/messagingEndpoints/messagingEndpoint.Id", ToResponse(lowercaseClassName));
+        return Results.NoContent();
     }
 
     private static async Task<IResult> Update(
-        Guid id,
-        UpdateMessagingEndpointRequest request,
+        MessagingEndpointRequest request,
         IMessagingEndpointService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassName = new MessagingEndpoint
-        {
-            Id = id,
-            Host = request.Host,
-            Port = request.Port,
-            Secure = request.Secure,
-            Protocol = request.Protocol,
+        CancellationToken cancellationToken) {
 
-            TenantId = request.TenantId,
-        };
+        var model = mapRequestTo( request );
 
         try
         {
-            var updated = await service.UpdateAsync(lowercaseClassName, cancellationToken);
+            var updated = await service.UpdateAsync(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -93,18 +63,76 @@ public static class MessagingEndpointEndpoints
         }
     }
 
-    private static async Task<IResult> Delete(
-        Guid id,
+    private static async Task<IResult> GetAll(
         IMessagingEndpointService service,
-        CancellationToken cancellationToken)
-    {
-        var deleted = await service.DeleteAsync(id, cancellationToken);
+        CancellationToken cancellationToken) {
+
+        var all; = await service.GetAllAsync(cancellationToken);
+        return Results.Ok( all.Select( MessagingEndpointResponse.FromModel ) );
+    }
+
+    private static async Task<IResult> Get(
+        IdentifierRequest identifier,
+        IMessagingEndpointService service,
+        CancellationToken cancellationToken) {
+
+        var messagingEndpoint = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        return messagingEndpoint is null ? Results.NotFound() : Results.Ok( messagingEndpoint );
+    }
+
+
+    private static async Task<IResult> Delete(
+        IdentifierRequest identifier,
+        IMessagingEndpointService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.DeleteAsync(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private static MessagingEndpointResponse ToResponse(MessagingEndpoint lowercaseClassName)
-        => new( messagingEndpoint.Id,
-                , String, Integer, Boolean, MessagingProtocol
-                , TenantId );
+    private static async Task<IResult> AssignTenant(
+        AssociationRequest request,
+        IMessagingEndpointService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AssignTenantAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
 
+    private static async Task<IResult> AssignTenant(
+    AssociationRequest request,
+    IMessagingEndpointService service,
+    CancellationToken cancellationToken) {
+        var deleted = await service.AssignTenantAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+
+    private static async Task<IResult> AssignStreams(
+        AssociationRequest request,
+        IMessagingEndpointService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AddToStreamsAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignStreams(
+        AssociationRequest request,
+        IMessagingEndpointService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.RemoveFromStreamsAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private com.harbormaster.codetemplate.model.classes.ClassObject@38e2043b mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@38e2043b( com.harbormaster.codetemplate.model.classes.ClassObject@38e2043bRequest request ) {
+        var model = new MessagingEndpoint
+        {
+            Id = request.id,
+        Host = request.Host
+        Port = request.Port
+        Secure = request.Secure
+        Tenant = request.Tenant
+        Streams = request.Streams
+        Protocol = request.Protocol
+        }
+        return model;
+    }
 }

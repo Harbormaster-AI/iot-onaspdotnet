@@ -1,6 +1,7 @@
 using iotonaspdotnet.Service;
 using iotonaspdotnet.Domain;
 
+
 namespace iotonaspdotnet.Api;
 
 public static class ConnectivityPlanEndpoints
@@ -9,48 +10,28 @@ public static class ConnectivityPlanEndpoints
     {
         var group = app.MapGroup("/api/connectivityPlan").WithTags("ConnectivityPlans");
 
-        group.MapGet("/", GetAll);
-        group.MapGet("/{id:guid}", GetById);
-        group.MapPost("/", Create);
-        group.MapPut("/{id:guid}", Update);
-        group.MapDelete("/{id:guid}", Delete);
+        group.MapPost("/", create);
+        group.MapGet("/", get);
+        group.MapGet("/", getAll);
+        group.MapPut("/", update);
+        group.MapDelete("/", delete);
+
+        group.MapDelete("/", assignTenant);
+        group.MapDelete("/", unassignTenant);
+
+    group.MapDelete("/", addToSimCards);
+    group.MapDelete("/", removeFromSimCards);
+
 
         return app;
     }
 
-    private static async Task<IResult> GetAll(
-        IConnectivityPlanService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassNames = await service.GetAllAsync(cancellationToken);
-        return Results.Ok(lowercaseClassNames.Select(ToResponse));
-    }
-
-    private static async Task<IResult> GetById(
-        Guid id,
-        IConnectivityPlanService service,
-        CancellationToken cancellationToken)
-    {
-        var connectivityPlan = await service.GetByIdAsync(id, cancellationToken);
-        return connectivityPlan is null ? Results.NotFound() : Results.Ok(ToResponse( connectivityPlan ));
-    }
-
     private static async Task<IResult> Create(
-        CreateConnectivityPlanRequest request,
+        ConnectivityPlanRequest request,
         IConnectivityPlanService service,
-        CancellationToken cancellationToken)
-    {
-        var connectivityPlan = new ConnectivityPlan
-        {
-            Id = Guid.NewGuid(),
+        CancellationToken cancellationToken) {
 
-                Name = request.Name,
-                DataCapMB = request.DataCapMB,
-                BillingCycleDays = request.BillingCycleDays,
-
-                TenantId = request.TenantId,
-
-        };
+        var model = mapRequestTo( request );
 
         try
         {
@@ -61,28 +42,19 @@ public static class ConnectivityPlanEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/connectivityPlans/connectivityPlan.Id", ToResponse(lowercaseClassName));
+        return Results.NoContent();
     }
 
     private static async Task<IResult> Update(
-        Guid id,
-        UpdateConnectivityPlanRequest request,
+        ConnectivityPlanRequest request,
         IConnectivityPlanService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassName = new ConnectivityPlan
-        {
-            Id = id,
-            Name = request.Name,
-            DataCapMB = request.DataCapMB,
-            BillingCycleDays = request.BillingCycleDays,
+        CancellationToken cancellationToken) {
 
-            TenantId = request.TenantId,
-        };
+        var model = mapRequestTo( request );
 
         try
         {
-            var updated = await service.UpdateAsync(lowercaseClassName, cancellationToken);
+            var updated = await service.UpdateAsync(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -91,18 +63,75 @@ public static class ConnectivityPlanEndpoints
         }
     }
 
-    private static async Task<IResult> Delete(
-        Guid id,
+    private static async Task<IResult> GetAll(
         IConnectivityPlanService service,
-        CancellationToken cancellationToken)
-    {
-        var deleted = await service.DeleteAsync(id, cancellationToken);
+        CancellationToken cancellationToken) {
+
+        var all; = await service.GetAllAsync(cancellationToken);
+        return Results.Ok( all.Select( ConnectivityPlanResponse.FromModel ) );
+    }
+
+    private static async Task<IResult> Get(
+        IdentifierRequest identifier,
+        IConnectivityPlanService service,
+        CancellationToken cancellationToken) {
+
+        var connectivityPlan = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        return connectivityPlan is null ? Results.NotFound() : Results.Ok( connectivityPlan );
+    }
+
+
+    private static async Task<IResult> Delete(
+        IdentifierRequest identifier,
+        IConnectivityPlanService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.DeleteAsync(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private static ConnectivityPlanResponse ToResponse(ConnectivityPlan lowercaseClassName)
-        => new( connectivityPlan.Id,
-                , String, Integer, Integer
-                , TenantId );
+    private static async Task<IResult> AssignTenant(
+        AssociationRequest request,
+        IConnectivityPlanService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AssignTenantAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
 
+    private static async Task<IResult> AssignTenant(
+    AssociationRequest request,
+    IConnectivityPlanService service,
+    CancellationToken cancellationToken) {
+        var deleted = await service.AssignTenantAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+
+    private static async Task<IResult> AssignSimCards(
+        AssociationRequest request,
+        IConnectivityPlanService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AddToSimCardsAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignSimCards(
+        AssociationRequest request,
+        IConnectivityPlanService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.RemoveFromSimCardsAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private com.harbormaster.codetemplate.model.classes.ClassObject@33465070 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@33465070( com.harbormaster.codetemplate.model.classes.ClassObject@33465070Request request ) {
+        var model = new ConnectivityPlan
+        {
+            Id = request.id,
+        Name = request.Name
+        DataCapMB = request.DataCapMB
+        BillingCycleDays = request.BillingCycleDays
+        SimCards = request.SimCards
+        Tenant = request.Tenant
+        }
+        return model;
+    }
 }

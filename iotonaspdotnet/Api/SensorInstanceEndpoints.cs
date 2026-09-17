@@ -1,6 +1,7 @@
 using iotonaspdotnet.Service;
 using iotonaspdotnet.Domain;
 
+
 namespace iotonaspdotnet.Api;
 
 public static class SensorInstanceEndpoints
@@ -9,49 +10,28 @@ public static class SensorInstanceEndpoints
     {
         var group = app.MapGroup("/api/sensorInstance").WithTags("SensorInstances");
 
-        group.MapGet("/", GetAll);
-        group.MapGet("/{id:guid}", GetById);
-        group.MapPost("/", Create);
-        group.MapPut("/{id:guid}", Update);
-        group.MapDelete("/{id:guid}", Delete);
+        group.MapPost("/", create);
+        group.MapGet("/", get);
+        group.MapGet("/", getAll);
+        group.MapPut("/", update);
+        group.MapDelete("/", delete);
+
+        group.MapDelete("/", assignDevice);
+        group.MapDelete("/", unassignDevice);
+
+    group.MapDelete("/", addToTelemetryStreams);
+    group.MapDelete("/", removeFromTelemetryStreams);
+
 
         return app;
     }
 
-    private static async Task<IResult> GetAll(
-        ISensorInstanceService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassNames = await service.GetAllAsync(cancellationToken);
-        return Results.Ok(lowercaseClassNames.Select(ToResponse));
-    }
-
-    private static async Task<IResult> GetById(
-        Guid id,
-        ISensorInstanceService service,
-        CancellationToken cancellationToken)
-    {
-        var sensorInstance = await service.GetByIdAsync(id, cancellationToken);
-        return sensorInstance is null ? Results.NotFound() : Results.Ok(ToResponse( sensorInstance ));
-    }
-
     private static async Task<IResult> Create(
-        CreateSensorInstanceRequest request,
+        SensorInstanceRequest request,
         ISensorInstanceService service,
-        CancellationToken cancellationToken)
-    {
-        var sensorInstance = new SensorInstance
-        {
-            Id = Guid.NewGuid(),
+        CancellationToken cancellationToken) {
 
-                Name = request.Name,
-                Unit = request.Unit,
-                SamplingIntervalMs = request.SamplingIntervalMs,
-                SensorType = request.SensorType,
-
-                IoTDeviceId = request.IoTDeviceId,
-
-        };
+        var model = mapRequestTo( request );
 
         try
         {
@@ -62,29 +42,19 @@ public static class SensorInstanceEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/sensorInstances/sensorInstance.Id", ToResponse(lowercaseClassName));
+        return Results.NoContent();
     }
 
     private static async Task<IResult> Update(
-        Guid id,
-        UpdateSensorInstanceRequest request,
+        SensorInstanceRequest request,
         ISensorInstanceService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassName = new SensorInstance
-        {
-            Id = id,
-            Name = request.Name,
-            Unit = request.Unit,
-            SamplingIntervalMs = request.SamplingIntervalMs,
-            SensorType = request.SensorType,
+        CancellationToken cancellationToken) {
 
-            IoTDeviceId = request.IoTDeviceId,
-        };
+        var model = mapRequestTo( request );
 
         try
         {
-            var updated = await service.UpdateAsync(lowercaseClassName, cancellationToken);
+            var updated = await service.UpdateAsync(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -93,18 +63,76 @@ public static class SensorInstanceEndpoints
         }
     }
 
-    private static async Task<IResult> Delete(
-        Guid id,
+    private static async Task<IResult> GetAll(
         ISensorInstanceService service,
-        CancellationToken cancellationToken)
-    {
-        var deleted = await service.DeleteAsync(id, cancellationToken);
+        CancellationToken cancellationToken) {
+
+        var all; = await service.GetAllAsync(cancellationToken);
+        return Results.Ok( all.Select( SensorInstanceResponse.FromModel ) );
+    }
+
+    private static async Task<IResult> Get(
+        IdentifierRequest identifier,
+        ISensorInstanceService service,
+        CancellationToken cancellationToken) {
+
+        var sensorInstance = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        return sensorInstance is null ? Results.NotFound() : Results.Ok( sensorInstance );
+    }
+
+
+    private static async Task<IResult> Delete(
+        IdentifierRequest identifier,
+        ISensorInstanceService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.DeleteAsync(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private static SensorInstanceResponse ToResponse(SensorInstance lowercaseClassName)
-        => new( sensorInstance.Id,
-                , String, String, Integer, SensorType
-                , IoTDeviceId );
+    private static async Task<IResult> AssignDevice(
+        AssociationRequest request,
+        ISensorInstanceService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AssignDeviceAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
 
+    private static async Task<IResult> AssignDevice(
+    AssociationRequest request,
+    ISensorInstanceService service,
+    CancellationToken cancellationToken) {
+        var deleted = await service.AssignDeviceAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+
+    private static async Task<IResult> AssignTelemetryStreams(
+        AssociationRequest request,
+        ISensorInstanceService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AddToTelemetryStreamsAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignTelemetryStreams(
+        AssociationRequest request,
+        ISensorInstanceService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.RemoveFromTelemetryStreamsAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private com.harbormaster.codetemplate.model.classes.ClassObject@2799b78 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@2799b78( com.harbormaster.codetemplate.model.classes.ClassObject@2799b78Request request ) {
+        var model = new SensorInstance
+        {
+            Id = request.id,
+        Name = request.Name
+        Unit = request.Unit
+        SamplingIntervalMs = request.SamplingIntervalMs
+        Device = request.Device
+        TelemetryStreams = request.TelemetryStreams
+        SensorType = request.SensorType
+        }
+        return model;
+    }
 }

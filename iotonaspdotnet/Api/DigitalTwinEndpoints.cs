@@ -1,6 +1,7 @@
 using iotonaspdotnet.Service;
 using iotonaspdotnet.Domain;
 
+
 namespace iotonaspdotnet.Api;
 
 public static class DigitalTwinEndpoints
@@ -9,51 +10,32 @@ public static class DigitalTwinEndpoints
     {
         var group = app.MapGroup("/api/digitalTwin").WithTags("DigitalTwins");
 
-        group.MapGet("/", GetAll);
-        group.MapGet("/{id:guid}", GetById);
-        group.MapPost("/", Create);
-        group.MapPut("/{id:guid}", Update);
-        group.MapDelete("/{id:guid}", Delete);
+        group.MapPost("/", create);
+        group.MapGet("/", get);
+        group.MapGet("/", getAll);
+        group.MapPut("/", update);
+        group.MapDelete("/", delete);
+
+        group.MapDelete("/", assignDevice);
+        group.MapDelete("/", unassignDevice);
+        group.MapDelete("/", assignGateway);
+        group.MapDelete("/", unassignGateway);
+        group.MapDelete("/", assignTemplate);
+        group.MapDelete("/", unassignTemplate);
+
+    group.MapDelete("/", addToChangeEvents);
+    group.MapDelete("/", removeFromChangeEvents);
+
 
         return app;
     }
 
-    private static async Task<IResult> GetAll(
-        IDigitalTwinService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassNames = await service.GetAllAsync(cancellationToken);
-        return Results.Ok(lowercaseClassNames.Select(ToResponse));
-    }
-
-    private static async Task<IResult> GetById(
-        Guid id,
-        IDigitalTwinService service,
-        CancellationToken cancellationToken)
-    {
-        var digitalTwin = await service.GetByIdAsync(id, cancellationToken);
-        return digitalTwin is null ? Results.NotFound() : Results.Ok(ToResponse( digitalTwin ));
-    }
-
     private static async Task<IResult> Create(
-        CreateDigitalTwinRequest request,
+        DigitalTwinRequest request,
         IDigitalTwinService service,
-        CancellationToken cancellationToken)
-    {
-        var digitalTwin = new DigitalTwin
-        {
-            Id = Guid.NewGuid(),
+        CancellationToken cancellationToken) {
 
-                TwinId = request.TwinId,
-                DesiredStateVersion = request.DesiredStateVersion,
-                ReportedStateVersion = request.ReportedStateVersion,
-                LastSyncAt = request.LastSyncAt,
-
-                IoTDeviceId = request.IoTDeviceId,
-                GatewayId = request.GatewayId,
-                TwinTemplateId = request.TwinTemplateId,
-
-        };
+        var model = mapRequestTo( request );
 
         try
         {
@@ -64,31 +46,19 @@ public static class DigitalTwinEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/digitalTwins/digitalTwin.Id", ToResponse(lowercaseClassName));
+        return Results.NoContent();
     }
 
     private static async Task<IResult> Update(
-        Guid id,
-        UpdateDigitalTwinRequest request,
+        DigitalTwinRequest request,
         IDigitalTwinService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassName = new DigitalTwin
-        {
-            Id = id,
-            TwinId = request.TwinId,
-            DesiredStateVersion = request.DesiredStateVersion,
-            ReportedStateVersion = request.ReportedStateVersion,
-            LastSyncAt = request.LastSyncAt,
+        CancellationToken cancellationToken) {
 
-            IoTDeviceId = request.IoTDeviceId,
-            GatewayId = request.GatewayId,
-            TwinTemplateId = request.TwinTemplateId,
-        };
+        var model = mapRequestTo( request );
 
         try
         {
-            var updated = await service.UpdateAsync(lowercaseClassName, cancellationToken);
+            var updated = await service.UpdateAsync(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -97,18 +67,110 @@ public static class DigitalTwinEndpoints
         }
     }
 
-    private static async Task<IResult> Delete(
-        Guid id,
+    private static async Task<IResult> GetAll(
         IDigitalTwinService service,
-        CancellationToken cancellationToken)
-    {
-        var deleted = await service.DeleteAsync(id, cancellationToken);
+        CancellationToken cancellationToken) {
+
+        var all; = await service.GetAllAsync(cancellationToken);
+        return Results.Ok( all.Select( DigitalTwinResponse.FromModel ) );
+    }
+
+    private static async Task<IResult> Get(
+        IdentifierRequest identifier,
+        IDigitalTwinService service,
+        CancellationToken cancellationToken) {
+
+        var digitalTwin = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        return digitalTwin is null ? Results.NotFound() : Results.Ok( digitalTwin );
+    }
+
+
+    private static async Task<IResult> Delete(
+        IdentifierRequest identifier,
+        IDigitalTwinService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.DeleteAsync(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private static DigitalTwinResponse ToResponse(DigitalTwin lowercaseClassName)
-        => new( digitalTwin.Id,
-                , String, Integer, Integer, DateTime
-                , IoTDeviceId, GatewayId, TwinTemplateId );
+    private static async Task<IResult> AssignDevice(
+        AssociationRequest request,
+        IDigitalTwinService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AssignDeviceAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
 
+    private static async Task<IResult> AssignDevice(
+    AssociationRequest request,
+    IDigitalTwinService service,
+    CancellationToken cancellationToken) {
+        var deleted = await service.AssignDeviceAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignGateway(
+        AssociationRequest request,
+        IDigitalTwinService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AssignGatewayAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignGateway(
+    AssociationRequest request,
+    IDigitalTwinService service,
+    CancellationToken cancellationToken) {
+        var deleted = await service.AssignGatewayAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignTemplate(
+        AssociationRequest request,
+        IDigitalTwinService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AssignTemplateAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignTemplate(
+    AssociationRequest request,
+    IDigitalTwinService service,
+    CancellationToken cancellationToken) {
+        var deleted = await service.AssignTemplateAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+
+    private static async Task<IResult> AssignChangeEvents(
+        AssociationRequest request,
+        IDigitalTwinService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AddToChangeEventsAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignChangeEvents(
+        AssociationRequest request,
+        IDigitalTwinService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.RemoveFromChangeEventsAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private com.harbormaster.codetemplate.model.classes.ClassObject@351c1e51 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@351c1e51( com.harbormaster.codetemplate.model.classes.ClassObject@351c1e51Request request ) {
+        var model = new DigitalTwin
+        {
+            Id = request.id,
+        TwinId = request.TwinId
+        DesiredStateVersion = request.DesiredStateVersion
+        ReportedStateVersion = request.ReportedStateVersion
+        LastSyncAt = request.LastSyncAt
+        Device = request.Device
+        Gateway = request.Gateway
+        Template = request.Template
+        ChangeEvents = request.ChangeEvents
+        }
+        return model;
+    }
 }

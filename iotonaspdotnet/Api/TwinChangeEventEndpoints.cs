@@ -1,6 +1,7 @@
 using iotonaspdotnet.Service;
 using iotonaspdotnet.Domain;
 
+
 namespace iotonaspdotnet.Api;
 
 public static class TwinChangeEventEndpoints
@@ -9,48 +10,25 @@ public static class TwinChangeEventEndpoints
     {
         var group = app.MapGroup("/api/twinChangeEvent").WithTags("TwinChangeEvents");
 
-        group.MapGet("/", GetAll);
-        group.MapGet("/{id:guid}", GetById);
-        group.MapPost("/", Create);
-        group.MapPut("/{id:guid}", Update);
-        group.MapDelete("/{id:guid}", Delete);
+        group.MapPost("/", create);
+        group.MapGet("/", get);
+        group.MapGet("/", getAll);
+        group.MapPut("/", update);
+        group.MapDelete("/", delete);
+
+        group.MapDelete("/", assignTwin);
+        group.MapDelete("/", unassignTwin);
+
 
         return app;
     }
 
-    private static async Task<IResult> GetAll(
-        ITwinChangeEventService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassNames = await service.GetAllAsync(cancellationToken);
-        return Results.Ok(lowercaseClassNames.Select(ToResponse));
-    }
-
-    private static async Task<IResult> GetById(
-        Guid id,
-        ITwinChangeEventService service,
-        CancellationToken cancellationToken)
-    {
-        var twinChangeEvent = await service.GetByIdAsync(id, cancellationToken);
-        return twinChangeEvent is null ? Results.NotFound() : Results.Ok(ToResponse( twinChangeEvent ));
-    }
-
     private static async Task<IResult> Create(
-        CreateTwinChangeEventRequest request,
+        TwinChangeEventRequest request,
         ITwinChangeEventService service,
-        CancellationToken cancellationToken)
-    {
-        var twinChangeEvent = new TwinChangeEvent
-        {
-            Id = Guid.NewGuid(),
+        CancellationToken cancellationToken) {
 
-                EventId = request.EventId,
-                OccurredAt = request.OccurredAt,
-                ChangeType = request.ChangeType,
-
-                DigitalTwinId = request.DigitalTwinId,
-
-        };
+        var model = mapRequestTo( request );
 
         try
         {
@@ -61,28 +39,19 @@ public static class TwinChangeEventEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/twinChangeEvents/twinChangeEvent.Id", ToResponse(lowercaseClassName));
+        return Results.NoContent();
     }
 
     private static async Task<IResult> Update(
-        Guid id,
-        UpdateTwinChangeEventRequest request,
+        TwinChangeEventRequest request,
         ITwinChangeEventService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassName = new TwinChangeEvent
-        {
-            Id = id,
-            EventId = request.EventId,
-            OccurredAt = request.OccurredAt,
-            ChangeType = request.ChangeType,
+        CancellationToken cancellationToken) {
 
-            DigitalTwinId = request.DigitalTwinId,
-        };
+        var model = mapRequestTo( request );
 
         try
         {
-            var updated = await service.UpdateAsync(lowercaseClassName, cancellationToken);
+            var updated = await service.UpdateAsync(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -91,18 +60,47 @@ public static class TwinChangeEventEndpoints
         }
     }
 
-    private static async Task<IResult> Delete(
-        Guid id,
+    private static async Task<IResult> GetAll(
         ITwinChangeEventService service,
-        CancellationToken cancellationToken)
-    {
-        var deleted = await service.DeleteAsync(id, cancellationToken);
+        CancellationToken cancellationToken) {
+
+        var all; = await service.GetAllAsync(cancellationToken);
+        return Results.Ok( all.Select( TwinChangeEventResponse.FromModel ) );
+    }
+
+    private static async Task<IResult> Get(
+        IdentifierRequest identifier,
+        ITwinChangeEventService service,
+        CancellationToken cancellationToken) {
+
+        var twinChangeEvent = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        return twinChangeEvent is null ? Results.NotFound() : Results.Ok( twinChangeEvent );
+    }
+
+
+    private static async Task<IResult> Delete(
+        IdentifierRequest identifier,
+        ITwinChangeEventService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.DeleteAsync(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private static TwinChangeEventResponse ToResponse(TwinChangeEvent lowercaseClassName)
-        => new( twinChangeEvent.Id,
-                , String, DateTime, TwinChangeType
-                , DigitalTwinId );
+    private static async Task<IResult> AssignTwin(
+        AssociationRequest request,
+        ITwinChangeEventService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AssignTwinAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignTwin(
+    AssociationRequest request,
+    ITwinChangeEventService service,
+    CancellationToken cancellationToken) {
+        var deleted = await service.AssignTwinAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
 
 }

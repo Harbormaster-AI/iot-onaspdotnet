@@ -5,97 +5,73 @@ namespace iotonaspdotnet.Service;
 
 public interface IProvisioningRecordService
 {
-    Task<ProvisioningRecord?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-    Task<IReadOnlyList<ProvisioningRecord>> GetAllAsync(CancellationToken cancellationToken);
-    Task CreateAsync(ProvisioningRecord provisioningRecord, CancellationToken cancellationToken);
-    Task<bool> UpdateAsync(ProvisioningRecord provisioningRecord, CancellationToken cancellationToken);
-    Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken);
+    Task<ProvisioningRecord?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<ProvisioningRecord>> GetAll(CancellationToken cancellationToken);
+    Task Create(ProvisioningRecordRequest request , CancellationToken cancellationToken);
+    Task<bool> Update(ProvisioningRecordRequest request, CancellationToken cancellationToken);
+    Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+
 }
 
 public class ProvisioningRecordService : IProvisioningRecordService
 {
     private readonly IProvisioningRecordRepository _repository;
-    private readonly IIoTDeviceRepository _ioTDevices;
-    private readonly IDeviceCertificateRepository _deviceCertificates;
-    private readonly ITenantRepository _tenants;
 
     public ProvisioningRecordService(
-        IIoTDeviceRepository ioTDevices,
-        IDeviceCertificateRepository deviceCertificates,
-        ITenantRepository tenants,
         IProvisioningRecordRepository repository )
     {
         _repository = repository;
-        _ioTDevices = ioTDevices;
-        _deviceCertificates = deviceCertificates;
-        _tenants = tenants;
     }
 
-    public Task<ProvisioningRecord?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(id, cancellationToken);
+    public Task<ProvisioningRecord?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<ProvisioningRecord>> GetAllAsync(CancellationToken cancellationToken)
+    public Task<IReadOnlyList<ProvisioningRecord>> GetAll(CancellationToken cancellationToken)
         => _repository.GetAllAsync(cancellationToken);
 
-    public async Task CreateAsync(ProvisioningRecord provisioningRecord, CancellationToken cancellationToken)
+    public async Task Create(ProvisioningRecordRequest request, CancellationToken cancellationToken)
     {
-        var ioTDevice = await _ioTDevices.GetByIdAsync(provisioningRecord.Id, cancellationToken)
+        var ioTDevice = await _ioTDevices.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
         if (ioTDevice.Device is not null)
         {
-            throw new InvalidOperationException("IoTDevice already has a(n) provisioningRecord (1:1 relationship).");
+            throw new InvalidOperationException("IoTDevice:Device already has a(n) ProvisioningRecord (1:1 relationship).");
         }
-        var deviceCertificate = await _deviceCertificates.GetByIdAsync(provisioningRecord.Id, cancellationToken)
+        var deviceCertificate = await _deviceCertificates.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("DeviceCertificate not found.");
 
         if (deviceCertificate.Certificate is not null)
         {
-            throw new InvalidOperationException("DeviceCertificate already has a(n) provisioningRecord (1:1 relationship).");
+            throw new InvalidOperationException("DeviceCertificate:Certificate already has a(n) ProvisioningRecord (1:1 relationship).");
         }
-        var tenant = await _tenants.GetByIdAsync(provisioningRecord.Id, cancellationToken)
+        var tenant = await _tenants.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
         if (tenant.Tenant is not null)
         {
-            throw new InvalidOperationException("Tenant already has a(n) provisioningRecord (1:1 relationship).");
+            throw new InvalidOperationException("Tenant:Tenant already has a(n) ProvisioningRecord (1:1 relationship).");
         }
-        await _repository.AddAsync(provisioningRecord, cancellationToken);
+        await _repository.AddAsync(request, cancellationToken);
     }
 
-    public async Task<bool> UpdateAsync(ProvisioningRecord provisioningRecord, CancellationToken cancellationToken)
+    public async Task<bool> Update(ProvisioningRecordRequest request, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(provisioningRecord.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-
-        // Keep 1:1 â do not reassign to a tenant who already has another provisioningRecord.
-        if (existing.Id != provisioningRecord.Id)
-        {
-            var Device = await _ioTDevices.GetByIdAsync(provisioningRecord.Id, cancellationToken)
-                ?? throw new InvalidOperationException("IoTDevice not found.");
-
-            if (Device.ProvisioningRecord is not null && Device.ProvisioningRecord.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target ioTDevice already has an provisioningRecord (1:1 relationship).");
-            }
-            var Certificate = await _deviceCertificates.GetByIdAsync(provisioningRecord.Id, cancellationToken)
-                ?? throw new InvalidOperationException("DeviceCertificate not found.");
-
-            if (Certificate.ProvisioningRecord is not null && Certificate.ProvisioningRecord.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target deviceCertificate already has an provisioningRecord (1:1 relationship).");
-            }
-            var Tenant = await _tenants.GetByIdAsync(provisioningRecord.Id, cancellationToken)
-                ?? throw new InvalidOperationException("Tenant not found.");
-
-            if (Tenant.ProvisioningRecord is not null && Tenant.ProvisioningRecord.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target tenant already has an provisioningRecord (1:1 relationship).");
-            }
-        }
+        existing.EnrolledAt = request.EnrolledAt
+        existing.ProvisioningService = request.ProvisioningService
+        existing.Device = request.Device
+        existing.Certificate = request.Certificate
+        existing.Tenant = request.Tenant
+        existing.Method = request.Method
+        existing.Status = request.Status
+        await _repository.UpdateAsync(existing, cancellationToken);
+    }
 
         existing.EnrolledAt = provisioningRecord.EnrolledAt;
         existing.ProvisioningService = provisioningRecord.ProvisioningService;
@@ -109,9 +85,9 @@ public class ProvisioningRecordService : IProvisioningRecordService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
         {
             return false;
@@ -120,4 +96,6 @@ public class ProvisioningRecordService : IProvisioningRecordService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+
 }

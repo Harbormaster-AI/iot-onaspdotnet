@@ -1,6 +1,7 @@
 using iotonaspdotnet.Service;
 using iotonaspdotnet.Domain;
 
+
 namespace iotonaspdotnet.Api;
 
 public static class TenantUserEndpoints
@@ -9,49 +10,28 @@ public static class TenantUserEndpoints
     {
         var group = app.MapGroup("/api/tenantUser").WithTags("TenantUsers");
 
-        group.MapGet("/", GetAll);
-        group.MapGet("/{id:guid}", GetById);
-        group.MapPost("/", Create);
-        group.MapPut("/{id:guid}", Update);
-        group.MapDelete("/{id:guid}", Delete);
+        group.MapPost("/", create);
+        group.MapGet("/", get);
+        group.MapGet("/", getAll);
+        group.MapPut("/", update);
+        group.MapDelete("/", delete);
+
+        group.MapDelete("/", assignTenant);
+        group.MapDelete("/", unassignTenant);
+
+    group.MapDelete("/", addToCommandInvocations);
+    group.MapDelete("/", removeFromCommandInvocations);
+
 
         return app;
     }
 
-    private static async Task<IResult> GetAll(
-        ITenantUserService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassNames = await service.GetAllAsync(cancellationToken);
-        return Results.Ok(lowercaseClassNames.Select(ToResponse));
-    }
-
-    private static async Task<IResult> GetById(
-        Guid id,
-        ITenantUserService service,
-        CancellationToken cancellationToken)
-    {
-        var tenantUser = await service.GetByIdAsync(id, cancellationToken);
-        return tenantUser is null ? Results.NotFound() : Results.Ok(ToResponse( tenantUser ));
-    }
-
     private static async Task<IResult> Create(
-        CreateTenantUserRequest request,
+        TenantUserRequest request,
         ITenantUserService service,
-        CancellationToken cancellationToken)
-    {
-        var tenantUser = new TenantUser
-        {
-            Id = Guid.NewGuid(),
+        CancellationToken cancellationToken) {
 
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-                Email = request.Email,
-                Role = request.Role,
-
-                TenantId = request.TenantId,
-
-        };
+        var model = mapRequestTo( request );
 
         try
         {
@@ -62,29 +42,19 @@ public static class TenantUserEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/tenantUsers/tenantUser.Id", ToResponse(lowercaseClassName));
+        return Results.NoContent();
     }
 
     private static async Task<IResult> Update(
-        Guid id,
-        UpdateTenantUserRequest request,
+        TenantUserRequest request,
         ITenantUserService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassName = new TenantUser
-        {
-            Id = id,
-            FirstName = request.FirstName,
-            LastName = request.LastName,
-            Email = request.Email,
-            Role = request.Role,
+        CancellationToken cancellationToken) {
 
-            TenantId = request.TenantId,
-        };
+        var model = mapRequestTo( request );
 
         try
         {
-            var updated = await service.UpdateAsync(lowercaseClassName, cancellationToken);
+            var updated = await service.UpdateAsync(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -93,18 +63,76 @@ public static class TenantUserEndpoints
         }
     }
 
-    private static async Task<IResult> Delete(
-        Guid id,
+    private static async Task<IResult> GetAll(
         ITenantUserService service,
-        CancellationToken cancellationToken)
-    {
-        var deleted = await service.DeleteAsync(id, cancellationToken);
+        CancellationToken cancellationToken) {
+
+        var all; = await service.GetAllAsync(cancellationToken);
+        return Results.Ok( all.Select( TenantUserResponse.FromModel ) );
+    }
+
+    private static async Task<IResult> Get(
+        IdentifierRequest identifier,
+        ITenantUserService service,
+        CancellationToken cancellationToken) {
+
+        var tenantUser = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        return tenantUser is null ? Results.NotFound() : Results.Ok( tenantUser );
+    }
+
+
+    private static async Task<IResult> Delete(
+        IdentifierRequest identifier,
+        ITenantUserService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.DeleteAsync(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private static TenantUserResponse ToResponse(TenantUser lowercaseClassName)
-        => new( tenantUser.Id,
-                , String, String, String, UserRole
-                , TenantId );
+    private static async Task<IResult> AssignTenant(
+        AssociationRequest request,
+        ITenantUserService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AssignTenantAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
 
+    private static async Task<IResult> AssignTenant(
+    AssociationRequest request,
+    ITenantUserService service,
+    CancellationToken cancellationToken) {
+        var deleted = await service.AssignTenantAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+
+    private static async Task<IResult> AssignCommandInvocations(
+        AssociationRequest request,
+        ITenantUserService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AddToCommandInvocationsAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignCommandInvocations(
+        AssociationRequest request,
+        ITenantUserService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.RemoveFromCommandInvocationsAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private com.harbormaster.codetemplate.model.classes.ClassObject@53dbdcbe mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@53dbdcbe( com.harbormaster.codetemplate.model.classes.ClassObject@53dbdcbeRequest request ) {
+        var model = new TenantUser
+        {
+            Id = request.id,
+        FirstName = request.FirstName
+        LastName = request.LastName
+        Email = request.Email
+        Tenant = request.Tenant
+        CommandInvocations = request.CommandInvocations
+        Role = request.Role
+        }
+        return model;
+    }
 }

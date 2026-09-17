@@ -5,97 +5,74 @@ namespace iotonaspdotnet.Service;
 
 public interface IDigitalTwinService
 {
-    Task<DigitalTwin?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-    Task<IReadOnlyList<DigitalTwin>> GetAllAsync(CancellationToken cancellationToken);
-    Task CreateAsync(DigitalTwin digitalTwin, CancellationToken cancellationToken);
-    Task<bool> UpdateAsync(DigitalTwin digitalTwin, CancellationToken cancellationToken);
-    Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken);
+    Task<DigitalTwin?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<DigitalTwin>> GetAll(CancellationToken cancellationToken);
+    Task Create(DigitalTwinRequest request , CancellationToken cancellationToken);
+    Task<bool> Update(DigitalTwinRequest request, CancellationToken cancellationToken);
+    Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+
 }
 
 public class DigitalTwinService : IDigitalTwinService
 {
     private readonly IDigitalTwinRepository _repository;
-    private readonly IIoTDeviceRepository _ioTDevices;
-    private readonly IGatewayRepository _gateways;
-    private readonly ITwinTemplateRepository _twinTemplates;
 
     public DigitalTwinService(
-        IIoTDeviceRepository ioTDevices,
-        IGatewayRepository gateways,
-        ITwinTemplateRepository twinTemplates,
         IDigitalTwinRepository repository )
     {
         _repository = repository;
-        _ioTDevices = ioTDevices;
-        _gateways = gateways;
-        _twinTemplates = twinTemplates;
     }
 
-    public Task<DigitalTwin?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(id, cancellationToken);
+    public Task<DigitalTwin?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<DigitalTwin>> GetAllAsync(CancellationToken cancellationToken)
+    public Task<IReadOnlyList<DigitalTwin>> GetAll(CancellationToken cancellationToken)
         => _repository.GetAllAsync(cancellationToken);
 
-    public async Task CreateAsync(DigitalTwin digitalTwin, CancellationToken cancellationToken)
+    public async Task Create(DigitalTwinRequest request, CancellationToken cancellationToken)
     {
-        var ioTDevice = await _ioTDevices.GetByIdAsync(digitalTwin.Id, cancellationToken)
+        var ioTDevice = await _ioTDevices.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
         if (ioTDevice.Device is not null)
         {
-            throw new InvalidOperationException("IoTDevice already has a(n) digitalTwin (1:1 relationship).");
+            throw new InvalidOperationException("IoTDevice:Device already has a(n) DigitalTwin (1:1 relationship).");
         }
-        var gateway = await _gateways.GetByIdAsync(digitalTwin.Id, cancellationToken)
+        var gateway = await _gateways.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("Gateway not found.");
 
         if (gateway.Gateway is not null)
         {
-            throw new InvalidOperationException("Gateway already has a(n) digitalTwin (1:1 relationship).");
+            throw new InvalidOperationException("Gateway:Gateway already has a(n) DigitalTwin (1:1 relationship).");
         }
-        var twinTemplate = await _twinTemplates.GetByIdAsync(digitalTwin.Id, cancellationToken)
+        var twinTemplate = await _twinTemplates.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("TwinTemplate not found.");
 
         if (twinTemplate.Template is not null)
         {
-            throw new InvalidOperationException("TwinTemplate already has a(n) digitalTwin (1:1 relationship).");
+            throw new InvalidOperationException("TwinTemplate:Template already has a(n) DigitalTwin (1:1 relationship).");
         }
-        await _repository.AddAsync(digitalTwin, cancellationToken);
+        await _repository.AddAsync(request, cancellationToken);
     }
 
-    public async Task<bool> UpdateAsync(DigitalTwin digitalTwin, CancellationToken cancellationToken)
+    public async Task<bool> Update(DigitalTwinRequest request, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(digitalTwin.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-
-        // Keep 1:1 â do not reassign to a twinTemplate who already has another digitalTwin.
-        if (existing.Id != digitalTwin.Id)
-        {
-            var Device = await _ioTDevices.GetByIdAsync(digitalTwin.Id, cancellationToken)
-                ?? throw new InvalidOperationException("IoTDevice not found.");
-
-            if (Device.DigitalTwin is not null && Device.DigitalTwin.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target ioTDevice already has an digitalTwin (1:1 relationship).");
-            }
-            var Gateway = await _gateways.GetByIdAsync(digitalTwin.Id, cancellationToken)
-                ?? throw new InvalidOperationException("Gateway not found.");
-
-            if (Gateway.DigitalTwin is not null && Gateway.DigitalTwin.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target gateway already has an digitalTwin (1:1 relationship).");
-            }
-            var Template = await _twinTemplates.GetByIdAsync(digitalTwin.Id, cancellationToken)
-                ?? throw new InvalidOperationException("TwinTemplate not found.");
-
-            if (Template.DigitalTwin is not null && Template.DigitalTwin.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target twinTemplate already has an digitalTwin (1:1 relationship).");
-            }
-        }
+        existing.TwinId = request.TwinId
+        existing.DesiredStateVersion = request.DesiredStateVersion
+        existing.ReportedStateVersion = request.ReportedStateVersion
+        existing.LastSyncAt = request.LastSyncAt
+        existing.Device = request.Device
+        existing.Gateway = request.Gateway
+        existing.Template = request.Template
+        existing.ChangeEvents = request.ChangeEvents
+        await _repository.UpdateAsync(existing, cancellationToken);
+    }
 
         existing.TwinId = digitalTwin.TwinId;
         existing.DesiredStateVersion = digitalTwin.DesiredStateVersion;
@@ -109,9 +86,9 @@ public class DigitalTwinService : IDigitalTwinService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
         {
             return false;
@@ -120,4 +97,6 @@ public class DigitalTwinService : IDigitalTwinService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+
 }

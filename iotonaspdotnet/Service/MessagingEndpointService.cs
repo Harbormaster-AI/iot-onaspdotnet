@@ -5,63 +5,58 @@ namespace iotonaspdotnet.Service;
 
 public interface IMessagingEndpointService
 {
-    Task<MessagingEndpoint?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-    Task<IReadOnlyList<MessagingEndpoint>> GetAllAsync(CancellationToken cancellationToken);
-    Task CreateAsync(MessagingEndpoint messagingEndpoint, CancellationToken cancellationToken);
-    Task<bool> UpdateAsync(MessagingEndpoint messagingEndpoint, CancellationToken cancellationToken);
-    Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken);
+    Task<MessagingEndpoint?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<MessagingEndpoint>> GetAll(CancellationToken cancellationToken);
+    Task Create(MessagingEndpointRequest request , CancellationToken cancellationToken);
+    Task<bool> Update(MessagingEndpointRequest request, CancellationToken cancellationToken);
+    Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+
 }
 
 public class MessagingEndpointService : IMessagingEndpointService
 {
     private readonly IMessagingEndpointRepository _repository;
-    private readonly ITenantRepository _tenants;
 
     public MessagingEndpointService(
-        ITenantRepository tenants,
         IMessagingEndpointRepository repository )
     {
         _repository = repository;
-        _tenants = tenants;
     }
 
-    public Task<MessagingEndpoint?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(id, cancellationToken);
+    public Task<MessagingEndpoint?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<MessagingEndpoint>> GetAllAsync(CancellationToken cancellationToken)
+    public Task<IReadOnlyList<MessagingEndpoint>> GetAll(CancellationToken cancellationToken)
         => _repository.GetAllAsync(cancellationToken);
 
-    public async Task CreateAsync(MessagingEndpoint messagingEndpoint, CancellationToken cancellationToken)
+    public async Task Create(MessagingEndpointRequest request, CancellationToken cancellationToken)
     {
-        var tenant = await _tenants.GetByIdAsync(messagingEndpoint.Id, cancellationToken)
+        var tenant = await _tenants.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
         if (tenant.Tenant is not null)
         {
-            throw new InvalidOperationException("Tenant already has a(n) messagingEndpoint (1:1 relationship).");
+            throw new InvalidOperationException("Tenant:Tenant already has a(n) MessagingEndpoint (1:1 relationship).");
         }
-        await _repository.AddAsync(messagingEndpoint, cancellationToken);
+        await _repository.AddAsync(request, cancellationToken);
     }
 
-    public async Task<bool> UpdateAsync(MessagingEndpoint messagingEndpoint, CancellationToken cancellationToken)
+    public async Task<bool> Update(MessagingEndpointRequest request, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(messagingEndpoint.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-
-        // Keep 1:1 â do not reassign to a tenant who already has another messagingEndpoint.
-        if (existing.Id != messagingEndpoint.Id)
-        {
-            var Tenant = await _tenants.GetByIdAsync(messagingEndpoint.Id, cancellationToken)
-                ?? throw new InvalidOperationException("Tenant not found.");
-
-            if (Tenant.MessagingEndpoint is not null && Tenant.MessagingEndpoint.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target tenant already has an messagingEndpoint (1:1 relationship).");
-            }
-        }
+        existing.Host = request.Host
+        existing.Port = request.Port
+        existing.Secure = request.Secure
+        existing.Tenant = request.Tenant
+        existing.Streams = request.Streams
+        existing.Protocol = request.Protocol
+        await _repository.UpdateAsync(existing, cancellationToken);
+    }
 
         existing.Host = messagingEndpoint.Host;
         existing.Port = messagingEndpoint.Port;
@@ -73,9 +68,9 @@ public class MessagingEndpointService : IMessagingEndpointService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
         {
             return false;
@@ -84,4 +79,6 @@ public class MessagingEndpointService : IMessagingEndpointService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+
 }

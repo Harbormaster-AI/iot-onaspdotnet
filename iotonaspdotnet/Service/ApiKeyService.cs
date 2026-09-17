@@ -5,63 +5,57 @@ namespace iotonaspdotnet.Service;
 
 public interface IApiKeyService
 {
-    Task<ApiKey?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-    Task<IReadOnlyList<ApiKey>> GetAllAsync(CancellationToken cancellationToken);
-    Task CreateAsync(ApiKey apiKey, CancellationToken cancellationToken);
-    Task<bool> UpdateAsync(ApiKey apiKey, CancellationToken cancellationToken);
-    Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken);
+    Task<ApiKey?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<ApiKey>> GetAll(CancellationToken cancellationToken);
+    Task Create(ApiKeyRequest request , CancellationToken cancellationToken);
+    Task<bool> Update(ApiKeyRequest request, CancellationToken cancellationToken);
+    Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+
 }
 
 public class ApiKeyService : IApiKeyService
 {
     private readonly IApiKeyRepository _repository;
-    private readonly IAccessPolicyRepository _accessPolicys;
 
     public ApiKeyService(
-        IAccessPolicyRepository accessPolicys,
         IApiKeyRepository repository )
     {
         _repository = repository;
-        _accessPolicys = accessPolicys;
     }
 
-    public Task<ApiKey?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(id, cancellationToken);
+    public Task<ApiKey?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<ApiKey>> GetAllAsync(CancellationToken cancellationToken)
+    public Task<IReadOnlyList<ApiKey>> GetAll(CancellationToken cancellationToken)
         => _repository.GetAllAsync(cancellationToken);
 
-    public async Task CreateAsync(ApiKey apiKey, CancellationToken cancellationToken)
+    public async Task Create(ApiKeyRequest request, CancellationToken cancellationToken)
     {
-        var accessPolicy = await _accessPolicys.GetByIdAsync(apiKey.Id, cancellationToken)
+        var accessPolicy = await _accessPolicys.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("AccessPolicy not found.");
 
         if (accessPolicy.AccessPolicy is not null)
         {
-            throw new InvalidOperationException("AccessPolicy already has a(n) apiKey (1:1 relationship).");
+            throw new InvalidOperationException("AccessPolicy:AccessPolicy already has a(n) ApiKey (1:1 relationship).");
         }
-        await _repository.AddAsync(apiKey, cancellationToken);
+        await _repository.AddAsync(request, cancellationToken);
     }
 
-    public async Task<bool> UpdateAsync(ApiKey apiKey, CancellationToken cancellationToken)
+    public async Task<bool> Update(ApiKeyRequest request, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(apiKey.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-
-        // Keep 1:1 â do not reassign to a accessPolicy who already has another apiKey.
-        if (existing.Id != apiKey.Id)
-        {
-            var AccessPolicy = await _accessPolicys.GetByIdAsync(apiKey.Id, cancellationToken)
-                ?? throw new InvalidOperationException("AccessPolicy not found.");
-
-            if (AccessPolicy.ApiKey is not null && AccessPolicy.ApiKey.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target accessPolicy already has an apiKey (1:1 relationship).");
-            }
-        }
+        existing.KeyId = request.KeyId
+        existing.HashedSecret = request.HashedSecret
+        existing.CreatedAt = request.CreatedAt
+        existing.LastUsedAt = request.LastUsedAt
+        existing.AccessPolicy = request.AccessPolicy
+        await _repository.UpdateAsync(existing, cancellationToken);
+    }
 
         existing.KeyId = apiKey.KeyId;
         existing.HashedSecret = apiKey.HashedSecret;
@@ -73,9 +67,9 @@ public class ApiKeyService : IApiKeyService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
         {
             return false;
@@ -84,4 +78,6 @@ public class ApiKeyService : IApiKeyService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+
 }

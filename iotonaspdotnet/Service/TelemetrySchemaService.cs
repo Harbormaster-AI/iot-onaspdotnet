@@ -5,11 +5,13 @@ namespace iotonaspdotnet.Service;
 
 public interface ITelemetrySchemaService
 {
-    Task<TelemetrySchema?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-    Task<IReadOnlyList<TelemetrySchema>> GetAllAsync(CancellationToken cancellationToken);
-    Task CreateAsync(TelemetrySchema telemetrySchema, CancellationToken cancellationToken);
-    Task<bool> UpdateAsync(TelemetrySchema telemetrySchema, CancellationToken cancellationToken);
-    Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken);
+    Task<TelemetrySchema?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<TelemetrySchema>> GetAll(CancellationToken cancellationToken);
+    Task Create(TelemetrySchemaRequest request , CancellationToken cancellationToken);
+    Task<bool> Update(TelemetrySchemaRequest request, CancellationToken cancellationToken);
+    Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+
 }
 
 public class TelemetrySchemaService : ITelemetrySchemaService
@@ -22,29 +24,30 @@ public class TelemetrySchemaService : ITelemetrySchemaService
         _repository = repository;
     }
 
-    public Task<TelemetrySchema?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(id, cancellationToken);
+    public Task<TelemetrySchema?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<TelemetrySchema>> GetAllAsync(CancellationToken cancellationToken)
+    public Task<IReadOnlyList<TelemetrySchema>> GetAll(CancellationToken cancellationToken)
         => _repository.GetAllAsync(cancellationToken);
 
-    public async Task CreateAsync(TelemetrySchema telemetrySchema, CancellationToken cancellationToken)
+    public async Task Create(TelemetrySchemaRequest request, CancellationToken cancellationToken)
     {
-        await _repository.AddAsync(telemetrySchema, cancellationToken);
+        await _repository.AddAsync(request, cancellationToken);
     }
 
-    public async Task<bool> UpdateAsync(TelemetrySchema telemetrySchema, CancellationToken cancellationToken)
+    public async Task<bool> Update(TelemetrySchemaRequest request, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(telemetrySchema.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-
-        // Keep 1:1 â do not reassign to a ioTDevice who already has another telemetrySchema.
-        if (existing.Id != telemetrySchema.Id)
-        {
-        }
+        existing.SchemaId = request.SchemaId
+        existing.SchemaUri = request.SchemaUri
+        existing.Streams = request.Streams
+        existing.Encoding = request.Encoding
+        await _repository.UpdateAsync(existing, cancellationToken);
+    }
 
         existing.SchemaId = telemetrySchema.SchemaId;
         existing.SchemaUri = telemetrySchema.SchemaUri;
@@ -54,9 +57,9 @@ public class TelemetrySchemaService : ITelemetrySchemaService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
         {
             return false;
@@ -65,4 +68,6 @@ public class TelemetrySchemaService : ITelemetrySchemaService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+
 }

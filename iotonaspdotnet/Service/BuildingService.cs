@@ -5,63 +5,55 @@ namespace iotonaspdotnet.Service;
 
 public interface IBuildingService
 {
-    Task<Building?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-    Task<IReadOnlyList<Building>> GetAllAsync(CancellationToken cancellationToken);
-    Task CreateAsync(Building building, CancellationToken cancellationToken);
-    Task<bool> UpdateAsync(Building building, CancellationToken cancellationToken);
-    Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken);
+    Task<Building?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<Building>> GetAll(CancellationToken cancellationToken);
+    Task Create(BuildingRequest request , CancellationToken cancellationToken);
+    Task<bool> Update(BuildingRequest request, CancellationToken cancellationToken);
+    Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+
 }
 
 public class BuildingService : IBuildingService
 {
     private readonly IBuildingRepository _repository;
-    private readonly ISiteRepository _sites;
 
     public BuildingService(
-        ISiteRepository sites,
         IBuildingRepository repository )
     {
         _repository = repository;
-        _sites = sites;
     }
 
-    public Task<Building?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(id, cancellationToken);
+    public Task<Building?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<Building>> GetAllAsync(CancellationToken cancellationToken)
+    public Task<IReadOnlyList<Building>> GetAll(CancellationToken cancellationToken)
         => _repository.GetAllAsync(cancellationToken);
 
-    public async Task CreateAsync(Building building, CancellationToken cancellationToken)
+    public async Task Create(BuildingRequest request, CancellationToken cancellationToken)
     {
-        var site = await _sites.GetByIdAsync(building.Id, cancellationToken)
+        var site = await _sites.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("Site not found.");
 
         if (site.Site is not null)
         {
-            throw new InvalidOperationException("Site already has a(n) building (1:1 relationship).");
+            throw new InvalidOperationException("Site:Site already has a(n) Building (1:1 relationship).");
         }
-        await _repository.AddAsync(building, cancellationToken);
+        await _repository.AddAsync(request, cancellationToken);
     }
 
-    public async Task<bool> UpdateAsync(Building building, CancellationToken cancellationToken)
+    public async Task<bool> Update(BuildingRequest request, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(building.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-
-        // Keep 1:1 â do not reassign to a site who already has another building.
-        if (existing.Id != building.Id)
-        {
-            var Site = await _sites.GetByIdAsync(building.Id, cancellationToken)
-                ?? throw new InvalidOperationException("Site not found.");
-
-            if (Site.Building is not null && Site.Building.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target site already has an building (1:1 relationship).");
-            }
-        }
+        existing.Name = request.Name
+        existing.Site = request.Site
+        existing.Floors = request.Floors
+        await _repository.UpdateAsync(existing, cancellationToken);
+    }
 
         existing.Name = building.Name;
 
@@ -70,9 +62,9 @@ public class BuildingService : IBuildingService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
         {
             return false;
@@ -81,4 +73,6 @@ public class BuildingService : IBuildingService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+
 }

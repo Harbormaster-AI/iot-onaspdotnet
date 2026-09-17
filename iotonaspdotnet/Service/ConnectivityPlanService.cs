@@ -5,63 +5,57 @@ namespace iotonaspdotnet.Service;
 
 public interface IConnectivityPlanService
 {
-    Task<ConnectivityPlan?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-    Task<IReadOnlyList<ConnectivityPlan>> GetAllAsync(CancellationToken cancellationToken);
-    Task CreateAsync(ConnectivityPlan connectivityPlan, CancellationToken cancellationToken);
-    Task<bool> UpdateAsync(ConnectivityPlan connectivityPlan, CancellationToken cancellationToken);
-    Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken);
+    Task<ConnectivityPlan?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<ConnectivityPlan>> GetAll(CancellationToken cancellationToken);
+    Task Create(ConnectivityPlanRequest request , CancellationToken cancellationToken);
+    Task<bool> Update(ConnectivityPlanRequest request, CancellationToken cancellationToken);
+    Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+
 }
 
 public class ConnectivityPlanService : IConnectivityPlanService
 {
     private readonly IConnectivityPlanRepository _repository;
-    private readonly ITenantRepository _tenants;
 
     public ConnectivityPlanService(
-        ITenantRepository tenants,
         IConnectivityPlanRepository repository )
     {
         _repository = repository;
-        _tenants = tenants;
     }
 
-    public Task<ConnectivityPlan?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(id, cancellationToken);
+    public Task<ConnectivityPlan?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<ConnectivityPlan>> GetAllAsync(CancellationToken cancellationToken)
+    public Task<IReadOnlyList<ConnectivityPlan>> GetAll(CancellationToken cancellationToken)
         => _repository.GetAllAsync(cancellationToken);
 
-    public async Task CreateAsync(ConnectivityPlan connectivityPlan, CancellationToken cancellationToken)
+    public async Task Create(ConnectivityPlanRequest request, CancellationToken cancellationToken)
     {
-        var tenant = await _tenants.GetByIdAsync(connectivityPlan.Id, cancellationToken)
+        var tenant = await _tenants.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
         if (tenant.Tenant is not null)
         {
-            throw new InvalidOperationException("Tenant already has a(n) connectivityPlan (1:1 relationship).");
+            throw new InvalidOperationException("Tenant:Tenant already has a(n) ConnectivityPlan (1:1 relationship).");
         }
-        await _repository.AddAsync(connectivityPlan, cancellationToken);
+        await _repository.AddAsync(request, cancellationToken);
     }
 
-    public async Task<bool> UpdateAsync(ConnectivityPlan connectivityPlan, CancellationToken cancellationToken)
+    public async Task<bool> Update(ConnectivityPlanRequest request, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(connectivityPlan.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-
-        // Keep 1:1 â do not reassign to a tenant who already has another connectivityPlan.
-        if (existing.Id != connectivityPlan.Id)
-        {
-            var Tenant = await _tenants.GetByIdAsync(connectivityPlan.Id, cancellationToken)
-                ?? throw new InvalidOperationException("Tenant not found.");
-
-            if (Tenant.ConnectivityPlan is not null && Tenant.ConnectivityPlan.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target tenant already has an connectivityPlan (1:1 relationship).");
-            }
-        }
+        existing.Name = request.Name
+        existing.DataCapMB = request.DataCapMB
+        existing.BillingCycleDays = request.BillingCycleDays
+        existing.SimCards = request.SimCards
+        existing.Tenant = request.Tenant
+        await _repository.UpdateAsync(existing, cancellationToken);
+    }
 
         existing.Name = connectivityPlan.Name;
         existing.DataCapMB = connectivityPlan.DataCapMB;
@@ -72,9 +66,9 @@ public class ConnectivityPlanService : IConnectivityPlanService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
         {
             return false;
@@ -83,4 +77,6 @@ public class ConnectivityPlanService : IConnectivityPlanService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+
 }

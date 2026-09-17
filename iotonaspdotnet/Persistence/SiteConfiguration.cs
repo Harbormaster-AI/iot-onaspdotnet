@@ -1,6 +1,4 @@
 using iotonaspdotnet.Domain;
-using iotonaspdotnet.Domain.Enums;
-using iotonaspdotnet.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

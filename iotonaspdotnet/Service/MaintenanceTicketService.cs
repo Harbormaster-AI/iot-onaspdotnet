@@ -5,80 +5,66 @@ namespace iotonaspdotnet.Service;
 
 public interface IMaintenanceTicketService
 {
-    Task<MaintenanceTicket?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-    Task<IReadOnlyList<MaintenanceTicket>> GetAllAsync(CancellationToken cancellationToken);
-    Task CreateAsync(MaintenanceTicket maintenanceTicket, CancellationToken cancellationToken);
-    Task<bool> UpdateAsync(MaintenanceTicket maintenanceTicket, CancellationToken cancellationToken);
-    Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken);
+    Task<MaintenanceTicket?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<MaintenanceTicket>> GetAll(CancellationToken cancellationToken);
+    Task Create(MaintenanceTicketRequest request , CancellationToken cancellationToken);
+    Task<bool> Update(MaintenanceTicketRequest request, CancellationToken cancellationToken);
+    Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+
 }
 
 public class MaintenanceTicketService : IMaintenanceTicketService
 {
     private readonly IMaintenanceTicketRepository _repository;
-    private readonly IIoTDeviceRepository _ioTDevices;
-    private readonly ITenantRepository _tenants;
 
     public MaintenanceTicketService(
-        IIoTDeviceRepository ioTDevices,
-        ITenantRepository tenants,
         IMaintenanceTicketRepository repository )
     {
         _repository = repository;
-        _ioTDevices = ioTDevices;
-        _tenants = tenants;
     }
 
-    public Task<MaintenanceTicket?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(id, cancellationToken);
+    public Task<MaintenanceTicket?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<MaintenanceTicket>> GetAllAsync(CancellationToken cancellationToken)
+    public Task<IReadOnlyList<MaintenanceTicket>> GetAll(CancellationToken cancellationToken)
         => _repository.GetAllAsync(cancellationToken);
 
-    public async Task CreateAsync(MaintenanceTicket maintenanceTicket, CancellationToken cancellationToken)
+    public async Task Create(MaintenanceTicketRequest request, CancellationToken cancellationToken)
     {
-        var ioTDevice = await _ioTDevices.GetByIdAsync(maintenanceTicket.Id, cancellationToken)
+        var ioTDevice = await _ioTDevices.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
         if (ioTDevice.Device is not null)
         {
-            throw new InvalidOperationException("IoTDevice already has a(n) maintenanceTicket (1:1 relationship).");
+            throw new InvalidOperationException("IoTDevice:Device already has a(n) MaintenanceTicket (1:1 relationship).");
         }
-        var tenant = await _tenants.GetByIdAsync(maintenanceTicket.Id, cancellationToken)
+        var tenant = await _tenants.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
         if (tenant.Tenant is not null)
         {
-            throw new InvalidOperationException("Tenant already has a(n) maintenanceTicket (1:1 relationship).");
+            throw new InvalidOperationException("Tenant:Tenant already has a(n) MaintenanceTicket (1:1 relationship).");
         }
-        await _repository.AddAsync(maintenanceTicket, cancellationToken);
+        await _repository.AddAsync(request, cancellationToken);
     }
 
-    public async Task<bool> UpdateAsync(MaintenanceTicket maintenanceTicket, CancellationToken cancellationToken)
+    public async Task<bool> Update(MaintenanceTicketRequest request, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(maintenanceTicket.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-
-        // Keep 1:1 â do not reassign to a tenant who already has another maintenanceTicket.
-        if (existing.Id != maintenanceTicket.Id)
-        {
-            var Device = await _ioTDevices.GetByIdAsync(maintenanceTicket.Id, cancellationToken)
-                ?? throw new InvalidOperationException("IoTDevice not found.");
-
-            if (Device.MaintenanceTicket is not null && Device.MaintenanceTicket.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target ioTDevice already has an maintenanceTicket (1:1 relationship).");
-            }
-            var Tenant = await _tenants.GetByIdAsync(maintenanceTicket.Id, cancellationToken)
-                ?? throw new InvalidOperationException("Tenant not found.");
-
-            if (Tenant.MaintenanceTicket is not null && Tenant.MaintenanceTicket.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target tenant already has an maintenanceTicket (1:1 relationship).");
-            }
-        }
+        existing.TicketNumber = request.TicketNumber
+        existing.OpenedAt = request.OpenedAt
+        existing.ClosedAt = request.ClosedAt
+        existing.Device = request.Device
+        existing.Tenant = request.Tenant
+        existing.Priority = request.Priority
+        existing.Status = request.Status
+        await _repository.UpdateAsync(existing, cancellationToken);
+    }
 
         existing.TicketNumber = maintenanceTicket.TicketNumber;
         existing.OpenedAt = maintenanceTicket.OpenedAt;
@@ -92,9 +78,9 @@ public class MaintenanceTicketService : IMaintenanceTicketService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
         {
             return false;
@@ -103,4 +89,6 @@ public class MaintenanceTicketService : IMaintenanceTicketService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+
 }

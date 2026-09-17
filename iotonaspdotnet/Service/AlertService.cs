@@ -5,80 +5,65 @@ namespace iotonaspdotnet.Service;
 
 public interface IAlertService
 {
-    Task<Alert?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-    Task<IReadOnlyList<Alert>> GetAllAsync(CancellationToken cancellationToken);
-    Task CreateAsync(Alert alert, CancellationToken cancellationToken);
-    Task<bool> UpdateAsync(Alert alert, CancellationToken cancellationToken);
-    Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken);
+    Task<Alert?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<Alert>> GetAll(CancellationToken cancellationToken);
+    Task Create(AlertRequest request , CancellationToken cancellationToken);
+    Task<bool> Update(AlertRequest request, CancellationToken cancellationToken);
+    Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+
 }
 
 public class AlertService : IAlertService
 {
     private readonly IAlertRepository _repository;
-    private readonly IIoTDeviceRepository _ioTDevices;
-    private readonly IAlertRuleRepository _alertRules;
 
     public AlertService(
-        IIoTDeviceRepository ioTDevices,
-        IAlertRuleRepository alertRules,
         IAlertRepository repository )
     {
         _repository = repository;
-        _ioTDevices = ioTDevices;
-        _alertRules = alertRules;
     }
 
-    public Task<Alert?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(id, cancellationToken);
+    public Task<Alert?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<Alert>> GetAllAsync(CancellationToken cancellationToken)
+    public Task<IReadOnlyList<Alert>> GetAll(CancellationToken cancellationToken)
         => _repository.GetAllAsync(cancellationToken);
 
-    public async Task CreateAsync(Alert alert, CancellationToken cancellationToken)
+    public async Task Create(AlertRequest request, CancellationToken cancellationToken)
     {
-        var ioTDevice = await _ioTDevices.GetByIdAsync(alert.Id, cancellationToken)
+        var ioTDevice = await _ioTDevices.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
         if (ioTDevice.Device is not null)
         {
-            throw new InvalidOperationException("IoTDevice already has a(n) alert (1:1 relationship).");
+            throw new InvalidOperationException("IoTDevice:Device already has a(n) Alert (1:1 relationship).");
         }
-        var alertRule = await _alertRules.GetByIdAsync(alert.Id, cancellationToken)
+        var alertRule = await _alertRules.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("AlertRule not found.");
 
         if (alertRule.AlertRule is not null)
         {
-            throw new InvalidOperationException("AlertRule already has a(n) alert (1:1 relationship).");
+            throw new InvalidOperationException("AlertRule:AlertRule already has a(n) Alert (1:1 relationship).");
         }
-        await _repository.AddAsync(alert, cancellationToken);
+        await _repository.AddAsync(request, cancellationToken);
     }
 
-    public async Task<bool> UpdateAsync(Alert alert, CancellationToken cancellationToken)
+    public async Task<bool> Update(AlertRequest request, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(alert.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-
-        // Keep 1:1 â do not reassign to a alertRule who already has another alert.
-        if (existing.Id != alert.Id)
-        {
-            var Device = await _ioTDevices.GetByIdAsync(alert.Id, cancellationToken)
-                ?? throw new InvalidOperationException("IoTDevice not found.");
-
-            if (Device.Alert is not null && Device.Alert.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target ioTDevice already has an alert (1:1 relationship).");
-            }
-            var AlertRule = await _alertRules.GetByIdAsync(alert.Id, cancellationToken)
-                ?? throw new InvalidOperationException("AlertRule not found.");
-
-            if (AlertRule.Alert is not null && AlertRule.Alert.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target alertRule already has an alert (1:1 relationship).");
-            }
-        }
+        existing.RaisedAt = request.RaisedAt
+        existing.ClearedAt = request.ClearedAt
+        existing.Message = request.Message
+        existing.Device = request.Device
+        existing.AlertRule = request.AlertRule
+        existing.Status = request.Status
+        await _repository.UpdateAsync(existing, cancellationToken);
+    }
 
         existing.RaisedAt = alert.RaisedAt;
         existing.ClearedAt = alert.ClearedAt;
@@ -91,9 +76,9 @@ public class AlertService : IAlertService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
         {
             return false;
@@ -102,4 +87,6 @@ public class AlertService : IAlertService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+
 }

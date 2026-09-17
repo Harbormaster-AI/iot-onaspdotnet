@@ -1,6 +1,7 @@
 using iotonaspdotnet.Service;
 using iotonaspdotnet.Domain;
 
+
 namespace iotonaspdotnet.Api;
 
 public static class TwinTemplateEndpoints
@@ -9,47 +10,26 @@ public static class TwinTemplateEndpoints
     {
         var group = app.MapGroup("/api/twinTemplate").WithTags("TwinTemplates");
 
-        group.MapGet("/", GetAll);
-        group.MapGet("/{id:guid}", GetById);
-        group.MapPost("/", Create);
-        group.MapPut("/{id:guid}", Update);
-        group.MapDelete("/{id:guid}", Delete);
+        group.MapPost("/", create);
+        group.MapGet("/", get);
+        group.MapGet("/", getAll);
+        group.MapPut("/", update);
+        group.MapDelete("/", delete);
+
+
+    group.MapDelete("/", addToDeviceModels);
+    group.MapDelete("/", removeFromDeviceModels);
+
 
         return app;
     }
 
-    private static async Task<IResult> GetAll(
-        ITwinTemplateService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassNames = await service.GetAllAsync(cancellationToken);
-        return Results.Ok(lowercaseClassNames.Select(ToResponse));
-    }
-
-    private static async Task<IResult> GetById(
-        Guid id,
-        ITwinTemplateService service,
-        CancellationToken cancellationToken)
-    {
-        var twinTemplate = await service.GetByIdAsync(id, cancellationToken);
-        return twinTemplate is null ? Results.NotFound() : Results.Ok(ToResponse( twinTemplate ));
-    }
-
     private static async Task<IResult> Create(
-        CreateTwinTemplateRequest request,
+        TwinTemplateRequest request,
         ITwinTemplateService service,
-        CancellationToken cancellationToken)
-    {
-        var twinTemplate = new TwinTemplate
-        {
-            Id = Guid.NewGuid(),
+        CancellationToken cancellationToken) {
 
-                Name = request.Name,
-                SchemaUri = request.SchemaUri,
-                Version = request.Version,
-
-
-        };
+        var model = mapRequestTo( request );
 
         try
         {
@@ -60,27 +40,19 @@ public static class TwinTemplateEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/twinTemplates/twinTemplate.Id", ToResponse(lowercaseClassName));
+        return Results.NoContent();
     }
 
     private static async Task<IResult> Update(
-        Guid id,
-        UpdateTwinTemplateRequest request,
+        TwinTemplateRequest request,
         ITwinTemplateService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassName = new TwinTemplate
-        {
-            Id = id,
-            Name = request.Name,
-            SchemaUri = request.SchemaUri,
-            Version = request.Version,
+        CancellationToken cancellationToken) {
 
-        };
+        var model = mapRequestTo( request );
 
         try
         {
-            var updated = await service.UpdateAsync(lowercaseClassName, cancellationToken);
+            var updated = await service.UpdateAsync(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -89,18 +61,58 @@ public static class TwinTemplateEndpoints
         }
     }
 
-    private static async Task<IResult> Delete(
-        Guid id,
+    private static async Task<IResult> GetAll(
         ITwinTemplateService service,
-        CancellationToken cancellationToken)
-    {
-        var deleted = await service.DeleteAsync(id, cancellationToken);
+        CancellationToken cancellationToken) {
+
+        var all; = await service.GetAllAsync(cancellationToken);
+        return Results.Ok( all.Select( TwinTemplateResponse.FromModel ) );
+    }
+
+    private static async Task<IResult> Get(
+        IdentifierRequest identifier,
+        ITwinTemplateService service,
+        CancellationToken cancellationToken) {
+
+        var twinTemplate = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        return twinTemplate is null ? Results.NotFound() : Results.Ok( twinTemplate );
+    }
+
+
+    private static async Task<IResult> Delete(
+        IdentifierRequest identifier,
+        ITwinTemplateService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.DeleteAsync(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private static TwinTemplateResponse ToResponse(TwinTemplate lowercaseClassName)
-        => new( twinTemplate.Id,
-                , String, Uri_, String
-                 );
 
+    private static async Task<IResult> AssignDeviceModels(
+        AssociationRequest request,
+        ITwinTemplateService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AddToDeviceModelsAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignDeviceModels(
+        AssociationRequest request,
+        ITwinTemplateService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.RemoveFromDeviceModelsAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private com.harbormaster.codetemplate.model.classes.ClassObject@30ae56f4 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@30ae56f4( com.harbormaster.codetemplate.model.classes.ClassObject@30ae56f4Request request ) {
+        var model = new TwinTemplate
+        {
+            Id = request.id,
+        Name = request.Name
+        SchemaUri = request.SchemaUri
+        Version = request.Version
+        DeviceModels = request.DeviceModels
+        }
+        return model;
+    }
 }

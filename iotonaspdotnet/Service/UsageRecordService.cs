@@ -5,97 +5,73 @@ namespace iotonaspdotnet.Service;
 
 public interface IUsageRecordService
 {
-    Task<UsageRecord?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-    Task<IReadOnlyList<UsageRecord>> GetAllAsync(CancellationToken cancellationToken);
-    Task CreateAsync(UsageRecord usageRecord, CancellationToken cancellationToken);
-    Task<bool> UpdateAsync(UsageRecord usageRecord, CancellationToken cancellationToken);
-    Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken);
+    Task<UsageRecord?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<UsageRecord>> GetAll(CancellationToken cancellationToken);
+    Task Create(UsageRecordRequest request , CancellationToken cancellationToken);
+    Task<bool> Update(UsageRecordRequest request, CancellationToken cancellationToken);
+    Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+
 }
 
 public class UsageRecordService : IUsageRecordService
 {
     private readonly IUsageRecordRepository _repository;
-    private readonly ITenantRepository _tenants;
-    private readonly IIoTDeviceRepository _ioTDevices;
-    private readonly IConnectivityPlanRepository _connectivityPlans;
 
     public UsageRecordService(
-        ITenantRepository tenants,
-        IIoTDeviceRepository ioTDevices,
-        IConnectivityPlanRepository connectivityPlans,
         IUsageRecordRepository repository )
     {
         _repository = repository;
-        _tenants = tenants;
-        _ioTDevices = ioTDevices;
-        _connectivityPlans = connectivityPlans;
     }
 
-    public Task<UsageRecord?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(id, cancellationToken);
+    public Task<UsageRecord?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<UsageRecord>> GetAllAsync(CancellationToken cancellationToken)
+    public Task<IReadOnlyList<UsageRecord>> GetAll(CancellationToken cancellationToken)
         => _repository.GetAllAsync(cancellationToken);
 
-    public async Task CreateAsync(UsageRecord usageRecord, CancellationToken cancellationToken)
+    public async Task Create(UsageRecordRequest request, CancellationToken cancellationToken)
     {
-        var tenant = await _tenants.GetByIdAsync(usageRecord.Id, cancellationToken)
+        var tenant = await _tenants.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
         if (tenant.Tenant is not null)
         {
-            throw new InvalidOperationException("Tenant already has a(n) usageRecord (1:1 relationship).");
+            throw new InvalidOperationException("Tenant:Tenant already has a(n) UsageRecord (1:1 relationship).");
         }
-        var ioTDevice = await _ioTDevices.GetByIdAsync(usageRecord.Id, cancellationToken)
+        var ioTDevice = await _ioTDevices.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
         if (ioTDevice.Device is not null)
         {
-            throw new InvalidOperationException("IoTDevice already has a(n) usageRecord (1:1 relationship).");
+            throw new InvalidOperationException("IoTDevice:Device already has a(n) UsageRecord (1:1 relationship).");
         }
-        var connectivityPlan = await _connectivityPlans.GetByIdAsync(usageRecord.Id, cancellationToken)
+        var connectivityPlan = await _connectivityPlans.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("ConnectivityPlan not found.");
 
         if (connectivityPlan.ConnectivityPlan is not null)
         {
-            throw new InvalidOperationException("ConnectivityPlan already has a(n) usageRecord (1:1 relationship).");
+            throw new InvalidOperationException("ConnectivityPlan:ConnectivityPlan already has a(n) UsageRecord (1:1 relationship).");
         }
-        await _repository.AddAsync(usageRecord, cancellationToken);
+        await _repository.AddAsync(request, cancellationToken);
     }
 
-    public async Task<bool> UpdateAsync(UsageRecord usageRecord, CancellationToken cancellationToken)
+    public async Task<bool> Update(UsageRecordRequest request, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(usageRecord.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-
-        // Keep 1:1 â do not reassign to a connectivityPlan who already has another usageRecord.
-        if (existing.Id != usageRecord.Id)
-        {
-            var Tenant = await _tenants.GetByIdAsync(usageRecord.Id, cancellationToken)
-                ?? throw new InvalidOperationException("Tenant not found.");
-
-            if (Tenant.UsageRecord is not null && Tenant.UsageRecord.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target tenant already has an usageRecord (1:1 relationship).");
-            }
-            var Device = await _ioTDevices.GetByIdAsync(usageRecord.Id, cancellationToken)
-                ?? throw new InvalidOperationException("IoTDevice not found.");
-
-            if (Device.UsageRecord is not null && Device.UsageRecord.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target ioTDevice already has an usageRecord (1:1 relationship).");
-            }
-            var ConnectivityPlan = await _connectivityPlans.GetByIdAsync(usageRecord.Id, cancellationToken)
-                ?? throw new InvalidOperationException("ConnectivityPlan not found.");
-
-            if (ConnectivityPlan.UsageRecord is not null && ConnectivityPlan.UsageRecord.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target connectivityPlan already has an usageRecord (1:1 relationship).");
-            }
-        }
+        existing.PeriodStart = request.PeriodStart
+        existing.PeriodEnd = request.PeriodEnd
+        existing.MessagesSent = request.MessagesSent
+        existing.DataVolumeMB = request.DataVolumeMB
+        existing.Tenant = request.Tenant
+        existing.Device = request.Device
+        existing.ConnectivityPlan = request.ConnectivityPlan
+        await _repository.UpdateAsync(existing, cancellationToken);
+    }
 
         existing.PeriodStart = usageRecord.PeriodStart;
         existing.PeriodEnd = usageRecord.PeriodEnd;
@@ -109,9 +85,9 @@ public class UsageRecordService : IUsageRecordService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
         {
             return false;
@@ -120,4 +96,6 @@ public class UsageRecordService : IUsageRecordService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+
 }

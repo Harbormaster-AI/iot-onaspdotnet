@@ -5,80 +5,64 @@ namespace iotonaspdotnet.Service;
 
 public interface ISoftwareUpdateExecutionService
 {
-    Task<SoftwareUpdateExecution?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-    Task<IReadOnlyList<SoftwareUpdateExecution>> GetAllAsync(CancellationToken cancellationToken);
-    Task CreateAsync(SoftwareUpdateExecution softwareUpdateExecution, CancellationToken cancellationToken);
-    Task<bool> UpdateAsync(SoftwareUpdateExecution softwareUpdateExecution, CancellationToken cancellationToken);
-    Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken);
+    Task<SoftwareUpdateExecution?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<SoftwareUpdateExecution>> GetAll(CancellationToken cancellationToken);
+    Task Create(SoftwareUpdateExecutionRequest request , CancellationToken cancellationToken);
+    Task<bool> Update(SoftwareUpdateExecutionRequest request, CancellationToken cancellationToken);
+    Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+
 }
 
 public class SoftwareUpdateExecutionService : ISoftwareUpdateExecutionService
 {
     private readonly ISoftwareUpdateExecutionRepository _repository;
-    private readonly ISoftwareUpdateCampaignRepository _softwareUpdateCampaigns;
-    private readonly IIoTDeviceRepository _ioTDevices;
 
     public SoftwareUpdateExecutionService(
-        ISoftwareUpdateCampaignRepository softwareUpdateCampaigns,
-        IIoTDeviceRepository ioTDevices,
         ISoftwareUpdateExecutionRepository repository )
     {
         _repository = repository;
-        _softwareUpdateCampaigns = softwareUpdateCampaigns;
-        _ioTDevices = ioTDevices;
     }
 
-    public Task<SoftwareUpdateExecution?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(id, cancellationToken);
+    public Task<SoftwareUpdateExecution?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<SoftwareUpdateExecution>> GetAllAsync(CancellationToken cancellationToken)
+    public Task<IReadOnlyList<SoftwareUpdateExecution>> GetAll(CancellationToken cancellationToken)
         => _repository.GetAllAsync(cancellationToken);
 
-    public async Task CreateAsync(SoftwareUpdateExecution softwareUpdateExecution, CancellationToken cancellationToken)
+    public async Task Create(SoftwareUpdateExecutionRequest request, CancellationToken cancellationToken)
     {
-        var softwareUpdateCampaign = await _softwareUpdateCampaigns.GetByIdAsync(softwareUpdateExecution.Id, cancellationToken)
+        var softwareUpdateCampaign = await _softwareUpdateCampaigns.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("SoftwareUpdateCampaign not found.");
 
         if (softwareUpdateCampaign.Campaign is not null)
         {
-            throw new InvalidOperationException("SoftwareUpdateCampaign already has a(n) softwareUpdateExecution (1:1 relationship).");
+            throw new InvalidOperationException("SoftwareUpdateCampaign:Campaign already has a(n) SoftwareUpdateExecution (1:1 relationship).");
         }
-        var ioTDevice = await _ioTDevices.GetByIdAsync(softwareUpdateExecution.Id, cancellationToken)
+        var ioTDevice = await _ioTDevices.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
         if (ioTDevice.Device is not null)
         {
-            throw new InvalidOperationException("IoTDevice already has a(n) softwareUpdateExecution (1:1 relationship).");
+            throw new InvalidOperationException("IoTDevice:Device already has a(n) SoftwareUpdateExecution (1:1 relationship).");
         }
-        await _repository.AddAsync(softwareUpdateExecution, cancellationToken);
+        await _repository.AddAsync(request, cancellationToken);
     }
 
-    public async Task<bool> UpdateAsync(SoftwareUpdateExecution softwareUpdateExecution, CancellationToken cancellationToken)
+    public async Task<bool> Update(SoftwareUpdateExecutionRequest request, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(softwareUpdateExecution.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-
-        // Keep 1:1 â do not reassign to a ioTDevice who already has another softwareUpdateExecution.
-        if (existing.Id != softwareUpdateExecution.Id)
-        {
-            var Campaign = await _softwareUpdateCampaigns.GetByIdAsync(softwareUpdateExecution.Id, cancellationToken)
-                ?? throw new InvalidOperationException("SoftwareUpdateCampaign not found.");
-
-            if (Campaign.SoftwareUpdateExecution is not null && Campaign.SoftwareUpdateExecution.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target softwareUpdateCampaign already has an softwareUpdateExecution (1:1 relationship).");
-            }
-            var Device = await _ioTDevices.GetByIdAsync(softwareUpdateExecution.Id, cancellationToken)
-                ?? throw new InvalidOperationException("IoTDevice not found.");
-
-            if (Device.SoftwareUpdateExecution is not null && Device.SoftwareUpdateExecution.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target ioTDevice already has an softwareUpdateExecution (1:1 relationship).");
-            }
-        }
+        existing.StartedAt = request.StartedAt
+        existing.CompletedAt = request.CompletedAt
+        existing.Campaign = request.Campaign
+        existing.Device = request.Device
+        existing.Status = request.Status
+        await _repository.UpdateAsync(existing, cancellationToken);
+    }
 
         existing.StartedAt = softwareUpdateExecution.StartedAt;
         existing.CompletedAt = softwareUpdateExecution.CompletedAt;
@@ -90,9 +74,9 @@ public class SoftwareUpdateExecutionService : ISoftwareUpdateExecutionService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
         {
             return false;
@@ -101,4 +85,6 @@ public class SoftwareUpdateExecutionService : ISoftwareUpdateExecutionService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+
 }

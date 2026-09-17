@@ -1,6 +1,7 @@
 using iotonaspdotnet.Service;
 using iotonaspdotnet.Domain;
 
+
 namespace iotonaspdotnet.Api;
 
 public static class TelemetrySchemaEndpoints
@@ -9,47 +10,26 @@ public static class TelemetrySchemaEndpoints
     {
         var group = app.MapGroup("/api/telemetrySchema").WithTags("TelemetrySchemas");
 
-        group.MapGet("/", GetAll);
-        group.MapGet("/{id:guid}", GetById);
-        group.MapPost("/", Create);
-        group.MapPut("/{id:guid}", Update);
-        group.MapDelete("/{id:guid}", Delete);
+        group.MapPost("/", create);
+        group.MapGet("/", get);
+        group.MapGet("/", getAll);
+        group.MapPut("/", update);
+        group.MapDelete("/", delete);
+
+
+    group.MapDelete("/", addToStreams);
+    group.MapDelete("/", removeFromStreams);
+
 
         return app;
     }
 
-    private static async Task<IResult> GetAll(
-        ITelemetrySchemaService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassNames = await service.GetAllAsync(cancellationToken);
-        return Results.Ok(lowercaseClassNames.Select(ToResponse));
-    }
-
-    private static async Task<IResult> GetById(
-        Guid id,
-        ITelemetrySchemaService service,
-        CancellationToken cancellationToken)
-    {
-        var telemetrySchema = await service.GetByIdAsync(id, cancellationToken);
-        return telemetrySchema is null ? Results.NotFound() : Results.Ok(ToResponse( telemetrySchema ));
-    }
-
     private static async Task<IResult> Create(
-        CreateTelemetrySchemaRequest request,
+        TelemetrySchemaRequest request,
         ITelemetrySchemaService service,
-        CancellationToken cancellationToken)
-    {
-        var telemetrySchema = new TelemetrySchema
-        {
-            Id = Guid.NewGuid(),
+        CancellationToken cancellationToken) {
 
-                SchemaId = request.SchemaId,
-                SchemaUri = request.SchemaUri,
-                Encoding = request.Encoding,
-
-
-        };
+        var model = mapRequestTo( request );
 
         try
         {
@@ -60,27 +40,19 @@ public static class TelemetrySchemaEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/telemetrySchemas/telemetrySchema.Id", ToResponse(lowercaseClassName));
+        return Results.NoContent();
     }
 
     private static async Task<IResult> Update(
-        Guid id,
-        UpdateTelemetrySchemaRequest request,
+        TelemetrySchemaRequest request,
         ITelemetrySchemaService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassName = new TelemetrySchema
-        {
-            Id = id,
-            SchemaId = request.SchemaId,
-            SchemaUri = request.SchemaUri,
-            Encoding = request.Encoding,
+        CancellationToken cancellationToken) {
 
-        };
+        var model = mapRequestTo( request );
 
         try
         {
-            var updated = await service.UpdateAsync(lowercaseClassName, cancellationToken);
+            var updated = await service.UpdateAsync(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -89,18 +61,58 @@ public static class TelemetrySchemaEndpoints
         }
     }
 
-    private static async Task<IResult> Delete(
-        Guid id,
+    private static async Task<IResult> GetAll(
         ITelemetrySchemaService service,
-        CancellationToken cancellationToken)
-    {
-        var deleted = await service.DeleteAsync(id, cancellationToken);
+        CancellationToken cancellationToken) {
+
+        var all; = await service.GetAllAsync(cancellationToken);
+        return Results.Ok( all.Select( TelemetrySchemaResponse.FromModel ) );
+    }
+
+    private static async Task<IResult> Get(
+        IdentifierRequest identifier,
+        ITelemetrySchemaService service,
+        CancellationToken cancellationToken) {
+
+        var telemetrySchema = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        return telemetrySchema is null ? Results.NotFound() : Results.Ok( telemetrySchema );
+    }
+
+
+    private static async Task<IResult> Delete(
+        IdentifierRequest identifier,
+        ITelemetrySchemaService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.DeleteAsync(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private static TelemetrySchemaResponse ToResponse(TelemetrySchema lowercaseClassName)
-        => new( telemetrySchema.Id,
-                , String, Uri_, TelemetryEncoding
-                 );
 
+    private static async Task<IResult> AssignStreams(
+        AssociationRequest request,
+        ITelemetrySchemaService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AddToStreamsAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignStreams(
+        AssociationRequest request,
+        ITelemetrySchemaService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.RemoveFromStreamsAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private com.harbormaster.codetemplate.model.classes.ClassObject@5efdce31 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@5efdce31( com.harbormaster.codetemplate.model.classes.ClassObject@5efdce31Request request ) {
+        var model = new TelemetrySchema
+        {
+            Id = request.id,
+        SchemaId = request.SchemaId
+        SchemaUri = request.SchemaUri
+        Streams = request.Streams
+        Encoding = request.Encoding
+        }
+        return model;
+    }
 }

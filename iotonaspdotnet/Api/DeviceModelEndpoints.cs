@@ -1,6 +1,7 @@
 using iotonaspdotnet.Service;
 using iotonaspdotnet.Domain;
 
+
 namespace iotonaspdotnet.Api;
 
 public static class DeviceModelEndpoints
@@ -9,51 +10,36 @@ public static class DeviceModelEndpoints
     {
         var group = app.MapGroup("/api/deviceModel").WithTags("DeviceModels");
 
-        group.MapGet("/", GetAll);
-        group.MapGet("/{id:guid}", GetById);
-        group.MapPost("/", Create);
-        group.MapPut("/{id:guid}", Update);
-        group.MapDelete("/{id:guid}", Delete);
+        group.MapPost("/", create);
+        group.MapGet("/", get);
+        group.MapGet("/", getAll);
+        group.MapPut("/", update);
+        group.MapDelete("/", delete);
+
+        group.MapDelete("/", assignVendor);
+        group.MapDelete("/", unassignVendor);
+        group.MapDelete("/", assignTwinTemplate);
+        group.MapDelete("/", unassignTwinTemplate);
+
+    group.MapDelete("/", addToHardwareModules);
+    group.MapDelete("/", removeFromHardwareModules);
+
+    group.MapDelete("/", addToFirmwareReleases);
+    group.MapDelete("/", removeFromFirmwareReleases);
+
+    group.MapDelete("/", addToCommandDefinitions);
+    group.MapDelete("/", removeFromCommandDefinitions);
+
 
         return app;
     }
 
-    private static async Task<IResult> GetAll(
-        IDeviceModelService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassNames = await service.GetAllAsync(cancellationToken);
-        return Results.Ok(lowercaseClassNames.Select(ToResponse));
-    }
-
-    private static async Task<IResult> GetById(
-        Guid id,
-        IDeviceModelService service,
-        CancellationToken cancellationToken)
-    {
-        var deviceModel = await service.GetByIdAsync(id, cancellationToken);
-        return deviceModel is null ? Results.NotFound() : Results.Ok(ToResponse( deviceModel ));
-    }
-
     private static async Task<IResult> Create(
-        CreateDeviceModelRequest request,
+        DeviceModelRequest request,
         IDeviceModelService service,
-        CancellationToken cancellationToken)
-    {
-        var deviceModel = new DeviceModel
-        {
-            Id = Guid.NewGuid(),
+        CancellationToken cancellationToken) {
 
-                Name = request.Name,
-                ModelNumber = request.ModelNumber,
-                HardwareRevision = request.HardwareRevision,
-                SupportedConnectivity = request.SupportedConnectivity,
-                DefaultTelemetryEncoding = request.DefaultTelemetryEncoding,
-
-                DeviceVendorId = request.DeviceVendorId,
-                TwinTemplateId = request.TwinTemplateId,
-
-        };
+        var model = mapRequestTo( request );
 
         try
         {
@@ -64,31 +50,19 @@ public static class DeviceModelEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/deviceModels/deviceModel.Id", ToResponse(lowercaseClassName));
+        return Results.NoContent();
     }
 
     private static async Task<IResult> Update(
-        Guid id,
-        UpdateDeviceModelRequest request,
+        DeviceModelRequest request,
         IDeviceModelService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassName = new DeviceModel
-        {
-            Id = id,
-            Name = request.Name,
-            ModelNumber = request.ModelNumber,
-            HardwareRevision = request.HardwareRevision,
-            SupportedConnectivity = request.SupportedConnectivity,
-            DefaultTelemetryEncoding = request.DefaultTelemetryEncoding,
+        CancellationToken cancellationToken) {
 
-            DeviceVendorId = request.DeviceVendorId,
-            TwinTemplateId = request.TwinTemplateId,
-        };
+        var model = mapRequestTo( request );
 
         try
         {
-            var updated = await service.UpdateAsync(lowercaseClassName, cancellationToken);
+            var updated = await service.UpdateAsync(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -97,18 +71,162 @@ public static class DeviceModelEndpoints
         }
     }
 
-    private static async Task<IResult> Delete(
-        Guid id,
+    private static async Task<IResult> GetAll(
         IDeviceModelService service,
-        CancellationToken cancellationToken)
-    {
-        var deleted = await service.DeleteAsync(id, cancellationToken);
+        CancellationToken cancellationToken) {
+
+        var all; = await service.GetAllAsync(cancellationToken);
+        return Results.Ok( all.Select( DeviceModelResponse.FromModel ) );
+    }
+
+    private static async Task<IResult> Get(
+        IdentifierRequest identifier,
+        IDeviceModelService service,
+        CancellationToken cancellationToken) {
+
+        var deviceModel = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        return deviceModel is null ? Results.NotFound() : Results.Ok( deviceModel );
+    }
+
+
+    private static async Task<IResult> Delete(
+        IdentifierRequest identifier,
+        IDeviceModelService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.DeleteAsync(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private static DeviceModelResponse ToResponse(DeviceModel lowercaseClassName)
-        => new( deviceModel.Id,
-                , String, String, String, ConnectivityType, TelemetryEncoding
-                , DeviceVendorId, TwinTemplateId );
+    private static async Task<IResult> AssignVendor(
+        AssociationRequest request,
+        IDeviceModelService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AssignVendorAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
 
+    private static async Task<IResult> AssignVendor(
+    AssociationRequest request,
+    IDeviceModelService service,
+    CancellationToken cancellationToken) {
+        var deleted = await service.AssignVendorAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignTwinTemplate(
+        AssociationRequest request,
+        IDeviceModelService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AssignTwinTemplateAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignTwinTemplate(
+    AssociationRequest request,
+    IDeviceModelService service,
+    CancellationToken cancellationToken) {
+        var deleted = await service.AssignTwinTemplateAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+
+    private static async Task<IResult> AssignHardwareModules(
+        AssociationRequest request,
+        IDeviceModelService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AddToHardwareModulesAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignHardwareModules(
+        AssociationRequest request,
+        IDeviceModelService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.RemoveFromHardwareModulesAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private com.harbormaster.codetemplate.model.classes.ClassObject@4370e62e mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@4370e62e( com.harbormaster.codetemplate.model.classes.ClassObject@4370e62eRequest request ) {
+        var model = new DeviceModel
+        {
+            Id = request.id,
+        Name = request.Name
+        ModelNumber = request.ModelNumber
+        HardwareRevision = request.HardwareRevision
+        Vendor = request.Vendor
+        HardwareModules = request.HardwareModules
+        TwinTemplate = request.TwinTemplate
+        FirmwareReleases = request.FirmwareReleases
+        CommandDefinitions = request.CommandDefinitions
+        SupportedConnectivity = request.SupportedConnectivity
+        DefaultTelemetryEncoding = request.DefaultTelemetryEncoding
+        }
+        return model;
+    }
+    private static async Task<IResult> AssignFirmwareReleases(
+        AssociationRequest request,
+        IDeviceModelService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AddToFirmwareReleasesAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignFirmwareReleases(
+        AssociationRequest request,
+        IDeviceModelService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.RemoveFromFirmwareReleasesAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private com.harbormaster.codetemplate.model.classes.ClassObject@4370e62e mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@4370e62e( com.harbormaster.codetemplate.model.classes.ClassObject@4370e62eRequest request ) {
+        var model = new DeviceModel
+        {
+            Id = request.id,
+        Name = request.Name
+        ModelNumber = request.ModelNumber
+        HardwareRevision = request.HardwareRevision
+        Vendor = request.Vendor
+        HardwareModules = request.HardwareModules
+        TwinTemplate = request.TwinTemplate
+        FirmwareReleases = request.FirmwareReleases
+        CommandDefinitions = request.CommandDefinitions
+        SupportedConnectivity = request.SupportedConnectivity
+        DefaultTelemetryEncoding = request.DefaultTelemetryEncoding
+        }
+        return model;
+    }
+    private static async Task<IResult> AssignCommandDefinitions(
+        AssociationRequest request,
+        IDeviceModelService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AddToCommandDefinitionsAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignCommandDefinitions(
+        AssociationRequest request,
+        IDeviceModelService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.RemoveFromCommandDefinitionsAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private com.harbormaster.codetemplate.model.classes.ClassObject@4370e62e mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@4370e62e( com.harbormaster.codetemplate.model.classes.ClassObject@4370e62eRequest request ) {
+        var model = new DeviceModel
+        {
+            Id = request.id,
+        Name = request.Name
+        ModelNumber = request.ModelNumber
+        HardwareRevision = request.HardwareRevision
+        Vendor = request.Vendor
+        HardwareModules = request.HardwareModules
+        TwinTemplate = request.TwinTemplate
+        FirmwareReleases = request.FirmwareReleases
+        CommandDefinitions = request.CommandDefinitions
+        SupportedConnectivity = request.SupportedConnectivity
+        DefaultTelemetryEncoding = request.DefaultTelemetryEncoding
+        }
+        return model;
+    }
 }

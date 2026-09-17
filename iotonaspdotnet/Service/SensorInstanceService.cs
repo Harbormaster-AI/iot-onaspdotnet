@@ -5,63 +5,58 @@ namespace iotonaspdotnet.Service;
 
 public interface ISensorInstanceService
 {
-    Task<SensorInstance?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-    Task<IReadOnlyList<SensorInstance>> GetAllAsync(CancellationToken cancellationToken);
-    Task CreateAsync(SensorInstance sensorInstance, CancellationToken cancellationToken);
-    Task<bool> UpdateAsync(SensorInstance sensorInstance, CancellationToken cancellationToken);
-    Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken);
+    Task<SensorInstance?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<SensorInstance>> GetAll(CancellationToken cancellationToken);
+    Task Create(SensorInstanceRequest request , CancellationToken cancellationToken);
+    Task<bool> Update(SensorInstanceRequest request, CancellationToken cancellationToken);
+    Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+
 }
 
 public class SensorInstanceService : ISensorInstanceService
 {
     private readonly ISensorInstanceRepository _repository;
-    private readonly IIoTDeviceRepository _ioTDevices;
 
     public SensorInstanceService(
-        IIoTDeviceRepository ioTDevices,
         ISensorInstanceRepository repository )
     {
         _repository = repository;
-        _ioTDevices = ioTDevices;
     }
 
-    public Task<SensorInstance?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(id, cancellationToken);
+    public Task<SensorInstance?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<SensorInstance>> GetAllAsync(CancellationToken cancellationToken)
+    public Task<IReadOnlyList<SensorInstance>> GetAll(CancellationToken cancellationToken)
         => _repository.GetAllAsync(cancellationToken);
 
-    public async Task CreateAsync(SensorInstance sensorInstance, CancellationToken cancellationToken)
+    public async Task Create(SensorInstanceRequest request, CancellationToken cancellationToken)
     {
-        var ioTDevice = await _ioTDevices.GetByIdAsync(sensorInstance.Id, cancellationToken)
+        var ioTDevice = await _ioTDevices.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
         if (ioTDevice.Device is not null)
         {
-            throw new InvalidOperationException("IoTDevice already has a(n) sensorInstance (1:1 relationship).");
+            throw new InvalidOperationException("IoTDevice:Device already has a(n) SensorInstance (1:1 relationship).");
         }
-        await _repository.AddAsync(sensorInstance, cancellationToken);
+        await _repository.AddAsync(request, cancellationToken);
     }
 
-    public async Task<bool> UpdateAsync(SensorInstance sensorInstance, CancellationToken cancellationToken)
+    public async Task<bool> Update(SensorInstanceRequest request, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(sensorInstance.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-
-        // Keep 1:1 â do not reassign to a ioTDevice who already has another sensorInstance.
-        if (existing.Id != sensorInstance.Id)
-        {
-            var Device = await _ioTDevices.GetByIdAsync(sensorInstance.Id, cancellationToken)
-                ?? throw new InvalidOperationException("IoTDevice not found.");
-
-            if (Device.SensorInstance is not null && Device.SensorInstance.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target ioTDevice already has an sensorInstance (1:1 relationship).");
-            }
-        }
+        existing.Name = request.Name
+        existing.Unit = request.Unit
+        existing.SamplingIntervalMs = request.SamplingIntervalMs
+        existing.Device = request.Device
+        existing.TelemetryStreams = request.TelemetryStreams
+        existing.SensorType = request.SensorType
+        await _repository.UpdateAsync(existing, cancellationToken);
+    }
 
         existing.Name = sensorInstance.Name;
         existing.Unit = sensorInstance.Unit;
@@ -73,9 +68,9 @@ public class SensorInstanceService : ISensorInstanceService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
         {
             return false;
@@ -84,4 +79,6 @@ public class SensorInstanceService : ISensorInstanceService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+
 }

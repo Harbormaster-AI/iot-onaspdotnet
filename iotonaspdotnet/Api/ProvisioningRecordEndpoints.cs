@@ -1,6 +1,7 @@
 using iotonaspdotnet.Service;
 using iotonaspdotnet.Domain;
 
+
 namespace iotonaspdotnet.Api;
 
 public static class ProvisioningRecordEndpoints
@@ -9,51 +10,29 @@ public static class ProvisioningRecordEndpoints
     {
         var group = app.MapGroup("/api/provisioningRecord").WithTags("ProvisioningRecords");
 
-        group.MapGet("/", GetAll);
-        group.MapGet("/{id:guid}", GetById);
-        group.MapPost("/", Create);
-        group.MapPut("/{id:guid}", Update);
-        group.MapDelete("/{id:guid}", Delete);
+        group.MapPost("/", create);
+        group.MapGet("/", get);
+        group.MapGet("/", getAll);
+        group.MapPut("/", update);
+        group.MapDelete("/", delete);
+
+        group.MapDelete("/", assignDevice);
+        group.MapDelete("/", unassignDevice);
+        group.MapDelete("/", assignCertificate);
+        group.MapDelete("/", unassignCertificate);
+        group.MapDelete("/", assignTenant);
+        group.MapDelete("/", unassignTenant);
+
 
         return app;
     }
 
-    private static async Task<IResult> GetAll(
-        IProvisioningRecordService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassNames = await service.GetAllAsync(cancellationToken);
-        return Results.Ok(lowercaseClassNames.Select(ToResponse));
-    }
-
-    private static async Task<IResult> GetById(
-        Guid id,
-        IProvisioningRecordService service,
-        CancellationToken cancellationToken)
-    {
-        var provisioningRecord = await service.GetByIdAsync(id, cancellationToken);
-        return provisioningRecord is null ? Results.NotFound() : Results.Ok(ToResponse( provisioningRecord ));
-    }
-
     private static async Task<IResult> Create(
-        CreateProvisioningRecordRequest request,
+        ProvisioningRecordRequest request,
         IProvisioningRecordService service,
-        CancellationToken cancellationToken)
-    {
-        var provisioningRecord = new ProvisioningRecord
-        {
-            Id = Guid.NewGuid(),
+        CancellationToken cancellationToken) {
 
-                EnrolledAt = request.EnrolledAt,
-                ProvisioningService = request.ProvisioningService,
-                Method = request.Method,
-                Status = request.Status,
-
-                IoTDeviceId = request.IoTDeviceId,
-                DeviceCertificateId = request.DeviceCertificateId,
-                TenantId = request.TenantId,
-
-        };
+        var model = mapRequestTo( request );
 
         try
         {
@@ -64,31 +43,19 @@ public static class ProvisioningRecordEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/provisioningRecords/provisioningRecord.Id", ToResponse(lowercaseClassName));
+        return Results.NoContent();
     }
 
     private static async Task<IResult> Update(
-        Guid id,
-        UpdateProvisioningRecordRequest request,
+        ProvisioningRecordRequest request,
         IProvisioningRecordService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassName = new ProvisioningRecord
-        {
-            Id = id,
-            EnrolledAt = request.EnrolledAt,
-            ProvisioningService = request.ProvisioningService,
-            Method = request.Method,
-            Status = request.Status,
+        CancellationToken cancellationToken) {
 
-            IoTDeviceId = request.IoTDeviceId,
-            DeviceCertificateId = request.DeviceCertificateId,
-            TenantId = request.TenantId,
-        };
+        var model = mapRequestTo( request );
 
         try
         {
-            var updated = await service.UpdateAsync(lowercaseClassName, cancellationToken);
+            var updated = await service.UpdateAsync(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -97,18 +64,79 @@ public static class ProvisioningRecordEndpoints
         }
     }
 
-    private static async Task<IResult> Delete(
-        Guid id,
+    private static async Task<IResult> GetAll(
         IProvisioningRecordService service,
-        CancellationToken cancellationToken)
-    {
-        var deleted = await service.DeleteAsync(id, cancellationToken);
+        CancellationToken cancellationToken) {
+
+        var all; = await service.GetAllAsync(cancellationToken);
+        return Results.Ok( all.Select( ProvisioningRecordResponse.FromModel ) );
+    }
+
+    private static async Task<IResult> Get(
+        IdentifierRequest identifier,
+        IProvisioningRecordService service,
+        CancellationToken cancellationToken) {
+
+        var provisioningRecord = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        return provisioningRecord is null ? Results.NotFound() : Results.Ok( provisioningRecord );
+    }
+
+
+    private static async Task<IResult> Delete(
+        IdentifierRequest identifier,
+        IProvisioningRecordService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.DeleteAsync(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private static ProvisioningRecordResponse ToResponse(ProvisioningRecord lowercaseClassName)
-        => new( provisioningRecord.Id,
-                , DateTime, String, ProvisioningMethod, ProvisioningStatus
-                , IoTDeviceId, DeviceCertificateId, TenantId );
+    private static async Task<IResult> AssignDevice(
+        AssociationRequest request,
+        IProvisioningRecordService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AssignDeviceAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignDevice(
+    AssociationRequest request,
+    IProvisioningRecordService service,
+    CancellationToken cancellationToken) {
+        var deleted = await service.AssignDeviceAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignCertificate(
+        AssociationRequest request,
+        IProvisioningRecordService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AssignCertificateAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignCertificate(
+    AssociationRequest request,
+    IProvisioningRecordService service,
+    CancellationToken cancellationToken) {
+        var deleted = await service.AssignCertificateAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignTenant(
+        AssociationRequest request,
+        IProvisioningRecordService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AssignTenantAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignTenant(
+    AssociationRequest request,
+    IProvisioningRecordService service,
+    CancellationToken cancellationToken) {
+        var deleted = await service.AssignTenantAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
 
 }

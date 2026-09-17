@@ -5,63 +5,56 @@ namespace iotonaspdotnet.Service;
 
 public interface IFloorService
 {
-    Task<Floor?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-    Task<IReadOnlyList<Floor>> GetAllAsync(CancellationToken cancellationToken);
-    Task CreateAsync(Floor floor, CancellationToken cancellationToken);
-    Task<bool> UpdateAsync(Floor floor, CancellationToken cancellationToken);
-    Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken);
+    Task<Floor?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<Floor>> GetAll(CancellationToken cancellationToken);
+    Task Create(FloorRequest request , CancellationToken cancellationToken);
+    Task<bool> Update(FloorRequest request, CancellationToken cancellationToken);
+    Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+
 }
 
 public class FloorService : IFloorService
 {
     private readonly IFloorRepository _repository;
-    private readonly IBuildingRepository _buildings;
 
     public FloorService(
-        IBuildingRepository buildings,
         IFloorRepository repository )
     {
         _repository = repository;
-        _buildings = buildings;
     }
 
-    public Task<Floor?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(id, cancellationToken);
+    public Task<Floor?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<Floor>> GetAllAsync(CancellationToken cancellationToken)
+    public Task<IReadOnlyList<Floor>> GetAll(CancellationToken cancellationToken)
         => _repository.GetAllAsync(cancellationToken);
 
-    public async Task CreateAsync(Floor floor, CancellationToken cancellationToken)
+    public async Task Create(FloorRequest request, CancellationToken cancellationToken)
     {
-        var building = await _buildings.GetByIdAsync(floor.Id, cancellationToken)
+        var building = await _buildings.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("Building not found.");
 
         if (building.Building is not null)
         {
-            throw new InvalidOperationException("Building already has a(n) floor (1:1 relationship).");
+            throw new InvalidOperationException("Building:Building already has a(n) Floor (1:1 relationship).");
         }
-        await _repository.AddAsync(floor, cancellationToken);
+        await _repository.AddAsync(request, cancellationToken);
     }
 
-    public async Task<bool> UpdateAsync(Floor floor, CancellationToken cancellationToken)
+    public async Task<bool> Update(FloorRequest request, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(floor.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-
-        // Keep 1:1 â do not reassign to a building who already has another floor.
-        if (existing.Id != floor.Id)
-        {
-            var Building = await _buildings.GetByIdAsync(floor.Id, cancellationToken)
-                ?? throw new InvalidOperationException("Building not found.");
-
-            if (Building.Floor is not null && Building.Floor.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target building already has an floor (1:1 relationship).");
-            }
-        }
+        existing.Name = request.Name
+        existing.Level = request.Level
+        existing.Building = request.Building
+        existing.Rooms = request.Rooms
+        await _repository.UpdateAsync(existing, cancellationToken);
+    }
 
         existing.Name = floor.Name;
         existing.Level = floor.Level;
@@ -71,9 +64,9 @@ public class FloorService : IFloorService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
         {
             return false;
@@ -82,4 +75,6 @@ public class FloorService : IFloorService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+
 }

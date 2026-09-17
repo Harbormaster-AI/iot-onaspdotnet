@@ -1,6 +1,7 @@
 using iotonaspdotnet.Service;
 using iotonaspdotnet.Domain;
 
+
 namespace iotonaspdotnet.Api;
 
 public static class AlertEndpoints
@@ -9,50 +10,27 @@ public static class AlertEndpoints
     {
         var group = app.MapGroup("/api/alert").WithTags("Alerts");
 
-        group.MapGet("/", GetAll);
-        group.MapGet("/{id:guid}", GetById);
-        group.MapPost("/", Create);
-        group.MapPut("/{id:guid}", Update);
-        group.MapDelete("/{id:guid}", Delete);
+        group.MapPost("/", create);
+        group.MapGet("/", get);
+        group.MapGet("/", getAll);
+        group.MapPut("/", update);
+        group.MapDelete("/", delete);
+
+        group.MapDelete("/", assignDevice);
+        group.MapDelete("/", unassignDevice);
+        group.MapDelete("/", assignAlertRule);
+        group.MapDelete("/", unassignAlertRule);
+
 
         return app;
     }
 
-    private static async Task<IResult> GetAll(
-        IAlertService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassNames = await service.GetAllAsync(cancellationToken);
-        return Results.Ok(lowercaseClassNames.Select(ToResponse));
-    }
-
-    private static async Task<IResult> GetById(
-        Guid id,
-        IAlertService service,
-        CancellationToken cancellationToken)
-    {
-        var alert = await service.GetByIdAsync(id, cancellationToken);
-        return alert is null ? Results.NotFound() : Results.Ok(ToResponse( alert ));
-    }
-
     private static async Task<IResult> Create(
-        CreateAlertRequest request,
+        AlertRequest request,
         IAlertService service,
-        CancellationToken cancellationToken)
-    {
-        var alert = new Alert
-        {
-            Id = Guid.NewGuid(),
+        CancellationToken cancellationToken) {
 
-                RaisedAt = request.RaisedAt,
-                ClearedAt = request.ClearedAt,
-                Message = request.Message,
-                Status = request.Status,
-
-                IoTDeviceId = request.IoTDeviceId,
-                AlertRuleId = request.AlertRuleId,
-
-        };
+        var model = mapRequestTo( request );
 
         try
         {
@@ -63,30 +41,19 @@ public static class AlertEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/alerts/alert.Id", ToResponse(lowercaseClassName));
+        return Results.NoContent();
     }
 
     private static async Task<IResult> Update(
-        Guid id,
-        UpdateAlertRequest request,
+        AlertRequest request,
         IAlertService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassName = new Alert
-        {
-            Id = id,
-            RaisedAt = request.RaisedAt,
-            ClearedAt = request.ClearedAt,
-            Message = request.Message,
-            Status = request.Status,
+        CancellationToken cancellationToken) {
 
-            IoTDeviceId = request.IoTDeviceId,
-            AlertRuleId = request.AlertRuleId,
-        };
+        var model = mapRequestTo( request );
 
         try
         {
-            var updated = await service.UpdateAsync(lowercaseClassName, cancellationToken);
+            var updated = await service.UpdateAsync(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -95,18 +62,63 @@ public static class AlertEndpoints
         }
     }
 
-    private static async Task<IResult> Delete(
-        Guid id,
+    private static async Task<IResult> GetAll(
         IAlertService service,
-        CancellationToken cancellationToken)
-    {
-        var deleted = await service.DeleteAsync(id, cancellationToken);
+        CancellationToken cancellationToken) {
+
+        var all; = await service.GetAllAsync(cancellationToken);
+        return Results.Ok( all.Select( AlertResponse.FromModel ) );
+    }
+
+    private static async Task<IResult> Get(
+        IdentifierRequest identifier,
+        IAlertService service,
+        CancellationToken cancellationToken) {
+
+        var alert = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        return alert is null ? Results.NotFound() : Results.Ok( alert );
+    }
+
+
+    private static async Task<IResult> Delete(
+        IdentifierRequest identifier,
+        IAlertService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.DeleteAsync(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private static AlertResponse ToResponse(Alert lowercaseClassName)
-        => new( alert.Id,
-                , DateTime, DateTime, String, AlertStatus
-                , IoTDeviceId, AlertRuleId );
+    private static async Task<IResult> AssignDevice(
+        AssociationRequest request,
+        IAlertService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AssignDeviceAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignDevice(
+    AssociationRequest request,
+    IAlertService service,
+    CancellationToken cancellationToken) {
+        var deleted = await service.AssignDeviceAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignAlertRule(
+        AssociationRequest request,
+        IAlertService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AssignAlertRuleAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignAlertRule(
+    AssociationRequest request,
+    IAlertService service,
+    CancellationToken cancellationToken) {
+        var deleted = await service.AssignAlertRuleAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
 
 }

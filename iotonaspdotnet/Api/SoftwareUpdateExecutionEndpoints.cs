@@ -1,6 +1,7 @@
 using iotonaspdotnet.Service;
 using iotonaspdotnet.Domain;
 
+
 namespace iotonaspdotnet.Api;
 
 public static class SoftwareUpdateExecutionEndpoints
@@ -9,49 +10,27 @@ public static class SoftwareUpdateExecutionEndpoints
     {
         var group = app.MapGroup("/api/softwareUpdateExecution").WithTags("SoftwareUpdateExecutions");
 
-        group.MapGet("/", GetAll);
-        group.MapGet("/{id:guid}", GetById);
-        group.MapPost("/", Create);
-        group.MapPut("/{id:guid}", Update);
-        group.MapDelete("/{id:guid}", Delete);
+        group.MapPost("/", create);
+        group.MapGet("/", get);
+        group.MapGet("/", getAll);
+        group.MapPut("/", update);
+        group.MapDelete("/", delete);
+
+        group.MapDelete("/", assignCampaign);
+        group.MapDelete("/", unassignCampaign);
+        group.MapDelete("/", assignDevice);
+        group.MapDelete("/", unassignDevice);
+
 
         return app;
     }
 
-    private static async Task<IResult> GetAll(
-        ISoftwareUpdateExecutionService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassNames = await service.GetAllAsync(cancellationToken);
-        return Results.Ok(lowercaseClassNames.Select(ToResponse));
-    }
-
-    private static async Task<IResult> GetById(
-        Guid id,
-        ISoftwareUpdateExecutionService service,
-        CancellationToken cancellationToken)
-    {
-        var softwareUpdateExecution = await service.GetByIdAsync(id, cancellationToken);
-        return softwareUpdateExecution is null ? Results.NotFound() : Results.Ok(ToResponse( softwareUpdateExecution ));
-    }
-
     private static async Task<IResult> Create(
-        CreateSoftwareUpdateExecutionRequest request,
+        SoftwareUpdateExecutionRequest request,
         ISoftwareUpdateExecutionService service,
-        CancellationToken cancellationToken)
-    {
-        var softwareUpdateExecution = new SoftwareUpdateExecution
-        {
-            Id = Guid.NewGuid(),
+        CancellationToken cancellationToken) {
 
-                StartedAt = request.StartedAt,
-                CompletedAt = request.CompletedAt,
-                Status = request.Status,
-
-                SoftwareUpdateCampaignId = request.SoftwareUpdateCampaignId,
-                IoTDeviceId = request.IoTDeviceId,
-
-        };
+        var model = mapRequestTo( request );
 
         try
         {
@@ -62,29 +41,19 @@ public static class SoftwareUpdateExecutionEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/softwareUpdateExecutions/softwareUpdateExecution.Id", ToResponse(lowercaseClassName));
+        return Results.NoContent();
     }
 
     private static async Task<IResult> Update(
-        Guid id,
-        UpdateSoftwareUpdateExecutionRequest request,
+        SoftwareUpdateExecutionRequest request,
         ISoftwareUpdateExecutionService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassName = new SoftwareUpdateExecution
-        {
-            Id = id,
-            StartedAt = request.StartedAt,
-            CompletedAt = request.CompletedAt,
-            Status = request.Status,
+        CancellationToken cancellationToken) {
 
-            SoftwareUpdateCampaignId = request.SoftwareUpdateCampaignId,
-            IoTDeviceId = request.IoTDeviceId,
-        };
+        var model = mapRequestTo( request );
 
         try
         {
-            var updated = await service.UpdateAsync(lowercaseClassName, cancellationToken);
+            var updated = await service.UpdateAsync(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -93,18 +62,63 @@ public static class SoftwareUpdateExecutionEndpoints
         }
     }
 
-    private static async Task<IResult> Delete(
-        Guid id,
+    private static async Task<IResult> GetAll(
         ISoftwareUpdateExecutionService service,
-        CancellationToken cancellationToken)
-    {
-        var deleted = await service.DeleteAsync(id, cancellationToken);
+        CancellationToken cancellationToken) {
+
+        var all; = await service.GetAllAsync(cancellationToken);
+        return Results.Ok( all.Select( SoftwareUpdateExecutionResponse.FromModel ) );
+    }
+
+    private static async Task<IResult> Get(
+        IdentifierRequest identifier,
+        ISoftwareUpdateExecutionService service,
+        CancellationToken cancellationToken) {
+
+        var softwareUpdateExecution = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        return softwareUpdateExecution is null ? Results.NotFound() : Results.Ok( softwareUpdateExecution );
+    }
+
+
+    private static async Task<IResult> Delete(
+        IdentifierRequest identifier,
+        ISoftwareUpdateExecutionService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.DeleteAsync(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private static SoftwareUpdateExecutionResponse ToResponse(SoftwareUpdateExecution lowercaseClassName)
-        => new( softwareUpdateExecution.Id,
-                , DateTime, DateTime, UpdateStatus
-                , SoftwareUpdateCampaignId, IoTDeviceId );
+    private static async Task<IResult> AssignCampaign(
+        AssociationRequest request,
+        ISoftwareUpdateExecutionService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AssignCampaignAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignCampaign(
+    AssociationRequest request,
+    ISoftwareUpdateExecutionService service,
+    CancellationToken cancellationToken) {
+        var deleted = await service.AssignCampaignAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignDevice(
+        AssociationRequest request,
+        ISoftwareUpdateExecutionService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AssignDeviceAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignDevice(
+    AssociationRequest request,
+    ISoftwareUpdateExecutionService service,
+    CancellationToken cancellationToken) {
+        var deleted = await service.AssignDeviceAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
 
 }

@@ -5,63 +5,56 @@ namespace iotonaspdotnet.Service;
 
 public interface IDeviceGroupService
 {
-    Task<DeviceGroup?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-    Task<IReadOnlyList<DeviceGroup>> GetAllAsync(CancellationToken cancellationToken);
-    Task CreateAsync(DeviceGroup deviceGroup, CancellationToken cancellationToken);
-    Task<bool> UpdateAsync(DeviceGroup deviceGroup, CancellationToken cancellationToken);
-    Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken);
+    Task<DeviceGroup?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<DeviceGroup>> GetAll(CancellationToken cancellationToken);
+    Task Create(DeviceGroupRequest request , CancellationToken cancellationToken);
+    Task<bool> Update(DeviceGroupRequest request, CancellationToken cancellationToken);
+    Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+
 }
 
 public class DeviceGroupService : IDeviceGroupService
 {
     private readonly IDeviceGroupRepository _repository;
-    private readonly ITenantRepository _tenants;
 
     public DeviceGroupService(
-        ITenantRepository tenants,
         IDeviceGroupRepository repository )
     {
         _repository = repository;
-        _tenants = tenants;
     }
 
-    public Task<DeviceGroup?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(id, cancellationToken);
+    public Task<DeviceGroup?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<DeviceGroup>> GetAllAsync(CancellationToken cancellationToken)
+    public Task<IReadOnlyList<DeviceGroup>> GetAll(CancellationToken cancellationToken)
         => _repository.GetAllAsync(cancellationToken);
 
-    public async Task CreateAsync(DeviceGroup deviceGroup, CancellationToken cancellationToken)
+    public async Task Create(DeviceGroupRequest request, CancellationToken cancellationToken)
     {
-        var tenant = await _tenants.GetByIdAsync(deviceGroup.Id, cancellationToken)
+        var tenant = await _tenants.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
         if (tenant.Tenant is not null)
         {
-            throw new InvalidOperationException("Tenant already has a(n) deviceGroup (1:1 relationship).");
+            throw new InvalidOperationException("Tenant:Tenant already has a(n) DeviceGroup (1:1 relationship).");
         }
-        await _repository.AddAsync(deviceGroup, cancellationToken);
+        await _repository.AddAsync(request, cancellationToken);
     }
 
-    public async Task<bool> UpdateAsync(DeviceGroup deviceGroup, CancellationToken cancellationToken)
+    public async Task<bool> Update(DeviceGroupRequest request, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(deviceGroup.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-
-        // Keep 1:1 â do not reassign to a tenant who already has another deviceGroup.
-        if (existing.Id != deviceGroup.Id)
-        {
-            var Tenant = await _tenants.GetByIdAsync(deviceGroup.Id, cancellationToken)
-                ?? throw new InvalidOperationException("Tenant not found.");
-
-            if (Tenant.DeviceGroup is not null && Tenant.DeviceGroup.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target tenant already has an deviceGroup (1:1 relationship).");
-            }
-        }
+        existing.Name = request.Name
+        existing.Criteria = request.Criteria
+        existing.Tenant = request.Tenant
+        existing.Devices = request.Devices
+        await _repository.UpdateAsync(existing, cancellationToken);
+    }
 
         existing.Name = deviceGroup.Name;
         existing.Criteria = deviceGroup.Criteria;
@@ -71,9 +64,9 @@ public class DeviceGroupService : IDeviceGroupService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
         {
             return false;
@@ -82,4 +75,6 @@ public class DeviceGroupService : IDeviceGroupService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+
 }

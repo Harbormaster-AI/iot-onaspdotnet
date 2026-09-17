@@ -5,11 +5,13 @@ namespace iotonaspdotnet.Service;
 
 public interface IDeviceVendorService
 {
-    Task<DeviceVendor?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-    Task<IReadOnlyList<DeviceVendor>> GetAllAsync(CancellationToken cancellationToken);
-    Task CreateAsync(DeviceVendor deviceVendor, CancellationToken cancellationToken);
-    Task<bool> UpdateAsync(DeviceVendor deviceVendor, CancellationToken cancellationToken);
-    Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken);
+    Task<DeviceVendor?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<DeviceVendor>> GetAll(CancellationToken cancellationToken);
+    Task Create(DeviceVendorRequest request , CancellationToken cancellationToken);
+    Task<bool> Update(DeviceVendorRequest request, CancellationToken cancellationToken);
+    Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+
 }
 
 public class DeviceVendorService : IDeviceVendorService
@@ -22,29 +24,33 @@ public class DeviceVendorService : IDeviceVendorService
         _repository = repository;
     }
 
-    public Task<DeviceVendor?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(id, cancellationToken);
+    public Task<DeviceVendor?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<DeviceVendor>> GetAllAsync(CancellationToken cancellationToken)
+    public Task<IReadOnlyList<DeviceVendor>> GetAll(CancellationToken cancellationToken)
         => _repository.GetAllAsync(cancellationToken);
 
-    public async Task CreateAsync(DeviceVendor deviceVendor, CancellationToken cancellationToken)
+    public async Task Create(DeviceVendorRequest request, CancellationToken cancellationToken)
     {
-        await _repository.AddAsync(deviceVendor, cancellationToken);
+        await _repository.AddAsync(request, cancellationToken);
     }
 
-    public async Task<bool> UpdateAsync(DeviceVendor deviceVendor, CancellationToken cancellationToken)
+    public async Task<bool> Update(DeviceVendorRequest request, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(deviceVendor.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-
-        // Keep 1:1 â do not reassign to a connectivityPlan who already has another deviceVendor.
-        if (existing.Id != deviceVendor.Id)
-        {
-        }
+        existing.Name = request.Name
+        existing.LegalName = request.LegalName
+        existing.HeadquartersCountry = request.HeadquartersCountry
+        existing.Website = request.Website
+        existing.DeviceModels = request.DeviceModels
+        existing.FirmwareReleases = request.FirmwareReleases
+        existing.HardwareModules = request.HardwareModules
+        await _repository.UpdateAsync(existing, cancellationToken);
+    }
 
         existing.Name = deviceVendor.Name;
         existing.LegalName = deviceVendor.LegalName;
@@ -55,9 +61,9 @@ public class DeviceVendorService : IDeviceVendorService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
         {
             return false;
@@ -66,4 +72,6 @@ public class DeviceVendorService : IDeviceVendorService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+
 }

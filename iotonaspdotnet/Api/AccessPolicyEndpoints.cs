@@ -1,6 +1,7 @@
 using iotonaspdotnet.Service;
 using iotonaspdotnet.Domain;
 
+
 namespace iotonaspdotnet.Api;
 
 public static class AccessPolicyEndpoints
@@ -9,48 +10,31 @@ public static class AccessPolicyEndpoints
     {
         var group = app.MapGroup("/api/accessPolicy").WithTags("AccessPolicys");
 
-        group.MapGet("/", GetAll);
-        group.MapGet("/{id:guid}", GetById);
-        group.MapPost("/", Create);
-        group.MapPut("/{id:guid}", Update);
-        group.MapDelete("/{id:guid}", Delete);
+        group.MapPost("/", create);
+        group.MapGet("/", get);
+        group.MapGet("/", getAll);
+        group.MapPut("/", update);
+        group.MapDelete("/", delete);
+
+        group.MapDelete("/", assignTenant);
+        group.MapDelete("/", unassignTenant);
+
+    group.MapDelete("/", addToApiKeys);
+    group.MapDelete("/", removeFromApiKeys);
+
+    group.MapDelete("/", addToUsers);
+    group.MapDelete("/", removeFromUsers);
+
 
         return app;
     }
 
-    private static async Task<IResult> GetAll(
-        IAccessPolicyService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassNames = await service.GetAllAsync(cancellationToken);
-        return Results.Ok(lowercaseClassNames.Select(ToResponse));
-    }
-
-    private static async Task<IResult> GetById(
-        Guid id,
-        IAccessPolicyService service,
-        CancellationToken cancellationToken)
-    {
-        var accessPolicy = await service.GetByIdAsync(id, cancellationToken);
-        return accessPolicy is null ? Results.NotFound() : Results.Ok(ToResponse( accessPolicy ));
-    }
-
     private static async Task<IResult> Create(
-        CreateAccessPolicyRequest request,
+        AccessPolicyRequest request,
         IAccessPolicyService service,
-        CancellationToken cancellationToken)
-    {
-        var accessPolicy = new AccessPolicy
-        {
-            Id = Guid.NewGuid(),
+        CancellationToken cancellationToken) {
 
-                Name = request.Name,
-                Scope = request.Scope,
-                ExpiresAt = request.ExpiresAt,
-
-                TenantId = request.TenantId,
-
-        };
+        var model = mapRequestTo( request );
 
         try
         {
@@ -61,28 +45,19 @@ public static class AccessPolicyEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/accessPolicys/accessPolicy.Id", ToResponse(lowercaseClassName));
+        return Results.NoContent();
     }
 
     private static async Task<IResult> Update(
-        Guid id,
-        UpdateAccessPolicyRequest request,
+        AccessPolicyRequest request,
         IAccessPolicyService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassName = new AccessPolicy
-        {
-            Id = id,
-            Name = request.Name,
-            Scope = request.Scope,
-            ExpiresAt = request.ExpiresAt,
+        CancellationToken cancellationToken) {
 
-            TenantId = request.TenantId,
-        };
+        var model = mapRequestTo( request );
 
         try
         {
-            var updated = await service.UpdateAsync(lowercaseClassName, cancellationToken);
+            var updated = await service.UpdateAsync(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -91,18 +66,105 @@ public static class AccessPolicyEndpoints
         }
     }
 
-    private static async Task<IResult> Delete(
-        Guid id,
+    private static async Task<IResult> GetAll(
         IAccessPolicyService service,
-        CancellationToken cancellationToken)
-    {
-        var deleted = await service.DeleteAsync(id, cancellationToken);
+        CancellationToken cancellationToken) {
+
+        var all; = await service.GetAllAsync(cancellationToken);
+        return Results.Ok( all.Select( AccessPolicyResponse.FromModel ) );
+    }
+
+    private static async Task<IResult> Get(
+        IdentifierRequest identifier,
+        IAccessPolicyService service,
+        CancellationToken cancellationToken) {
+
+        var accessPolicy = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        return accessPolicy is null ? Results.NotFound() : Results.Ok( accessPolicy );
+    }
+
+
+    private static async Task<IResult> Delete(
+        IdentifierRequest identifier,
+        IAccessPolicyService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.DeleteAsync(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private static AccessPolicyResponse ToResponse(AccessPolicy lowercaseClassName)
-        => new( accessPolicy.Id,
-                , String, String, DateTime
-                , TenantId );
+    private static async Task<IResult> AssignTenant(
+        AssociationRequest request,
+        IAccessPolicyService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AssignTenantAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
 
+    private static async Task<IResult> AssignTenant(
+    AssociationRequest request,
+    IAccessPolicyService service,
+    CancellationToken cancellationToken) {
+        var deleted = await service.AssignTenantAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+
+    private static async Task<IResult> AssignApiKeys(
+        AssociationRequest request,
+        IAccessPolicyService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AddToApiKeysAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignApiKeys(
+        AssociationRequest request,
+        IAccessPolicyService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.RemoveFromApiKeysAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private com.harbormaster.codetemplate.model.classes.ClassObject@4d428219 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@4d428219( com.harbormaster.codetemplate.model.classes.ClassObject@4d428219Request request ) {
+        var model = new AccessPolicy
+        {
+            Id = request.id,
+        Name = request.Name
+        Scope = request.Scope
+        ExpiresAt = request.ExpiresAt
+        Tenant = request.Tenant
+        ApiKeys = request.ApiKeys
+        Users = request.Users
+        }
+        return model;
+    }
+    private static async Task<IResult> AssignUsers(
+        AssociationRequest request,
+        IAccessPolicyService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AddToUsersAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignUsers(
+        AssociationRequest request,
+        IAccessPolicyService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.RemoveFromUsersAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private com.harbormaster.codetemplate.model.classes.ClassObject@4d428219 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@4d428219( com.harbormaster.codetemplate.model.classes.ClassObject@4d428219Request request ) {
+        var model = new AccessPolicy
+        {
+            Id = request.id,
+        Name = request.Name
+        Scope = request.Scope
+        ExpiresAt = request.ExpiresAt
+        Tenant = request.Tenant
+        ApiKeys = request.ApiKeys
+        Users = request.Users
+        }
+        return model;
+    }
 }

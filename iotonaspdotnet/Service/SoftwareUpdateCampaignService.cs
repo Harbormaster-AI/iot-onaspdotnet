@@ -5,80 +5,66 @@ namespace iotonaspdotnet.Service;
 
 public interface ISoftwareUpdateCampaignService
 {
-    Task<SoftwareUpdateCampaign?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-    Task<IReadOnlyList<SoftwareUpdateCampaign>> GetAllAsync(CancellationToken cancellationToken);
-    Task CreateAsync(SoftwareUpdateCampaign softwareUpdateCampaign, CancellationToken cancellationToken);
-    Task<bool> UpdateAsync(SoftwareUpdateCampaign softwareUpdateCampaign, CancellationToken cancellationToken);
-    Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken);
+    Task<SoftwareUpdateCampaign?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<SoftwareUpdateCampaign>> GetAll(CancellationToken cancellationToken);
+    Task Create(SoftwareUpdateCampaignRequest request , CancellationToken cancellationToken);
+    Task<bool> Update(SoftwareUpdateCampaignRequest request, CancellationToken cancellationToken);
+    Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+
 }
 
 public class SoftwareUpdateCampaignService : ISoftwareUpdateCampaignService
 {
     private readonly ISoftwareUpdateCampaignRepository _repository;
-    private readonly IFirmwareReleaseRepository _firmwareReleases;
-    private readonly IDeviceGroupRepository _deviceGroups;
 
     public SoftwareUpdateCampaignService(
-        IFirmwareReleaseRepository firmwareReleases,
-        IDeviceGroupRepository deviceGroups,
         ISoftwareUpdateCampaignRepository repository )
     {
         _repository = repository;
-        _firmwareReleases = firmwareReleases;
-        _deviceGroups = deviceGroups;
     }
 
-    public Task<SoftwareUpdateCampaign?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(id, cancellationToken);
+    public Task<SoftwareUpdateCampaign?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<SoftwareUpdateCampaign>> GetAllAsync(CancellationToken cancellationToken)
+    public Task<IReadOnlyList<SoftwareUpdateCampaign>> GetAll(CancellationToken cancellationToken)
         => _repository.GetAllAsync(cancellationToken);
 
-    public async Task CreateAsync(SoftwareUpdateCampaign softwareUpdateCampaign, CancellationToken cancellationToken)
+    public async Task Create(SoftwareUpdateCampaignRequest request, CancellationToken cancellationToken)
     {
-        var firmwareRelease = await _firmwareReleases.GetByIdAsync(softwareUpdateCampaign.Id, cancellationToken)
+        var firmwareRelease = await _firmwareReleases.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("FirmwareRelease not found.");
 
         if (firmwareRelease.FirmwareRelease is not null)
         {
-            throw new InvalidOperationException("FirmwareRelease already has a(n) softwareUpdateCampaign (1:1 relationship).");
+            throw new InvalidOperationException("FirmwareRelease:FirmwareRelease already has a(n) SoftwareUpdateCampaign (1:1 relationship).");
         }
-        var deviceGroup = await _deviceGroups.GetByIdAsync(softwareUpdateCampaign.Id, cancellationToken)
+        var deviceGroup = await _deviceGroups.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("DeviceGroup not found.");
 
         if (deviceGroup.DeviceGroup is not null)
         {
-            throw new InvalidOperationException("DeviceGroup already has a(n) softwareUpdateCampaign (1:1 relationship).");
+            throw new InvalidOperationException("DeviceGroup:DeviceGroup already has a(n) SoftwareUpdateCampaign (1:1 relationship).");
         }
-        await _repository.AddAsync(softwareUpdateCampaign, cancellationToken);
+        await _repository.AddAsync(request, cancellationToken);
     }
 
-    public async Task<bool> UpdateAsync(SoftwareUpdateCampaign softwareUpdateCampaign, CancellationToken cancellationToken)
+    public async Task<bool> Update(SoftwareUpdateCampaignRequest request, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(softwareUpdateCampaign.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-
-        // Keep 1:1 â do not reassign to a deviceGroup who already has another softwareUpdateCampaign.
-        if (existing.Id != softwareUpdateCampaign.Id)
-        {
-            var FirmwareRelease = await _firmwareReleases.GetByIdAsync(softwareUpdateCampaign.Id, cancellationToken)
-                ?? throw new InvalidOperationException("FirmwareRelease not found.");
-
-            if (FirmwareRelease.SoftwareUpdateCampaign is not null && FirmwareRelease.SoftwareUpdateCampaign.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target firmwareRelease already has an softwareUpdateCampaign (1:1 relationship).");
-            }
-            var DeviceGroup = await _deviceGroups.GetByIdAsync(softwareUpdateCampaign.Id, cancellationToken)
-                ?? throw new InvalidOperationException("DeviceGroup not found.");
-
-            if (DeviceGroup.SoftwareUpdateCampaign is not null && DeviceGroup.SoftwareUpdateCampaign.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target deviceGroup already has an softwareUpdateCampaign (1:1 relationship).");
-            }
-        }
+        existing.CampaignCode = request.CampaignCode
+        existing.ScheduledStart = request.ScheduledStart
+        existing.ScheduledEnd = request.ScheduledEnd
+        existing.FirmwareRelease = request.FirmwareRelease
+        existing.DeviceGroup = request.DeviceGroup
+        existing.Executions = request.Executions
+        existing.Status = request.Status
+        await _repository.UpdateAsync(existing, cancellationToken);
+    }
 
         existing.CampaignCode = softwareUpdateCampaign.CampaignCode;
         existing.ScheduledStart = softwareUpdateCampaign.ScheduledStart;
@@ -91,9 +77,9 @@ public class SoftwareUpdateCampaignService : ISoftwareUpdateCampaignService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
         {
             return false;
@@ -102,4 +88,6 @@ public class SoftwareUpdateCampaignService : ISoftwareUpdateCampaignService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+
 }

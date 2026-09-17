@@ -1,6 +1,7 @@
 using iotonaspdotnet.Service;
 using iotonaspdotnet.Domain;
 
+
 namespace iotonaspdotnet.Api;
 
 public static class EdgeApplicationEndpoints
@@ -9,49 +10,25 @@ public static class EdgeApplicationEndpoints
     {
         var group = app.MapGroup("/api/edgeApplication").WithTags("EdgeApplications");
 
-        group.MapGet("/", GetAll);
-        group.MapGet("/{id:guid}", GetById);
-        group.MapPost("/", Create);
-        group.MapPut("/{id:guid}", Update);
-        group.MapDelete("/{id:guid}", Delete);
+        group.MapPost("/", create);
+        group.MapGet("/", get);
+        group.MapGet("/", getAll);
+        group.MapPut("/", update);
+        group.MapDelete("/", delete);
+
+        group.MapDelete("/", assignGateway);
+        group.MapDelete("/", unassignGateway);
+
 
         return app;
     }
 
-    private static async Task<IResult> GetAll(
-        IEdgeApplicationService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassNames = await service.GetAllAsync(cancellationToken);
-        return Results.Ok(lowercaseClassNames.Select(ToResponse));
-    }
-
-    private static async Task<IResult> GetById(
-        Guid id,
-        IEdgeApplicationService service,
-        CancellationToken cancellationToken)
-    {
-        var edgeApplication = await service.GetByIdAsync(id, cancellationToken);
-        return edgeApplication is null ? Results.NotFound() : Results.Ok(ToResponse( edgeApplication ));
-    }
-
     private static async Task<IResult> Create(
-        CreateEdgeApplicationRequest request,
+        EdgeApplicationRequest request,
         IEdgeApplicationService service,
-        CancellationToken cancellationToken)
-    {
-        var edgeApplication = new EdgeApplication
-        {
-            Id = Guid.NewGuid(),
+        CancellationToken cancellationToken) {
 
-                Name = request.Name,
-                Version = request.Version,
-                Image = request.Image,
-                Status = request.Status,
-
-                GatewayId = request.GatewayId,
-
-        };
+        var model = mapRequestTo( request );
 
         try
         {
@@ -62,29 +39,19 @@ public static class EdgeApplicationEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/edgeApplications/edgeApplication.Id", ToResponse(lowercaseClassName));
+        return Results.NoContent();
     }
 
     private static async Task<IResult> Update(
-        Guid id,
-        UpdateEdgeApplicationRequest request,
+        EdgeApplicationRequest request,
         IEdgeApplicationService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassName = new EdgeApplication
-        {
-            Id = id,
-            Name = request.Name,
-            Version = request.Version,
-            Image = request.Image,
-            Status = request.Status,
+        CancellationToken cancellationToken) {
 
-            GatewayId = request.GatewayId,
-        };
+        var model = mapRequestTo( request );
 
         try
         {
-            var updated = await service.UpdateAsync(lowercaseClassName, cancellationToken);
+            var updated = await service.UpdateAsync(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -93,18 +60,47 @@ public static class EdgeApplicationEndpoints
         }
     }
 
-    private static async Task<IResult> Delete(
-        Guid id,
+    private static async Task<IResult> GetAll(
         IEdgeApplicationService service,
-        CancellationToken cancellationToken)
-    {
-        var deleted = await service.DeleteAsync(id, cancellationToken);
+        CancellationToken cancellationToken) {
+
+        var all; = await service.GetAllAsync(cancellationToken);
+        return Results.Ok( all.Select( EdgeApplicationResponse.FromModel ) );
+    }
+
+    private static async Task<IResult> Get(
+        IdentifierRequest identifier,
+        IEdgeApplicationService service,
+        CancellationToken cancellationToken) {
+
+        var edgeApplication = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        return edgeApplication is null ? Results.NotFound() : Results.Ok( edgeApplication );
+    }
+
+
+    private static async Task<IResult> Delete(
+        IdentifierRequest identifier,
+        IEdgeApplicationService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.DeleteAsync(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private static EdgeApplicationResponse ToResponse(EdgeApplication lowercaseClassName)
-        => new( edgeApplication.Id,
-                , String, String, String, DeploymentStatus
-                , GatewayId );
+    private static async Task<IResult> AssignGateway(
+        AssociationRequest request,
+        IEdgeApplicationService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AssignGatewayAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignGateway(
+    AssociationRequest request,
+    IEdgeApplicationService service,
+    CancellationToken cancellationToken) {
+        var deleted = await service.AssignGatewayAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
 
 }

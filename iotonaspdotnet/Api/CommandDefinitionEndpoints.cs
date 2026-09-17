@@ -1,6 +1,7 @@
 using iotonaspdotnet.Service;
 using iotonaspdotnet.Domain;
 
+
 namespace iotonaspdotnet.Api;
 
 public static class CommandDefinitionEndpoints
@@ -9,49 +10,31 @@ public static class CommandDefinitionEndpoints
     {
         var group = app.MapGroup("/api/commandDefinition").WithTags("CommandDefinitions");
 
-        group.MapGet("/", GetAll);
-        group.MapGet("/{id:guid}", GetById);
-        group.MapPost("/", Create);
-        group.MapPut("/{id:guid}", Update);
-        group.MapDelete("/{id:guid}", Delete);
+        group.MapPost("/", create);
+        group.MapGet("/", get);
+        group.MapGet("/", getAll);
+        group.MapPut("/", update);
+        group.MapDelete("/", delete);
+
+        group.MapDelete("/", assignDeviceModel);
+        group.MapDelete("/", unassignDeviceModel);
+
+    group.MapDelete("/", addToActuators);
+    group.MapDelete("/", removeFromActuators);
+
+    group.MapDelete("/", addToCommandInvocations);
+    group.MapDelete("/", removeFromCommandInvocations);
+
 
         return app;
     }
 
-    private static async Task<IResult> GetAll(
-        ICommandDefinitionService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassNames = await service.GetAllAsync(cancellationToken);
-        return Results.Ok(lowercaseClassNames.Select(ToResponse));
-    }
-
-    private static async Task<IResult> GetById(
-        Guid id,
-        ICommandDefinitionService service,
-        CancellationToken cancellationToken)
-    {
-        var commandDefinition = await service.GetByIdAsync(id, cancellationToken);
-        return commandDefinition is null ? Results.NotFound() : Results.Ok(ToResponse( commandDefinition ));
-    }
-
     private static async Task<IResult> Create(
-        CreateCommandDefinitionRequest request,
+        CommandDefinitionRequest request,
         ICommandDefinitionService service,
-        CancellationToken cancellationToken)
-    {
-        var commandDefinition = new CommandDefinition
-        {
-            Id = Guid.NewGuid(),
+        CancellationToken cancellationToken) {
 
-                Name = request.Name,
-                RequestSchemaUri = request.RequestSchemaUri,
-                ResponseSchemaUri = request.ResponseSchemaUri,
-                TimeoutSeconds = request.TimeoutSeconds,
-
-                DeviceModelId = request.DeviceModelId,
-
-        };
+        var model = mapRequestTo( request );
 
         try
         {
@@ -62,29 +45,19 @@ public static class CommandDefinitionEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/commandDefinitions/commandDefinition.Id", ToResponse(lowercaseClassName));
+        return Results.NoContent();
     }
 
     private static async Task<IResult> Update(
-        Guid id,
-        UpdateCommandDefinitionRequest request,
+        CommandDefinitionRequest request,
         ICommandDefinitionService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassName = new CommandDefinition
-        {
-            Id = id,
-            Name = request.Name,
-            RequestSchemaUri = request.RequestSchemaUri,
-            ResponseSchemaUri = request.ResponseSchemaUri,
-            TimeoutSeconds = request.TimeoutSeconds,
+        CancellationToken cancellationToken) {
 
-            DeviceModelId = request.DeviceModelId,
-        };
+        var model = mapRequestTo( request );
 
         try
         {
-            var updated = await service.UpdateAsync(lowercaseClassName, cancellationToken);
+            var updated = await service.UpdateAsync(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -93,18 +66,107 @@ public static class CommandDefinitionEndpoints
         }
     }
 
-    private static async Task<IResult> Delete(
-        Guid id,
+    private static async Task<IResult> GetAll(
         ICommandDefinitionService service,
-        CancellationToken cancellationToken)
-    {
-        var deleted = await service.DeleteAsync(id, cancellationToken);
+        CancellationToken cancellationToken) {
+
+        var all; = await service.GetAllAsync(cancellationToken);
+        return Results.Ok( all.Select( CommandDefinitionResponse.FromModel ) );
+    }
+
+    private static async Task<IResult> Get(
+        IdentifierRequest identifier,
+        ICommandDefinitionService service,
+        CancellationToken cancellationToken) {
+
+        var commandDefinition = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        return commandDefinition is null ? Results.NotFound() : Results.Ok( commandDefinition );
+    }
+
+
+    private static async Task<IResult> Delete(
+        IdentifierRequest identifier,
+        ICommandDefinitionService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.DeleteAsync(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private static CommandDefinitionResponse ToResponse(CommandDefinition lowercaseClassName)
-        => new( commandDefinition.Id,
-                , String, Uri_, Uri_, Integer
-                , DeviceModelId );
+    private static async Task<IResult> AssignDeviceModel(
+        AssociationRequest request,
+        ICommandDefinitionService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AssignDeviceModelAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
 
+    private static async Task<IResult> AssignDeviceModel(
+    AssociationRequest request,
+    ICommandDefinitionService service,
+    CancellationToken cancellationToken) {
+        var deleted = await service.AssignDeviceModelAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+
+    private static async Task<IResult> AssignActuators(
+        AssociationRequest request,
+        ICommandDefinitionService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AddToActuatorsAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignActuators(
+        AssociationRequest request,
+        ICommandDefinitionService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.RemoveFromActuatorsAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private com.harbormaster.codetemplate.model.classes.ClassObject@4c456c4b mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@4c456c4b( com.harbormaster.codetemplate.model.classes.ClassObject@4c456c4bRequest request ) {
+        var model = new CommandDefinition
+        {
+            Id = request.id,
+        Name = request.Name
+        RequestSchemaUri = request.RequestSchemaUri
+        ResponseSchemaUri = request.ResponseSchemaUri
+        TimeoutSeconds = request.TimeoutSeconds
+        DeviceModel = request.DeviceModel
+        Actuators = request.Actuators
+        CommandInvocations = request.CommandInvocations
+        }
+        return model;
+    }
+    private static async Task<IResult> AssignCommandInvocations(
+        AssociationRequest request,
+        ICommandDefinitionService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AddToCommandInvocationsAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignCommandInvocations(
+        AssociationRequest request,
+        ICommandDefinitionService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.RemoveFromCommandInvocationsAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private com.harbormaster.codetemplate.model.classes.ClassObject@4c456c4b mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@4c456c4b( com.harbormaster.codetemplate.model.classes.ClassObject@4c456c4bRequest request ) {
+        var model = new CommandDefinition
+        {
+            Id = request.id,
+        Name = request.Name
+        RequestSchemaUri = request.RequestSchemaUri
+        ResponseSchemaUri = request.ResponseSchemaUri
+        TimeoutSeconds = request.TimeoutSeconds
+        DeviceModel = request.DeviceModel
+        Actuators = request.Actuators
+        CommandInvocations = request.CommandInvocations
+        }
+        return model;
+    }
 }

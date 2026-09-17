@@ -5,97 +5,75 @@ namespace iotonaspdotnet.Service;
 
 public interface IGatewayService
 {
-    Task<Gateway?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-    Task<IReadOnlyList<Gateway>> GetAllAsync(CancellationToken cancellationToken);
-    Task CreateAsync(Gateway gateway, CancellationToken cancellationToken);
-    Task<bool> UpdateAsync(Gateway gateway, CancellationToken cancellationToken);
-    Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken);
+    Task<Gateway?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<Gateway>> GetAll(CancellationToken cancellationToken);
+    Task Create(GatewayRequest request , CancellationToken cancellationToken);
+    Task<bool> Update(GatewayRequest request, CancellationToken cancellationToken);
+    Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+
 }
 
 public class GatewayService : IGatewayService
 {
     private readonly IGatewayRepository _repository;
-    private readonly ISiteRepository _sites;
-    private readonly IRoomRepository _rooms;
-    private readonly IDigitalTwinRepository _digitalTwins;
 
     public GatewayService(
-        ISiteRepository sites,
-        IRoomRepository rooms,
-        IDigitalTwinRepository digitalTwins,
         IGatewayRepository repository )
     {
         _repository = repository;
-        _sites = sites;
-        _rooms = rooms;
-        _digitalTwins = digitalTwins;
     }
 
-    public Task<Gateway?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(id, cancellationToken);
+    public Task<Gateway?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<Gateway>> GetAllAsync(CancellationToken cancellationToken)
+    public Task<IReadOnlyList<Gateway>> GetAll(CancellationToken cancellationToken)
         => _repository.GetAllAsync(cancellationToken);
 
-    public async Task CreateAsync(Gateway gateway, CancellationToken cancellationToken)
+    public async Task Create(GatewayRequest request, CancellationToken cancellationToken)
     {
-        var site = await _sites.GetByIdAsync(gateway.Id, cancellationToken)
+        var site = await _sites.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("Site not found.");
 
         if (site.Site is not null)
         {
-            throw new InvalidOperationException("Site already has a(n) gateway (1:1 relationship).");
+            throw new InvalidOperationException("Site:Site already has a(n) Gateway (1:1 relationship).");
         }
-        var room = await _rooms.GetByIdAsync(gateway.Id, cancellationToken)
+        var room = await _rooms.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("Room not found.");
 
         if (room.Room is not null)
         {
-            throw new InvalidOperationException("Room already has a(n) gateway (1:1 relationship).");
+            throw new InvalidOperationException("Room:Room already has a(n) Gateway (1:1 relationship).");
         }
-        var digitalTwin = await _digitalTwins.GetByIdAsync(gateway.Id, cancellationToken)
+        var digitalTwin = await _digitalTwins.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("DigitalTwin not found.");
 
         if (digitalTwin.DigitalTwin is not null)
         {
-            throw new InvalidOperationException("DigitalTwin already has a(n) gateway (1:1 relationship).");
+            throw new InvalidOperationException("DigitalTwin:DigitalTwin already has a(n) Gateway (1:1 relationship).");
         }
-        await _repository.AddAsync(gateway, cancellationToken);
+        await _repository.AddAsync(request, cancellationToken);
     }
 
-    public async Task<bool> UpdateAsync(Gateway gateway, CancellationToken cancellationToken)
+    public async Task<bool> Update(GatewayRequest request, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(gateway.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-
-        // Keep 1:1 â do not reassign to a digitalTwin who already has another gateway.
-        if (existing.Id != gateway.Id)
-        {
-            var Site = await _sites.GetByIdAsync(gateway.Id, cancellationToken)
-                ?? throw new InvalidOperationException("Site not found.");
-
-            if (Site.Gateway is not null && Site.Gateway.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target site already has an gateway (1:1 relationship).");
-            }
-            var Room = await _rooms.GetByIdAsync(gateway.Id, cancellationToken)
-                ?? throw new InvalidOperationException("Room not found.");
-
-            if (Room.Gateway is not null && Room.Gateway.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target room already has an gateway (1:1 relationship).");
-            }
-            var DigitalTwin = await _digitalTwins.GetByIdAsync(gateway.Id, cancellationToken)
-                ?? throw new InvalidOperationException("DigitalTwin not found.");
-
-            if (DigitalTwin.Gateway is not null && DigitalTwin.Gateway.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target digitalTwin already has an gateway (1:1 relationship).");
-            }
-        }
+        existing.SoftwareVersion = request.SoftwareVersion
+        existing.Site = request.Site
+        existing.Room = request.Room
+        existing.Devices = request.Devices
+        existing.EdgeApplications = request.EdgeApplications
+        existing.Certificates = request.Certificates
+        existing.DigitalTwin = request.DigitalTwin
+        existing.NetworkProfiles = request.NetworkProfiles
+        existing.Status = request.Status
+        await _repository.UpdateAsync(existing, cancellationToken);
+    }
 
         existing.SoftwareVersion = gateway.SoftwareVersion;
         existing.Status = gateway.Status;
@@ -107,9 +85,9 @@ public class GatewayService : IGatewayService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
         {
             return false;
@@ -118,4 +96,6 @@ public class GatewayService : IGatewayService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+
 }

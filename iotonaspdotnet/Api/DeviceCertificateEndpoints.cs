@@ -1,6 +1,7 @@
 using iotonaspdotnet.Service;
 using iotonaspdotnet.Domain;
 
+
 namespace iotonaspdotnet.Api;
 
 public static class DeviceCertificateEndpoints
@@ -9,51 +10,27 @@ public static class DeviceCertificateEndpoints
     {
         var group = app.MapGroup("/api/deviceCertificate").WithTags("DeviceCertificates");
 
-        group.MapGet("/", GetAll);
-        group.MapGet("/{id:guid}", GetById);
-        group.MapPost("/", Create);
-        group.MapPut("/{id:guid}", Update);
-        group.MapDelete("/{id:guid}", Delete);
+        group.MapPost("/", create);
+        group.MapGet("/", get);
+        group.MapGet("/", getAll);
+        group.MapPut("/", update);
+        group.MapDelete("/", delete);
+
+        group.MapDelete("/", assignDevice);
+        group.MapDelete("/", unassignDevice);
+        group.MapDelete("/", assignGateway);
+        group.MapDelete("/", unassignGateway);
+
 
         return app;
     }
 
-    private static async Task<IResult> GetAll(
-        IDeviceCertificateService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassNames = await service.GetAllAsync(cancellationToken);
-        return Results.Ok(lowercaseClassNames.Select(ToResponse));
-    }
-
-    private static async Task<IResult> GetById(
-        Guid id,
-        IDeviceCertificateService service,
-        CancellationToken cancellationToken)
-    {
-        var deviceCertificate = await service.GetByIdAsync(id, cancellationToken);
-        return deviceCertificate is null ? Results.NotFound() : Results.Ok(ToResponse( deviceCertificate ));
-    }
-
     private static async Task<IResult> Create(
-        CreateDeviceCertificateRequest request,
+        DeviceCertificateRequest request,
         IDeviceCertificateService service,
-        CancellationToken cancellationToken)
-    {
-        var deviceCertificate = new DeviceCertificate
-        {
-            Id = Guid.NewGuid(),
+        CancellationToken cancellationToken) {
 
-                SerialNumber = request.SerialNumber,
-                NotBefore = request.NotBefore,
-                NotAfter = request.NotAfter,
-                Fingerprint = request.Fingerprint,
-                CertificateType = request.CertificateType,
-
-                IoTDeviceId = request.IoTDeviceId,
-                GatewayId = request.GatewayId,
-
-        };
+        var model = mapRequestTo( request );
 
         try
         {
@@ -64,31 +41,19 @@ public static class DeviceCertificateEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/deviceCertificates/deviceCertificate.Id", ToResponse(lowercaseClassName));
+        return Results.NoContent();
     }
 
     private static async Task<IResult> Update(
-        Guid id,
-        UpdateDeviceCertificateRequest request,
+        DeviceCertificateRequest request,
         IDeviceCertificateService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassName = new DeviceCertificate
-        {
-            Id = id,
-            SerialNumber = request.SerialNumber,
-            NotBefore = request.NotBefore,
-            NotAfter = request.NotAfter,
-            Fingerprint = request.Fingerprint,
-            CertificateType = request.CertificateType,
+        CancellationToken cancellationToken) {
 
-            IoTDeviceId = request.IoTDeviceId,
-            GatewayId = request.GatewayId,
-        };
+        var model = mapRequestTo( request );
 
         try
         {
-            var updated = await service.UpdateAsync(lowercaseClassName, cancellationToken);
+            var updated = await service.UpdateAsync(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -97,18 +62,63 @@ public static class DeviceCertificateEndpoints
         }
     }
 
-    private static async Task<IResult> Delete(
-        Guid id,
+    private static async Task<IResult> GetAll(
         IDeviceCertificateService service,
-        CancellationToken cancellationToken)
-    {
-        var deleted = await service.DeleteAsync(id, cancellationToken);
+        CancellationToken cancellationToken) {
+
+        var all; = await service.GetAllAsync(cancellationToken);
+        return Results.Ok( all.Select( DeviceCertificateResponse.FromModel ) );
+    }
+
+    private static async Task<IResult> Get(
+        IdentifierRequest identifier,
+        IDeviceCertificateService service,
+        CancellationToken cancellationToken) {
+
+        var deviceCertificate = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        return deviceCertificate is null ? Results.NotFound() : Results.Ok( deviceCertificate );
+    }
+
+
+    private static async Task<IResult> Delete(
+        IdentifierRequest identifier,
+        IDeviceCertificateService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.DeleteAsync(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private static DeviceCertificateResponse ToResponse(DeviceCertificate lowercaseClassName)
-        => new( deviceCertificate.Id,
-                , String, DateTime, DateTime, String, CertificateType
-                , IoTDeviceId, GatewayId );
+    private static async Task<IResult> AssignDevice(
+        AssociationRequest request,
+        IDeviceCertificateService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AssignDeviceAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignDevice(
+    AssociationRequest request,
+    IDeviceCertificateService service,
+    CancellationToken cancellationToken) {
+        var deleted = await service.AssignDeviceAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignGateway(
+        AssociationRequest request,
+        IDeviceCertificateService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AssignGatewayAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignGateway(
+    AssociationRequest request,
+    IDeviceCertificateService service,
+    CancellationToken cancellationToken) {
+        var deleted = await service.AssignGatewayAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
 
 }

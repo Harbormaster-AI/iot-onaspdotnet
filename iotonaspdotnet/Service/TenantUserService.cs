@@ -5,63 +5,58 @@ namespace iotonaspdotnet.Service;
 
 public interface ITenantUserService
 {
-    Task<TenantUser?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-    Task<IReadOnlyList<TenantUser>> GetAllAsync(CancellationToken cancellationToken);
-    Task CreateAsync(TenantUser tenantUser, CancellationToken cancellationToken);
-    Task<bool> UpdateAsync(TenantUser tenantUser, CancellationToken cancellationToken);
-    Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken);
+    Task<TenantUser?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<TenantUser>> GetAll(CancellationToken cancellationToken);
+    Task Create(TenantUserRequest request , CancellationToken cancellationToken);
+    Task<bool> Update(TenantUserRequest request, CancellationToken cancellationToken);
+    Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+
 }
 
 public class TenantUserService : ITenantUserService
 {
     private readonly ITenantUserRepository _repository;
-    private readonly ITenantRepository _tenants;
 
     public TenantUserService(
-        ITenantRepository tenants,
         ITenantUserRepository repository )
     {
         _repository = repository;
-        _tenants = tenants;
     }
 
-    public Task<TenantUser?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(id, cancellationToken);
+    public Task<TenantUser?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<TenantUser>> GetAllAsync(CancellationToken cancellationToken)
+    public Task<IReadOnlyList<TenantUser>> GetAll(CancellationToken cancellationToken)
         => _repository.GetAllAsync(cancellationToken);
 
-    public async Task CreateAsync(TenantUser tenantUser, CancellationToken cancellationToken)
+    public async Task Create(TenantUserRequest request, CancellationToken cancellationToken)
     {
-        var tenant = await _tenants.GetByIdAsync(tenantUser.Id, cancellationToken)
+        var tenant = await _tenants.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
         if (tenant.Tenant is not null)
         {
-            throw new InvalidOperationException("Tenant already has a(n) tenantUser (1:1 relationship).");
+            throw new InvalidOperationException("Tenant:Tenant already has a(n) TenantUser (1:1 relationship).");
         }
-        await _repository.AddAsync(tenantUser, cancellationToken);
+        await _repository.AddAsync(request, cancellationToken);
     }
 
-    public async Task<bool> UpdateAsync(TenantUser tenantUser, CancellationToken cancellationToken)
+    public async Task<bool> Update(TenantUserRequest request, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(tenantUser.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-
-        // Keep 1:1 â do not reassign to a tenant who already has another tenantUser.
-        if (existing.Id != tenantUser.Id)
-        {
-            var Tenant = await _tenants.GetByIdAsync(tenantUser.Id, cancellationToken)
-                ?? throw new InvalidOperationException("Tenant not found.");
-
-            if (Tenant.TenantUser is not null && Tenant.TenantUser.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target tenant already has an tenantUser (1:1 relationship).");
-            }
-        }
+        existing.FirstName = request.FirstName
+        existing.LastName = request.LastName
+        existing.Email = request.Email
+        existing.Tenant = request.Tenant
+        existing.CommandInvocations = request.CommandInvocations
+        existing.Role = request.Role
+        await _repository.UpdateAsync(existing, cancellationToken);
+    }
 
         existing.FirstName = tenantUser.FirstName;
         existing.LastName = tenantUser.LastName;
@@ -73,9 +68,9 @@ public class TenantUserService : ITenantUserService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
         {
             return false;
@@ -84,4 +79,6 @@ public class TenantUserService : ITenantUserService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+
 }

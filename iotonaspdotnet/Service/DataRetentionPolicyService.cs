@@ -5,63 +5,56 @@ namespace iotonaspdotnet.Service;
 
 public interface IDataRetentionPolicyService
 {
-    Task<DataRetentionPolicy?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-    Task<IReadOnlyList<DataRetentionPolicy>> GetAllAsync(CancellationToken cancellationToken);
-    Task CreateAsync(DataRetentionPolicy dataRetentionPolicy, CancellationToken cancellationToken);
-    Task<bool> UpdateAsync(DataRetentionPolicy dataRetentionPolicy, CancellationToken cancellationToken);
-    Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken);
+    Task<DataRetentionPolicy?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<DataRetentionPolicy>> GetAll(CancellationToken cancellationToken);
+    Task Create(DataRetentionPolicyRequest request , CancellationToken cancellationToken);
+    Task<bool> Update(DataRetentionPolicyRequest request, CancellationToken cancellationToken);
+    Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+
 }
 
 public class DataRetentionPolicyService : IDataRetentionPolicyService
 {
     private readonly IDataRetentionPolicyRepository _repository;
-    private readonly ITenantRepository _tenants;
 
     public DataRetentionPolicyService(
-        ITenantRepository tenants,
         IDataRetentionPolicyRepository repository )
     {
         _repository = repository;
-        _tenants = tenants;
     }
 
-    public Task<DataRetentionPolicy?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(id, cancellationToken);
+    public Task<DataRetentionPolicy?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<DataRetentionPolicy>> GetAllAsync(CancellationToken cancellationToken)
+    public Task<IReadOnlyList<DataRetentionPolicy>> GetAll(CancellationToken cancellationToken)
         => _repository.GetAllAsync(cancellationToken);
 
-    public async Task CreateAsync(DataRetentionPolicy dataRetentionPolicy, CancellationToken cancellationToken)
+    public async Task Create(DataRetentionPolicyRequest request, CancellationToken cancellationToken)
     {
-        var tenant = await _tenants.GetByIdAsync(dataRetentionPolicy.Id, cancellationToken)
+        var tenant = await _tenants.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
         if (tenant.Tenant is not null)
         {
-            throw new InvalidOperationException("Tenant already has a(n) dataRetentionPolicy (1:1 relationship).");
+            throw new InvalidOperationException("Tenant:Tenant already has a(n) DataRetentionPolicy (1:1 relationship).");
         }
-        await _repository.AddAsync(dataRetentionPolicy, cancellationToken);
+        await _repository.AddAsync(request, cancellationToken);
     }
 
-    public async Task<bool> UpdateAsync(DataRetentionPolicy dataRetentionPolicy, CancellationToken cancellationToken)
+    public async Task<bool> Update(DataRetentionPolicyRequest request, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(dataRetentionPolicy.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-
-        // Keep 1:1 â do not reassign to a tenant who already has another dataRetentionPolicy.
-        if (existing.Id != dataRetentionPolicy.Id)
-        {
-            var Tenant = await _tenants.GetByIdAsync(dataRetentionPolicy.Id, cancellationToken)
-                ?? throw new InvalidOperationException("Tenant not found.");
-
-            if (Tenant.DataRetentionPolicy is not null && Tenant.DataRetentionPolicy.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target tenant already has an dataRetentionPolicy (1:1 relationship).");
-            }
-        }
+        existing.Name = request.Name
+        existing.RetentionDays = request.RetentionDays
+        existing.Tenant = request.Tenant
+        existing.Streams = request.Streams
+        await _repository.UpdateAsync(existing, cancellationToken);
+    }
 
         existing.Name = dataRetentionPolicy.Name;
         existing.RetentionDays = dataRetentionPolicy.RetentionDays;
@@ -71,9 +64,9 @@ public class DataRetentionPolicyService : IDataRetentionPolicyService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
         {
             return false;
@@ -82,4 +75,6 @@ public class DataRetentionPolicyService : IDataRetentionPolicyService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+
 }

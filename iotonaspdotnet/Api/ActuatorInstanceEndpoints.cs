@@ -1,6 +1,7 @@
 using iotonaspdotnet.Service;
 using iotonaspdotnet.Domain;
 
+
 namespace iotonaspdotnet.Api;
 
 public static class ActuatorInstanceEndpoints
@@ -9,48 +10,28 @@ public static class ActuatorInstanceEndpoints
     {
         var group = app.MapGroup("/api/actuatorInstance").WithTags("ActuatorInstances");
 
-        group.MapGet("/", GetAll);
-        group.MapGet("/{id:guid}", GetById);
-        group.MapPost("/", Create);
-        group.MapPut("/{id:guid}", Update);
-        group.MapDelete("/{id:guid}", Delete);
+        group.MapPost("/", create);
+        group.MapGet("/", get);
+        group.MapGet("/", getAll);
+        group.MapPut("/", update);
+        group.MapDelete("/", delete);
+
+        group.MapDelete("/", assignDevice);
+        group.MapDelete("/", unassignDevice);
+
+    group.MapDelete("/", addToSupportedCommands);
+    group.MapDelete("/", removeFromSupportedCommands);
+
 
         return app;
     }
 
-    private static async Task<IResult> GetAll(
-        IActuatorInstanceService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassNames = await service.GetAllAsync(cancellationToken);
-        return Results.Ok(lowercaseClassNames.Select(ToResponse));
-    }
-
-    private static async Task<IResult> GetById(
-        Guid id,
-        IActuatorInstanceService service,
-        CancellationToken cancellationToken)
-    {
-        var actuatorInstance = await service.GetByIdAsync(id, cancellationToken);
-        return actuatorInstance is null ? Results.NotFound() : Results.Ok(ToResponse( actuatorInstance ));
-    }
-
     private static async Task<IResult> Create(
-        CreateActuatorInstanceRequest request,
+        ActuatorInstanceRequest request,
         IActuatorInstanceService service,
-        CancellationToken cancellationToken)
-    {
-        var actuatorInstance = new ActuatorInstance
-        {
-            Id = Guid.NewGuid(),
+        CancellationToken cancellationToken) {
 
-                Name = request.Name,
-                CommandTopic = request.CommandTopic,
-                ActuatorType = request.ActuatorType,
-
-                IoTDeviceId = request.IoTDeviceId,
-
-        };
+        var model = mapRequestTo( request );
 
         try
         {
@@ -61,28 +42,19 @@ public static class ActuatorInstanceEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/actuatorInstances/actuatorInstance.Id", ToResponse(lowercaseClassName));
+        return Results.NoContent();
     }
 
     private static async Task<IResult> Update(
-        Guid id,
-        UpdateActuatorInstanceRequest request,
+        ActuatorInstanceRequest request,
         IActuatorInstanceService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassName = new ActuatorInstance
-        {
-            Id = id,
-            Name = request.Name,
-            CommandTopic = request.CommandTopic,
-            ActuatorType = request.ActuatorType,
+        CancellationToken cancellationToken) {
 
-            IoTDeviceId = request.IoTDeviceId,
-        };
+        var model = mapRequestTo( request );
 
         try
         {
-            var updated = await service.UpdateAsync(lowercaseClassName, cancellationToken);
+            var updated = await service.UpdateAsync(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -91,18 +63,75 @@ public static class ActuatorInstanceEndpoints
         }
     }
 
-    private static async Task<IResult> Delete(
-        Guid id,
+    private static async Task<IResult> GetAll(
         IActuatorInstanceService service,
-        CancellationToken cancellationToken)
-    {
-        var deleted = await service.DeleteAsync(id, cancellationToken);
+        CancellationToken cancellationToken) {
+
+        var all; = await service.GetAllAsync(cancellationToken);
+        return Results.Ok( all.Select( ActuatorInstanceResponse.FromModel ) );
+    }
+
+    private static async Task<IResult> Get(
+        IdentifierRequest identifier,
+        IActuatorInstanceService service,
+        CancellationToken cancellationToken) {
+
+        var actuatorInstance = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        return actuatorInstance is null ? Results.NotFound() : Results.Ok( actuatorInstance );
+    }
+
+
+    private static async Task<IResult> Delete(
+        IdentifierRequest identifier,
+        IActuatorInstanceService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.DeleteAsync(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private static ActuatorInstanceResponse ToResponse(ActuatorInstance lowercaseClassName)
-        => new( actuatorInstance.Id,
-                , String, TopicName, ActuatorType
-                , IoTDeviceId );
+    private static async Task<IResult> AssignDevice(
+        AssociationRequest request,
+        IActuatorInstanceService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AssignDeviceAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
 
+    private static async Task<IResult> AssignDevice(
+    AssociationRequest request,
+    IActuatorInstanceService service,
+    CancellationToken cancellationToken) {
+        var deleted = await service.AssignDeviceAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+
+    private static async Task<IResult> AssignSupportedCommands(
+        AssociationRequest request,
+        IActuatorInstanceService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AddToSupportedCommandsAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignSupportedCommands(
+        AssociationRequest request,
+        IActuatorInstanceService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.RemoveFromSupportedCommandsAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private com.harbormaster.codetemplate.model.classes.ClassObject@46fc5c8f mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@46fc5c8f( com.harbormaster.codetemplate.model.classes.ClassObject@46fc5c8fRequest request ) {
+        var model = new ActuatorInstance
+        {
+            Id = request.id,
+        Name = request.Name
+        CommandTopic = request.CommandTopic
+        Device = request.Device
+        SupportedCommands = request.SupportedCommands
+        ActuatorType = request.ActuatorType
+        }
+        return model;
+    }
 }

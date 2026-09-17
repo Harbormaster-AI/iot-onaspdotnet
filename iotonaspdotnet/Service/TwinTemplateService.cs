@@ -5,11 +5,13 @@ namespace iotonaspdotnet.Service;
 
 public interface ITwinTemplateService
 {
-    Task<TwinTemplate?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-    Task<IReadOnlyList<TwinTemplate>> GetAllAsync(CancellationToken cancellationToken);
-    Task CreateAsync(TwinTemplate twinTemplate, CancellationToken cancellationToken);
-    Task<bool> UpdateAsync(TwinTemplate twinTemplate, CancellationToken cancellationToken);
-    Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken);
+    Task<TwinTemplate?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<TwinTemplate>> GetAll(CancellationToken cancellationToken);
+    Task Create(TwinTemplateRequest request , CancellationToken cancellationToken);
+    Task<bool> Update(TwinTemplateRequest request, CancellationToken cancellationToken);
+    Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+
 }
 
 public class TwinTemplateService : ITwinTemplateService
@@ -22,29 +24,30 @@ public class TwinTemplateService : ITwinTemplateService
         _repository = repository;
     }
 
-    public Task<TwinTemplate?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(id, cancellationToken);
+    public Task<TwinTemplate?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<TwinTemplate>> GetAllAsync(CancellationToken cancellationToken)
+    public Task<IReadOnlyList<TwinTemplate>> GetAll(CancellationToken cancellationToken)
         => _repository.GetAllAsync(cancellationToken);
 
-    public async Task CreateAsync(TwinTemplate twinTemplate, CancellationToken cancellationToken)
+    public async Task Create(TwinTemplateRequest request, CancellationToken cancellationToken)
     {
-        await _repository.AddAsync(twinTemplate, cancellationToken);
+        await _repository.AddAsync(request, cancellationToken);
     }
 
-    public async Task<bool> UpdateAsync(TwinTemplate twinTemplate, CancellationToken cancellationToken)
+    public async Task<bool> Update(TwinTemplateRequest request, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(twinTemplate.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-
-        // Keep 1:1 â do not reassign to a twinTemplate who already has another twinTemplate.
-        if (existing.Id != twinTemplate.Id)
-        {
-        }
+        existing.Name = request.Name
+        existing.SchemaUri = request.SchemaUri
+        existing.Version = request.Version
+        existing.DeviceModels = request.DeviceModels
+        await _repository.UpdateAsync(existing, cancellationToken);
+    }
 
         existing.Name = twinTemplate.Name;
         existing.SchemaUri = twinTemplate.SchemaUri;
@@ -54,9 +57,9 @@ public class TwinTemplateService : ITwinTemplateService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
         {
             return false;
@@ -65,4 +68,6 @@ public class TwinTemplateService : ITwinTemplateService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+
 }

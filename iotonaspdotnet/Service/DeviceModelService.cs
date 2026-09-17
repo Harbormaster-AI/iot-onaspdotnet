@@ -5,80 +5,69 @@ namespace iotonaspdotnet.Service;
 
 public interface IDeviceModelService
 {
-    Task<DeviceModel?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-    Task<IReadOnlyList<DeviceModel>> GetAllAsync(CancellationToken cancellationToken);
-    Task CreateAsync(DeviceModel deviceModel, CancellationToken cancellationToken);
-    Task<bool> UpdateAsync(DeviceModel deviceModel, CancellationToken cancellationToken);
-    Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken);
+    Task<DeviceModel?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<DeviceModel>> GetAll(CancellationToken cancellationToken);
+    Task Create(DeviceModelRequest request , CancellationToken cancellationToken);
+    Task<bool> Update(DeviceModelRequest request, CancellationToken cancellationToken);
+    Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+
 }
 
 public class DeviceModelService : IDeviceModelService
 {
     private readonly IDeviceModelRepository _repository;
-    private readonly IDeviceVendorRepository _deviceVendors;
-    private readonly ITwinTemplateRepository _twinTemplates;
 
     public DeviceModelService(
-        IDeviceVendorRepository deviceVendors,
-        ITwinTemplateRepository twinTemplates,
         IDeviceModelRepository repository )
     {
         _repository = repository;
-        _deviceVendors = deviceVendors;
-        _twinTemplates = twinTemplates;
     }
 
-    public Task<DeviceModel?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(id, cancellationToken);
+    public Task<DeviceModel?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<DeviceModel>> GetAllAsync(CancellationToken cancellationToken)
+    public Task<IReadOnlyList<DeviceModel>> GetAll(CancellationToken cancellationToken)
         => _repository.GetAllAsync(cancellationToken);
 
-    public async Task CreateAsync(DeviceModel deviceModel, CancellationToken cancellationToken)
+    public async Task Create(DeviceModelRequest request, CancellationToken cancellationToken)
     {
-        var deviceVendor = await _deviceVendors.GetByIdAsync(deviceModel.Id, cancellationToken)
+        var deviceVendor = await _deviceVendors.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("DeviceVendor not found.");
 
         if (deviceVendor.Vendor is not null)
         {
-            throw new InvalidOperationException("DeviceVendor already has a(n) deviceModel (1:1 relationship).");
+            throw new InvalidOperationException("DeviceVendor:Vendor already has a(n) DeviceModel (1:1 relationship).");
         }
-        var twinTemplate = await _twinTemplates.GetByIdAsync(deviceModel.Id, cancellationToken)
+        var twinTemplate = await _twinTemplates.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("TwinTemplate not found.");
 
         if (twinTemplate.TwinTemplate is not null)
         {
-            throw new InvalidOperationException("TwinTemplate already has a(n) deviceModel (1:1 relationship).");
+            throw new InvalidOperationException("TwinTemplate:TwinTemplate already has a(n) DeviceModel (1:1 relationship).");
         }
-        await _repository.AddAsync(deviceModel, cancellationToken);
+        await _repository.AddAsync(request, cancellationToken);
     }
 
-    public async Task<bool> UpdateAsync(DeviceModel deviceModel, CancellationToken cancellationToken)
+    public async Task<bool> Update(DeviceModelRequest request, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(deviceModel.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-
-        // Keep 1:1 â do not reassign to a twinTemplate who already has another deviceModel.
-        if (existing.Id != deviceModel.Id)
-        {
-            var Vendor = await _deviceVendors.GetByIdAsync(deviceModel.Id, cancellationToken)
-                ?? throw new InvalidOperationException("DeviceVendor not found.");
-
-            if (Vendor.DeviceModel is not null && Vendor.DeviceModel.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target deviceVendor already has an deviceModel (1:1 relationship).");
-            }
-            var TwinTemplate = await _twinTemplates.GetByIdAsync(deviceModel.Id, cancellationToken)
-                ?? throw new InvalidOperationException("TwinTemplate not found.");
-
-            if (TwinTemplate.DeviceModel is not null && TwinTemplate.DeviceModel.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target twinTemplate already has an deviceModel (1:1 relationship).");
-            }
-        }
+        existing.Name = request.Name
+        existing.ModelNumber = request.ModelNumber
+        existing.HardwareRevision = request.HardwareRevision
+        existing.Vendor = request.Vendor
+        existing.HardwareModules = request.HardwareModules
+        existing.TwinTemplate = request.TwinTemplate
+        existing.FirmwareReleases = request.FirmwareReleases
+        existing.CommandDefinitions = request.CommandDefinitions
+        existing.SupportedConnectivity = request.SupportedConnectivity
+        existing.DefaultTelemetryEncoding = request.DefaultTelemetryEncoding
+        await _repository.UpdateAsync(existing, cancellationToken);
+    }
 
         existing.Name = deviceModel.Name;
         existing.ModelNumber = deviceModel.ModelNumber;
@@ -92,9 +81,9 @@ public class DeviceModelService : IDeviceModelService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
         {
             return false;
@@ -103,4 +92,6 @@ public class DeviceModelService : IDeviceModelService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+
 }

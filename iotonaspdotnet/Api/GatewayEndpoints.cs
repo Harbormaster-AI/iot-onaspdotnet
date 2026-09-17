@@ -1,6 +1,7 @@
 using iotonaspdotnet.Service;
 using iotonaspdotnet.Domain;
 
+
 namespace iotonaspdotnet.Api;
 
 public static class GatewayEndpoints
@@ -9,49 +10,41 @@ public static class GatewayEndpoints
     {
         var group = app.MapGroup("/api/gateway").WithTags("Gateways");
 
-        group.MapGet("/", GetAll);
-        group.MapGet("/{id:guid}", GetById);
-        group.MapPost("/", Create);
-        group.MapPut("/{id:guid}", Update);
-        group.MapDelete("/{id:guid}", Delete);
+        group.MapPost("/", create);
+        group.MapGet("/", get);
+        group.MapGet("/", getAll);
+        group.MapPut("/", update);
+        group.MapDelete("/", delete);
+
+        group.MapDelete("/", assignSite);
+        group.MapDelete("/", unassignSite);
+        group.MapDelete("/", assignRoom);
+        group.MapDelete("/", unassignRoom);
+        group.MapDelete("/", assignDigitalTwin);
+        group.MapDelete("/", unassignDigitalTwin);
+
+    group.MapDelete("/", addToDevices);
+    group.MapDelete("/", removeFromDevices);
+
+    group.MapDelete("/", addToEdgeApplications);
+    group.MapDelete("/", removeFromEdgeApplications);
+
+    group.MapDelete("/", addToCertificates);
+    group.MapDelete("/", removeFromCertificates);
+
+    group.MapDelete("/", addToNetworkProfiles);
+    group.MapDelete("/", removeFromNetworkProfiles);
+
 
         return app;
     }
 
-    private static async Task<IResult> GetAll(
-        IGatewayService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassNames = await service.GetAllAsync(cancellationToken);
-        return Results.Ok(lowercaseClassNames.Select(ToResponse));
-    }
-
-    private static async Task<IResult> GetById(
-        Guid id,
-        IGatewayService service,
-        CancellationToken cancellationToken)
-    {
-        var gateway = await service.GetByIdAsync(id, cancellationToken);
-        return gateway is null ? Results.NotFound() : Results.Ok(ToResponse( gateway ));
-    }
-
     private static async Task<IResult> Create(
-        CreateGatewayRequest request,
+        GatewayRequest request,
         IGatewayService service,
-        CancellationToken cancellationToken)
-    {
-        var gateway = new Gateway
-        {
-            Id = Guid.NewGuid(),
+        CancellationToken cancellationToken) {
 
-                SoftwareVersion = request.SoftwareVersion,
-                Status = request.Status,
-
-                SiteId = request.SiteId,
-                RoomId = request.RoomId,
-                DigitalTwinId = request.DigitalTwinId,
-
-        };
+        var model = mapRequestTo( request );
 
         try
         {
@@ -62,29 +55,19 @@ public static class GatewayEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/gateways/gateway.Id", ToResponse(lowercaseClassName));
+        return Results.NoContent();
     }
 
     private static async Task<IResult> Update(
-        Guid id,
-        UpdateGatewayRequest request,
+        GatewayRequest request,
         IGatewayService service,
-        CancellationToken cancellationToken)
-    {
-        var lowercaseClassName = new Gateway
-        {
-            Id = id,
-            SoftwareVersion = request.SoftwareVersion,
-            Status = request.Status,
+        CancellationToken cancellationToken) {
 
-            SiteId = request.SiteId,
-            RoomId = request.RoomId,
-            DigitalTwinId = request.DigitalTwinId,
-        };
+        var model = mapRequestTo( request );
 
         try
         {
-            var updated = await service.UpdateAsync(lowercaseClassName, cancellationToken);
+            var updated = await service.UpdateAsync(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -93,18 +76,207 @@ public static class GatewayEndpoints
         }
     }
 
-    private static async Task<IResult> Delete(
-        Guid id,
+    private static async Task<IResult> GetAll(
         IGatewayService service,
-        CancellationToken cancellationToken)
-    {
-        var deleted = await service.DeleteAsync(id, cancellationToken);
+        CancellationToken cancellationToken) {
+
+        var all; = await service.GetAllAsync(cancellationToken);
+        return Results.Ok( all.Select( GatewayResponse.FromModel ) );
+    }
+
+    private static async Task<IResult> Get(
+        IdentifierRequest identifier,
+        IGatewayService service,
+        CancellationToken cancellationToken) {
+
+        var gateway = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        return gateway is null ? Results.NotFound() : Results.Ok( gateway );
+    }
+
+
+    private static async Task<IResult> Delete(
+        IdentifierRequest identifier,
+        IGatewayService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.DeleteAsync(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private static GatewayResponse ToResponse(Gateway lowercaseClassName)
-        => new( gateway.Id,
-                , String, DeviceStatus
-                , SiteId, RoomId, DigitalTwinId );
+    private static async Task<IResult> AssignSite(
+        AssociationRequest request,
+        IGatewayService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AssignSiteAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
 
+    private static async Task<IResult> AssignSite(
+    AssociationRequest request,
+    IGatewayService service,
+    CancellationToken cancellationToken) {
+        var deleted = await service.AssignSiteAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignRoom(
+        AssociationRequest request,
+        IGatewayService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AssignRoomAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignRoom(
+    AssociationRequest request,
+    IGatewayService service,
+    CancellationToken cancellationToken) {
+        var deleted = await service.AssignRoomAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignDigitalTwin(
+        AssociationRequest request,
+        IGatewayService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AssignDigitalTwinAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignDigitalTwin(
+    AssociationRequest request,
+    IGatewayService service,
+    CancellationToken cancellationToken) {
+        var deleted = await service.AssignDigitalTwinAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+
+    private static async Task<IResult> AssignDevices(
+        AssociationRequest request,
+        IGatewayService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AddToDevicesAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignDevices(
+        AssociationRequest request,
+        IGatewayService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.RemoveFromDevicesAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private com.harbormaster.codetemplate.model.classes.ClassObject@39871eee mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@39871eee( com.harbormaster.codetemplate.model.classes.ClassObject@39871eeeRequest request ) {
+        var model = new Gateway
+        {
+            Id = request.id,
+        SoftwareVersion = request.SoftwareVersion
+        Site = request.Site
+        Room = request.Room
+        Devices = request.Devices
+        EdgeApplications = request.EdgeApplications
+        Certificates = request.Certificates
+        DigitalTwin = request.DigitalTwin
+        NetworkProfiles = request.NetworkProfiles
+        Status = request.Status
+        }
+        return model;
+    }
+    private static async Task<IResult> AssignEdgeApplications(
+        AssociationRequest request,
+        IGatewayService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AddToEdgeApplicationsAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignEdgeApplications(
+        AssociationRequest request,
+        IGatewayService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.RemoveFromEdgeApplicationsAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private com.harbormaster.codetemplate.model.classes.ClassObject@39871eee mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@39871eee( com.harbormaster.codetemplate.model.classes.ClassObject@39871eeeRequest request ) {
+        var model = new Gateway
+        {
+            Id = request.id,
+        SoftwareVersion = request.SoftwareVersion
+        Site = request.Site
+        Room = request.Room
+        Devices = request.Devices
+        EdgeApplications = request.EdgeApplications
+        Certificates = request.Certificates
+        DigitalTwin = request.DigitalTwin
+        NetworkProfiles = request.NetworkProfiles
+        Status = request.Status
+        }
+        return model;
+    }
+    private static async Task<IResult> AssignCertificates(
+        AssociationRequest request,
+        IGatewayService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AddToCertificatesAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignCertificates(
+        AssociationRequest request,
+        IGatewayService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.RemoveFromCertificatesAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private com.harbormaster.codetemplate.model.classes.ClassObject@39871eee mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@39871eee( com.harbormaster.codetemplate.model.classes.ClassObject@39871eeeRequest request ) {
+        var model = new Gateway
+        {
+            Id = request.id,
+        SoftwareVersion = request.SoftwareVersion
+        Site = request.Site
+        Room = request.Room
+        Devices = request.Devices
+        EdgeApplications = request.EdgeApplications
+        Certificates = request.Certificates
+        DigitalTwin = request.DigitalTwin
+        NetworkProfiles = request.NetworkProfiles
+        Status = request.Status
+        }
+        return model;
+    }
+    private static async Task<IResult> AssignNetworkProfiles(
+        AssociationRequest request,
+        IGatewayService service,
+        CancellationToken cancellationToken) {
+        var assign = await service.AddToNetworkProfilesAsync(request.Id, cancellationToken);
+        return assign ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> AssignNetworkProfiles(
+        AssociationRequest request,
+        IGatewayService service,
+        CancellationToken cancellationToken) {
+        var deleted = await service.RemoveFromNetworkProfilesAsync(request.Id, cancellationToken);
+        return deleted ? Results.NoContent() : Results.NotFound();
+    }
+
+    private com.harbormaster.codetemplate.model.classes.ClassObject@39871eee mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@39871eee( com.harbormaster.codetemplate.model.classes.ClassObject@39871eeeRequest request ) {
+        var model = new Gateway
+        {
+            Id = request.id,
+        SoftwareVersion = request.SoftwareVersion
+        Site = request.Site
+        Room = request.Room
+        Devices = request.Devices
+        EdgeApplications = request.EdgeApplications
+        Certificates = request.Certificates
+        DigitalTwin = request.DigitalTwin
+        NetworkProfiles = request.NetworkProfiles
+        Status = request.Status
+        }
+        return model;
+    }
 }

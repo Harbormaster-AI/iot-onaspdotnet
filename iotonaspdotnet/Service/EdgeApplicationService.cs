@@ -5,63 +5,57 @@ namespace iotonaspdotnet.Service;
 
 public interface IEdgeApplicationService
 {
-    Task<EdgeApplication?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-    Task<IReadOnlyList<EdgeApplication>> GetAllAsync(CancellationToken cancellationToken);
-    Task CreateAsync(EdgeApplication edgeApplication, CancellationToken cancellationToken);
-    Task<bool> UpdateAsync(EdgeApplication edgeApplication, CancellationToken cancellationToken);
-    Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken);
+    Task<EdgeApplication?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<EdgeApplication>> GetAll(CancellationToken cancellationToken);
+    Task Create(EdgeApplicationRequest request , CancellationToken cancellationToken);
+    Task<bool> Update(EdgeApplicationRequest request, CancellationToken cancellationToken);
+    Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+
 }
 
 public class EdgeApplicationService : IEdgeApplicationService
 {
     private readonly IEdgeApplicationRepository _repository;
-    private readonly IGatewayRepository _gateways;
 
     public EdgeApplicationService(
-        IGatewayRepository gateways,
         IEdgeApplicationRepository repository )
     {
         _repository = repository;
-        _gateways = gateways;
     }
 
-    public Task<EdgeApplication?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(id, cancellationToken);
+    public Task<EdgeApplication?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<EdgeApplication>> GetAllAsync(CancellationToken cancellationToken)
+    public Task<IReadOnlyList<EdgeApplication>> GetAll(CancellationToken cancellationToken)
         => _repository.GetAllAsync(cancellationToken);
 
-    public async Task CreateAsync(EdgeApplication edgeApplication, CancellationToken cancellationToken)
+    public async Task Create(EdgeApplicationRequest request, CancellationToken cancellationToken)
     {
-        var gateway = await _gateways.GetByIdAsync(edgeApplication.Id, cancellationToken)
+        var gateway = await _gateways.Get(request.Id, cancellationToken)
             ?? throw new InvalidOperationException("Gateway not found.");
 
         if (gateway.Gateway is not null)
         {
-            throw new InvalidOperationException("Gateway already has a(n) edgeApplication (1:1 relationship).");
+            throw new InvalidOperationException("Gateway:Gateway already has a(n) EdgeApplication (1:1 relationship).");
         }
-        await _repository.AddAsync(edgeApplication, cancellationToken);
+        await _repository.AddAsync(request, cancellationToken);
     }
 
-    public async Task<bool> UpdateAsync(EdgeApplication edgeApplication, CancellationToken cancellationToken)
+    public async Task<bool> Update(EdgeApplicationRequest request, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(edgeApplication.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-
-        // Keep 1:1 â do not reassign to a gateway who already has another edgeApplication.
-        if (existing.Id != edgeApplication.Id)
-        {
-            var Gateway = await _gateways.GetByIdAsync(edgeApplication.Id, cancellationToken)
-                ?? throw new InvalidOperationException("Gateway not found.");
-
-            if (Gateway.EdgeApplication is not null && Gateway.EdgeApplication.Id != existing.Id)
-            {
-                throw new InvalidOperationException("Target gateway already has an edgeApplication (1:1 relationship).");
-            }
-        }
+        existing.Name = request.Name
+        existing.Version = request.Version
+        existing.Image = request.Image
+        existing.Gateway = request.Gateway
+        existing.Status = request.Status
+        await _repository.UpdateAsync(existing, cancellationToken);
+    }
 
         existing.Name = edgeApplication.Name;
         existing.Version = edgeApplication.Version;
@@ -73,9 +67,9 @@ public class EdgeApplicationService : IEdgeApplicationService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
         {
             return false;
@@ -84,4 +78,6 @@ public class EdgeApplicationService : IEdgeApplicationService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+
 }
