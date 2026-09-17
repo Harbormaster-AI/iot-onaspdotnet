@@ -7,4 +7,7 @@ public class TwinChangeEvent
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
-										
+										 public virtual long twinchangeeventId { get; set; }
+								 public virtual string eventId { get; set; }
+								 public virtual DateTime occurredAt { get; set; }
+								

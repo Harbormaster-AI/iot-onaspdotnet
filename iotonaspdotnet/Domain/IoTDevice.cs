@@ -7,4 +7,5 @@ public class IoTDevice
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
-										
+										 public virtual long iotdeviceId { get; set; }
+								

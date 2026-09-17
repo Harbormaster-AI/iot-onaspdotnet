@@ -7,4 +7,8 @@ public class TenantUser
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
-										
+										 public virtual long tenantuserId { get; set; }
+								 public virtual string firstName { get; set; }
+								 public virtual string lastName { get; set; }
+								 public virtual string email { get; set; }
+								

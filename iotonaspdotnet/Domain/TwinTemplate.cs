@@ -7,4 +7,6 @@ public class TwinTemplate
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
-										
+										 public virtual long twintemplateId { get; set; }
+								 public virtual string name { get; set; }
+								

@@ -7,4 +7,7 @@ public class SoftwareUpdateExecution
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
-										
+										 public virtual long softwareupdateexecutionId { get; set; }
+								 public virtual DateTime startedAt { get; set; }
+								 public virtual DateTime completedAt { get; set; }
+								

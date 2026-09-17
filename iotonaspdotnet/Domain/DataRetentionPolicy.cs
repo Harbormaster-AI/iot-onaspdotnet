@@ -7,4 +7,7 @@ public class DataRetentionPolicy
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
-										
+										 public virtual long dataretentionpolicyId { get; set; }
+								 public virtual string name { get; set; }
+								 public virtual int retentionDays { get; set; }
+								

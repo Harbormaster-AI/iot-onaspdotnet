@@ -7,4 +7,6 @@ public class ActuatorInstance
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
-										
+										 public virtual long actuatorinstanceId { get; set; }
+								 public virtual string name { get; set; }
+								

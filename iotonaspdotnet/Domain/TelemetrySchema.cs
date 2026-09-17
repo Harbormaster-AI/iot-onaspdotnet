@@ -7,4 +7,6 @@ public class TelemetrySchema
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
-										
+										 public virtual long telemetryschemaId { get; set; }
+								 public virtual string schemaId { get; set; }
+								
