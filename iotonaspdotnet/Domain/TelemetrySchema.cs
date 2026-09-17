@@ -7,9 +7,9 @@ public class TelemetrySchema
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
-#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
-#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
-#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
-#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
-#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
+public virtual long telemetryschemaId { get; set; }
+ public virtual string schemaId { get; set; }
+ public virtual Uri schemaUri { get; set; }
+public virtual TelemetryStream Streams { get; set; }
+ public virtual TelemetryEncoding Encoding { get; set; }
 }

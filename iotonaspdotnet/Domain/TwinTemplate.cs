@@ -7,9 +7,9 @@ public class TwinTemplate
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
-#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
-#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
-#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
-#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
-#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
+public virtual long twintemplateId { get; set; }
+ public virtual string name { get; set; }
+ public virtual Uri schemaUri { get; set; }
+ public virtual string version { get; set; }
+public virtual DeviceModel DeviceModels { get; set; }
 }

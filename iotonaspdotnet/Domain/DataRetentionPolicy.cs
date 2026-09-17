@@ -7,9 +7,9 @@ public class DataRetentionPolicy
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
-#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
-#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
-#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
-#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
-#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
+public virtual long dataretentionpolicyId { get; set; }
+ public virtual string name { get; set; }
+ public virtual int retentionDays { get; set; }
+public virtual Tenant Tenant { get; set; }
+public virtual TelemetryStream Streams { get; set; }
 }

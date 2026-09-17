@@ -7,10 +7,10 @@ public class ActuatorInstance
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
-#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
-#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
-#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
-#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
-#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
-#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
+public virtual long actuatorinstanceId { get; set; }
+ public virtual string name { get; set; }
+ public virtual TopicName commandTopic { get; set; }
+public virtual IoTDevice Device { get; set; }
+public virtual CommandDefinition SupportedCommands { get; set; }
+ public virtual ActuatorType ActuatorType { get; set; }
 }

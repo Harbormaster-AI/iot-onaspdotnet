@@ -7,9 +7,9 @@ public class Room
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
-#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
-#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
-#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
-#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
-#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
+public virtual long roomId { get; set; }
+ public virtual string name { get; set; }
+public virtual Floor Floor { get; set; }
+public virtual IoTDevice Devices { get; set; }
+public virtual Gateway Gateways { get; set; }
 }
