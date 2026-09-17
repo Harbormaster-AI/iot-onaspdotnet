@@ -10,4 +10,6 @@ public class TwinChangeEvent
 										 public virtual long twinchangeeventId { get; set; }
 								 public virtual string eventId { get; set; }
 								 public virtual DateTime occurredAt { get; set; }
-								
+								public virtual DigitalTwin Twin { get; set; }
+								 public virtual TwinChangeType ChangeType { get; set; }
+			}

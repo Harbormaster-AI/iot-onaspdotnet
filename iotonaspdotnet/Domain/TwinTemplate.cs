@@ -9,4 +9,7 @@ public class TwinTemplate
 
 										 public virtual long twintemplateId { get; set; }
 								 public virtual string name { get; set; }
-								
+								 public virtual Uri_ schemaUri { get; set; }
+								 public virtual string version { get; set; }
+								public virtual DeviceModel DeviceModels { get; set; }
+			}

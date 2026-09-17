@@ -12,4 +12,5 @@ public class ApiKey
 								 public virtual string hashedSecret { get; set; }
 								 public virtual DateTime createdAt { get; set; }
 								 public virtual DateTime lastUsedAt { get; set; }
-								
+								public virtual AccessPolicy AccessPolicy { get; set; }
+			}

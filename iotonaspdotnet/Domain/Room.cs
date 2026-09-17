@@ -9,4 +9,7 @@ public class Room
 
 										 public virtual long roomId { get; set; }
 								 public virtual string name { get; set; }
-								
+								public virtual Floor Floor { get; set; }
+								public virtual IoTDevice Devices { get; set; }
+								public virtual Gateway Gateways { get; set; }
+			}

@@ -11,4 +11,6 @@ public class ConnectivityPlan
 								 public virtual string name { get; set; }
 								 public virtual int dataCapMB { get; set; }
 								 public virtual int billingCycleDays { get; set; }
-								
+								public virtual SimCard SimCards { get; set; }
+								public virtual Tenant Tenant { get; set; }
+			}

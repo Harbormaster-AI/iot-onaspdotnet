@@ -10,4 +10,7 @@ public class SoftwareUpdateExecution
 										 public virtual long softwareupdateexecutionId { get; set; }
 								 public virtual DateTime startedAt { get; set; }
 								 public virtual DateTime completedAt { get; set; }
-								
+								public virtual SoftwareUpdateCampaign Campaign { get; set; }
+								public virtual IoTDevice Device { get; set; }
+								 public virtual UpdateStatus Status { get; set; }
+			}

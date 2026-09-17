@@ -12,4 +12,7 @@ public class DeviceVendor
 								 public virtual string legalName { get; set; }
 								 public virtual string headquartersCountry { get; set; }
 								 public virtual string website { get; set; }
-								
+								public virtual DeviceModel DeviceModels { get; set; }
+								public virtual FirmwareRelease FirmwareReleases { get; set; }
+								public virtual HardwareModule HardwareModules { get; set; }
+			}

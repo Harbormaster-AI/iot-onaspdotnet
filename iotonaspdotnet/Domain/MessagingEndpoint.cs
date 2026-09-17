@@ -11,4 +11,7 @@ public class MessagingEndpoint
 								 public virtual string host { get; set; }
 								 public virtual int port { get; set; }
 								 public virtual bool secure { get; set; }
-								
+								public virtual Tenant Tenant { get; set; }
+								public virtual TelemetryStream Streams { get; set; }
+								 public virtual MessagingProtocol Protocol { get; set; }
+			}

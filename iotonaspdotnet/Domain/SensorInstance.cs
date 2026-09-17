@@ -11,4 +11,7 @@ public class SensorInstance
 								 public virtual string name { get; set; }
 								 public virtual string unit { get; set; }
 								 public virtual int samplingIntervalMs { get; set; }
-								
+								public virtual IoTDevice Device { get; set; }
+								public virtual TelemetryStream TelemetryStreams { get; set; }
+								 public virtual SensorType SensorType { get; set; }
+			}

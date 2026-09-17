@@ -11,4 +11,7 @@ public class TenantUser
 								 public virtual string firstName { get; set; }
 								 public virtual string lastName { get; set; }
 								 public virtual string email { get; set; }
-								
+								public virtual Tenant Tenant { get; set; }
+								public virtual CommandInvocation CommandInvocations { get; set; }
+								 public virtual UserRole Role { get; set; }
+			}

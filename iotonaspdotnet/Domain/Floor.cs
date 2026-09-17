@@ -10,4 +10,6 @@ public class Floor
 										 public virtual long floorId { get; set; }
 								 public virtual string name { get; set; }
 								 public virtual int level { get; set; }
-								
+								public virtual Building Building { get; set; }
+								public virtual Room Rooms { get; set; }
+			}

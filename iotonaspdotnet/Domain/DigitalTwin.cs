@@ -12,4 +12,8 @@ public class DigitalTwin
 								 public virtual int desiredStateVersion { get; set; }
 								 public virtual int reportedStateVersion { get; set; }
 								 public virtual DateTime lastSyncAt { get; set; }
-								
+								public virtual IoTDevice Device { get; set; }
+								public virtual Gateway Gateway { get; set; }
+								public virtual TwinTemplate Template { get; set; }
+								public virtual TwinChangeEvent ChangeEvents { get; set; }
+			}

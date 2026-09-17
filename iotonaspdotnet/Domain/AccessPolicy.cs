@@ -11,4 +11,7 @@ public class AccessPolicy
 								 public virtual string name { get; set; }
 								 public virtual string scope { get; set; }
 								 public virtual DateTime expiresAt { get; set; }
-								
+								public virtual Tenant Tenant { get; set; }
+								public virtual ApiKey ApiKeys { get; set; }
+								public virtual TenantUser Users { get; set; }
+			}

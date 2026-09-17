@@ -11,4 +11,7 @@ public class Alert
 								 public virtual DateTime raisedAt { get; set; }
 								 public virtual DateTime clearedAt { get; set; }
 								 public virtual string message { get; set; }
-								
+								public virtual IoTDevice Device { get; set; }
+								public virtual AlertRule AlertRule { get; set; }
+								 public virtual AlertStatus Status { get; set; }
+			}

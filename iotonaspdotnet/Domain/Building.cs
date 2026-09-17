@@ -9,4 +9,6 @@ public class Building
 
 										 public virtual long buildingId { get; set; }
 								 public virtual string name { get; set; }
-								
+								public virtual Site Site { get; set; }
+								public virtual Floor Floors { get; set; }
+			}

@@ -11,4 +11,6 @@ public class EdgeApplication
 								 public virtual string name { get; set; }
 								 public virtual string version { get; set; }
 								 public virtual string image { get; set; }
-								
+								public virtual Gateway Gateway { get; set; }
+								 public virtual DeploymentStatus Status { get; set; }
+			}
