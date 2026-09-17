@@ -33,7 +33,7 @@ public class MessagingEndpointService : IMessagingEndpointService
 
     public async Task CreateAsync(MessagingEndpoint messagingEndpoint, CancellationToken cancellationToken)
     {
-        var tenant = await _tenants.GetByIdAsync(messagingEndpoint.TenantId, cancellationToken)
+        var tenant = await _tenants.GetByIdAsync(messagingEndpoint.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
         if (tenant.MessagingEndpoint is not null)
@@ -53,9 +53,9 @@ public class MessagingEndpointService : IMessagingEndpointService
         }
 
         // Keep 1:1 â do not reassign to a tenant who already has another messagingEndpoint.
-        if (existing.TenantId != messagingEndpoint.TenantId)
+        if (existing.Id != messagingEndpoint.Id)
         {
-            var Tenant = await _tenants.GetByIdAsync(messagingEndpoint.TenantId, cancellationToken)
+            var Tenant = await _tenants.GetByIdAsync(messagingEndpoint.Id, cancellationToken)
                 ?? throw new InvalidOperationException("Tenant not found.");
 
             if (Tenant.MessagingEndpoint is not null && Tenant.MessagingEndpoint.Id != existing.Id)
@@ -69,7 +69,7 @@ public class MessagingEndpointService : IMessagingEndpointService
         existing.Secure = messagingEndpoint.Secure;
         existing.Protocol = messagingEndpoint.Protocol;
 
-        existing.TenantId = messagingEndpoint.TenantId;
+        existing.Id = messagingEndpoint.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

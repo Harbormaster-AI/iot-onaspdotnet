@@ -33,7 +33,7 @@ public class FirmwareReleaseService : IFirmwareReleaseService
 
     public async Task CreateAsync(FirmwareRelease firmwareRelease, CancellationToken cancellationToken)
     {
-        var deviceModel = await _deviceModels.GetByIdAsync(firmwareRelease.DeviceModelId, cancellationToken)
+        var deviceModel = await _deviceModels.GetByIdAsync(firmwareRelease.Id, cancellationToken)
             ?? throw new InvalidOperationException("DeviceModel not found.");
 
         if (deviceModel.FirmwareRelease is not null)
@@ -53,9 +53,9 @@ public class FirmwareReleaseService : IFirmwareReleaseService
         }
 
         // Keep 1:1 â do not reassign to a deviceModel who already has another firmwareRelease.
-        if (existing.DeviceModelId != firmwareRelease.DeviceModelId)
+        if (existing.Id != firmwareRelease.Id)
         {
-            var DeviceModel = await _deviceModels.GetByIdAsync(firmwareRelease.DeviceModelId, cancellationToken)
+            var DeviceModel = await _deviceModels.GetByIdAsync(firmwareRelease.Id, cancellationToken)
                 ?? throw new InvalidOperationException("DeviceModel not found.");
 
             if (DeviceModel.FirmwareRelease is not null && DeviceModel.FirmwareRelease.Id != existing.Id)
@@ -69,7 +69,7 @@ public class FirmwareReleaseService : IFirmwareReleaseService
         existing.ReleaseNotes = firmwareRelease.ReleaseNotes;
         existing.Checksum = firmwareRelease.Checksum;
 
-        existing.DeviceModelId = firmwareRelease.DeviceModelId;
+        existing.Id = firmwareRelease.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

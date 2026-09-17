@@ -33,7 +33,7 @@ public class DeviceGroupService : IDeviceGroupService
 
     public async Task CreateAsync(DeviceGroup deviceGroup, CancellationToken cancellationToken)
     {
-        var tenant = await _tenants.GetByIdAsync(deviceGroup.TenantId, cancellationToken)
+        var tenant = await _tenants.GetByIdAsync(deviceGroup.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
         if (tenant.DeviceGroup is not null)
@@ -53,9 +53,9 @@ public class DeviceGroupService : IDeviceGroupService
         }
 
         // Keep 1:1 â do not reassign to a tenant who already has another deviceGroup.
-        if (existing.TenantId != deviceGroup.TenantId)
+        if (existing.Id != deviceGroup.Id)
         {
-            var Tenant = await _tenants.GetByIdAsync(deviceGroup.TenantId, cancellationToken)
+            var Tenant = await _tenants.GetByIdAsync(deviceGroup.Id, cancellationToken)
                 ?? throw new InvalidOperationException("Tenant not found.");
 
             if (Tenant.DeviceGroup is not null && Tenant.DeviceGroup.Id != existing.Id)
@@ -67,7 +67,7 @@ public class DeviceGroupService : IDeviceGroupService
         existing.Name = deviceGroup.Name;
         existing.Criteria = deviceGroup.Criteria;
 
-        existing.TenantId = deviceGroup.TenantId;
+        existing.Id = deviceGroup.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

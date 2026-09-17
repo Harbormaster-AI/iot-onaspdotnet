@@ -33,7 +33,7 @@ public class RoomService : IRoomService
 
     public async Task CreateAsync(Room room, CancellationToken cancellationToken)
     {
-        var floor = await _floors.GetByIdAsync(room.FloorId, cancellationToken)
+        var floor = await _floors.GetByIdAsync(room.Id, cancellationToken)
             ?? throw new InvalidOperationException("Floor not found.");
 
         if (floor.Room is not null)
@@ -53,9 +53,9 @@ public class RoomService : IRoomService
         }
 
         // Keep 1:1 â do not reassign to a floor who already has another room.
-        if (existing.FloorId != room.FloorId)
+        if (existing.Id != room.Id)
         {
-            var Floor = await _floors.GetByIdAsync(room.FloorId, cancellationToken)
+            var Floor = await _floors.GetByIdAsync(room.Id, cancellationToken)
                 ?? throw new InvalidOperationException("Floor not found.");
 
             if (Floor.Room is not null && Floor.Room.Id != existing.Id)
@@ -66,7 +66,7 @@ public class RoomService : IRoomService
 
         existing.Name = room.Name;
 
-        existing.FloorId = room.FloorId;
+        existing.Id = room.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

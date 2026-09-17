@@ -36,7 +36,7 @@ public class AlertService : IAlertService
 
     public async Task CreateAsync(Alert alert, CancellationToken cancellationToken)
     {
-        var ioTDevice = await _ioTDevices.GetByIdAsync(alert.IoTDeviceId, cancellationToken)
+        var ioTDevice = await _ioTDevices.GetByIdAsync(alert.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
         if (ioTDevice.Alert is not null)
@@ -44,7 +44,7 @@ public class AlertService : IAlertService
             throw new InvalidOperationException("IoTDevice already has a(n) alert (1:1 relationship).");
         }
 
-        var alertRule = await _alertRules.GetByIdAsync(alert.AlertRuleId, cancellationToken)
+        var alertRule = await _alertRules.GetByIdAsync(alert.Id, cancellationToken)
             ?? throw new InvalidOperationException("AlertRule not found.");
 
         if (alertRule.Alert is not null)
@@ -64,16 +64,16 @@ public class AlertService : IAlertService
         }
 
         // Keep 1:1 â do not reassign to a alertRule who already has another alert.
-        if (existing.AlertRuleId != alert.AlertRuleId)
+        if (existing.Id != alert.Id)
         {
-            var Device = await _ioTDevices.GetByIdAsync(alert.IoTDeviceId, cancellationToken)
+            var Device = await _ioTDevices.GetByIdAsync(alert.Id, cancellationToken)
                 ?? throw new InvalidOperationException("IoTDevice not found.");
 
             if (Device.Alert is not null && Device.Alert.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target ioTDevice already has an alert (1:1 relationship).");
             }
-            var AlertRule = await _alertRules.GetByIdAsync(alert.AlertRuleId, cancellationToken)
+            var AlertRule = await _alertRules.GetByIdAsync(alert.Id, cancellationToken)
                 ?? throw new InvalidOperationException("AlertRule not found.");
 
             if (AlertRule.Alert is not null && AlertRule.Alert.Id != existing.Id)
@@ -87,8 +87,8 @@ public class AlertService : IAlertService
         existing.Message = alert.Message;
         existing.Status = alert.Status;
 
-        existing.IoTDeviceId = alert.IoTDeviceId;
-        existing.AlertRuleId = alert.AlertRuleId;
+        existing.Id = alert.Id;
+        existing.Id = alert.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

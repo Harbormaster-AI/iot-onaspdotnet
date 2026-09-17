@@ -36,7 +36,7 @@ public class SoftwareUpdateCampaignService : ISoftwareUpdateCampaignService
 
     public async Task CreateAsync(SoftwareUpdateCampaign softwareUpdateCampaign, CancellationToken cancellationToken)
     {
-        var firmwareRelease = await _firmwareReleases.GetByIdAsync(softwareUpdateCampaign.FirmwareReleaseId, cancellationToken)
+        var firmwareRelease = await _firmwareReleases.GetByIdAsync(softwareUpdateCampaign.Id, cancellationToken)
             ?? throw new InvalidOperationException("FirmwareRelease not found.");
 
         if (firmwareRelease.SoftwareUpdateCampaign is not null)
@@ -44,7 +44,7 @@ public class SoftwareUpdateCampaignService : ISoftwareUpdateCampaignService
             throw new InvalidOperationException("FirmwareRelease already has a(n) softwareUpdateCampaign (1:1 relationship).");
         }
 
-        var deviceGroup = await _deviceGroups.GetByIdAsync(softwareUpdateCampaign.DeviceGroupId, cancellationToken)
+        var deviceGroup = await _deviceGroups.GetByIdAsync(softwareUpdateCampaign.Id, cancellationToken)
             ?? throw new InvalidOperationException("DeviceGroup not found.");
 
         if (deviceGroup.SoftwareUpdateCampaign is not null)
@@ -64,16 +64,16 @@ public class SoftwareUpdateCampaignService : ISoftwareUpdateCampaignService
         }
 
         // Keep 1:1 â do not reassign to a deviceGroup who already has another softwareUpdateCampaign.
-        if (existing.DeviceGroupId != softwareUpdateCampaign.DeviceGroupId)
+        if (existing.Id != softwareUpdateCampaign.Id)
         {
-            var FirmwareRelease = await _firmwareReleases.GetByIdAsync(softwareUpdateCampaign.FirmwareReleaseId, cancellationToken)
+            var FirmwareRelease = await _firmwareReleases.GetByIdAsync(softwareUpdateCampaign.Id, cancellationToken)
                 ?? throw new InvalidOperationException("FirmwareRelease not found.");
 
             if (FirmwareRelease.SoftwareUpdateCampaign is not null && FirmwareRelease.SoftwareUpdateCampaign.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target firmwareRelease already has an softwareUpdateCampaign (1:1 relationship).");
             }
-            var DeviceGroup = await _deviceGroups.GetByIdAsync(softwareUpdateCampaign.DeviceGroupId, cancellationToken)
+            var DeviceGroup = await _deviceGroups.GetByIdAsync(softwareUpdateCampaign.Id, cancellationToken)
                 ?? throw new InvalidOperationException("DeviceGroup not found.");
 
             if (DeviceGroup.SoftwareUpdateCampaign is not null && DeviceGroup.SoftwareUpdateCampaign.Id != existing.Id)
@@ -87,8 +87,8 @@ public class SoftwareUpdateCampaignService : ISoftwareUpdateCampaignService
         existing.ScheduledEnd = softwareUpdateCampaign.ScheduledEnd;
         existing.Status = softwareUpdateCampaign.Status;
 
-        existing.FirmwareReleaseId = softwareUpdateCampaign.FirmwareReleaseId;
-        existing.DeviceGroupId = softwareUpdateCampaign.DeviceGroupId;
+        existing.Id = softwareUpdateCampaign.Id;
+        existing.Id = softwareUpdateCampaign.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

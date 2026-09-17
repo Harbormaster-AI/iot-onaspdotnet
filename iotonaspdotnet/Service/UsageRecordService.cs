@@ -39,7 +39,7 @@ public class UsageRecordService : IUsageRecordService
 
     public async Task CreateAsync(UsageRecord usageRecord, CancellationToken cancellationToken)
     {
-        var tenant = await _tenants.GetByIdAsync(usageRecord.TenantId, cancellationToken)
+        var tenant = await _tenants.GetByIdAsync(usageRecord.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
         if (tenant.UsageRecord is not null)
@@ -47,7 +47,7 @@ public class UsageRecordService : IUsageRecordService
             throw new InvalidOperationException("Tenant already has a(n) usageRecord (1:1 relationship).");
         }
 
-        var ioTDevice = await _ioTDevices.GetByIdAsync(usageRecord.IoTDeviceId, cancellationToken)
+        var ioTDevice = await _ioTDevices.GetByIdAsync(usageRecord.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
         if (ioTDevice.UsageRecord is not null)
@@ -55,7 +55,7 @@ public class UsageRecordService : IUsageRecordService
             throw new InvalidOperationException("IoTDevice already has a(n) usageRecord (1:1 relationship).");
         }
 
-        var connectivityPlan = await _connectivityPlans.GetByIdAsync(usageRecord.ConnectivityPlanId, cancellationToken)
+        var connectivityPlan = await _connectivityPlans.GetByIdAsync(usageRecord.Id, cancellationToken)
             ?? throw new InvalidOperationException("ConnectivityPlan not found.");
 
         if (connectivityPlan.UsageRecord is not null)
@@ -75,23 +75,23 @@ public class UsageRecordService : IUsageRecordService
         }
 
         // Keep 1:1 â do not reassign to a connectivityPlan who already has another usageRecord.
-        if (existing.ConnectivityPlanId != usageRecord.ConnectivityPlanId)
+        if (existing.Id != usageRecord.Id)
         {
-            var Tenant = await _tenants.GetByIdAsync(usageRecord.TenantId, cancellationToken)
+            var Tenant = await _tenants.GetByIdAsync(usageRecord.Id, cancellationToken)
                 ?? throw new InvalidOperationException("Tenant not found.");
 
             if (Tenant.UsageRecord is not null && Tenant.UsageRecord.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target tenant already has an usageRecord (1:1 relationship).");
             }
-            var Device = await _ioTDevices.GetByIdAsync(usageRecord.IoTDeviceId, cancellationToken)
+            var Device = await _ioTDevices.GetByIdAsync(usageRecord.Id, cancellationToken)
                 ?? throw new InvalidOperationException("IoTDevice not found.");
 
             if (Device.UsageRecord is not null && Device.UsageRecord.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target ioTDevice already has an usageRecord (1:1 relationship).");
             }
-            var ConnectivityPlan = await _connectivityPlans.GetByIdAsync(usageRecord.ConnectivityPlanId, cancellationToken)
+            var ConnectivityPlan = await _connectivityPlans.GetByIdAsync(usageRecord.Id, cancellationToken)
                 ?? throw new InvalidOperationException("ConnectivityPlan not found.");
 
             if (ConnectivityPlan.UsageRecord is not null && ConnectivityPlan.UsageRecord.Id != existing.Id)
@@ -105,9 +105,9 @@ public class UsageRecordService : IUsageRecordService
         existing.MessagesSent = usageRecord.MessagesSent;
         existing.DataVolumeMB = usageRecord.DataVolumeMB;
 
-        existing.TenantId = usageRecord.TenantId;
-        existing.IoTDeviceId = usageRecord.IoTDeviceId;
-        existing.ConnectivityPlanId = usageRecord.ConnectivityPlanId;
+        existing.Id = usageRecord.Id;
+        existing.Id = usageRecord.Id;
+        existing.Id = usageRecord.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

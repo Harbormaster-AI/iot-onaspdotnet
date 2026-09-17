@@ -33,7 +33,7 @@ public class FloorService : IFloorService
 
     public async Task CreateAsync(Floor floor, CancellationToken cancellationToken)
     {
-        var building = await _buildings.GetByIdAsync(floor.BuildingId, cancellationToken)
+        var building = await _buildings.GetByIdAsync(floor.Id, cancellationToken)
             ?? throw new InvalidOperationException("Building not found.");
 
         if (building.Floor is not null)
@@ -53,9 +53,9 @@ public class FloorService : IFloorService
         }
 
         // Keep 1:1 â do not reassign to a building who already has another floor.
-        if (existing.BuildingId != floor.BuildingId)
+        if (existing.Id != floor.Id)
         {
-            var Building = await _buildings.GetByIdAsync(floor.BuildingId, cancellationToken)
+            var Building = await _buildings.GetByIdAsync(floor.Id, cancellationToken)
                 ?? throw new InvalidOperationException("Building not found.");
 
             if (Building.Floor is not null && Building.Floor.Id != existing.Id)
@@ -67,7 +67,7 @@ public class FloorService : IFloorService
         existing.Name = floor.Name;
         existing.Level = floor.Level;
 
-        existing.BuildingId = floor.BuildingId;
+        existing.Id = floor.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

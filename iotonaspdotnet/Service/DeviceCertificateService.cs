@@ -36,7 +36,7 @@ public class DeviceCertificateService : IDeviceCertificateService
 
     public async Task CreateAsync(DeviceCertificate deviceCertificate, CancellationToken cancellationToken)
     {
-        var ioTDevice = await _ioTDevices.GetByIdAsync(deviceCertificate.IoTDeviceId, cancellationToken)
+        var ioTDevice = await _ioTDevices.GetByIdAsync(deviceCertificate.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
         if (ioTDevice.DeviceCertificate is not null)
@@ -44,7 +44,7 @@ public class DeviceCertificateService : IDeviceCertificateService
             throw new InvalidOperationException("IoTDevice already has a(n) deviceCertificate (1:1 relationship).");
         }
 
-        var gateway = await _gateways.GetByIdAsync(deviceCertificate.GatewayId, cancellationToken)
+        var gateway = await _gateways.GetByIdAsync(deviceCertificate.Id, cancellationToken)
             ?? throw new InvalidOperationException("Gateway not found.");
 
         if (gateway.DeviceCertificate is not null)
@@ -64,16 +64,16 @@ public class DeviceCertificateService : IDeviceCertificateService
         }
 
         // Keep 1:1 â do not reassign to a gateway who already has another deviceCertificate.
-        if (existing.GatewayId != deviceCertificate.GatewayId)
+        if (existing.Id != deviceCertificate.Id)
         {
-            var Device = await _ioTDevices.GetByIdAsync(deviceCertificate.IoTDeviceId, cancellationToken)
+            var Device = await _ioTDevices.GetByIdAsync(deviceCertificate.Id, cancellationToken)
                 ?? throw new InvalidOperationException("IoTDevice not found.");
 
             if (Device.DeviceCertificate is not null && Device.DeviceCertificate.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target ioTDevice already has an deviceCertificate (1:1 relationship).");
             }
-            var Gateway = await _gateways.GetByIdAsync(deviceCertificate.GatewayId, cancellationToken)
+            var Gateway = await _gateways.GetByIdAsync(deviceCertificate.Id, cancellationToken)
                 ?? throw new InvalidOperationException("Gateway not found.");
 
             if (Gateway.DeviceCertificate is not null && Gateway.DeviceCertificate.Id != existing.Id)
@@ -88,8 +88,8 @@ public class DeviceCertificateService : IDeviceCertificateService
         existing.Fingerprint = deviceCertificate.Fingerprint;
         existing.CertificateType = deviceCertificate.CertificateType;
 
-        existing.IoTDeviceId = deviceCertificate.IoTDeviceId;
-        existing.GatewayId = deviceCertificate.GatewayId;
+        existing.Id = deviceCertificate.Id;
+        existing.Id = deviceCertificate.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

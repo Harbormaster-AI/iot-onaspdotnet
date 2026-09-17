@@ -33,7 +33,7 @@ public class TwinChangeEventService : ITwinChangeEventService
 
     public async Task CreateAsync(TwinChangeEvent twinChangeEvent, CancellationToken cancellationToken)
     {
-        var digitalTwin = await _digitalTwins.GetByIdAsync(twinChangeEvent.DigitalTwinId, cancellationToken)
+        var digitalTwin = await _digitalTwins.GetByIdAsync(twinChangeEvent.Id, cancellationToken)
             ?? throw new InvalidOperationException("DigitalTwin not found.");
 
         if (digitalTwin.TwinChangeEvent is not null)
@@ -53,9 +53,9 @@ public class TwinChangeEventService : ITwinChangeEventService
         }
 
         // Keep 1:1 â do not reassign to a digitalTwin who already has another twinChangeEvent.
-        if (existing.DigitalTwinId != twinChangeEvent.DigitalTwinId)
+        if (existing.Id != twinChangeEvent.Id)
         {
-            var Twin = await _digitalTwins.GetByIdAsync(twinChangeEvent.DigitalTwinId, cancellationToken)
+            var Twin = await _digitalTwins.GetByIdAsync(twinChangeEvent.Id, cancellationToken)
                 ?? throw new InvalidOperationException("DigitalTwin not found.");
 
             if (Twin.TwinChangeEvent is not null && Twin.TwinChangeEvent.Id != existing.Id)
@@ -68,7 +68,7 @@ public class TwinChangeEventService : ITwinChangeEventService
         existing.OccurredAt = twinChangeEvent.OccurredAt;
         existing.ChangeType = twinChangeEvent.ChangeType;
 
-        existing.DigitalTwinId = twinChangeEvent.DigitalTwinId;
+        existing.Id = twinChangeEvent.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

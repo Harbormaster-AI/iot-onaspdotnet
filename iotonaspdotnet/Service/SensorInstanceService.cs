@@ -33,7 +33,7 @@ public class SensorInstanceService : ISensorInstanceService
 
     public async Task CreateAsync(SensorInstance sensorInstance, CancellationToken cancellationToken)
     {
-        var ioTDevice = await _ioTDevices.GetByIdAsync(sensorInstance.IoTDeviceId, cancellationToken)
+        var ioTDevice = await _ioTDevices.GetByIdAsync(sensorInstance.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
         if (ioTDevice.SensorInstance is not null)
@@ -53,9 +53,9 @@ public class SensorInstanceService : ISensorInstanceService
         }
 
         // Keep 1:1 â do not reassign to a ioTDevice who already has another sensorInstance.
-        if (existing.IoTDeviceId != sensorInstance.IoTDeviceId)
+        if (existing.Id != sensorInstance.Id)
         {
-            var Device = await _ioTDevices.GetByIdAsync(sensorInstance.IoTDeviceId, cancellationToken)
+            var Device = await _ioTDevices.GetByIdAsync(sensorInstance.Id, cancellationToken)
                 ?? throw new InvalidOperationException("IoTDevice not found.");
 
             if (Device.SensorInstance is not null && Device.SensorInstance.Id != existing.Id)
@@ -69,7 +69,7 @@ public class SensorInstanceService : ISensorInstanceService
         existing.SamplingIntervalMs = sensorInstance.SamplingIntervalMs;
         existing.SensorType = sensorInstance.SensorType;
 
-        existing.IoTDeviceId = sensorInstance.IoTDeviceId;
+        existing.Id = sensorInstance.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

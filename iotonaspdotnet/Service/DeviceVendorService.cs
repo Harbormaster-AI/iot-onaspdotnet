@@ -42,7 +42,7 @@ public class DeviceVendorService : IDeviceVendorService
         }
 
         // Keep 1:1 â do not reassign to a connectivityPlan who already has another deviceVendor.
-        if (existing.ConnectivityPlanId != deviceVendor.ConnectivityPlanId)
+        if (existing.Id != deviceVendor.Id)
         {
         }
 

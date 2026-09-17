@@ -33,7 +33,7 @@ public class ApiKeyService : IApiKeyService
 
     public async Task CreateAsync(ApiKey apiKey, CancellationToken cancellationToken)
     {
-        var accessPolicy = await _accessPolicys.GetByIdAsync(apiKey.AccessPolicyId, cancellationToken)
+        var accessPolicy = await _accessPolicys.GetByIdAsync(apiKey.Id, cancellationToken)
             ?? throw new InvalidOperationException("AccessPolicy not found.");
 
         if (accessPolicy.ApiKey is not null)
@@ -53,9 +53,9 @@ public class ApiKeyService : IApiKeyService
         }
 
         // Keep 1:1 â do not reassign to a accessPolicy who already has another apiKey.
-        if (existing.AccessPolicyId != apiKey.AccessPolicyId)
+        if (existing.Id != apiKey.Id)
         {
-            var AccessPolicy = await _accessPolicys.GetByIdAsync(apiKey.AccessPolicyId, cancellationToken)
+            var AccessPolicy = await _accessPolicys.GetByIdAsync(apiKey.Id, cancellationToken)
                 ?? throw new InvalidOperationException("AccessPolicy not found.");
 
             if (AccessPolicy.ApiKey is not null && AccessPolicy.ApiKey.Id != existing.Id)
@@ -69,7 +69,7 @@ public class ApiKeyService : IApiKeyService
         existing.CreatedAt = apiKey.CreatedAt;
         existing.LastUsedAt = apiKey.LastUsedAt;
 
-        existing.AccessPolicyId = apiKey.AccessPolicyId;
+        existing.Id = apiKey.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

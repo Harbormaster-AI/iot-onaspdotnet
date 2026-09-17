@@ -36,7 +36,7 @@ public class SoftwareUpdateExecutionService : ISoftwareUpdateExecutionService
 
     public async Task CreateAsync(SoftwareUpdateExecution softwareUpdateExecution, CancellationToken cancellationToken)
     {
-        var softwareUpdateCampaign = await _softwareUpdateCampaigns.GetByIdAsync(softwareUpdateExecution.SoftwareUpdateCampaignId, cancellationToken)
+        var softwareUpdateCampaign = await _softwareUpdateCampaigns.GetByIdAsync(softwareUpdateExecution.Id, cancellationToken)
             ?? throw new InvalidOperationException("SoftwareUpdateCampaign not found.");
 
         if (softwareUpdateCampaign.SoftwareUpdateExecution is not null)
@@ -44,7 +44,7 @@ public class SoftwareUpdateExecutionService : ISoftwareUpdateExecutionService
             throw new InvalidOperationException("SoftwareUpdateCampaign already has a(n) softwareUpdateExecution (1:1 relationship).");
         }
 
-        var ioTDevice = await _ioTDevices.GetByIdAsync(softwareUpdateExecution.IoTDeviceId, cancellationToken)
+        var ioTDevice = await _ioTDevices.GetByIdAsync(softwareUpdateExecution.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
         if (ioTDevice.SoftwareUpdateExecution is not null)
@@ -64,16 +64,16 @@ public class SoftwareUpdateExecutionService : ISoftwareUpdateExecutionService
         }
 
         // Keep 1:1 â do not reassign to a ioTDevice who already has another softwareUpdateExecution.
-        if (existing.IoTDeviceId != softwareUpdateExecution.IoTDeviceId)
+        if (existing.Id != softwareUpdateExecution.Id)
         {
-            var Campaign = await _softwareUpdateCampaigns.GetByIdAsync(softwareUpdateExecution.SoftwareUpdateCampaignId, cancellationToken)
+            var Campaign = await _softwareUpdateCampaigns.GetByIdAsync(softwareUpdateExecution.Id, cancellationToken)
                 ?? throw new InvalidOperationException("SoftwareUpdateCampaign not found.");
 
             if (Campaign.SoftwareUpdateExecution is not null && Campaign.SoftwareUpdateExecution.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target softwareUpdateCampaign already has an softwareUpdateExecution (1:1 relationship).");
             }
-            var Device = await _ioTDevices.GetByIdAsync(softwareUpdateExecution.IoTDeviceId, cancellationToken)
+            var Device = await _ioTDevices.GetByIdAsync(softwareUpdateExecution.Id, cancellationToken)
                 ?? throw new InvalidOperationException("IoTDevice not found.");
 
             if (Device.SoftwareUpdateExecution is not null && Device.SoftwareUpdateExecution.Id != existing.Id)
@@ -86,8 +86,8 @@ public class SoftwareUpdateExecutionService : ISoftwareUpdateExecutionService
         existing.CompletedAt = softwareUpdateExecution.CompletedAt;
         existing.Status = softwareUpdateExecution.Status;
 
-        existing.SoftwareUpdateCampaignId = softwareUpdateExecution.SoftwareUpdateCampaignId;
-        existing.IoTDeviceId = softwareUpdateExecution.IoTDeviceId;
+        existing.Id = softwareUpdateExecution.Id;
+        existing.Id = softwareUpdateExecution.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

@@ -33,7 +33,7 @@ public class EdgeApplicationService : IEdgeApplicationService
 
     public async Task CreateAsync(EdgeApplication edgeApplication, CancellationToken cancellationToken)
     {
-        var gateway = await _gateways.GetByIdAsync(edgeApplication.GatewayId, cancellationToken)
+        var gateway = await _gateways.GetByIdAsync(edgeApplication.Id, cancellationToken)
             ?? throw new InvalidOperationException("Gateway not found.");
 
         if (gateway.EdgeApplication is not null)
@@ -53,9 +53,9 @@ public class EdgeApplicationService : IEdgeApplicationService
         }
 
         // Keep 1:1 â do not reassign to a gateway who already has another edgeApplication.
-        if (existing.GatewayId != edgeApplication.GatewayId)
+        if (existing.Id != edgeApplication.Id)
         {
-            var Gateway = await _gateways.GetByIdAsync(edgeApplication.GatewayId, cancellationToken)
+            var Gateway = await _gateways.GetByIdAsync(edgeApplication.Id, cancellationToken)
                 ?? throw new InvalidOperationException("Gateway not found.");
 
             if (Gateway.EdgeApplication is not null && Gateway.EdgeApplication.Id != existing.Id)
@@ -69,7 +69,7 @@ public class EdgeApplicationService : IEdgeApplicationService
         existing.Image = edgeApplication.Image;
         existing.Status = edgeApplication.Status;
 
-        existing.GatewayId = edgeApplication.GatewayId;
+        existing.Id = edgeApplication.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

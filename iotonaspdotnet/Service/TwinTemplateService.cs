@@ -42,7 +42,7 @@ public class TwinTemplateService : ITwinTemplateService
         }
 
         // Keep 1:1 â do not reassign to a twinTemplate who already has another twinTemplate.
-        if (existing.TwinTemplateId != twinTemplate.TwinTemplateId)
+        if (existing.Id != twinTemplate.Id)
         {
         }
 

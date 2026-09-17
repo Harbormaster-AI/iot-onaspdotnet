@@ -39,7 +39,7 @@ public class DigitalTwinService : IDigitalTwinService
 
     public async Task CreateAsync(DigitalTwin digitalTwin, CancellationToken cancellationToken)
     {
-        var ioTDevice = await _ioTDevices.GetByIdAsync(digitalTwin.IoTDeviceId, cancellationToken)
+        var ioTDevice = await _ioTDevices.GetByIdAsync(digitalTwin.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
         if (ioTDevice.DigitalTwin is not null)
@@ -47,7 +47,7 @@ public class DigitalTwinService : IDigitalTwinService
             throw new InvalidOperationException("IoTDevice already has a(n) digitalTwin (1:1 relationship).");
         }
 
-        var gateway = await _gateways.GetByIdAsync(digitalTwin.GatewayId, cancellationToken)
+        var gateway = await _gateways.GetByIdAsync(digitalTwin.Id, cancellationToken)
             ?? throw new InvalidOperationException("Gateway not found.");
 
         if (gateway.DigitalTwin is not null)
@@ -55,7 +55,7 @@ public class DigitalTwinService : IDigitalTwinService
             throw new InvalidOperationException("Gateway already has a(n) digitalTwin (1:1 relationship).");
         }
 
-        var twinTemplate = await _twinTemplates.GetByIdAsync(digitalTwin.TwinTemplateId, cancellationToken)
+        var twinTemplate = await _twinTemplates.GetByIdAsync(digitalTwin.Id, cancellationToken)
             ?? throw new InvalidOperationException("TwinTemplate not found.");
 
         if (twinTemplate.DigitalTwin is not null)
@@ -75,23 +75,23 @@ public class DigitalTwinService : IDigitalTwinService
         }
 
         // Keep 1:1 â do not reassign to a twinTemplate who already has another digitalTwin.
-        if (existing.TwinTemplateId != digitalTwin.TwinTemplateId)
+        if (existing.Id != digitalTwin.Id)
         {
-            var Device = await _ioTDevices.GetByIdAsync(digitalTwin.IoTDeviceId, cancellationToken)
+            var Device = await _ioTDevices.GetByIdAsync(digitalTwin.Id, cancellationToken)
                 ?? throw new InvalidOperationException("IoTDevice not found.");
 
             if (Device.DigitalTwin is not null && Device.DigitalTwin.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target ioTDevice already has an digitalTwin (1:1 relationship).");
             }
-            var Gateway = await _gateways.GetByIdAsync(digitalTwin.GatewayId, cancellationToken)
+            var Gateway = await _gateways.GetByIdAsync(digitalTwin.Id, cancellationToken)
                 ?? throw new InvalidOperationException("Gateway not found.");
 
             if (Gateway.DigitalTwin is not null && Gateway.DigitalTwin.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target gateway already has an digitalTwin (1:1 relationship).");
             }
-            var Template = await _twinTemplates.GetByIdAsync(digitalTwin.TwinTemplateId, cancellationToken)
+            var Template = await _twinTemplates.GetByIdAsync(digitalTwin.Id, cancellationToken)
                 ?? throw new InvalidOperationException("TwinTemplate not found.");
 
             if (Template.DigitalTwin is not null && Template.DigitalTwin.Id != existing.Id)
@@ -105,9 +105,9 @@ public class DigitalTwinService : IDigitalTwinService
         existing.ReportedStateVersion = digitalTwin.ReportedStateVersion;
         existing.LastSyncAt = digitalTwin.LastSyncAt;
 
-        existing.IoTDeviceId = digitalTwin.IoTDeviceId;
-        existing.GatewayId = digitalTwin.GatewayId;
-        existing.TwinTemplateId = digitalTwin.TwinTemplateId;
+        existing.Id = digitalTwin.Id;
+        existing.Id = digitalTwin.Id;
+        existing.Id = digitalTwin.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

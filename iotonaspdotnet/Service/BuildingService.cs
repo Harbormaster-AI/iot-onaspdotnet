@@ -33,7 +33,7 @@ public class BuildingService : IBuildingService
 
     public async Task CreateAsync(Building building, CancellationToken cancellationToken)
     {
-        var site = await _sites.GetByIdAsync(building.SiteId, cancellationToken)
+        var site = await _sites.GetByIdAsync(building.Id, cancellationToken)
             ?? throw new InvalidOperationException("Site not found.");
 
         if (site.Building is not null)
@@ -53,9 +53,9 @@ public class BuildingService : IBuildingService
         }
 
         // Keep 1:1 â do not reassign to a site who already has another building.
-        if (existing.SiteId != building.SiteId)
+        if (existing.Id != building.Id)
         {
-            var Site = await _sites.GetByIdAsync(building.SiteId, cancellationToken)
+            var Site = await _sites.GetByIdAsync(building.Id, cancellationToken)
                 ?? throw new InvalidOperationException("Site not found.");
 
             if (Site.Building is not null && Site.Building.Id != existing.Id)
@@ -66,7 +66,7 @@ public class BuildingService : IBuildingService
 
         existing.Name = building.Name;
 
-        existing.SiteId = building.SiteId;
+        existing.Id = building.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

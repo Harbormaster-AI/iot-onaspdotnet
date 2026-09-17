@@ -51,7 +51,7 @@ public class IoTDeviceService : IIoTDeviceService
 
     public async Task CreateAsync(IoTDevice ioTDevice, CancellationToken cancellationToken)
     {
-        var deviceModel = await _deviceModels.GetByIdAsync(ioTDevice.DeviceModelId, cancellationToken)
+        var deviceModel = await _deviceModels.GetByIdAsync(ioTDevice.Id, cancellationToken)
             ?? throw new InvalidOperationException("DeviceModel not found.");
 
         if (deviceModel.IoTDevice is not null)
@@ -59,7 +59,7 @@ public class IoTDeviceService : IIoTDeviceService
             throw new InvalidOperationException("DeviceModel already has a(n) ioTDevice (1:1 relationship).");
         }
 
-        var tenant = await _tenants.GetByIdAsync(ioTDevice.TenantId, cancellationToken)
+        var tenant = await _tenants.GetByIdAsync(ioTDevice.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
         if (tenant.IoTDevice is not null)
@@ -67,7 +67,7 @@ public class IoTDeviceService : IIoTDeviceService
             throw new InvalidOperationException("Tenant already has a(n) ioTDevice (1:1 relationship).");
         }
 
-        var site = await _sites.GetByIdAsync(ioTDevice.SiteId, cancellationToken)
+        var site = await _sites.GetByIdAsync(ioTDevice.Id, cancellationToken)
             ?? throw new InvalidOperationException("Site not found.");
 
         if (site.IoTDevice is not null)
@@ -75,7 +75,7 @@ public class IoTDeviceService : IIoTDeviceService
             throw new InvalidOperationException("Site already has a(n) ioTDevice (1:1 relationship).");
         }
 
-        var room = await _rooms.GetByIdAsync(ioTDevice.RoomId, cancellationToken)
+        var room = await _rooms.GetByIdAsync(ioTDevice.Id, cancellationToken)
             ?? throw new InvalidOperationException("Room not found.");
 
         if (room.IoTDevice is not null)
@@ -83,7 +83,7 @@ public class IoTDeviceService : IIoTDeviceService
             throw new InvalidOperationException("Room already has a(n) ioTDevice (1:1 relationship).");
         }
 
-        var gateway = await _gateways.GetByIdAsync(ioTDevice.GatewayId, cancellationToken)
+        var gateway = await _gateways.GetByIdAsync(ioTDevice.Id, cancellationToken)
             ?? throw new InvalidOperationException("Gateway not found.");
 
         if (gateway.IoTDevice is not null)
@@ -91,7 +91,7 @@ public class IoTDeviceService : IIoTDeviceService
             throw new InvalidOperationException("Gateway already has a(n) ioTDevice (1:1 relationship).");
         }
 
-        var digitalTwin = await _digitalTwins.GetByIdAsync(ioTDevice.DigitalTwinId, cancellationToken)
+        var digitalTwin = await _digitalTwins.GetByIdAsync(ioTDevice.Id, cancellationToken)
             ?? throw new InvalidOperationException("DigitalTwin not found.");
 
         if (digitalTwin.IoTDevice is not null)
@@ -99,7 +99,7 @@ public class IoTDeviceService : IIoTDeviceService
             throw new InvalidOperationException("DigitalTwin already has a(n) ioTDevice (1:1 relationship).");
         }
 
-        var provisioningRecord = await _provisioningRecords.GetByIdAsync(ioTDevice.ProvisioningRecordId, cancellationToken)
+        var provisioningRecord = await _provisioningRecords.GetByIdAsync(ioTDevice.Id, cancellationToken)
             ?? throw new InvalidOperationException("ProvisioningRecord not found.");
 
         if (provisioningRecord.IoTDevice is not null)
@@ -119,51 +119,51 @@ public class IoTDeviceService : IIoTDeviceService
         }
 
         // Keep 1:1 â do not reassign to a provisioningRecord who already has another ioTDevice.
-        if (existing.ProvisioningRecordId != ioTDevice.ProvisioningRecordId)
+        if (existing.Id != ioTDevice.Id)
         {
-            var DeviceModel = await _deviceModels.GetByIdAsync(ioTDevice.DeviceModelId, cancellationToken)
+            var DeviceModel = await _deviceModels.GetByIdAsync(ioTDevice.Id, cancellationToken)
                 ?? throw new InvalidOperationException("DeviceModel not found.");
 
             if (DeviceModel.IoTDevice is not null && DeviceModel.IoTDevice.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target deviceModel already has an ioTDevice (1:1 relationship).");
             }
-            var Tenant = await _tenants.GetByIdAsync(ioTDevice.TenantId, cancellationToken)
+            var Tenant = await _tenants.GetByIdAsync(ioTDevice.Id, cancellationToken)
                 ?? throw new InvalidOperationException("Tenant not found.");
 
             if (Tenant.IoTDevice is not null && Tenant.IoTDevice.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target tenant already has an ioTDevice (1:1 relationship).");
             }
-            var Site = await _sites.GetByIdAsync(ioTDevice.SiteId, cancellationToken)
+            var Site = await _sites.GetByIdAsync(ioTDevice.Id, cancellationToken)
                 ?? throw new InvalidOperationException("Site not found.");
 
             if (Site.IoTDevice is not null && Site.IoTDevice.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target site already has an ioTDevice (1:1 relationship).");
             }
-            var Room = await _rooms.GetByIdAsync(ioTDevice.RoomId, cancellationToken)
+            var Room = await _rooms.GetByIdAsync(ioTDevice.Id, cancellationToken)
                 ?? throw new InvalidOperationException("Room not found.");
 
             if (Room.IoTDevice is not null && Room.IoTDevice.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target room already has an ioTDevice (1:1 relationship).");
             }
-            var Gateway = await _gateways.GetByIdAsync(ioTDevice.GatewayId, cancellationToken)
+            var Gateway = await _gateways.GetByIdAsync(ioTDevice.Id, cancellationToken)
                 ?? throw new InvalidOperationException("Gateway not found.");
 
             if (Gateway.IoTDevice is not null && Gateway.IoTDevice.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target gateway already has an ioTDevice (1:1 relationship).");
             }
-            var DigitalTwin = await _digitalTwins.GetByIdAsync(ioTDevice.DigitalTwinId, cancellationToken)
+            var DigitalTwin = await _digitalTwins.GetByIdAsync(ioTDevice.Id, cancellationToken)
                 ?? throw new InvalidOperationException("DigitalTwin not found.");
 
             if (DigitalTwin.IoTDevice is not null && DigitalTwin.IoTDevice.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target digitalTwin already has an ioTDevice (1:1 relationship).");
             }
-            var ProvisioningRecord = await _provisioningRecords.GetByIdAsync(ioTDevice.ProvisioningRecordId, cancellationToken)
+            var ProvisioningRecord = await _provisioningRecords.GetByIdAsync(ioTDevice.Id, cancellationToken)
                 ?? throw new InvalidOperationException("ProvisioningRecord not found.");
 
             if (ProvisioningRecord.IoTDevice is not null && ProvisioningRecord.IoTDevice.Id != existing.Id)
@@ -179,13 +179,13 @@ public class IoTDeviceService : IIoTDeviceService
         existing.Status = ioTDevice.Status;
         existing.PowerSource = ioTDevice.PowerSource;
 
-        existing.DeviceModelId = ioTDevice.DeviceModelId;
-        existing.TenantId = ioTDevice.TenantId;
-        existing.SiteId = ioTDevice.SiteId;
-        existing.RoomId = ioTDevice.RoomId;
-        existing.GatewayId = ioTDevice.GatewayId;
-        existing.DigitalTwinId = ioTDevice.DigitalTwinId;
-        existing.ProvisioningRecordId = ioTDevice.ProvisioningRecordId;
+        existing.Id = ioTDevice.Id;
+        existing.Id = ioTDevice.Id;
+        existing.Id = ioTDevice.Id;
+        existing.Id = ioTDevice.Id;
+        existing.Id = ioTDevice.Id;
+        existing.Id = ioTDevice.Id;
+        existing.Id = ioTDevice.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

@@ -33,7 +33,7 @@ public class CommandDefinitionService : ICommandDefinitionService
 
     public async Task CreateAsync(CommandDefinition commandDefinition, CancellationToken cancellationToken)
     {
-        var deviceModel = await _deviceModels.GetByIdAsync(commandDefinition.DeviceModelId, cancellationToken)
+        var deviceModel = await _deviceModels.GetByIdAsync(commandDefinition.Id, cancellationToken)
             ?? throw new InvalidOperationException("DeviceModel not found.");
 
         if (deviceModel.CommandDefinition is not null)
@@ -53,9 +53,9 @@ public class CommandDefinitionService : ICommandDefinitionService
         }
 
         // Keep 1:1 â do not reassign to a deviceModel who already has another commandDefinition.
-        if (existing.DeviceModelId != commandDefinition.DeviceModelId)
+        if (existing.Id != commandDefinition.Id)
         {
-            var DeviceModel = await _deviceModels.GetByIdAsync(commandDefinition.DeviceModelId, cancellationToken)
+            var DeviceModel = await _deviceModels.GetByIdAsync(commandDefinition.Id, cancellationToken)
                 ?? throw new InvalidOperationException("DeviceModel not found.");
 
             if (DeviceModel.CommandDefinition is not null && DeviceModel.CommandDefinition.Id != existing.Id)
@@ -69,7 +69,7 @@ public class CommandDefinitionService : ICommandDefinitionService
         existing.ResponseSchemaUri = commandDefinition.ResponseSchemaUri;
         existing.TimeoutSeconds = commandDefinition.TimeoutSeconds;
 
-        existing.DeviceModelId = commandDefinition.DeviceModelId;
+        existing.Id = commandDefinition.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

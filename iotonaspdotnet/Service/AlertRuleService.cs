@@ -33,7 +33,7 @@ public class AlertRuleService : IAlertRuleService
 
     public async Task CreateAsync(AlertRule alertRule, CancellationToken cancellationToken)
     {
-        var tenant = await _tenants.GetByIdAsync(alertRule.TenantId, cancellationToken)
+        var tenant = await _tenants.GetByIdAsync(alertRule.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
         if (tenant.AlertRule is not null)
@@ -53,9 +53,9 @@ public class AlertRuleService : IAlertRuleService
         }
 
         // Keep 1:1 â do not reassign to a tenant who already has another alertRule.
-        if (existing.TenantId != alertRule.TenantId)
+        if (existing.Id != alertRule.Id)
         {
-            var Tenant = await _tenants.GetByIdAsync(alertRule.TenantId, cancellationToken)
+            var Tenant = await _tenants.GetByIdAsync(alertRule.Id, cancellationToken)
                 ?? throw new InvalidOperationException("Tenant not found.");
 
             if (Tenant.AlertRule is not null && Tenant.AlertRule.Id != existing.Id)
@@ -68,7 +68,7 @@ public class AlertRuleService : IAlertRuleService
         existing.Expression = alertRule.Expression;
         existing.Severity = alertRule.Severity;
 
-        existing.TenantId = alertRule.TenantId;
+        existing.Id = alertRule.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

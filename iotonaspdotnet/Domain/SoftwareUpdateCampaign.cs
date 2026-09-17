@@ -7,12 +7,12 @@ public class SoftwareUpdateCampaign
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
-										 public virtual long softwareupdatecampaignId { get; set; }
-								 public virtual string campaignCode { get; set; }
-								 public virtual DateTime scheduledStart { get; set; }
-								 public virtual DateTime scheduledEnd { get; set; }
-								public virtual FirmwareRelease FirmwareRelease { get; set; }
-								public virtual DeviceGroup DeviceGroup { get; set; }
-								public virtual SoftwareUpdateExecution Executions { get; set; }
-								 public virtual UpdateCampaignStatus Status { get; set; }
-			}
+ public virtual long  { get; set; }
+ public virtual string  { get; set; }
+ public virtual DateTime  { get; set; }
+ public virtual DateTime  { get; set; }
+public virtual FirmwareRelease  { get; set; }
+public virtual DeviceGroup  { get; set; }
+public virtual SoftwareUpdateExecution  { get; set; }
+ public virtual UpdateCampaignStatus  { get; set; }
+}

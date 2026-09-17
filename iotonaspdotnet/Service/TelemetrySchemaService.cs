@@ -42,7 +42,7 @@ public class TelemetrySchemaService : ITelemetrySchemaService
         }
 
         // Keep 1:1 â do not reassign to a ioTDevice who already has another telemetrySchema.
-        if (existing.IoTDeviceId != telemetrySchema.IoTDeviceId)
+        if (existing.Id != telemetrySchema.Id)
         {
         }
 

@@ -36,7 +36,7 @@ public class SimCardService : ISimCardService
 
     public async Task CreateAsync(SimCard simCard, CancellationToken cancellationToken)
     {
-        var tenant = await _tenants.GetByIdAsync(simCard.TenantId, cancellationToken)
+        var tenant = await _tenants.GetByIdAsync(simCard.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
         if (tenant.SimCard is not null)
@@ -44,7 +44,7 @@ public class SimCardService : ISimCardService
             throw new InvalidOperationException("Tenant already has a(n) simCard (1:1 relationship).");
         }
 
-        var connectivityPlan = await _connectivityPlans.GetByIdAsync(simCard.ConnectivityPlanId, cancellationToken)
+        var connectivityPlan = await _connectivityPlans.GetByIdAsync(simCard.Id, cancellationToken)
             ?? throw new InvalidOperationException("ConnectivityPlan not found.");
 
         if (connectivityPlan.SimCard is not null)
@@ -64,16 +64,16 @@ public class SimCardService : ISimCardService
         }
 
         // Keep 1:1 â do not reassign to a connectivityPlan who already has another simCard.
-        if (existing.ConnectivityPlanId != simCard.ConnectivityPlanId)
+        if (existing.Id != simCard.Id)
         {
-            var Tenant = await _tenants.GetByIdAsync(simCard.TenantId, cancellationToken)
+            var Tenant = await _tenants.GetByIdAsync(simCard.Id, cancellationToken)
                 ?? throw new InvalidOperationException("Tenant not found.");
 
             if (Tenant.SimCard is not null && Tenant.SimCard.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target tenant already has an simCard (1:1 relationship).");
             }
-            var ConnectivityPlan = await _connectivityPlans.GetByIdAsync(simCard.ConnectivityPlanId, cancellationToken)
+            var ConnectivityPlan = await _connectivityPlans.GetByIdAsync(simCard.Id, cancellationToken)
                 ?? throw new InvalidOperationException("ConnectivityPlan not found.");
 
             if (ConnectivityPlan.SimCard is not null && ConnectivityPlan.SimCard.Id != existing.Id)
@@ -87,8 +87,8 @@ public class SimCardService : ISimCardService
         existing.Carrier = simCard.Carrier;
         existing.Status = simCard.Status;
 
-        existing.TenantId = simCard.TenantId;
-        existing.ConnectivityPlanId = simCard.ConnectivityPlanId;
+        existing.Id = simCard.Id;
+        existing.Id = simCard.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

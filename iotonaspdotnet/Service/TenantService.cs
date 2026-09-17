@@ -42,7 +42,7 @@ public class TenantService : ITenantService
         }
 
         // Keep 1:1 â do not reassign to a alertRule who already has another tenant.
-        if (existing.AlertRuleId != tenant.AlertRuleId)
+        if (existing.Id != tenant.Id)
         {
         }
 

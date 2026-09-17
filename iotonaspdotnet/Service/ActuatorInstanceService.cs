@@ -33,7 +33,7 @@ public class ActuatorInstanceService : IActuatorInstanceService
 
     public async Task CreateAsync(ActuatorInstance actuatorInstance, CancellationToken cancellationToken)
     {
-        var ioTDevice = await _ioTDevices.GetByIdAsync(actuatorInstance.IoTDeviceId, cancellationToken)
+        var ioTDevice = await _ioTDevices.GetByIdAsync(actuatorInstance.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
         if (ioTDevice.ActuatorInstance is not null)
@@ -53,9 +53,9 @@ public class ActuatorInstanceService : IActuatorInstanceService
         }
 
         // Keep 1:1 â do not reassign to a ioTDevice who already has another actuatorInstance.
-        if (existing.IoTDeviceId != actuatorInstance.IoTDeviceId)
+        if (existing.Id != actuatorInstance.Id)
         {
-            var Device = await _ioTDevices.GetByIdAsync(actuatorInstance.IoTDeviceId, cancellationToken)
+            var Device = await _ioTDevices.GetByIdAsync(actuatorInstance.Id, cancellationToken)
                 ?? throw new InvalidOperationException("IoTDevice not found.");
 
             if (Device.ActuatorInstance is not null && Device.ActuatorInstance.Id != existing.Id)
@@ -68,7 +68,7 @@ public class ActuatorInstanceService : IActuatorInstanceService
         existing.CommandTopic = actuatorInstance.CommandTopic;
         existing.ActuatorType = actuatorInstance.ActuatorType;
 
-        existing.IoTDeviceId = actuatorInstance.IoTDeviceId;
+        existing.Id = actuatorInstance.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

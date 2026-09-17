@@ -36,7 +36,7 @@ public class DeviceModelService : IDeviceModelService
 
     public async Task CreateAsync(DeviceModel deviceModel, CancellationToken cancellationToken)
     {
-        var deviceVendor = await _deviceVendors.GetByIdAsync(deviceModel.DeviceVendorId, cancellationToken)
+        var deviceVendor = await _deviceVendors.GetByIdAsync(deviceModel.Id, cancellationToken)
             ?? throw new InvalidOperationException("DeviceVendor not found.");
 
         if (deviceVendor.DeviceModel is not null)
@@ -44,7 +44,7 @@ public class DeviceModelService : IDeviceModelService
             throw new InvalidOperationException("DeviceVendor already has a(n) deviceModel (1:1 relationship).");
         }
 
-        var twinTemplate = await _twinTemplates.GetByIdAsync(deviceModel.TwinTemplateId, cancellationToken)
+        var twinTemplate = await _twinTemplates.GetByIdAsync(deviceModel.Id, cancellationToken)
             ?? throw new InvalidOperationException("TwinTemplate not found.");
 
         if (twinTemplate.DeviceModel is not null)
@@ -64,16 +64,16 @@ public class DeviceModelService : IDeviceModelService
         }
 
         // Keep 1:1 â do not reassign to a twinTemplate who already has another deviceModel.
-        if (existing.TwinTemplateId != deviceModel.TwinTemplateId)
+        if (existing.Id != deviceModel.Id)
         {
-            var Vendor = await _deviceVendors.GetByIdAsync(deviceModel.DeviceVendorId, cancellationToken)
+            var Vendor = await _deviceVendors.GetByIdAsync(deviceModel.Id, cancellationToken)
                 ?? throw new InvalidOperationException("DeviceVendor not found.");
 
             if (Vendor.DeviceModel is not null && Vendor.DeviceModel.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target deviceVendor already has an deviceModel (1:1 relationship).");
             }
-            var TwinTemplate = await _twinTemplates.GetByIdAsync(deviceModel.TwinTemplateId, cancellationToken)
+            var TwinTemplate = await _twinTemplates.GetByIdAsync(deviceModel.Id, cancellationToken)
                 ?? throw new InvalidOperationException("TwinTemplate not found.");
 
             if (TwinTemplate.DeviceModel is not null && TwinTemplate.DeviceModel.Id != existing.Id)
@@ -88,8 +88,8 @@ public class DeviceModelService : IDeviceModelService
         existing.SupportedConnectivity = deviceModel.SupportedConnectivity;
         existing.DefaultTelemetryEncoding = deviceModel.DefaultTelemetryEncoding;
 
-        existing.DeviceVendorId = deviceModel.DeviceVendorId;
-        existing.TwinTemplateId = deviceModel.TwinTemplateId;
+        existing.Id = deviceModel.Id;
+        existing.Id = deviceModel.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

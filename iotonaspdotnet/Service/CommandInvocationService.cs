@@ -42,7 +42,7 @@ public class CommandInvocationService : ICommandInvocationService
 
     public async Task CreateAsync(CommandInvocation commandInvocation, CancellationToken cancellationToken)
     {
-        var ioTDevice = await _ioTDevices.GetByIdAsync(commandInvocation.IoTDeviceId, cancellationToken)
+        var ioTDevice = await _ioTDevices.GetByIdAsync(commandInvocation.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
         if (ioTDevice.CommandInvocation is not null)
@@ -50,7 +50,7 @@ public class CommandInvocationService : ICommandInvocationService
             throw new InvalidOperationException("IoTDevice already has a(n) commandInvocation (1:1 relationship).");
         }
 
-        var commandDefinition = await _commandDefinitions.GetByIdAsync(commandInvocation.CommandDefinitionId, cancellationToken)
+        var commandDefinition = await _commandDefinitions.GetByIdAsync(commandInvocation.Id, cancellationToken)
             ?? throw new InvalidOperationException("CommandDefinition not found.");
 
         if (commandDefinition.CommandInvocation is not null)
@@ -58,7 +58,7 @@ public class CommandInvocationService : ICommandInvocationService
             throw new InvalidOperationException("CommandDefinition already has a(n) commandInvocation (1:1 relationship).");
         }
 
-        var actuatorInstance = await _actuatorInstances.GetByIdAsync(commandInvocation.ActuatorInstanceId, cancellationToken)
+        var actuatorInstance = await _actuatorInstances.GetByIdAsync(commandInvocation.Id, cancellationToken)
             ?? throw new InvalidOperationException("ActuatorInstance not found.");
 
         if (actuatorInstance.CommandInvocation is not null)
@@ -66,7 +66,7 @@ public class CommandInvocationService : ICommandInvocationService
             throw new InvalidOperationException("ActuatorInstance already has a(n) commandInvocation (1:1 relationship).");
         }
 
-        var tenantUser = await _tenantUsers.GetByIdAsync(commandInvocation.TenantUserId, cancellationToken)
+        var tenantUser = await _tenantUsers.GetByIdAsync(commandInvocation.Id, cancellationToken)
             ?? throw new InvalidOperationException("TenantUser not found.");
 
         if (tenantUser.CommandInvocation is not null)
@@ -86,30 +86,30 @@ public class CommandInvocationService : ICommandInvocationService
         }
 
         // Keep 1:1 â do not reassign to a tenantUser who already has another commandInvocation.
-        if (existing.TenantUserId != commandInvocation.TenantUserId)
+        if (existing.Id != commandInvocation.Id)
         {
-            var Device = await _ioTDevices.GetByIdAsync(commandInvocation.IoTDeviceId, cancellationToken)
+            var Device = await _ioTDevices.GetByIdAsync(commandInvocation.Id, cancellationToken)
                 ?? throw new InvalidOperationException("IoTDevice not found.");
 
             if (Device.CommandInvocation is not null && Device.CommandInvocation.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target ioTDevice already has an commandInvocation (1:1 relationship).");
             }
-            var CommandDefinition = await _commandDefinitions.GetByIdAsync(commandInvocation.CommandDefinitionId, cancellationToken)
+            var CommandDefinition = await _commandDefinitions.GetByIdAsync(commandInvocation.Id, cancellationToken)
                 ?? throw new InvalidOperationException("CommandDefinition not found.");
 
             if (CommandDefinition.CommandInvocation is not null && CommandDefinition.CommandInvocation.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target commandDefinition already has an commandInvocation (1:1 relationship).");
             }
-            var Actuator = await _actuatorInstances.GetByIdAsync(commandInvocation.ActuatorInstanceId, cancellationToken)
+            var Actuator = await _actuatorInstances.GetByIdAsync(commandInvocation.Id, cancellationToken)
                 ?? throw new InvalidOperationException("ActuatorInstance not found.");
 
             if (Actuator.CommandInvocation is not null && Actuator.CommandInvocation.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target actuatorInstance already has an commandInvocation (1:1 relationship).");
             }
-            var User = await _tenantUsers.GetByIdAsync(commandInvocation.TenantUserId, cancellationToken)
+            var User = await _tenantUsers.GetByIdAsync(commandInvocation.Id, cancellationToken)
                 ?? throw new InvalidOperationException("TenantUser not found.");
 
             if (User.CommandInvocation is not null && User.CommandInvocation.Id != existing.Id)
@@ -123,10 +123,10 @@ public class CommandInvocationService : ICommandInvocationService
         existing.CompletedAt = commandInvocation.CompletedAt;
         existing.Status = commandInvocation.Status;
 
-        existing.IoTDeviceId = commandInvocation.IoTDeviceId;
-        existing.CommandDefinitionId = commandInvocation.CommandDefinitionId;
-        existing.ActuatorInstanceId = commandInvocation.ActuatorInstanceId;
-        existing.TenantUserId = commandInvocation.TenantUserId;
+        existing.Id = commandInvocation.Id;
+        existing.Id = commandInvocation.Id;
+        existing.Id = commandInvocation.Id;
+        existing.Id = commandInvocation.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

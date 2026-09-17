@@ -7,13 +7,13 @@ public class DigitalTwin
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
-										 public virtual long digitaltwinId { get; set; }
-								 public virtual string twinId { get; set; }
-								 public virtual int desiredStateVersion { get; set; }
-								 public virtual int reportedStateVersion { get; set; }
-								 public virtual DateTime lastSyncAt { get; set; }
-								public virtual IoTDevice Device { get; set; }
-								public virtual Gateway Gateway { get; set; }
-								public virtual TwinTemplate Template { get; set; }
-								public virtual TwinChangeEvent ChangeEvents { get; set; }
-			}
+ public virtual long  { get; set; }
+ public virtual string  { get; set; }
+ public virtual int  { get; set; }
+ public virtual int  { get; set; }
+ public virtual DateTime  { get; set; }
+public virtual IoTDevice  { get; set; }
+public virtual Gateway  { get; set; }
+public virtual TwinTemplate  { get; set; }
+public virtual TwinChangeEvent  { get; set; }
+}

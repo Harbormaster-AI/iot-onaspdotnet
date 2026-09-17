@@ -39,7 +39,7 @@ public class ProvisioningRecordService : IProvisioningRecordService
 
     public async Task CreateAsync(ProvisioningRecord provisioningRecord, CancellationToken cancellationToken)
     {
-        var ioTDevice = await _ioTDevices.GetByIdAsync(provisioningRecord.IoTDeviceId, cancellationToken)
+        var ioTDevice = await _ioTDevices.GetByIdAsync(provisioningRecord.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
         if (ioTDevice.ProvisioningRecord is not null)
@@ -47,7 +47,7 @@ public class ProvisioningRecordService : IProvisioningRecordService
             throw new InvalidOperationException("IoTDevice already has a(n) provisioningRecord (1:1 relationship).");
         }
 
-        var deviceCertificate = await _deviceCertificates.GetByIdAsync(provisioningRecord.DeviceCertificateId, cancellationToken)
+        var deviceCertificate = await _deviceCertificates.GetByIdAsync(provisioningRecord.Id, cancellationToken)
             ?? throw new InvalidOperationException("DeviceCertificate not found.");
 
         if (deviceCertificate.ProvisioningRecord is not null)
@@ -55,7 +55,7 @@ public class ProvisioningRecordService : IProvisioningRecordService
             throw new InvalidOperationException("DeviceCertificate already has a(n) provisioningRecord (1:1 relationship).");
         }
 
-        var tenant = await _tenants.GetByIdAsync(provisioningRecord.TenantId, cancellationToken)
+        var tenant = await _tenants.GetByIdAsync(provisioningRecord.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
         if (tenant.ProvisioningRecord is not null)
@@ -75,23 +75,23 @@ public class ProvisioningRecordService : IProvisioningRecordService
         }
 
         // Keep 1:1 â do not reassign to a tenant who already has another provisioningRecord.
-        if (existing.TenantId != provisioningRecord.TenantId)
+        if (existing.Id != provisioningRecord.Id)
         {
-            var Device = await _ioTDevices.GetByIdAsync(provisioningRecord.IoTDeviceId, cancellationToken)
+            var Device = await _ioTDevices.GetByIdAsync(provisioningRecord.Id, cancellationToken)
                 ?? throw new InvalidOperationException("IoTDevice not found.");
 
             if (Device.ProvisioningRecord is not null && Device.ProvisioningRecord.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target ioTDevice already has an provisioningRecord (1:1 relationship).");
             }
-            var Certificate = await _deviceCertificates.GetByIdAsync(provisioningRecord.DeviceCertificateId, cancellationToken)
+            var Certificate = await _deviceCertificates.GetByIdAsync(provisioningRecord.Id, cancellationToken)
                 ?? throw new InvalidOperationException("DeviceCertificate not found.");
 
             if (Certificate.ProvisioningRecord is not null && Certificate.ProvisioningRecord.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target deviceCertificate already has an provisioningRecord (1:1 relationship).");
             }
-            var Tenant = await _tenants.GetByIdAsync(provisioningRecord.TenantId, cancellationToken)
+            var Tenant = await _tenants.GetByIdAsync(provisioningRecord.Id, cancellationToken)
                 ?? throw new InvalidOperationException("Tenant not found.");
 
             if (Tenant.ProvisioningRecord is not null && Tenant.ProvisioningRecord.Id != existing.Id)
@@ -105,9 +105,9 @@ public class ProvisioningRecordService : IProvisioningRecordService
         existing.Method = provisioningRecord.Method;
         existing.Status = provisioningRecord.Status;
 
-        existing.IoTDeviceId = provisioningRecord.IoTDeviceId;
-        existing.DeviceCertificateId = provisioningRecord.DeviceCertificateId;
-        existing.TenantId = provisioningRecord.TenantId;
+        existing.Id = provisioningRecord.Id;
+        existing.Id = provisioningRecord.Id;
+        existing.Id = provisioningRecord.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

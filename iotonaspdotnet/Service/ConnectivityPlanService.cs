@@ -33,7 +33,7 @@ public class ConnectivityPlanService : IConnectivityPlanService
 
     public async Task CreateAsync(ConnectivityPlan connectivityPlan, CancellationToken cancellationToken)
     {
-        var tenant = await _tenants.GetByIdAsync(connectivityPlan.TenantId, cancellationToken)
+        var tenant = await _tenants.GetByIdAsync(connectivityPlan.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
         if (tenant.ConnectivityPlan is not null)
@@ -53,9 +53,9 @@ public class ConnectivityPlanService : IConnectivityPlanService
         }
 
         // Keep 1:1 â do not reassign to a tenant who already has another connectivityPlan.
-        if (existing.TenantId != connectivityPlan.TenantId)
+        if (existing.Id != connectivityPlan.Id)
         {
-            var Tenant = await _tenants.GetByIdAsync(connectivityPlan.TenantId, cancellationToken)
+            var Tenant = await _tenants.GetByIdAsync(connectivityPlan.Id, cancellationToken)
                 ?? throw new InvalidOperationException("Tenant not found.");
 
             if (Tenant.ConnectivityPlan is not null && Tenant.ConnectivityPlan.Id != existing.Id)
@@ -68,7 +68,7 @@ public class ConnectivityPlanService : IConnectivityPlanService
         existing.DataCapMB = connectivityPlan.DataCapMB;
         existing.BillingCycleDays = connectivityPlan.BillingCycleDays;
 
-        existing.TenantId = connectivityPlan.TenantId;
+        existing.Id = connectivityPlan.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

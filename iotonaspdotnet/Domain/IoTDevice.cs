@@ -7,26 +7,26 @@ public class IoTDevice
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
-										 public virtual long iotdeviceId { get; set; }
-								 public virtual DeviceId deviceId { get; set; }
-								 public virtual string serialNumber { get; set; }
-								 public virtual DateTime lastSeen { get; set; }
-								 public virtual FirmwareVersion firmwareVersion { get; set; }
-								public virtual DeviceModel DeviceModel { get; set; }
-								public virtual Tenant Tenant { get; set; }
-								public virtual Site Site { get; set; }
-								public virtual Room Room { get; set; }
-								public virtual Gateway Gateway { get; set; }
-								public virtual SensorInstance Sensors { get; set; }
-								public virtual ActuatorInstance Actuators { get; set; }
-								public virtual DeviceCertificate Certificates { get; set; }
-								public virtual DigitalTwin DigitalTwin { get; set; }
-								public virtual TelemetryStream TelemetryStreams { get; set; }
-								public virtual CommandInvocation CommandInvocations { get; set; }
-								public virtual Alert Alerts { get; set; }
-								public virtual ProvisioningRecord ProvisioningRecord { get; set; }
-								public virtual DeviceGroup DeviceGroups { get; set; }
-								public virtual NetworkProfile NetworkProfiles { get; set; }
-								 public virtual DeviceStatus Status { get; set; }
-								 public virtual PowerSource PowerSource { get; set; }
-			}
+ public virtual long  { get; set; }
+ public virtual DeviceId  { get; set; }
+ public virtual string  { get; set; }
+ public virtual DateTime  { get; set; }
+ public virtual FirmwareVersion  { get; set; }
+public virtual DeviceModel  { get; set; }
+public virtual Tenant  { get; set; }
+public virtual Site  { get; set; }
+public virtual Room  { get; set; }
+public virtual Gateway  { get; set; }
+public virtual SensorInstance  { get; set; }
+public virtual ActuatorInstance  { get; set; }
+public virtual DeviceCertificate  { get; set; }
+public virtual DigitalTwin  { get; set; }
+public virtual TelemetryStream  { get; set; }
+public virtual CommandInvocation  { get; set; }
+public virtual Alert  { get; set; }
+public virtual ProvisioningRecord  { get; set; }
+public virtual DeviceGroup  { get; set; }
+public virtual NetworkProfile  { get; set; }
+ public virtual DeviceStatus  { get; set; }
+ public virtual PowerSource  { get; set; }
+}

@@ -33,7 +33,7 @@ public class TenantUserService : ITenantUserService
 
     public async Task CreateAsync(TenantUser tenantUser, CancellationToken cancellationToken)
     {
-        var tenant = await _tenants.GetByIdAsync(tenantUser.TenantId, cancellationToken)
+        var tenant = await _tenants.GetByIdAsync(tenantUser.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
         if (tenant.TenantUser is not null)
@@ -53,9 +53,9 @@ public class TenantUserService : ITenantUserService
         }
 
         // Keep 1:1 â do not reassign to a tenant who already has another tenantUser.
-        if (existing.TenantId != tenantUser.TenantId)
+        if (existing.Id != tenantUser.Id)
         {
-            var Tenant = await _tenants.GetByIdAsync(tenantUser.TenantId, cancellationToken)
+            var Tenant = await _tenants.GetByIdAsync(tenantUser.Id, cancellationToken)
                 ?? throw new InvalidOperationException("Tenant not found.");
 
             if (Tenant.TenantUser is not null && Tenant.TenantUser.Id != existing.Id)
@@ -69,7 +69,7 @@ public class TenantUserService : ITenantUserService
         existing.Email = tenantUser.Email;
         existing.Role = tenantUser.Role;
 
-        existing.TenantId = tenantUser.TenantId;
+        existing.Id = tenantUser.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

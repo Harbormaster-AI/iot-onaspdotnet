@@ -7,9 +7,9 @@ public class TelemetrySchema
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
-										 public virtual long telemetryschemaId { get; set; }
-								 public virtual string schemaId { get; set; }
-								 public virtual Uri_ schemaUri { get; set; }
-								public virtual TelemetryStream Streams { get; set; }
-								 public virtual TelemetryEncoding Encoding { get; set; }
-			}
+ public virtual long  { get; set; }
+ public virtual string  { get; set; }
+ public virtual Uri_  { get; set; }
+public virtual TelemetryStream  { get; set; }
+ public virtual TelemetryEncoding  { get; set; }
+}

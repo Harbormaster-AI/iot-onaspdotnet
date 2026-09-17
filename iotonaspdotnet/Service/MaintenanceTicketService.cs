@@ -36,7 +36,7 @@ public class MaintenanceTicketService : IMaintenanceTicketService
 
     public async Task CreateAsync(MaintenanceTicket maintenanceTicket, CancellationToken cancellationToken)
     {
-        var ioTDevice = await _ioTDevices.GetByIdAsync(maintenanceTicket.IoTDeviceId, cancellationToken)
+        var ioTDevice = await _ioTDevices.GetByIdAsync(maintenanceTicket.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
         if (ioTDevice.MaintenanceTicket is not null)
@@ -44,7 +44,7 @@ public class MaintenanceTicketService : IMaintenanceTicketService
             throw new InvalidOperationException("IoTDevice already has a(n) maintenanceTicket (1:1 relationship).");
         }
 
-        var tenant = await _tenants.GetByIdAsync(maintenanceTicket.TenantId, cancellationToken)
+        var tenant = await _tenants.GetByIdAsync(maintenanceTicket.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
         if (tenant.MaintenanceTicket is not null)
@@ -64,16 +64,16 @@ public class MaintenanceTicketService : IMaintenanceTicketService
         }
 
         // Keep 1:1 â do not reassign to a tenant who already has another maintenanceTicket.
-        if (existing.TenantId != maintenanceTicket.TenantId)
+        if (existing.Id != maintenanceTicket.Id)
         {
-            var Device = await _ioTDevices.GetByIdAsync(maintenanceTicket.IoTDeviceId, cancellationToken)
+            var Device = await _ioTDevices.GetByIdAsync(maintenanceTicket.Id, cancellationToken)
                 ?? throw new InvalidOperationException("IoTDevice not found.");
 
             if (Device.MaintenanceTicket is not null && Device.MaintenanceTicket.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target ioTDevice already has an maintenanceTicket (1:1 relationship).");
             }
-            var Tenant = await _tenants.GetByIdAsync(maintenanceTicket.TenantId, cancellationToken)
+            var Tenant = await _tenants.GetByIdAsync(maintenanceTicket.Id, cancellationToken)
                 ?? throw new InvalidOperationException("Tenant not found.");
 
             if (Tenant.MaintenanceTicket is not null && Tenant.MaintenanceTicket.Id != existing.Id)
@@ -88,8 +88,8 @@ public class MaintenanceTicketService : IMaintenanceTicketService
         existing.Priority = maintenanceTicket.Priority;
         existing.Status = maintenanceTicket.Status;
 
-        existing.IoTDeviceId = maintenanceTicket.IoTDeviceId;
-        existing.TenantId = maintenanceTicket.TenantId;
+        existing.Id = maintenanceTicket.Id;
+        existing.Id = maintenanceTicket.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

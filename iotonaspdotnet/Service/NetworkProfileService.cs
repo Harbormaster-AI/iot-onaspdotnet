@@ -39,7 +39,7 @@ public class NetworkProfileService : INetworkProfileService
 
     public async Task CreateAsync(NetworkProfile networkProfile, CancellationToken cancellationToken)
     {
-        var ioTDevice = await _ioTDevices.GetByIdAsync(networkProfile.IoTDeviceId, cancellationToken)
+        var ioTDevice = await _ioTDevices.GetByIdAsync(networkProfile.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
         if (ioTDevice.NetworkProfile is not null)
@@ -47,7 +47,7 @@ public class NetworkProfileService : INetworkProfileService
             throw new InvalidOperationException("IoTDevice already has a(n) networkProfile (1:1 relationship).");
         }
 
-        var gateway = await _gateways.GetByIdAsync(networkProfile.GatewayId, cancellationToken)
+        var gateway = await _gateways.GetByIdAsync(networkProfile.Id, cancellationToken)
             ?? throw new InvalidOperationException("Gateway not found.");
 
         if (gateway.NetworkProfile is not null)
@@ -55,7 +55,7 @@ public class NetworkProfileService : INetworkProfileService
             throw new InvalidOperationException("Gateway already has a(n) networkProfile (1:1 relationship).");
         }
 
-        var simCard = await _simCards.GetByIdAsync(networkProfile.SimCardId, cancellationToken)
+        var simCard = await _simCards.GetByIdAsync(networkProfile.Id, cancellationToken)
             ?? throw new InvalidOperationException("SimCard not found.");
 
         if (simCard.NetworkProfile is not null)
@@ -75,23 +75,23 @@ public class NetworkProfileService : INetworkProfileService
         }
 
         // Keep 1:1 â do not reassign to a simCard who already has another networkProfile.
-        if (existing.SimCardId != networkProfile.SimCardId)
+        if (existing.Id != networkProfile.Id)
         {
-            var Device = await _ioTDevices.GetByIdAsync(networkProfile.IoTDeviceId, cancellationToken)
+            var Device = await _ioTDevices.GetByIdAsync(networkProfile.Id, cancellationToken)
                 ?? throw new InvalidOperationException("IoTDevice not found.");
 
             if (Device.NetworkProfile is not null && Device.NetworkProfile.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target ioTDevice already has an networkProfile (1:1 relationship).");
             }
-            var Gateway = await _gateways.GetByIdAsync(networkProfile.GatewayId, cancellationToken)
+            var Gateway = await _gateways.GetByIdAsync(networkProfile.Id, cancellationToken)
                 ?? throw new InvalidOperationException("Gateway not found.");
 
             if (Gateway.NetworkProfile is not null && Gateway.NetworkProfile.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target gateway already has an networkProfile (1:1 relationship).");
             }
-            var SimCard = await _simCards.GetByIdAsync(networkProfile.SimCardId, cancellationToken)
+            var SimCard = await _simCards.GetByIdAsync(networkProfile.Id, cancellationToken)
                 ?? throw new InvalidOperationException("SimCard not found.");
 
             if (SimCard.NetworkProfile is not null && SimCard.NetworkProfile.Id != existing.Id)
@@ -105,9 +105,9 @@ public class NetworkProfileService : INetworkProfileService
         existing.Apn = networkProfile.Apn;
         existing.ConnectivityType = networkProfile.ConnectivityType;
 
-        existing.IoTDeviceId = networkProfile.IoTDeviceId;
-        existing.GatewayId = networkProfile.GatewayId;
-        existing.SimCardId = networkProfile.SimCardId;
+        existing.Id = networkProfile.Id;
+        existing.Id = networkProfile.Id;
+        existing.Id = networkProfile.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

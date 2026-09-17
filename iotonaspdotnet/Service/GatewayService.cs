@@ -39,7 +39,7 @@ public class GatewayService : IGatewayService
 
     public async Task CreateAsync(Gateway gateway, CancellationToken cancellationToken)
     {
-        var site = await _sites.GetByIdAsync(gateway.SiteId, cancellationToken)
+        var site = await _sites.GetByIdAsync(gateway.Id, cancellationToken)
             ?? throw new InvalidOperationException("Site not found.");
 
         if (site.Gateway is not null)
@@ -47,7 +47,7 @@ public class GatewayService : IGatewayService
             throw new InvalidOperationException("Site already has a(n) gateway (1:1 relationship).");
         }
 
-        var room = await _rooms.GetByIdAsync(gateway.RoomId, cancellationToken)
+        var room = await _rooms.GetByIdAsync(gateway.Id, cancellationToken)
             ?? throw new InvalidOperationException("Room not found.");
 
         if (room.Gateway is not null)
@@ -55,7 +55,7 @@ public class GatewayService : IGatewayService
             throw new InvalidOperationException("Room already has a(n) gateway (1:1 relationship).");
         }
 
-        var digitalTwin = await _digitalTwins.GetByIdAsync(gateway.DigitalTwinId, cancellationToken)
+        var digitalTwin = await _digitalTwins.GetByIdAsync(gateway.Id, cancellationToken)
             ?? throw new InvalidOperationException("DigitalTwin not found.");
 
         if (digitalTwin.Gateway is not null)
@@ -75,23 +75,23 @@ public class GatewayService : IGatewayService
         }
 
         // Keep 1:1 â do not reassign to a digitalTwin who already has another gateway.
-        if (existing.DigitalTwinId != gateway.DigitalTwinId)
+        if (existing.Id != gateway.Id)
         {
-            var Site = await _sites.GetByIdAsync(gateway.SiteId, cancellationToken)
+            var Site = await _sites.GetByIdAsync(gateway.Id, cancellationToken)
                 ?? throw new InvalidOperationException("Site not found.");
 
             if (Site.Gateway is not null && Site.Gateway.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target site already has an gateway (1:1 relationship).");
             }
-            var Room = await _rooms.GetByIdAsync(gateway.RoomId, cancellationToken)
+            var Room = await _rooms.GetByIdAsync(gateway.Id, cancellationToken)
                 ?? throw new InvalidOperationException("Room not found.");
 
             if (Room.Gateway is not null && Room.Gateway.Id != existing.Id)
             {
                 throw new InvalidOperationException("Target room already has an gateway (1:1 relationship).");
             }
-            var DigitalTwin = await _digitalTwins.GetByIdAsync(gateway.DigitalTwinId, cancellationToken)
+            var DigitalTwin = await _digitalTwins.GetByIdAsync(gateway.Id, cancellationToken)
                 ?? throw new InvalidOperationException("DigitalTwin not found.");
 
             if (DigitalTwin.Gateway is not null && DigitalTwin.Gateway.Id != existing.Id)
@@ -103,9 +103,9 @@ public class GatewayService : IGatewayService
         existing.SoftwareVersion = gateway.SoftwareVersion;
         existing.Status = gateway.Status;
 
-        existing.SiteId = gateway.SiteId;
-        existing.RoomId = gateway.RoomId;
-        existing.DigitalTwinId = gateway.DigitalTwinId;
+        existing.Id = gateway.Id;
+        existing.Id = gateway.Id;
+        existing.Id = gateway.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

@@ -33,7 +33,7 @@ public class DataRetentionPolicyService : IDataRetentionPolicyService
 
     public async Task CreateAsync(DataRetentionPolicy dataRetentionPolicy, CancellationToken cancellationToken)
     {
-        var tenant = await _tenants.GetByIdAsync(dataRetentionPolicy.TenantId, cancellationToken)
+        var tenant = await _tenants.GetByIdAsync(dataRetentionPolicy.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
         if (tenant.DataRetentionPolicy is not null)
@@ -53,9 +53,9 @@ public class DataRetentionPolicyService : IDataRetentionPolicyService
         }
 
         // Keep 1:1 â do not reassign to a tenant who already has another dataRetentionPolicy.
-        if (existing.TenantId != dataRetentionPolicy.TenantId)
+        if (existing.Id != dataRetentionPolicy.Id)
         {
-            var Tenant = await _tenants.GetByIdAsync(dataRetentionPolicy.TenantId, cancellationToken)
+            var Tenant = await _tenants.GetByIdAsync(dataRetentionPolicy.Id, cancellationToken)
                 ?? throw new InvalidOperationException("Tenant not found.");
 
             if (Tenant.DataRetentionPolicy is not null && Tenant.DataRetentionPolicy.Id != existing.Id)
@@ -67,7 +67,7 @@ public class DataRetentionPolicyService : IDataRetentionPolicyService
         existing.Name = dataRetentionPolicy.Name;
         existing.RetentionDays = dataRetentionPolicy.RetentionDays;
 
-        existing.TenantId = dataRetentionPolicy.TenantId;
+        existing.Id = dataRetentionPolicy.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

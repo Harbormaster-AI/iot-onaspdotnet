@@ -33,7 +33,7 @@ public class HardwareModuleService : IHardwareModuleService
 
     public async Task CreateAsync(HardwareModule hardwareModule, CancellationToken cancellationToken)
     {
-        var deviceVendor = await _deviceVendors.GetByIdAsync(hardwareModule.DeviceVendorId, cancellationToken)
+        var deviceVendor = await _deviceVendors.GetByIdAsync(hardwareModule.Id, cancellationToken)
             ?? throw new InvalidOperationException("DeviceVendor not found.");
 
         if (deviceVendor.HardwareModule is not null)
@@ -53,9 +53,9 @@ public class HardwareModuleService : IHardwareModuleService
         }
 
         // Keep 1:1 â do not reassign to a deviceVendor who already has another hardwareModule.
-        if (existing.DeviceVendorId != hardwareModule.DeviceVendorId)
+        if (existing.Id != hardwareModule.Id)
         {
-            var Vendor = await _deviceVendors.GetByIdAsync(hardwareModule.DeviceVendorId, cancellationToken)
+            var Vendor = await _deviceVendors.GetByIdAsync(hardwareModule.Id, cancellationToken)
                 ?? throw new InvalidOperationException("DeviceVendor not found.");
 
             if (Vendor.HardwareModule is not null && Vendor.HardwareModule.Id != existing.Id)
@@ -68,7 +68,7 @@ public class HardwareModuleService : IHardwareModuleService
         existing.DatasheetUri = hardwareModule.DatasheetUri;
         existing.ModuleType = hardwareModule.ModuleType;
 
-        existing.DeviceVendorId = hardwareModule.DeviceVendorId;
+        existing.Id = hardwareModule.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

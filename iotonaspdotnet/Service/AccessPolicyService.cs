@@ -33,7 +33,7 @@ public class AccessPolicyService : IAccessPolicyService
 
     public async Task CreateAsync(AccessPolicy accessPolicy, CancellationToken cancellationToken)
     {
-        var tenant = await _tenants.GetByIdAsync(accessPolicy.TenantId, cancellationToken)
+        var tenant = await _tenants.GetByIdAsync(accessPolicy.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
         if (tenant.AccessPolicy is not null)
@@ -53,9 +53,9 @@ public class AccessPolicyService : IAccessPolicyService
         }
 
         // Keep 1:1 â do not reassign to a tenant who already has another accessPolicy.
-        if (existing.TenantId != accessPolicy.TenantId)
+        if (existing.Id != accessPolicy.Id)
         {
-            var Tenant = await _tenants.GetByIdAsync(accessPolicy.TenantId, cancellationToken)
+            var Tenant = await _tenants.GetByIdAsync(accessPolicy.Id, cancellationToken)
                 ?? throw new InvalidOperationException("Tenant not found.");
 
             if (Tenant.AccessPolicy is not null && Tenant.AccessPolicy.Id != existing.Id)
@@ -68,7 +68,7 @@ public class AccessPolicyService : IAccessPolicyService
         existing.Scope = accessPolicy.Scope;
         existing.ExpiresAt = accessPolicy.ExpiresAt;
 
-        existing.TenantId = accessPolicy.TenantId;
+        existing.Id = accessPolicy.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

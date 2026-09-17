@@ -33,7 +33,7 @@ public class SiteService : ISiteService
 
     public async Task CreateAsync(Site site, CancellationToken cancellationToken)
     {
-        var tenant = await _tenants.GetByIdAsync(site.TenantId, cancellationToken)
+        var tenant = await _tenants.GetByIdAsync(site.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
         if (tenant.Site is not null)
@@ -53,9 +53,9 @@ public class SiteService : ISiteService
         }
 
         // Keep 1:1 â do not reassign to a tenant who already has another site.
-        if (existing.TenantId != site.TenantId)
+        if (existing.Id != site.Id)
         {
-            var Tenant = await _tenants.GetByIdAsync(site.TenantId, cancellationToken)
+            var Tenant = await _tenants.GetByIdAsync(site.Id, cancellationToken)
                 ?? throw new InvalidOperationException("Tenant not found.");
 
             if (Tenant.Site is not null && Tenant.Site.Id != existing.Id)
@@ -70,7 +70,7 @@ public class SiteService : ISiteService
         existing.Latitude = site.Latitude;
         existing.Longitude = site.Longitude;
 
-        existing.TenantId = site.TenantId;
+        existing.Id = site.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
