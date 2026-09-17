@@ -24,7 +24,7 @@ public class DeviceModelService : IDeviceModelService
         IDeviceModelRepository repository )
     {
         _repository = repository;
-        _twinTemplates = twinTemplates;
+        _deviceVendors = deviceVendors;
         _twinTemplates = twinTemplates;
     }
 
@@ -36,22 +36,20 @@ public class DeviceModelService : IDeviceModelService
 
     public async Task CreateAsync(DeviceModel deviceModel, CancellationToken cancellationToken)
     {
-        var deviceVendor = await _deviceVendors.GetByIdAsync(deviceModel.Id, cancellationToken)
+        var deviceVendor.Vendor = await _deviceVendors.GetByIdAsync(deviceModel.Id, cancellationToken)
             ?? throw new InvalidOperationException("DeviceVendor not found.");
 
-        if (deviceVendor.DeviceModel is not null)
+        if (deviceVendor.Vendor is not null)
         {
             throw new InvalidOperationException("DeviceVendor already has a(n) deviceModel (1:1 relationship).");
         }
-
-        var twinTemplate = await _twinTemplates.GetByIdAsync(deviceModel.Id, cancellationToken)
+        var twinTemplate.TwinTemplate = await _twinTemplates.GetByIdAsync(deviceModel.Id, cancellationToken)
             ?? throw new InvalidOperationException("TwinTemplate not found.");
 
-        if (twinTemplate.DeviceModel is not null)
+        if (twinTemplate.TwinTemplate is not null)
         {
             throw new InvalidOperationException("TwinTemplate already has a(n) deviceModel (1:1 relationship).");
         }
-
         await _repository.AddAsync(deviceModel, cancellationToken);
     }
 

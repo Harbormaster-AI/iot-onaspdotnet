@@ -33,14 +33,13 @@ public class HardwareModuleService : IHardwareModuleService
 
     public async Task CreateAsync(HardwareModule hardwareModule, CancellationToken cancellationToken)
     {
-        var deviceVendor = await _deviceVendors.GetByIdAsync(hardwareModule.Id, cancellationToken)
+        var deviceVendor.Vendor = await _deviceVendors.GetByIdAsync(hardwareModule.Id, cancellationToken)
             ?? throw new InvalidOperationException("DeviceVendor not found.");
 
-        if (deviceVendor.HardwareModule is not null)
+        if (deviceVendor.Vendor is not null)
         {
             throw new InvalidOperationException("DeviceVendor already has a(n) hardwareModule (1:1 relationship).");
         }
-
         await _repository.AddAsync(hardwareModule, cancellationToken);
     }
 

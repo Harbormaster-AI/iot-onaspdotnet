@@ -33,14 +33,13 @@ public class EdgeApplicationService : IEdgeApplicationService
 
     public async Task CreateAsync(EdgeApplication edgeApplication, CancellationToken cancellationToken)
     {
-        var gateway = await _gateways.GetByIdAsync(edgeApplication.Id, cancellationToken)
+        var gateway.Gateway = await _gateways.GetByIdAsync(edgeApplication.Id, cancellationToken)
             ?? throw new InvalidOperationException("Gateway not found.");
 
-        if (gateway.EdgeApplication is not null)
+        if (gateway.Gateway is not null)
         {
             throw new InvalidOperationException("Gateway already has a(n) edgeApplication (1:1 relationship).");
         }
-
         await _repository.AddAsync(edgeApplication, cancellationToken);
     }
 

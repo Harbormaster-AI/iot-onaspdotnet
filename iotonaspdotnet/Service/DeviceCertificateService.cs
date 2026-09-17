@@ -24,7 +24,7 @@ public class DeviceCertificateService : IDeviceCertificateService
         IDeviceCertificateRepository repository )
     {
         _repository = repository;
-        _gateways = gateways;
+        _ioTDevices = ioTDevices;
         _gateways = gateways;
     }
 
@@ -36,22 +36,20 @@ public class DeviceCertificateService : IDeviceCertificateService
 
     public async Task CreateAsync(DeviceCertificate deviceCertificate, CancellationToken cancellationToken)
     {
-        var ioTDevice = await _ioTDevices.GetByIdAsync(deviceCertificate.Id, cancellationToken)
+        var ioTDevice.Device = await _ioTDevices.GetByIdAsync(deviceCertificate.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
-        if (ioTDevice.DeviceCertificate is not null)
+        if (ioTDevice.Device is not null)
         {
             throw new InvalidOperationException("IoTDevice already has a(n) deviceCertificate (1:1 relationship).");
         }
-
-        var gateway = await _gateways.GetByIdAsync(deviceCertificate.Id, cancellationToken)
+        var gateway.Gateway = await _gateways.GetByIdAsync(deviceCertificate.Id, cancellationToken)
             ?? throw new InvalidOperationException("Gateway not found.");
 
-        if (gateway.DeviceCertificate is not null)
+        if (gateway.Gateway is not null)
         {
             throw new InvalidOperationException("Gateway already has a(n) deviceCertificate (1:1 relationship).");
         }
-
         await _repository.AddAsync(deviceCertificate, cancellationToken);
     }
 

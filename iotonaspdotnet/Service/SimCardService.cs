@@ -24,7 +24,7 @@ public class SimCardService : ISimCardService
         ISimCardRepository repository )
     {
         _repository = repository;
-        _connectivityPlans = connectivityPlans;
+        _tenants = tenants;
         _connectivityPlans = connectivityPlans;
     }
 
@@ -36,22 +36,20 @@ public class SimCardService : ISimCardService
 
     public async Task CreateAsync(SimCard simCard, CancellationToken cancellationToken)
     {
-        var tenant = await _tenants.GetByIdAsync(simCard.Id, cancellationToken)
+        var tenant.Tenant = await _tenants.GetByIdAsync(simCard.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
-        if (tenant.SimCard is not null)
+        if (tenant.Tenant is not null)
         {
             throw new InvalidOperationException("Tenant already has a(n) simCard (1:1 relationship).");
         }
-
-        var connectivityPlan = await _connectivityPlans.GetByIdAsync(simCard.Id, cancellationToken)
+        var connectivityPlan.ConnectivityPlan = await _connectivityPlans.GetByIdAsync(simCard.Id, cancellationToken)
             ?? throw new InvalidOperationException("ConnectivityPlan not found.");
 
-        if (connectivityPlan.SimCard is not null)
+        if (connectivityPlan.ConnectivityPlan is not null)
         {
             throw new InvalidOperationException("ConnectivityPlan already has a(n) simCard (1:1 relationship).");
         }
-
         await _repository.AddAsync(simCard, cancellationToken);
     }
 

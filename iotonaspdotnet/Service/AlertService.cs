@@ -24,7 +24,7 @@ public class AlertService : IAlertService
         IAlertRepository repository )
     {
         _repository = repository;
-        _alertRules = alertRules;
+        _ioTDevices = ioTDevices;
         _alertRules = alertRules;
     }
 
@@ -36,22 +36,20 @@ public class AlertService : IAlertService
 
     public async Task CreateAsync(Alert alert, CancellationToken cancellationToken)
     {
-        var ioTDevice = await _ioTDevices.GetByIdAsync(alert.Id, cancellationToken)
+        var ioTDevice.Device = await _ioTDevices.GetByIdAsync(alert.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
-        if (ioTDevice.Alert is not null)
+        if (ioTDevice.Device is not null)
         {
             throw new InvalidOperationException("IoTDevice already has a(n) alert (1:1 relationship).");
         }
-
-        var alertRule = await _alertRules.GetByIdAsync(alert.Id, cancellationToken)
+        var alertRule.AlertRule = await _alertRules.GetByIdAsync(alert.Id, cancellationToken)
             ?? throw new InvalidOperationException("AlertRule not found.");
 
-        if (alertRule.Alert is not null)
+        if (alertRule.AlertRule is not null)
         {
             throw new InvalidOperationException("AlertRule already has a(n) alert (1:1 relationship).");
         }
-
         await _repository.AddAsync(alert, cancellationToken);
     }
 

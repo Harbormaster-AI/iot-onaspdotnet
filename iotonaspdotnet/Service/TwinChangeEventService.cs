@@ -33,14 +33,13 @@ public class TwinChangeEventService : ITwinChangeEventService
 
     public async Task CreateAsync(TwinChangeEvent twinChangeEvent, CancellationToken cancellationToken)
     {
-        var digitalTwin = await _digitalTwins.GetByIdAsync(twinChangeEvent.Id, cancellationToken)
+        var digitalTwin.Twin = await _digitalTwins.GetByIdAsync(twinChangeEvent.Id, cancellationToken)
             ?? throw new InvalidOperationException("DigitalTwin not found.");
 
-        if (digitalTwin.TwinChangeEvent is not null)
+        if (digitalTwin.Twin is not null)
         {
             throw new InvalidOperationException("DigitalTwin already has a(n) twinChangeEvent (1:1 relationship).");
         }
-
         await _repository.AddAsync(twinChangeEvent, cancellationToken);
     }
 

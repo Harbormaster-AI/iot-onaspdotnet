@@ -33,14 +33,13 @@ public class TenantUserService : ITenantUserService
 
     public async Task CreateAsync(TenantUser tenantUser, CancellationToken cancellationToken)
     {
-        var tenant = await _tenants.GetByIdAsync(tenantUser.Id, cancellationToken)
+        var tenant.Tenant = await _tenants.GetByIdAsync(tenantUser.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
-        if (tenant.TenantUser is not null)
+        if (tenant.Tenant is not null)
         {
             throw new InvalidOperationException("Tenant already has a(n) tenantUser (1:1 relationship).");
         }
-
         await _repository.AddAsync(tenantUser, cancellationToken);
     }
 

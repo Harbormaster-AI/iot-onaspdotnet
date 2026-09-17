@@ -33,14 +33,13 @@ public class DataRetentionPolicyService : IDataRetentionPolicyService
 
     public async Task CreateAsync(DataRetentionPolicy dataRetentionPolicy, CancellationToken cancellationToken)
     {
-        var tenant = await _tenants.GetByIdAsync(dataRetentionPolicy.Id, cancellationToken)
+        var tenant.Tenant = await _tenants.GetByIdAsync(dataRetentionPolicy.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
-        if (tenant.DataRetentionPolicy is not null)
+        if (tenant.Tenant is not null)
         {
             throw new InvalidOperationException("Tenant already has a(n) dataRetentionPolicy (1:1 relationship).");
         }
-
         await _repository.AddAsync(dataRetentionPolicy, cancellationToken);
     }
 

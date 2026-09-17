@@ -26,8 +26,8 @@ public class DigitalTwinService : IDigitalTwinService
         IDigitalTwinRepository repository )
     {
         _repository = repository;
-        _twinTemplates = twinTemplates;
-        _twinTemplates = twinTemplates;
+        _ioTDevices = ioTDevices;
+        _gateways = gateways;
         _twinTemplates = twinTemplates;
     }
 
@@ -39,30 +39,27 @@ public class DigitalTwinService : IDigitalTwinService
 
     public async Task CreateAsync(DigitalTwin digitalTwin, CancellationToken cancellationToken)
     {
-        var ioTDevice = await _ioTDevices.GetByIdAsync(digitalTwin.Id, cancellationToken)
+        var ioTDevice.Device = await _ioTDevices.GetByIdAsync(digitalTwin.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
-        if (ioTDevice.DigitalTwin is not null)
+        if (ioTDevice.Device is not null)
         {
             throw new InvalidOperationException("IoTDevice already has a(n) digitalTwin (1:1 relationship).");
         }
-
-        var gateway = await _gateways.GetByIdAsync(digitalTwin.Id, cancellationToken)
+        var gateway.Gateway = await _gateways.GetByIdAsync(digitalTwin.Id, cancellationToken)
             ?? throw new InvalidOperationException("Gateway not found.");
 
-        if (gateway.DigitalTwin is not null)
+        if (gateway.Gateway is not null)
         {
             throw new InvalidOperationException("Gateway already has a(n) digitalTwin (1:1 relationship).");
         }
-
-        var twinTemplate = await _twinTemplates.GetByIdAsync(digitalTwin.Id, cancellationToken)
+        var twinTemplate.Template = await _twinTemplates.GetByIdAsync(digitalTwin.Id, cancellationToken)
             ?? throw new InvalidOperationException("TwinTemplate not found.");
 
-        if (twinTemplate.DigitalTwin is not null)
+        if (twinTemplate.Template is not null)
         {
             throw new InvalidOperationException("TwinTemplate already has a(n) digitalTwin (1:1 relationship).");
         }
-
         await _repository.AddAsync(digitalTwin, cancellationToken);
     }
 

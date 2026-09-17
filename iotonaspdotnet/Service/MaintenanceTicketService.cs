@@ -24,7 +24,7 @@ public class MaintenanceTicketService : IMaintenanceTicketService
         IMaintenanceTicketRepository repository )
     {
         _repository = repository;
-        _tenants = tenants;
+        _ioTDevices = ioTDevices;
         _tenants = tenants;
     }
 
@@ -36,22 +36,20 @@ public class MaintenanceTicketService : IMaintenanceTicketService
 
     public async Task CreateAsync(MaintenanceTicket maintenanceTicket, CancellationToken cancellationToken)
     {
-        var ioTDevice = await _ioTDevices.GetByIdAsync(maintenanceTicket.Id, cancellationToken)
+        var ioTDevice.Device = await _ioTDevices.GetByIdAsync(maintenanceTicket.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
-        if (ioTDevice.MaintenanceTicket is not null)
+        if (ioTDevice.Device is not null)
         {
             throw new InvalidOperationException("IoTDevice already has a(n) maintenanceTicket (1:1 relationship).");
         }
-
-        var tenant = await _tenants.GetByIdAsync(maintenanceTicket.Id, cancellationToken)
+        var tenant.Tenant = await _tenants.GetByIdAsync(maintenanceTicket.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
-        if (tenant.MaintenanceTicket is not null)
+        if (tenant.Tenant is not null)
         {
             throw new InvalidOperationException("Tenant already has a(n) maintenanceTicket (1:1 relationship).");
         }
-
         await _repository.AddAsync(maintenanceTicket, cancellationToken);
     }
 

@@ -33,14 +33,13 @@ public class BuildingService : IBuildingService
 
     public async Task CreateAsync(Building building, CancellationToken cancellationToken)
     {
-        var site = await _sites.GetByIdAsync(building.Id, cancellationToken)
+        var site.Site = await _sites.GetByIdAsync(building.Id, cancellationToken)
             ?? throw new InvalidOperationException("Site not found.");
 
-        if (site.Building is not null)
+        if (site.Site is not null)
         {
             throw new InvalidOperationException("Site already has a(n) building (1:1 relationship).");
         }
-
         await _repository.AddAsync(building, cancellationToken);
     }
 

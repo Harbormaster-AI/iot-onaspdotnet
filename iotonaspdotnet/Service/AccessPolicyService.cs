@@ -33,14 +33,13 @@ public class AccessPolicyService : IAccessPolicyService
 
     public async Task CreateAsync(AccessPolicy accessPolicy, CancellationToken cancellationToken)
     {
-        var tenant = await _tenants.GetByIdAsync(accessPolicy.Id, cancellationToken)
+        var tenant.Tenant = await _tenants.GetByIdAsync(accessPolicy.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
-        if (tenant.AccessPolicy is not null)
+        if (tenant.Tenant is not null)
         {
             throw new InvalidOperationException("Tenant already has a(n) accessPolicy (1:1 relationship).");
         }
-
         await _repository.AddAsync(accessPolicy, cancellationToken);
     }
 

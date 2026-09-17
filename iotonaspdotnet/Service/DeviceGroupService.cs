@@ -33,14 +33,13 @@ public class DeviceGroupService : IDeviceGroupService
 
     public async Task CreateAsync(DeviceGroup deviceGroup, CancellationToken cancellationToken)
     {
-        var tenant = await _tenants.GetByIdAsync(deviceGroup.Id, cancellationToken)
+        var tenant.Tenant = await _tenants.GetByIdAsync(deviceGroup.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
-        if (tenant.DeviceGroup is not null)
+        if (tenant.Tenant is not null)
         {
             throw new InvalidOperationException("Tenant already has a(n) deviceGroup (1:1 relationship).");
         }
-
         await _repository.AddAsync(deviceGroup, cancellationToken);
     }
 

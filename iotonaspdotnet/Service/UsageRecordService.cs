@@ -26,8 +26,8 @@ public class UsageRecordService : IUsageRecordService
         IUsageRecordRepository repository )
     {
         _repository = repository;
-        _connectivityPlans = connectivityPlans;
-        _connectivityPlans = connectivityPlans;
+        _tenants = tenants;
+        _ioTDevices = ioTDevices;
         _connectivityPlans = connectivityPlans;
     }
 
@@ -39,30 +39,27 @@ public class UsageRecordService : IUsageRecordService
 
     public async Task CreateAsync(UsageRecord usageRecord, CancellationToken cancellationToken)
     {
-        var tenant = await _tenants.GetByIdAsync(usageRecord.Id, cancellationToken)
+        var tenant.Tenant = await _tenants.GetByIdAsync(usageRecord.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
-        if (tenant.UsageRecord is not null)
+        if (tenant.Tenant is not null)
         {
             throw new InvalidOperationException("Tenant already has a(n) usageRecord (1:1 relationship).");
         }
-
-        var ioTDevice = await _ioTDevices.GetByIdAsync(usageRecord.Id, cancellationToken)
+        var ioTDevice.Device = await _ioTDevices.GetByIdAsync(usageRecord.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
-        if (ioTDevice.UsageRecord is not null)
+        if (ioTDevice.Device is not null)
         {
             throw new InvalidOperationException("IoTDevice already has a(n) usageRecord (1:1 relationship).");
         }
-
-        var connectivityPlan = await _connectivityPlans.GetByIdAsync(usageRecord.Id, cancellationToken)
+        var connectivityPlan.ConnectivityPlan = await _connectivityPlans.GetByIdAsync(usageRecord.Id, cancellationToken)
             ?? throw new InvalidOperationException("ConnectivityPlan not found.");
 
-        if (connectivityPlan.UsageRecord is not null)
+        if (connectivityPlan.ConnectivityPlan is not null)
         {
             throw new InvalidOperationException("ConnectivityPlan already has a(n) usageRecord (1:1 relationship).");
         }
-
         await _repository.AddAsync(usageRecord, cancellationToken);
     }
 

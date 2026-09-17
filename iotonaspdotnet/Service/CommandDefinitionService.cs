@@ -33,14 +33,13 @@ public class CommandDefinitionService : ICommandDefinitionService
 
     public async Task CreateAsync(CommandDefinition commandDefinition, CancellationToken cancellationToken)
     {
-        var deviceModel = await _deviceModels.GetByIdAsync(commandDefinition.Id, cancellationToken)
+        var deviceModel.DeviceModel = await _deviceModels.GetByIdAsync(commandDefinition.Id, cancellationToken)
             ?? throw new InvalidOperationException("DeviceModel not found.");
 
-        if (deviceModel.CommandDefinition is not null)
+        if (deviceModel.DeviceModel is not null)
         {
             throw new InvalidOperationException("DeviceModel already has a(n) commandDefinition (1:1 relationship).");
         }
-
         await _repository.AddAsync(commandDefinition, cancellationToken);
     }
 

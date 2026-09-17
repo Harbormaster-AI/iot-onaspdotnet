@@ -33,14 +33,13 @@ public class SensorInstanceService : ISensorInstanceService
 
     public async Task CreateAsync(SensorInstance sensorInstance, CancellationToken cancellationToken)
     {
-        var ioTDevice = await _ioTDevices.GetByIdAsync(sensorInstance.Id, cancellationToken)
+        var ioTDevice.Device = await _ioTDevices.GetByIdAsync(sensorInstance.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
-        if (ioTDevice.SensorInstance is not null)
+        if (ioTDevice.Device is not null)
         {
             throw new InvalidOperationException("IoTDevice already has a(n) sensorInstance (1:1 relationship).");
         }
-
         await _repository.AddAsync(sensorInstance, cancellationToken);
     }
 

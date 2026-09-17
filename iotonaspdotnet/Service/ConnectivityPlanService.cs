@@ -33,14 +33,13 @@ public class ConnectivityPlanService : IConnectivityPlanService
 
     public async Task CreateAsync(ConnectivityPlan connectivityPlan, CancellationToken cancellationToken)
     {
-        var tenant = await _tenants.GetByIdAsync(connectivityPlan.Id, cancellationToken)
+        var tenant.Tenant = await _tenants.GetByIdAsync(connectivityPlan.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
-        if (tenant.ConnectivityPlan is not null)
+        if (tenant.Tenant is not null)
         {
             throw new InvalidOperationException("Tenant already has a(n) connectivityPlan (1:1 relationship).");
         }
-
         await _repository.AddAsync(connectivityPlan, cancellationToken);
     }
 

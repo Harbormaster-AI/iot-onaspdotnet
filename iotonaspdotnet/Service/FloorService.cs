@@ -33,14 +33,13 @@ public class FloorService : IFloorService
 
     public async Task CreateAsync(Floor floor, CancellationToken cancellationToken)
     {
-        var building = await _buildings.GetByIdAsync(floor.Id, cancellationToken)
+        var building.Building = await _buildings.GetByIdAsync(floor.Id, cancellationToken)
             ?? throw new InvalidOperationException("Building not found.");
 
-        if (building.Floor is not null)
+        if (building.Building is not null)
         {
             throw new InvalidOperationException("Building already has a(n) floor (1:1 relationship).");
         }
-
         await _repository.AddAsync(floor, cancellationToken);
     }
 

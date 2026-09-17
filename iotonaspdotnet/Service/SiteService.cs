@@ -33,14 +33,13 @@ public class SiteService : ISiteService
 
     public async Task CreateAsync(Site site, CancellationToken cancellationToken)
     {
-        var tenant = await _tenants.GetByIdAsync(site.Id, cancellationToken)
+        var tenant.Tenant = await _tenants.GetByIdAsync(site.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
-        if (tenant.Site is not null)
+        if (tenant.Tenant is not null)
         {
             throw new InvalidOperationException("Tenant already has a(n) site (1:1 relationship).");
         }
-
         await _repository.AddAsync(site, cancellationToken);
     }
 

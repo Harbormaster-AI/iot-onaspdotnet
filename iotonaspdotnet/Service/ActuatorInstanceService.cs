@@ -33,14 +33,13 @@ public class ActuatorInstanceService : IActuatorInstanceService
 
     public async Task CreateAsync(ActuatorInstance actuatorInstance, CancellationToken cancellationToken)
     {
-        var ioTDevice = await _ioTDevices.GetByIdAsync(actuatorInstance.Id, cancellationToken)
+        var ioTDevice.Device = await _ioTDevices.GetByIdAsync(actuatorInstance.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
-        if (ioTDevice.ActuatorInstance is not null)
+        if (ioTDevice.Device is not null)
         {
             throw new InvalidOperationException("IoTDevice already has a(n) actuatorInstance (1:1 relationship).");
         }
-
         await _repository.AddAsync(actuatorInstance, cancellationToken);
     }
 

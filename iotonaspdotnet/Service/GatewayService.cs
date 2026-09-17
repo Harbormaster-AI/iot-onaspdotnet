@@ -26,8 +26,8 @@ public class GatewayService : IGatewayService
         IGatewayRepository repository )
     {
         _repository = repository;
-        _digitalTwins = digitalTwins;
-        _digitalTwins = digitalTwins;
+        _sites = sites;
+        _rooms = rooms;
         _digitalTwins = digitalTwins;
     }
 
@@ -39,30 +39,27 @@ public class GatewayService : IGatewayService
 
     public async Task CreateAsync(Gateway gateway, CancellationToken cancellationToken)
     {
-        var site = await _sites.GetByIdAsync(gateway.Id, cancellationToken)
+        var site.Site = await _sites.GetByIdAsync(gateway.Id, cancellationToken)
             ?? throw new InvalidOperationException("Site not found.");
 
-        if (site.Gateway is not null)
+        if (site.Site is not null)
         {
             throw new InvalidOperationException("Site already has a(n) gateway (1:1 relationship).");
         }
-
-        var room = await _rooms.GetByIdAsync(gateway.Id, cancellationToken)
+        var room.Room = await _rooms.GetByIdAsync(gateway.Id, cancellationToken)
             ?? throw new InvalidOperationException("Room not found.");
 
-        if (room.Gateway is not null)
+        if (room.Room is not null)
         {
             throw new InvalidOperationException("Room already has a(n) gateway (1:1 relationship).");
         }
-
-        var digitalTwin = await _digitalTwins.GetByIdAsync(gateway.Id, cancellationToken)
+        var digitalTwin.DigitalTwin = await _digitalTwins.GetByIdAsync(gateway.Id, cancellationToken)
             ?? throw new InvalidOperationException("DigitalTwin not found.");
 
-        if (digitalTwin.Gateway is not null)
+        if (digitalTwin.DigitalTwin is not null)
         {
             throw new InvalidOperationException("DigitalTwin already has a(n) gateway (1:1 relationship).");
         }
-
         await _repository.AddAsync(gateway, cancellationToken);
     }
 

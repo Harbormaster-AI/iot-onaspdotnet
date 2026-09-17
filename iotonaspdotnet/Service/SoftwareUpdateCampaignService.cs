@@ -24,7 +24,7 @@ public class SoftwareUpdateCampaignService : ISoftwareUpdateCampaignService
         ISoftwareUpdateCampaignRepository repository )
     {
         _repository = repository;
-        _deviceGroups = deviceGroups;
+        _firmwareReleases = firmwareReleases;
         _deviceGroups = deviceGroups;
     }
 
@@ -36,22 +36,20 @@ public class SoftwareUpdateCampaignService : ISoftwareUpdateCampaignService
 
     public async Task CreateAsync(SoftwareUpdateCampaign softwareUpdateCampaign, CancellationToken cancellationToken)
     {
-        var firmwareRelease = await _firmwareReleases.GetByIdAsync(softwareUpdateCampaign.Id, cancellationToken)
+        var firmwareRelease.FirmwareRelease = await _firmwareReleases.GetByIdAsync(softwareUpdateCampaign.Id, cancellationToken)
             ?? throw new InvalidOperationException("FirmwareRelease not found.");
 
-        if (firmwareRelease.SoftwareUpdateCampaign is not null)
+        if (firmwareRelease.FirmwareRelease is not null)
         {
             throw new InvalidOperationException("FirmwareRelease already has a(n) softwareUpdateCampaign (1:1 relationship).");
         }
-
-        var deviceGroup = await _deviceGroups.GetByIdAsync(softwareUpdateCampaign.Id, cancellationToken)
+        var deviceGroup.DeviceGroup = await _deviceGroups.GetByIdAsync(softwareUpdateCampaign.Id, cancellationToken)
             ?? throw new InvalidOperationException("DeviceGroup not found.");
 
-        if (deviceGroup.SoftwareUpdateCampaign is not null)
+        if (deviceGroup.DeviceGroup is not null)
         {
             throw new InvalidOperationException("DeviceGroup already has a(n) softwareUpdateCampaign (1:1 relationship).");
         }
-
         await _repository.AddAsync(softwareUpdateCampaign, cancellationToken);
     }
 

@@ -26,8 +26,8 @@ public class NetworkProfileService : INetworkProfileService
         INetworkProfileRepository repository )
     {
         _repository = repository;
-        _simCards = simCards;
-        _simCards = simCards;
+        _ioTDevices = ioTDevices;
+        _gateways = gateways;
         _simCards = simCards;
     }
 
@@ -39,30 +39,27 @@ public class NetworkProfileService : INetworkProfileService
 
     public async Task CreateAsync(NetworkProfile networkProfile, CancellationToken cancellationToken)
     {
-        var ioTDevice = await _ioTDevices.GetByIdAsync(networkProfile.Id, cancellationToken)
+        var ioTDevice.Device = await _ioTDevices.GetByIdAsync(networkProfile.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
-        if (ioTDevice.NetworkProfile is not null)
+        if (ioTDevice.Device is not null)
         {
             throw new InvalidOperationException("IoTDevice already has a(n) networkProfile (1:1 relationship).");
         }
-
-        var gateway = await _gateways.GetByIdAsync(networkProfile.Id, cancellationToken)
+        var gateway.Gateway = await _gateways.GetByIdAsync(networkProfile.Id, cancellationToken)
             ?? throw new InvalidOperationException("Gateway not found.");
 
-        if (gateway.NetworkProfile is not null)
+        if (gateway.Gateway is not null)
         {
             throw new InvalidOperationException("Gateway already has a(n) networkProfile (1:1 relationship).");
         }
-
-        var simCard = await _simCards.GetByIdAsync(networkProfile.Id, cancellationToken)
+        var simCard.SimCard = await _simCards.GetByIdAsync(networkProfile.Id, cancellationToken)
             ?? throw new InvalidOperationException("SimCard not found.");
 
-        if (simCard.NetworkProfile is not null)
+        if (simCard.SimCard is not null)
         {
             throw new InvalidOperationException("SimCard already has a(n) networkProfile (1:1 relationship).");
         }
-
         await _repository.AddAsync(networkProfile, cancellationToken);
     }
 

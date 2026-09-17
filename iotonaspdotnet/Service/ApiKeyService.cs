@@ -33,14 +33,13 @@ public class ApiKeyService : IApiKeyService
 
     public async Task CreateAsync(ApiKey apiKey, CancellationToken cancellationToken)
     {
-        var accessPolicy = await _accessPolicys.GetByIdAsync(apiKey.Id, cancellationToken)
+        var accessPolicy.AccessPolicy = await _accessPolicys.GetByIdAsync(apiKey.Id, cancellationToken)
             ?? throw new InvalidOperationException("AccessPolicy not found.");
 
-        if (accessPolicy.ApiKey is not null)
+        if (accessPolicy.AccessPolicy is not null)
         {
             throw new InvalidOperationException("AccessPolicy already has a(n) apiKey (1:1 relationship).");
         }
-
         await _repository.AddAsync(apiKey, cancellationToken);
     }
 
