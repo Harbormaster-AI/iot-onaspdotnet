@@ -31,8 +31,8 @@ public static class SiteEndpoints
         ISiteService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var site = await service.GetByIdAsync(id, cancellationToken);
+        return site is null ? Results.NotFound() : Results.Ok(ToResponse( site ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class SiteEndpoints
         ISiteService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new Site
+        var site = new Site
         {
             Id = Guid.NewGuid(),
 
@@ -63,7 +63,7 @@ public static class SiteEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/sites/site.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -75,9 +75,13 @@ public static class SiteEndpoints
         var lowercaseClassName = new Site
         {
             Id = id,
-            SiteNumber = request.SiteNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            Name = request.Name,
+            Address = request.Address,
+            Timezone = request.Timezone,
+            Latitude = request.Latitude,
+            Longitude = request.Longitude,
+
+            TenantId = request.TenantId,
         };
 
         try
@@ -101,5 +105,8 @@ public static class SiteEndpoints
     }
 
     private static SiteResponse ToResponse(Site lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.SiteNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( site.Id,
+                , String, Address, String, Decimal, Decimal
+                , TenantId );
+
 }

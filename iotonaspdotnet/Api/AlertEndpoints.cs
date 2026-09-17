@@ -31,8 +31,8 @@ public static class AlertEndpoints
         IAlertService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var alert = await service.GetByIdAsync(id, cancellationToken);
+        return alert is null ? Results.NotFound() : Results.Ok(ToResponse( alert ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class AlertEndpoints
         IAlertService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new Alert
+        var alert = new Alert
         {
             Id = Guid.NewGuid(),
 
@@ -63,7 +63,7 @@ public static class AlertEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/alerts/alert.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -75,9 +75,13 @@ public static class AlertEndpoints
         var lowercaseClassName = new Alert
         {
             Id = id,
-            AlertNumber = request.AlertNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            RaisedAt = request.RaisedAt,
+            ClearedAt = request.ClearedAt,
+            Message = request.Message,
+            Status = request.Status,
+
+            IoTDeviceId = request.IoTDeviceId,
+            AlertRuleId = request.AlertRuleId,
         };
 
         try
@@ -101,5 +105,8 @@ public static class AlertEndpoints
     }
 
     private static AlertResponse ToResponse(Alert lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.AlertNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( alert.Id,
+                , DateTime, DateTime, String, AlertStatus
+                , IoTDeviceId, AlertRuleId );
+
 }

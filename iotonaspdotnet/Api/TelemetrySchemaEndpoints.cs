@@ -31,8 +31,8 @@ public static class TelemetrySchemaEndpoints
         ITelemetrySchemaService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var telemetrySchema = await service.GetByIdAsync(id, cancellationToken);
+        return telemetrySchema is null ? Results.NotFound() : Results.Ok(ToResponse( telemetrySchema ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class TelemetrySchemaEndpoints
         ITelemetrySchemaService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new TelemetrySchema
+        var telemetrySchema = new TelemetrySchema
         {
             Id = Guid.NewGuid(),
 
@@ -60,7 +60,7 @@ public static class TelemetrySchemaEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/telemetrySchemas/telemetrySchema.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -72,9 +72,10 @@ public static class TelemetrySchemaEndpoints
         var lowercaseClassName = new TelemetrySchema
         {
             Id = id,
-            TelemetrySchemaNumber = request.TelemetrySchemaNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            SchemaId = request.SchemaId,
+            SchemaUri = request.SchemaUri,
+            Encoding = request.Encoding,
+
         };
 
         try
@@ -98,5 +99,8 @@ public static class TelemetrySchemaEndpoints
     }
 
     private static TelemetrySchemaResponse ToResponse(TelemetrySchema lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.TelemetrySchemaNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( telemetrySchema.Id,
+                , String, Uri_, TelemetryEncoding
+                 );
+
 }

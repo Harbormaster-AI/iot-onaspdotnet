@@ -31,8 +31,8 @@ public static class DeviceGroupEndpoints
         IDeviceGroupService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var deviceGroup = await service.GetByIdAsync(id, cancellationToken);
+        return deviceGroup is null ? Results.NotFound() : Results.Ok(ToResponse( deviceGroup ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class DeviceGroupEndpoints
         IDeviceGroupService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new DeviceGroup
+        var deviceGroup = new DeviceGroup
         {
             Id = Guid.NewGuid(),
 
@@ -60,7 +60,7 @@ public static class DeviceGroupEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/deviceGroups/deviceGroup.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -72,9 +72,10 @@ public static class DeviceGroupEndpoints
         var lowercaseClassName = new DeviceGroup
         {
             Id = id,
-            DeviceGroupNumber = request.DeviceGroupNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            Name = request.Name,
+            Criteria = request.Criteria,
+
+            TenantId = request.TenantId,
         };
 
         try
@@ -98,5 +99,8 @@ public static class DeviceGroupEndpoints
     }
 
     private static DeviceGroupResponse ToResponse(DeviceGroup lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.DeviceGroupNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( deviceGroup.Id,
+                , String, String
+                , TenantId );
+
 }

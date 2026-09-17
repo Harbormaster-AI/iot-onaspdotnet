@@ -31,8 +31,8 @@ public static class SoftwareUpdateCampaignEndpoints
         ISoftwareUpdateCampaignService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var softwareUpdateCampaign = await service.GetByIdAsync(id, cancellationToken);
+        return softwareUpdateCampaign is null ? Results.NotFound() : Results.Ok(ToResponse( softwareUpdateCampaign ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class SoftwareUpdateCampaignEndpoints
         ISoftwareUpdateCampaignService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new SoftwareUpdateCampaign
+        var softwareUpdateCampaign = new SoftwareUpdateCampaign
         {
             Id = Guid.NewGuid(),
 
@@ -63,7 +63,7 @@ public static class SoftwareUpdateCampaignEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/softwareUpdateCampaigns/softwareUpdateCampaign.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -75,9 +75,13 @@ public static class SoftwareUpdateCampaignEndpoints
         var lowercaseClassName = new SoftwareUpdateCampaign
         {
             Id = id,
-            SoftwareUpdateCampaignNumber = request.SoftwareUpdateCampaignNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            CampaignCode = request.CampaignCode,
+            ScheduledStart = request.ScheduledStart,
+            ScheduledEnd = request.ScheduledEnd,
+            Status = request.Status,
+
+            FirmwareReleaseId = request.FirmwareReleaseId,
+            DeviceGroupId = request.DeviceGroupId,
         };
 
         try
@@ -101,5 +105,8 @@ public static class SoftwareUpdateCampaignEndpoints
     }
 
     private static SoftwareUpdateCampaignResponse ToResponse(SoftwareUpdateCampaign lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.SoftwareUpdateCampaignNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( softwareUpdateCampaign.Id,
+                , String, DateTime, DateTime, UpdateCampaignStatus
+                , FirmwareReleaseId, DeviceGroupId );
+
 }

@@ -31,8 +31,8 @@ public static class FirmwareReleaseEndpoints
         IFirmwareReleaseService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var firmwareRelease = await service.GetByIdAsync(id, cancellationToken);
+        return firmwareRelease is null ? Results.NotFound() : Results.Ok(ToResponse( firmwareRelease ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class FirmwareReleaseEndpoints
         IFirmwareReleaseService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new FirmwareRelease
+        var firmwareRelease = new FirmwareRelease
         {
             Id = Guid.NewGuid(),
 
@@ -62,7 +62,7 @@ public static class FirmwareReleaseEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/firmwareReleases/firmwareRelease.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -74,9 +74,12 @@ public static class FirmwareReleaseEndpoints
         var lowercaseClassName = new FirmwareRelease
         {
             Id = id,
-            FirmwareReleaseNumber = request.FirmwareReleaseNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            Version = request.Version,
+            ReleaseDate = request.ReleaseDate,
+            ReleaseNotes = request.ReleaseNotes,
+            Checksum = request.Checksum,
+
+            DeviceModelId = request.DeviceModelId,
         };
 
         try
@@ -100,5 +103,8 @@ public static class FirmwareReleaseEndpoints
     }
 
     private static FirmwareReleaseResponse ToResponse(FirmwareRelease lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.FirmwareReleaseNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( firmwareRelease.Id,
+                , FirmwareVersion, Date, String, Checksum
+                , DeviceModelId );
+
 }

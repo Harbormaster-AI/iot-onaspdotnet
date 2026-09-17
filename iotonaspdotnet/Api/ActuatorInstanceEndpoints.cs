@@ -31,8 +31,8 @@ public static class ActuatorInstanceEndpoints
         IActuatorInstanceService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var actuatorInstance = await service.GetByIdAsync(id, cancellationToken);
+        return actuatorInstance is null ? Results.NotFound() : Results.Ok(ToResponse( actuatorInstance ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class ActuatorInstanceEndpoints
         IActuatorInstanceService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new ActuatorInstance
+        var actuatorInstance = new ActuatorInstance
         {
             Id = Guid.NewGuid(),
 
@@ -61,7 +61,7 @@ public static class ActuatorInstanceEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/actuatorInstances/actuatorInstance.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -73,9 +73,11 @@ public static class ActuatorInstanceEndpoints
         var lowercaseClassName = new ActuatorInstance
         {
             Id = id,
-            ActuatorInstanceNumber = request.ActuatorInstanceNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            Name = request.Name,
+            CommandTopic = request.CommandTopic,
+            ActuatorType = request.ActuatorType,
+
+            IoTDeviceId = request.IoTDeviceId,
         };
 
         try
@@ -99,5 +101,8 @@ public static class ActuatorInstanceEndpoints
     }
 
     private static ActuatorInstanceResponse ToResponse(ActuatorInstance lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.ActuatorInstanceNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( actuatorInstance.Id,
+                , String, TopicName, ActuatorType
+                , IoTDeviceId );
+
 }

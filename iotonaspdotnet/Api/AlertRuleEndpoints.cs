@@ -31,8 +31,8 @@ public static class AlertRuleEndpoints
         IAlertRuleService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var alertRule = await service.GetByIdAsync(id, cancellationToken);
+        return alertRule is null ? Results.NotFound() : Results.Ok(ToResponse( alertRule ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class AlertRuleEndpoints
         IAlertRuleService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new AlertRule
+        var alertRule = new AlertRule
         {
             Id = Guid.NewGuid(),
 
@@ -61,7 +61,7 @@ public static class AlertRuleEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/alertRules/alertRule.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -73,9 +73,11 @@ public static class AlertRuleEndpoints
         var lowercaseClassName = new AlertRule
         {
             Id = id,
-            AlertRuleNumber = request.AlertRuleNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            Name = request.Name,
+            Expression = request.Expression,
+            Severity = request.Severity,
+
+            TenantId = request.TenantId,
         };
 
         try
@@ -99,5 +101,8 @@ public static class AlertRuleEndpoints
     }
 
     private static AlertRuleResponse ToResponse(AlertRule lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.AlertRuleNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( alertRule.Id,
+                , String, String, AlertSeverity
+                , TenantId );
+
 }

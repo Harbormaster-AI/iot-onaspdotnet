@@ -31,8 +31,8 @@ public static class DeviceVendorEndpoints
         IDeviceVendorService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var deviceVendor = await service.GetByIdAsync(id, cancellationToken);
+        return deviceVendor is null ? Results.NotFound() : Results.Ok(ToResponse( deviceVendor ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class DeviceVendorEndpoints
         IDeviceVendorService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new DeviceVendor
+        var deviceVendor = new DeviceVendor
         {
             Id = Guid.NewGuid(),
 
@@ -61,7 +61,7 @@ public static class DeviceVendorEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/deviceVendors/deviceVendor.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -73,9 +73,11 @@ public static class DeviceVendorEndpoints
         var lowercaseClassName = new DeviceVendor
         {
             Id = id,
-            DeviceVendorNumber = request.DeviceVendorNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            Name = request.Name,
+            LegalName = request.LegalName,
+            HeadquartersCountry = request.HeadquartersCountry,
+            Website = request.Website,
+
         };
 
         try
@@ -99,5 +101,8 @@ public static class DeviceVendorEndpoints
     }
 
     private static DeviceVendorResponse ToResponse(DeviceVendor lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.DeviceVendorNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( deviceVendor.Id,
+                , String, String, String, String
+                 );
+
 }

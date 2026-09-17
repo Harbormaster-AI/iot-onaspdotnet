@@ -31,8 +31,8 @@ public static class GatewayEndpoints
         IGatewayService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var gateway = await service.GetByIdAsync(id, cancellationToken);
+        return gateway is null ? Results.NotFound() : Results.Ok(ToResponse( gateway ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class GatewayEndpoints
         IGatewayService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new Gateway
+        var gateway = new Gateway
         {
             Id = Guid.NewGuid(),
 
@@ -62,7 +62,7 @@ public static class GatewayEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/gateways/gateway.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -74,9 +74,12 @@ public static class GatewayEndpoints
         var lowercaseClassName = new Gateway
         {
             Id = id,
-            GatewayNumber = request.GatewayNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            SoftwareVersion = request.SoftwareVersion,
+            Status = request.Status,
+
+            SiteId = request.SiteId,
+            RoomId = request.RoomId,
+            DigitalTwinId = request.DigitalTwinId,
         };
 
         try
@@ -100,5 +103,8 @@ public static class GatewayEndpoints
     }
 
     private static GatewayResponse ToResponse(Gateway lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.GatewayNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( gateway.Id,
+                , String, DeviceStatus
+                , SiteId, RoomId, DigitalTwinId );
+
 }

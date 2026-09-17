@@ -31,8 +31,8 @@ public static class SoftwareUpdateExecutionEndpoints
         ISoftwareUpdateExecutionService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var softwareUpdateExecution = await service.GetByIdAsync(id, cancellationToken);
+        return softwareUpdateExecution is null ? Results.NotFound() : Results.Ok(ToResponse( softwareUpdateExecution ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class SoftwareUpdateExecutionEndpoints
         ISoftwareUpdateExecutionService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new SoftwareUpdateExecution
+        var softwareUpdateExecution = new SoftwareUpdateExecution
         {
             Id = Guid.NewGuid(),
 
@@ -62,7 +62,7 @@ public static class SoftwareUpdateExecutionEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/softwareUpdateExecutions/softwareUpdateExecution.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -74,9 +74,12 @@ public static class SoftwareUpdateExecutionEndpoints
         var lowercaseClassName = new SoftwareUpdateExecution
         {
             Id = id,
-            SoftwareUpdateExecutionNumber = request.SoftwareUpdateExecutionNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            StartedAt = request.StartedAt,
+            CompletedAt = request.CompletedAt,
+            Status = request.Status,
+
+            SoftwareUpdateCampaignId = request.SoftwareUpdateCampaignId,
+            IoTDeviceId = request.IoTDeviceId,
         };
 
         try
@@ -100,5 +103,8 @@ public static class SoftwareUpdateExecutionEndpoints
     }
 
     private static SoftwareUpdateExecutionResponse ToResponse(SoftwareUpdateExecution lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.SoftwareUpdateExecutionNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( softwareUpdateExecution.Id,
+                , DateTime, DateTime, UpdateStatus
+                , SoftwareUpdateCampaignId, IoTDeviceId );
+
 }

@@ -31,8 +31,8 @@ public static class DataRetentionPolicyEndpoints
         IDataRetentionPolicyService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var dataRetentionPolicy = await service.GetByIdAsync(id, cancellationToken);
+        return dataRetentionPolicy is null ? Results.NotFound() : Results.Ok(ToResponse( dataRetentionPolicy ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class DataRetentionPolicyEndpoints
         IDataRetentionPolicyService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new DataRetentionPolicy
+        var dataRetentionPolicy = new DataRetentionPolicy
         {
             Id = Guid.NewGuid(),
 
@@ -60,7 +60,7 @@ public static class DataRetentionPolicyEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/dataRetentionPolicys/dataRetentionPolicy.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -72,9 +72,10 @@ public static class DataRetentionPolicyEndpoints
         var lowercaseClassName = new DataRetentionPolicy
         {
             Id = id,
-            DataRetentionPolicyNumber = request.DataRetentionPolicyNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            Name = request.Name,
+            RetentionDays = request.RetentionDays,
+
+            TenantId = request.TenantId,
         };
 
         try
@@ -98,5 +99,8 @@ public static class DataRetentionPolicyEndpoints
     }
 
     private static DataRetentionPolicyResponse ToResponse(DataRetentionPolicy lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.DataRetentionPolicyNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( dataRetentionPolicy.Id,
+                , String, Integer
+                , TenantId );
+
 }

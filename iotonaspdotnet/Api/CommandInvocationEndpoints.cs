@@ -31,8 +31,8 @@ public static class CommandInvocationEndpoints
         ICommandInvocationService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var commandInvocation = await service.GetByIdAsync(id, cancellationToken);
+        return commandInvocation is null ? Results.NotFound() : Results.Ok(ToResponse( commandInvocation ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class CommandInvocationEndpoints
         ICommandInvocationService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new CommandInvocation
+        var commandInvocation = new CommandInvocation
         {
             Id = Guid.NewGuid(),
 
@@ -65,7 +65,7 @@ public static class CommandInvocationEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/commandInvocations/commandInvocation.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -77,9 +77,15 @@ public static class CommandInvocationEndpoints
         var lowercaseClassName = new CommandInvocation
         {
             Id = id,
-            CommandInvocationNumber = request.CommandInvocationNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            InvocationId = request.InvocationId,
+            RequestedAt = request.RequestedAt,
+            CompletedAt = request.CompletedAt,
+            Status = request.Status,
+
+            IoTDeviceId = request.IoTDeviceId,
+            CommandDefinitionId = request.CommandDefinitionId,
+            ActuatorInstanceId = request.ActuatorInstanceId,
+            TenantUserId = request.TenantUserId,
         };
 
         try
@@ -103,5 +109,8 @@ public static class CommandInvocationEndpoints
     }
 
     private static CommandInvocationResponse ToResponse(CommandInvocation lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.CommandInvocationNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( commandInvocation.Id,
+                , String, DateTime, DateTime, CommandStatus
+                , IoTDeviceId, CommandDefinitionId, ActuatorInstanceId, TenantUserId );
+
 }

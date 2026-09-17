@@ -31,8 +31,8 @@ public static class UsageRecordEndpoints
         IUsageRecordService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var usageRecord = await service.GetByIdAsync(id, cancellationToken);
+        return usageRecord is null ? Results.NotFound() : Results.Ok(ToResponse( usageRecord ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class UsageRecordEndpoints
         IUsageRecordService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new UsageRecord
+        var usageRecord = new UsageRecord
         {
             Id = Guid.NewGuid(),
 
@@ -64,7 +64,7 @@ public static class UsageRecordEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/usageRecords/usageRecord.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -76,9 +76,14 @@ public static class UsageRecordEndpoints
         var lowercaseClassName = new UsageRecord
         {
             Id = id,
-            UsageRecordNumber = request.UsageRecordNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            PeriodStart = request.PeriodStart,
+            PeriodEnd = request.PeriodEnd,
+            MessagesSent = request.MessagesSent,
+            DataVolumeMB = request.DataVolumeMB,
+
+            TenantId = request.TenantId,
+            IoTDeviceId = request.IoTDeviceId,
+            ConnectivityPlanId = request.ConnectivityPlanId,
         };
 
         try
@@ -102,5 +107,8 @@ public static class UsageRecordEndpoints
     }
 
     private static UsageRecordResponse ToResponse(UsageRecord lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.UsageRecordNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( usageRecord.Id,
+                , Date, Date, Integer, Integer
+                , TenantId, IoTDeviceId, ConnectivityPlanId );
+
 }

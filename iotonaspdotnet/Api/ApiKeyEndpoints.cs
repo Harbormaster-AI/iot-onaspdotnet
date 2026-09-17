@@ -31,8 +31,8 @@ public static class ApiKeyEndpoints
         IApiKeyService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var apiKey = await service.GetByIdAsync(id, cancellationToken);
+        return apiKey is null ? Results.NotFound() : Results.Ok(ToResponse( apiKey ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class ApiKeyEndpoints
         IApiKeyService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new ApiKey
+        var apiKey = new ApiKey
         {
             Id = Guid.NewGuid(),
 
@@ -62,7 +62,7 @@ public static class ApiKeyEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/apiKeys/apiKey.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -74,9 +74,12 @@ public static class ApiKeyEndpoints
         var lowercaseClassName = new ApiKey
         {
             Id = id,
-            ApiKeyNumber = request.ApiKeyNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            KeyId = request.KeyId,
+            HashedSecret = request.HashedSecret,
+            CreatedAt = request.CreatedAt,
+            LastUsedAt = request.LastUsedAt,
+
+            AccessPolicyId = request.AccessPolicyId,
         };
 
         try
@@ -100,5 +103,8 @@ public static class ApiKeyEndpoints
     }
 
     private static ApiKeyResponse ToResponse(ApiKey lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.ApiKeyNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( apiKey.Id,
+                , String, String, DateTime, DateTime
+                , AccessPolicyId );
+
 }

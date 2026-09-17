@@ -31,8 +31,8 @@ public static class NetworkProfileEndpoints
         INetworkProfileService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var networkProfile = await service.GetByIdAsync(id, cancellationToken);
+        return networkProfile is null ? Results.NotFound() : Results.Ok(ToResponse( networkProfile ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class NetworkProfileEndpoints
         INetworkProfileService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new NetworkProfile
+        var networkProfile = new NetworkProfile
         {
             Id = Guid.NewGuid(),
 
@@ -64,7 +64,7 @@ public static class NetworkProfileEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/networkProfiles/networkProfile.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -76,9 +76,14 @@ public static class NetworkProfileEndpoints
         var lowercaseClassName = new NetworkProfile
         {
             Id = id,
-            NetworkProfileNumber = request.NetworkProfileNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            ProfileName = request.ProfileName,
+            Ssid = request.Ssid,
+            Apn = request.Apn,
+            ConnectivityType = request.ConnectivityType,
+
+            IoTDeviceId = request.IoTDeviceId,
+            GatewayId = request.GatewayId,
+            SimCardId = request.SimCardId,
         };
 
         try
@@ -102,5 +107,8 @@ public static class NetworkProfileEndpoints
     }
 
     private static NetworkProfileResponse ToResponse(NetworkProfile lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.NetworkProfileNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( networkProfile.Id,
+                , String, String, String, ConnectivityType
+                , IoTDeviceId, GatewayId, SimCardId );
+
 }

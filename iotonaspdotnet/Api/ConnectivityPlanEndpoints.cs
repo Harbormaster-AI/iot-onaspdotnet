@@ -31,8 +31,8 @@ public static class ConnectivityPlanEndpoints
         IConnectivityPlanService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var connectivityPlan = await service.GetByIdAsync(id, cancellationToken);
+        return connectivityPlan is null ? Results.NotFound() : Results.Ok(ToResponse( connectivityPlan ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class ConnectivityPlanEndpoints
         IConnectivityPlanService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new ConnectivityPlan
+        var connectivityPlan = new ConnectivityPlan
         {
             Id = Guid.NewGuid(),
 
@@ -61,7 +61,7 @@ public static class ConnectivityPlanEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/connectivityPlans/connectivityPlan.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -73,9 +73,11 @@ public static class ConnectivityPlanEndpoints
         var lowercaseClassName = new ConnectivityPlan
         {
             Id = id,
-            ConnectivityPlanNumber = request.ConnectivityPlanNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            Name = request.Name,
+            DataCapMB = request.DataCapMB,
+            BillingCycleDays = request.BillingCycleDays,
+
+            TenantId = request.TenantId,
         };
 
         try
@@ -99,5 +101,8 @@ public static class ConnectivityPlanEndpoints
     }
 
     private static ConnectivityPlanResponse ToResponse(ConnectivityPlan lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.ConnectivityPlanNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( connectivityPlan.Id,
+                , String, Integer, Integer
+                , TenantId );
+
 }

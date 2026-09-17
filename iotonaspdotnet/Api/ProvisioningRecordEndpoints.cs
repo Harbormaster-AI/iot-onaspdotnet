@@ -31,8 +31,8 @@ public static class ProvisioningRecordEndpoints
         IProvisioningRecordService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var provisioningRecord = await service.GetByIdAsync(id, cancellationToken);
+        return provisioningRecord is null ? Results.NotFound() : Results.Ok(ToResponse( provisioningRecord ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class ProvisioningRecordEndpoints
         IProvisioningRecordService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new ProvisioningRecord
+        var provisioningRecord = new ProvisioningRecord
         {
             Id = Guid.NewGuid(),
 
@@ -64,7 +64,7 @@ public static class ProvisioningRecordEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/provisioningRecords/provisioningRecord.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -76,9 +76,14 @@ public static class ProvisioningRecordEndpoints
         var lowercaseClassName = new ProvisioningRecord
         {
             Id = id,
-            ProvisioningRecordNumber = request.ProvisioningRecordNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            EnrolledAt = request.EnrolledAt,
+            ProvisioningService = request.ProvisioningService,
+            Method = request.Method,
+            Status = request.Status,
+
+            IoTDeviceId = request.IoTDeviceId,
+            DeviceCertificateId = request.DeviceCertificateId,
+            TenantId = request.TenantId,
         };
 
         try
@@ -102,5 +107,8 @@ public static class ProvisioningRecordEndpoints
     }
 
     private static ProvisioningRecordResponse ToResponse(ProvisioningRecord lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.ProvisioningRecordNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( provisioningRecord.Id,
+                , DateTime, String, ProvisioningMethod, ProvisioningStatus
+                , IoTDeviceId, DeviceCertificateId, TenantId );
+
 }

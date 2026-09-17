@@ -31,8 +31,8 @@ public static class TenantUserEndpoints
         ITenantUserService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var tenantUser = await service.GetByIdAsync(id, cancellationToken);
+        return tenantUser is null ? Results.NotFound() : Results.Ok(ToResponse( tenantUser ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class TenantUserEndpoints
         ITenantUserService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new TenantUser
+        var tenantUser = new TenantUser
         {
             Id = Guid.NewGuid(),
 
@@ -62,7 +62,7 @@ public static class TenantUserEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/tenantUsers/tenantUser.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -74,9 +74,12 @@ public static class TenantUserEndpoints
         var lowercaseClassName = new TenantUser
         {
             Id = id,
-            TenantUserNumber = request.TenantUserNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            FirstName = request.FirstName,
+            LastName = request.LastName,
+            Email = request.Email,
+            Role = request.Role,
+
+            TenantId = request.TenantId,
         };
 
         try
@@ -100,5 +103,8 @@ public static class TenantUserEndpoints
     }
 
     private static TenantUserResponse ToResponse(TenantUser lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.TenantUserNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( tenantUser.Id,
+                , String, String, String, UserRole
+                , TenantId );
+
 }

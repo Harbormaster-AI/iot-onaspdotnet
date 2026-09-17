@@ -31,8 +31,8 @@ public static class SimCardEndpoints
         ISimCardService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var simCard = await service.GetByIdAsync(id, cancellationToken);
+        return simCard is null ? Results.NotFound() : Results.Ok(ToResponse( simCard ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class SimCardEndpoints
         ISimCardService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new SimCard
+        var simCard = new SimCard
         {
             Id = Guid.NewGuid(),
 
@@ -63,7 +63,7 @@ public static class SimCardEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/simCards/simCard.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -75,9 +75,13 @@ public static class SimCardEndpoints
         var lowercaseClassName = new SimCard
         {
             Id = id,
-            SimCardNumber = request.SimCardNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            Iccid = request.Iccid,
+            Imsi = request.Imsi,
+            Carrier = request.Carrier,
+            Status = request.Status,
+
+            TenantId = request.TenantId,
+            ConnectivityPlanId = request.ConnectivityPlanId,
         };
 
         try
@@ -101,5 +105,8 @@ public static class SimCardEndpoints
     }
 
     private static SimCardResponse ToResponse(SimCard lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.SimCardNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( simCard.Id,
+                , String, String, String, SimStatus
+                , TenantId, ConnectivityPlanId );
+
 }

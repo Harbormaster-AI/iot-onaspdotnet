@@ -31,8 +31,8 @@ public static class TenantEndpoints
         ITenantService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var tenant = await service.GetByIdAsync(id, cancellationToken);
+        return tenant is null ? Results.NotFound() : Results.Ok(ToResponse( tenant ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class TenantEndpoints
         ITenantService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new Tenant
+        var tenant = new Tenant
         {
             Id = Guid.NewGuid(),
 
@@ -59,7 +59,7 @@ public static class TenantEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/tenants/tenant.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -71,9 +71,9 @@ public static class TenantEndpoints
         var lowercaseClassName = new Tenant
         {
             Id = id,
-            TenantNumber = request.TenantNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            Name = request.Name,
+            TenantType = request.TenantType,
+
         };
 
         try
@@ -97,5 +97,8 @@ public static class TenantEndpoints
     }
 
     private static TenantResponse ToResponse(Tenant lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.TenantNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( tenant.Id,
+                , String, TenantType
+                 );
+
 }

@@ -31,8 +31,8 @@ public static class MaintenanceTicketEndpoints
         IMaintenanceTicketService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var maintenanceTicket = await service.GetByIdAsync(id, cancellationToken);
+        return maintenanceTicket is null ? Results.NotFound() : Results.Ok(ToResponse( maintenanceTicket ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class MaintenanceTicketEndpoints
         IMaintenanceTicketService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new MaintenanceTicket
+        var maintenanceTicket = new MaintenanceTicket
         {
             Id = Guid.NewGuid(),
 
@@ -64,7 +64,7 @@ public static class MaintenanceTicketEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/maintenanceTickets/maintenanceTicket.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -76,9 +76,14 @@ public static class MaintenanceTicketEndpoints
         var lowercaseClassName = new MaintenanceTicket
         {
             Id = id,
-            MaintenanceTicketNumber = request.MaintenanceTicketNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            TicketNumber = request.TicketNumber,
+            OpenedAt = request.OpenedAt,
+            ClosedAt = request.ClosedAt,
+            Priority = request.Priority,
+            Status = request.Status,
+
+            IoTDeviceId = request.IoTDeviceId,
+            TenantId = request.TenantId,
         };
 
         try
@@ -102,5 +107,8 @@ public static class MaintenanceTicketEndpoints
     }
 
     private static MaintenanceTicketResponse ToResponse(MaintenanceTicket lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.MaintenanceTicketNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( maintenanceTicket.Id,
+                , String, DateTime, DateTime, MaintenancePriority, MaintenanceStatus
+                , IoTDeviceId, TenantId );
+
 }

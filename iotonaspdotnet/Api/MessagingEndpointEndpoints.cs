@@ -31,8 +31,8 @@ public static class MessagingEndpointEndpoints
         IMessagingEndpointService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var messagingEndpoint = await service.GetByIdAsync(id, cancellationToken);
+        return messagingEndpoint is null ? Results.NotFound() : Results.Ok(ToResponse( messagingEndpoint ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class MessagingEndpointEndpoints
         IMessagingEndpointService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new MessagingEndpoint
+        var messagingEndpoint = new MessagingEndpoint
         {
             Id = Guid.NewGuid(),
 
@@ -62,7 +62,7 @@ public static class MessagingEndpointEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/messagingEndpoints/messagingEndpoint.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -74,9 +74,12 @@ public static class MessagingEndpointEndpoints
         var lowercaseClassName = new MessagingEndpoint
         {
             Id = id,
-            MessagingEndpointNumber = request.MessagingEndpointNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            Host = request.Host,
+            Port = request.Port,
+            Secure = request.Secure,
+            Protocol = request.Protocol,
+
+            TenantId = request.TenantId,
         };
 
         try
@@ -100,5 +103,8 @@ public static class MessagingEndpointEndpoints
     }
 
     private static MessagingEndpointResponse ToResponse(MessagingEndpoint lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.MessagingEndpointNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( messagingEndpoint.Id,
+                , String, Integer, Boolean, MessagingProtocol
+                , TenantId );
+
 }

@@ -31,8 +31,8 @@ public static class HardwareModuleEndpoints
         IHardwareModuleService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var hardwareModule = await service.GetByIdAsync(id, cancellationToken);
+        return hardwareModule is null ? Results.NotFound() : Results.Ok(ToResponse( hardwareModule ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class HardwareModuleEndpoints
         IHardwareModuleService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new HardwareModule
+        var hardwareModule = new HardwareModule
         {
             Id = Guid.NewGuid(),
 
@@ -61,7 +61,7 @@ public static class HardwareModuleEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/hardwareModules/hardwareModule.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -73,9 +73,11 @@ public static class HardwareModuleEndpoints
         var lowercaseClassName = new HardwareModule
         {
             Id = id,
-            HardwareModuleNumber = request.HardwareModuleNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            ModuleCode = request.ModuleCode,
+            DatasheetUri = request.DatasheetUri,
+            ModuleType = request.ModuleType,
+
+            DeviceVendorId = request.DeviceVendorId,
         };
 
         try
@@ -99,5 +101,8 @@ public static class HardwareModuleEndpoints
     }
 
     private static HardwareModuleResponse ToResponse(HardwareModule lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.HardwareModuleNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( hardwareModule.Id,
+                , String, Uri_, ModuleType
+                , DeviceVendorId );
+
 }

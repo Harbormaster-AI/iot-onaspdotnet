@@ -31,8 +31,8 @@ public static class TelemetryStreamEndpoints
         ITelemetryStreamService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var telemetryStream = await service.GetByIdAsync(id, cancellationToken);
+        return telemetryStream is null ? Results.NotFound() : Results.Ok(ToResponse( telemetryStream ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class TelemetryStreamEndpoints
         ITelemetryStreamService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new TelemetryStream
+        var telemetryStream = new TelemetryStream
         {
             Id = Guid.NewGuid(),
 
@@ -65,7 +65,7 @@ public static class TelemetryStreamEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/telemetryStreams/telemetryStream.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -77,9 +77,15 @@ public static class TelemetryStreamEndpoints
         var lowercaseClassName = new TelemetryStream
         {
             Id = id,
-            TelemetryStreamNumber = request.TelemetryStreamNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            StreamName = request.StreamName,
+            RetentionDays = request.RetentionDays,
+            Qos = request.Qos,
+
+            IoTDeviceId = request.IoTDeviceId,
+            SensorInstanceId = request.SensorInstanceId,
+            TelemetrySchemaId = request.TelemetrySchemaId,
+            MessagingEndpointId = request.MessagingEndpointId,
+            DataRetentionPolicyId = request.DataRetentionPolicyId,
         };
 
         try
@@ -103,5 +109,8 @@ public static class TelemetryStreamEndpoints
     }
 
     private static TelemetryStreamResponse ToResponse(TelemetryStream lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.TelemetryStreamNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( telemetryStream.Id,
+                , String, Integer, MessageQoS
+                , IoTDeviceId, SensorInstanceId, TelemetrySchemaId, MessagingEndpointId, DataRetentionPolicyId );
+
 }

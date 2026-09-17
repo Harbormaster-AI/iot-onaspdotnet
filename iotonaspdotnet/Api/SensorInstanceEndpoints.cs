@@ -31,8 +31,8 @@ public static class SensorInstanceEndpoints
         ISensorInstanceService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var sensorInstance = await service.GetByIdAsync(id, cancellationToken);
+        return sensorInstance is null ? Results.NotFound() : Results.Ok(ToResponse( sensorInstance ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class SensorInstanceEndpoints
         ISensorInstanceService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new SensorInstance
+        var sensorInstance = new SensorInstance
         {
             Id = Guid.NewGuid(),
 
@@ -62,7 +62,7 @@ public static class SensorInstanceEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/sensorInstances/sensorInstance.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -74,9 +74,12 @@ public static class SensorInstanceEndpoints
         var lowercaseClassName = new SensorInstance
         {
             Id = id,
-            SensorInstanceNumber = request.SensorInstanceNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            Name = request.Name,
+            Unit = request.Unit,
+            SamplingIntervalMs = request.SamplingIntervalMs,
+            SensorType = request.SensorType,
+
+            IoTDeviceId = request.IoTDeviceId,
         };
 
         try
@@ -100,5 +103,8 @@ public static class SensorInstanceEndpoints
     }
 
     private static SensorInstanceResponse ToResponse(SensorInstance lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.SensorInstanceNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( sensorInstance.Id,
+                , String, String, Integer, SensorType
+                , IoTDeviceId );
+
 }

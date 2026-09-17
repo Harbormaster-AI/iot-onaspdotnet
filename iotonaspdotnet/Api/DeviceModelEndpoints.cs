@@ -31,8 +31,8 @@ public static class DeviceModelEndpoints
         IDeviceModelService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var deviceModel = await service.GetByIdAsync(id, cancellationToken);
+        return deviceModel is null ? Results.NotFound() : Results.Ok(ToResponse( deviceModel ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class DeviceModelEndpoints
         IDeviceModelService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new DeviceModel
+        var deviceModel = new DeviceModel
         {
             Id = Guid.NewGuid(),
 
@@ -64,7 +64,7 @@ public static class DeviceModelEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/deviceModels/deviceModel.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -76,9 +76,14 @@ public static class DeviceModelEndpoints
         var lowercaseClassName = new DeviceModel
         {
             Id = id,
-            DeviceModelNumber = request.DeviceModelNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            Name = request.Name,
+            ModelNumber = request.ModelNumber,
+            HardwareRevision = request.HardwareRevision,
+            SupportedConnectivity = request.SupportedConnectivity,
+            DefaultTelemetryEncoding = request.DefaultTelemetryEncoding,
+
+            DeviceVendorId = request.DeviceVendorId,
+            TwinTemplateId = request.TwinTemplateId,
         };
 
         try
@@ -102,5 +107,8 @@ public static class DeviceModelEndpoints
     }
 
     private static DeviceModelResponse ToResponse(DeviceModel lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.DeviceModelNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( deviceModel.Id,
+                , String, String, String, ConnectivityType, TelemetryEncoding
+                , DeviceVendorId, TwinTemplateId );
+
 }

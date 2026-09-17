@@ -31,8 +31,8 @@ public static class IoTDeviceEndpoints
         IIoTDeviceService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var ioTDevice = await service.GetByIdAsync(id, cancellationToken);
+        return ioTDevice is null ? Results.NotFound() : Results.Ok(ToResponse( ioTDevice ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class IoTDeviceEndpoints
         IIoTDeviceService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new IoTDevice
+        var ioTDevice = new IoTDevice
         {
             Id = Guid.NewGuid(),
 
@@ -70,7 +70,7 @@ public static class IoTDeviceEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/ioTDevices/ioTDevice.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -82,9 +82,20 @@ public static class IoTDeviceEndpoints
         var lowercaseClassName = new IoTDevice
         {
             Id = id,
-            IoTDeviceNumber = request.IoTDeviceNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            DeviceId = request.DeviceId,
+            SerialNumber = request.SerialNumber,
+            LastSeen = request.LastSeen,
+            FirmwareVersion = request.FirmwareVersion,
+            Status = request.Status,
+            PowerSource = request.PowerSource,
+
+            DeviceModelId = request.DeviceModelId,
+            TenantId = request.TenantId,
+            SiteId = request.SiteId,
+            RoomId = request.RoomId,
+            GatewayId = request.GatewayId,
+            DigitalTwinId = request.DigitalTwinId,
+            ProvisioningRecordId = request.ProvisioningRecordId,
         };
 
         try
@@ -108,5 +119,8 @@ public static class IoTDeviceEndpoints
     }
 
     private static IoTDeviceResponse ToResponse(IoTDevice lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.IoTDeviceNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( ioTDevice.Id,
+                , DeviceId, String, DateTime, FirmwareVersion, DeviceStatus, PowerSource
+                , DeviceModelId, TenantId, SiteId, RoomId, GatewayId, DigitalTwinId, ProvisioningRecordId );
+
 }

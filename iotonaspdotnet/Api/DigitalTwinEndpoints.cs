@@ -31,8 +31,8 @@ public static class DigitalTwinEndpoints
         IDigitalTwinService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var digitalTwin = await service.GetByIdAsync(id, cancellationToken);
+        return digitalTwin is null ? Results.NotFound() : Results.Ok(ToResponse( digitalTwin ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class DigitalTwinEndpoints
         IDigitalTwinService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new DigitalTwin
+        var digitalTwin = new DigitalTwin
         {
             Id = Guid.NewGuid(),
 
@@ -64,7 +64,7 @@ public static class DigitalTwinEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/digitalTwins/digitalTwin.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -76,9 +76,14 @@ public static class DigitalTwinEndpoints
         var lowercaseClassName = new DigitalTwin
         {
             Id = id,
-            DigitalTwinNumber = request.DigitalTwinNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            TwinId = request.TwinId,
+            DesiredStateVersion = request.DesiredStateVersion,
+            ReportedStateVersion = request.ReportedStateVersion,
+            LastSyncAt = request.LastSyncAt,
+
+            IoTDeviceId = request.IoTDeviceId,
+            GatewayId = request.GatewayId,
+            TwinTemplateId = request.TwinTemplateId,
         };
 
         try
@@ -102,5 +107,8 @@ public static class DigitalTwinEndpoints
     }
 
     private static DigitalTwinResponse ToResponse(DigitalTwin lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.DigitalTwinNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( digitalTwin.Id,
+                , String, Integer, Integer, DateTime
+                , IoTDeviceId, GatewayId, TwinTemplateId );
+
 }

@@ -31,8 +31,8 @@ public static class CommandDefinitionEndpoints
         ICommandDefinitionService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var commandDefinition = await service.GetByIdAsync(id, cancellationToken);
+        return commandDefinition is null ? Results.NotFound() : Results.Ok(ToResponse( commandDefinition ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class CommandDefinitionEndpoints
         ICommandDefinitionService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new CommandDefinition
+        var commandDefinition = new CommandDefinition
         {
             Id = Guid.NewGuid(),
 
@@ -62,7 +62,7 @@ public static class CommandDefinitionEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/commandDefinitions/commandDefinition.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -74,9 +74,12 @@ public static class CommandDefinitionEndpoints
         var lowercaseClassName = new CommandDefinition
         {
             Id = id,
-            CommandDefinitionNumber = request.CommandDefinitionNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            Name = request.Name,
+            RequestSchemaUri = request.RequestSchemaUri,
+            ResponseSchemaUri = request.ResponseSchemaUri,
+            TimeoutSeconds = request.TimeoutSeconds,
+
+            DeviceModelId = request.DeviceModelId,
         };
 
         try
@@ -100,5 +103,8 @@ public static class CommandDefinitionEndpoints
     }
 
     private static CommandDefinitionResponse ToResponse(CommandDefinition lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.CommandDefinitionNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( commandDefinition.Id,
+                , String, Uri_, Uri_, Integer
+                , DeviceModelId );
+
 }

@@ -31,8 +31,8 @@ public static class DeviceCertificateEndpoints
         IDeviceCertificateService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var deviceCertificate = await service.GetByIdAsync(id, cancellationToken);
+        return deviceCertificate is null ? Results.NotFound() : Results.Ok(ToResponse( deviceCertificate ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class DeviceCertificateEndpoints
         IDeviceCertificateService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new DeviceCertificate
+        var deviceCertificate = new DeviceCertificate
         {
             Id = Guid.NewGuid(),
 
@@ -64,7 +64,7 @@ public static class DeviceCertificateEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/deviceCertificates/deviceCertificate.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -76,9 +76,14 @@ public static class DeviceCertificateEndpoints
         var lowercaseClassName = new DeviceCertificate
         {
             Id = id,
-            DeviceCertificateNumber = request.DeviceCertificateNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            SerialNumber = request.SerialNumber,
+            NotBefore = request.NotBefore,
+            NotAfter = request.NotAfter,
+            Fingerprint = request.Fingerprint,
+            CertificateType = request.CertificateType,
+
+            IoTDeviceId = request.IoTDeviceId,
+            GatewayId = request.GatewayId,
         };
 
         try
@@ -102,5 +107,8 @@ public static class DeviceCertificateEndpoints
     }
 
     private static DeviceCertificateResponse ToResponse(DeviceCertificate lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.DeviceCertificateNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( deviceCertificate.Id,
+                , String, DateTime, DateTime, String, CertificateType
+                , IoTDeviceId, GatewayId );
+
 }

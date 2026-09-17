@@ -31,8 +31,8 @@ public static class FloorEndpoints
         IFloorService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var floor = await service.GetByIdAsync(id, cancellationToken);
+        return floor is null ? Results.NotFound() : Results.Ok(ToResponse( floor ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class FloorEndpoints
         IFloorService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new Floor
+        var floor = new Floor
         {
             Id = Guid.NewGuid(),
 
@@ -60,7 +60,7 @@ public static class FloorEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/floors/floor.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -72,9 +72,10 @@ public static class FloorEndpoints
         var lowercaseClassName = new Floor
         {
             Id = id,
-            FloorNumber = request.FloorNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            Name = request.Name,
+            Level = request.Level,
+
+            BuildingId = request.BuildingId,
         };
 
         try
@@ -98,5 +99,8 @@ public static class FloorEndpoints
     }
 
     private static FloorResponse ToResponse(Floor lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.FloorNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( floor.Id,
+                , String, Integer
+                , BuildingId );
+
 }

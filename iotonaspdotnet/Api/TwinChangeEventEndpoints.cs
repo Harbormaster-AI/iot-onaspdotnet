@@ -31,8 +31,8 @@ public static class TwinChangeEventEndpoints
         ITwinChangeEventService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var twinChangeEvent = await service.GetByIdAsync(id, cancellationToken);
+        return twinChangeEvent is null ? Results.NotFound() : Results.Ok(ToResponse( twinChangeEvent ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class TwinChangeEventEndpoints
         ITwinChangeEventService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new TwinChangeEvent
+        var twinChangeEvent = new TwinChangeEvent
         {
             Id = Guid.NewGuid(),
 
@@ -61,7 +61,7 @@ public static class TwinChangeEventEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/twinChangeEvents/twinChangeEvent.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -73,9 +73,11 @@ public static class TwinChangeEventEndpoints
         var lowercaseClassName = new TwinChangeEvent
         {
             Id = id,
-            TwinChangeEventNumber = request.TwinChangeEventNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            EventId = request.EventId,
+            OccurredAt = request.OccurredAt,
+            ChangeType = request.ChangeType,
+
+            DigitalTwinId = request.DigitalTwinId,
         };
 
         try
@@ -99,5 +101,8 @@ public static class TwinChangeEventEndpoints
     }
 
     private static TwinChangeEventResponse ToResponse(TwinChangeEvent lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.TwinChangeEventNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( twinChangeEvent.Id,
+                , String, DateTime, TwinChangeType
+                , DigitalTwinId );
+
 }

@@ -31,8 +31,8 @@ public static class TwinTemplateEndpoints
         ITwinTemplateService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var twinTemplate = await service.GetByIdAsync(id, cancellationToken);
+        return twinTemplate is null ? Results.NotFound() : Results.Ok(ToResponse( twinTemplate ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class TwinTemplateEndpoints
         ITwinTemplateService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new TwinTemplate
+        var twinTemplate = new TwinTemplate
         {
             Id = Guid.NewGuid(),
 
@@ -60,7 +60,7 @@ public static class TwinTemplateEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/twinTemplates/twinTemplate.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -72,9 +72,10 @@ public static class TwinTemplateEndpoints
         var lowercaseClassName = new TwinTemplate
         {
             Id = id,
-            TwinTemplateNumber = request.TwinTemplateNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            Name = request.Name,
+            SchemaUri = request.SchemaUri,
+            Version = request.Version,
+
         };
 
         try
@@ -98,5 +99,8 @@ public static class TwinTemplateEndpoints
     }
 
     private static TwinTemplateResponse ToResponse(TwinTemplate lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.TwinTemplateNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( twinTemplate.Id,
+                , String, Uri_, String
+                 );
+
 }

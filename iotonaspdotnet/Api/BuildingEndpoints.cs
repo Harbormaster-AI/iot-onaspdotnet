@@ -31,8 +31,8 @@ public static class BuildingEndpoints
         IBuildingService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = await service.GetByIdAsync(id, cancellationToken);
-        return lowercaseClassName is null ? Results.NotFound() : Results.Ok(ToResponse(lowercaseClassName));
+        var building = await service.GetByIdAsync(id, cancellationToken);
+        return building is null ? Results.NotFound() : Results.Ok(ToResponse( building ));
     }
 
     private static async Task<IResult> Create(
@@ -40,7 +40,7 @@ public static class BuildingEndpoints
         IBuildingService service,
         CancellationToken cancellationToken)
     {
-        var lowercaseClassName = new Building
+        var building = new Building
         {
             Id = Guid.NewGuid(),
 
@@ -59,7 +59,7 @@ public static class BuildingEndpoints
             return Results.BadRequest(new { error = ex.Message });
         }
 
-        return Results.Created($"/api/lowercaseClassNames/{lowercaseClassName.Id}", ToResponse(lowercaseClassName));
+        return Results.Created($"/api/buildings/building.Id", ToResponse(lowercaseClassName));
     }
 
     private static async Task<IResult> Update(
@@ -71,9 +71,9 @@ public static class BuildingEndpoints
         var lowercaseClassName = new Building
         {
             Id = id,
-            BuildingNumber = request.BuildingNumber,
-            Balance = request.Balance,
-            CustomerId = request.CustomerId
+            Name = request.Name,
+
+            SiteId = request.SiteId,
         };
 
         try
@@ -97,5 +97,8 @@ public static class BuildingEndpoints
     }
 
     private static BuildingResponse ToResponse(Building lowercaseClassName)
-        => new(lowercaseClassName.Id, lowercaseClassName.BuildingNumber, lowercaseClassName.Balance, lowercaseClassName.CustomerId);
+        => new( building.Id,
+                , String
+                , SiteId );
+
 }
