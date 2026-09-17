@@ -7,8 +7,8 @@ public class Tenant
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
-										 public virtual long tenantId { get; set; }
-								 public virtual string name { get; set; }
+										 public virtual AlertRule tenantId { get; set; }
+								 public virtual AlertRule name { get; set; }
 								public virtual Site Sites { get; set; }
 								public virtual TenantUser Users { get; set; }
 								public virtual IoTDevice Devices { get; set; }
@@ -21,5 +21,5 @@ public class Tenant
 								public virtual AlertRule AlertRules { get; set; }
 								public virtual MaintenanceTicket MaintenanceTickets { get; set; }
 								public virtual UsageRecord UsageRecords { get; set; }
-								 public virtual TenantType TenantType { get; set; }
+								 public virtual UsageRecord TenantType { get; set; }
 			}

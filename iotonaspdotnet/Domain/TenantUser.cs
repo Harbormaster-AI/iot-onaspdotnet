@@ -7,11 +7,11 @@ public class TenantUser
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
-										 public virtual long tenantuserId { get; set; }
-								 public virtual string firstName { get; set; }
-								 public virtual string lastName { get; set; }
-								 public virtual string email { get; set; }
+										 public virtual UsageRecord tenantuserId { get; set; }
+								 public virtual UsageRecord firstName { get; set; }
+								 public virtual UsageRecord lastName { get; set; }
+								 public virtual UsageRecord email { get; set; }
 								public virtual Tenant Tenant { get; set; }
 								public virtual CommandInvocation CommandInvocations { get; set; }
-								 public virtual UserRole Role { get; set; }
+								 public virtual CommandInvocation Role { get; set; }
 			}

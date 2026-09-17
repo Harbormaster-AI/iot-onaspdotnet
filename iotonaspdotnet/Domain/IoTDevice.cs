@@ -7,11 +7,11 @@ public class IoTDevice
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
-										 public virtual long iotdeviceId { get; set; }
-								 public virtual DeviceId deviceId { get; set; }
-								 public virtual string serialNumber { get; set; }
-								 public virtual DateTime lastSeen { get; set; }
-								 public virtual FirmwareVersion firmwareVersion { get; set; }
+										 public virtual DeviceModel iotdeviceId { get; set; }
+								 public virtual DeviceModel deviceId { get; set; }
+								 public virtual DeviceModel serialNumber { get; set; }
+								 public virtual DeviceModel lastSeen { get; set; }
+								 public virtual DeviceModel firmwareVersion { get; set; }
 								public virtual DeviceModel DeviceModel { get; set; }
 								public virtual Tenant Tenant { get; set; }
 								public virtual Site Site { get; set; }
@@ -27,6 +27,6 @@ public class IoTDevice
 								public virtual ProvisioningRecord ProvisioningRecord { get; set; }
 								public virtual DeviceGroup DeviceGroups { get; set; }
 								public virtual NetworkProfile NetworkProfiles { get; set; }
-								 public virtual DeviceStatus Status { get; set; }
-								 public virtual PowerSource PowerSource { get; set; }
+								 public virtual NetworkProfile Status { get; set; }
+								 public virtual NetworkProfile PowerSource { get; set; }
 			}
