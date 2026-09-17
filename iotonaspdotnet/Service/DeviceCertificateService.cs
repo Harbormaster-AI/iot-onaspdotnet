@@ -1,7 +1,5 @@
 using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
-using iotonaspdotnet.Persistence.IoTDevices;
-using iotonaspdotnet.Persistence.Gateways;
 
 namespace iotonaspdotnet.Service;
 

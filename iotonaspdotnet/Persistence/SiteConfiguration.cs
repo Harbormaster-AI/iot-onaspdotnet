@@ -1,6 +1,6 @@
-using Site.Api.Domain;
-using Site.Api.Domain.Enums;
-using Site.Api.Domain.ValueObjects;
+using Site.Domain;
+using Site.Domain.Enums;
+using Site.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

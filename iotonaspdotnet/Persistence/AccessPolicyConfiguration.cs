@@ -1,6 +1,6 @@
-using AccessPolicy.Api.Domain;
-using AccessPolicy.Api.Domain.Enums;
-using AccessPolicy.Api.Domain.ValueObjects;
+using AccessPolicy.Domain;
+using AccessPolicy.Domain.Enums;
+using AccessPolicy.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

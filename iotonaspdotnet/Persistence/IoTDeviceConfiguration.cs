@@ -1,6 +1,6 @@
-using IoTDevice.Api.Domain;
-using IoTDevice.Api.Domain.Enums;
-using IoTDevice.Api.Domain.ValueObjects;
+using IoTDevice.Domain;
+using IoTDevice.Domain.Enums;
+using IoTDevice.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

@@ -1,6 +1,6 @@
-using Floor.Api.Domain;
-using Floor.Api.Domain.Enums;
-using Floor.Api.Domain.ValueObjects;
+using Floor.Domain;
+using Floor.Domain.Enums;
+using Floor.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

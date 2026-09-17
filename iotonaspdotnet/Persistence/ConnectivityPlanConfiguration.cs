@@ -1,6 +1,6 @@
-using ConnectivityPlan.Api.Domain;
-using ConnectivityPlan.Api.Domain.Enums;
-using ConnectivityPlan.Api.Domain.ValueObjects;
+using ConnectivityPlan.Domain;
+using ConnectivityPlan.Domain.Enums;
+using ConnectivityPlan.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

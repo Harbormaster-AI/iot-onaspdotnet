@@ -1,6 +1,6 @@
-using Alert.Api.Domain;
-using Alert.Api.Domain.Enums;
-using Alert.Api.Domain.ValueObjects;
+using Alert.Domain;
+using Alert.Domain.Enums;
+using Alert.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

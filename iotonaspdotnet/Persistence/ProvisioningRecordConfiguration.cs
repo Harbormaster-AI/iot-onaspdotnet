@@ -1,6 +1,6 @@
-using ProvisioningRecord.Api.Domain;
-using ProvisioningRecord.Api.Domain.Enums;
-using ProvisioningRecord.Api.Domain.ValueObjects;
+using ProvisioningRecord.Domain;
+using ProvisioningRecord.Domain.Enums;
+using ProvisioningRecord.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

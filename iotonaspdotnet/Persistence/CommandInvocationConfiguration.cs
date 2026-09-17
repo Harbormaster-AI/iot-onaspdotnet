@@ -1,6 +1,6 @@
-using CommandInvocation.Api.Domain;
-using CommandInvocation.Api.Domain.Enums;
-using CommandInvocation.Api.Domain.ValueObjects;
+using CommandInvocation.Domain;
+using CommandInvocation.Domain.Enums;
+using CommandInvocation.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

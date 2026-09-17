@@ -1,6 +1,6 @@
-using EdgeApplication.Api.Domain;
-using EdgeApplication.Api.Domain.Enums;
-using EdgeApplication.Api.Domain.ValueObjects;
+using EdgeApplication.Domain;
+using EdgeApplication.Domain.Enums;
+using EdgeApplication.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

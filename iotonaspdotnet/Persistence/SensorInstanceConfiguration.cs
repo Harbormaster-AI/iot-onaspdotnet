@@ -1,6 +1,6 @@
-using SensorInstance.Api.Domain;
-using SensorInstance.Api.Domain.Enums;
-using SensorInstance.Api.Domain.ValueObjects;
+using SensorInstance.Domain;
+using SensorInstance.Domain.Enums;
+using SensorInstance.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

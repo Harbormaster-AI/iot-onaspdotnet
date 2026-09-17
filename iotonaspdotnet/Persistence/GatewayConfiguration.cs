@@ -1,6 +1,6 @@
-using Gateway.Api.Domain;
-using Gateway.Api.Domain.Enums;
-using Gateway.Api.Domain.ValueObjects;
+using Gateway.Domain;
+using Gateway.Domain.Enums;
+using Gateway.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

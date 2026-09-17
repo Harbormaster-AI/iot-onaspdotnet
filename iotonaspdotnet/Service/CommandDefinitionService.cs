@@ -1,6 +1,5 @@
 using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
-using iotonaspdotnet.Persistence.DeviceModels;
 
 namespace iotonaspdotnet.Service;
 

@@ -1,6 +1,6 @@
-using MessagingEndpoint.Api.Domain;
-using MessagingEndpoint.Api.Domain.Enums;
-using MessagingEndpoint.Api.Domain.ValueObjects;
+using MessagingEndpoint.Domain;
+using MessagingEndpoint.Domain.Enums;
+using MessagingEndpoint.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

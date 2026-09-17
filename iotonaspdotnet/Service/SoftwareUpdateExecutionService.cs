@@ -1,7 +1,5 @@
 using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
-using iotonaspdotnet.Persistence.SoftwareUpdateCampaigns;
-using iotonaspdotnet.Persistence.IoTDevices;
 
 namespace iotonaspdotnet.Service;
 

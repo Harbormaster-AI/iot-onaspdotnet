@@ -1,6 +1,6 @@
-using CommandDefinition.Api.Domain;
-using CommandDefinition.Api.Domain.Enums;
-using CommandDefinition.Api.Domain.ValueObjects;
+using CommandDefinition.Domain;
+using CommandDefinition.Domain.Enums;
+using CommandDefinition.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

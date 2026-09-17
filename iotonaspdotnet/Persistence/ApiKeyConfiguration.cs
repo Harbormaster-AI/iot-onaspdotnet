@@ -1,6 +1,6 @@
-using ApiKey.Api.Domain;
-using ApiKey.Api.Domain.Enums;
-using ApiKey.Api.Domain.ValueObjects;
+using ApiKey.Domain;
+using ApiKey.Domain.Enums;
+using ApiKey.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

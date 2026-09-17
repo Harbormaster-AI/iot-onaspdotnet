@@ -1,6 +1,6 @@
-using TwinChangeEvent.Api.Domain;
-using TwinChangeEvent.Api.Domain.Enums;
-using TwinChangeEvent.Api.Domain.ValueObjects;
+using TwinChangeEvent.Domain;
+using TwinChangeEvent.Domain.Enums;
+using TwinChangeEvent.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

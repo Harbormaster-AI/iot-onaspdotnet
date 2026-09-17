@@ -1,6 +1,6 @@
-using TwinTemplate.Api.Domain;
-using TwinTemplate.Api.Domain.Enums;
-using TwinTemplate.Api.Domain.ValueObjects;
+using TwinTemplate.Domain;
+using TwinTemplate.Domain.Enums;
+using TwinTemplate.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

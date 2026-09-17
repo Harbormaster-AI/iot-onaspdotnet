@@ -1,6 +1,6 @@
-using SoftwareUpdateExecution.Api.Domain;
-using SoftwareUpdateExecution.Api.Domain.Enums;
-using SoftwareUpdateExecution.Api.Domain.ValueObjects;
+using SoftwareUpdateExecution.Domain;
+using SoftwareUpdateExecution.Domain.Enums;
+using SoftwareUpdateExecution.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

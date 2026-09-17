@@ -1,6 +1,6 @@
-using DataRetentionPolicy.Api.Domain;
-using DataRetentionPolicy.Api.Domain.Enums;
-using DataRetentionPolicy.Api.Domain.ValueObjects;
+using DataRetentionPolicy.Domain;
+using DataRetentionPolicy.Domain.Enums;
+using DataRetentionPolicy.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

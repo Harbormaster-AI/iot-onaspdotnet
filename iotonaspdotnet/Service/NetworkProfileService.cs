@@ -1,8 +1,5 @@
 using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
-using iotonaspdotnet.Persistence.IoTDevices;
-using iotonaspdotnet.Persistence.Gateways;
-using iotonaspdotnet.Persistence.SimCards;
 
 namespace iotonaspdotnet.Service;
 

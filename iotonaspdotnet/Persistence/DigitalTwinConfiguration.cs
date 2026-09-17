@@ -1,6 +1,6 @@
-using DigitalTwin.Api.Domain;
-using DigitalTwin.Api.Domain.Enums;
-using DigitalTwin.Api.Domain.ValueObjects;
+using DigitalTwin.Domain;
+using DigitalTwin.Domain.Enums;
+using DigitalTwin.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

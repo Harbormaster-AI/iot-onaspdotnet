@@ -1,7 +1,5 @@
 using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
-using iotonaspdotnet.Persistence.FirmwareReleases;
-using iotonaspdotnet.Persistence.DeviceGroups;
 
 namespace iotonaspdotnet.Service;
 

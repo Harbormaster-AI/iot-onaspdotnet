@@ -1,6 +1,6 @@
-using Room.Api.Domain;
-using Room.Api.Domain.Enums;
-using Room.Api.Domain.ValueObjects;
+using Room.Domain;
+using Room.Domain.Enums;
+using Room.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

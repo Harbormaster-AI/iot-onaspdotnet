@@ -1,6 +1,6 @@
-using DeviceCertificate.Api.Domain;
-using DeviceCertificate.Api.Domain.Enums;
-using DeviceCertificate.Api.Domain.ValueObjects;
+using DeviceCertificate.Domain;
+using DeviceCertificate.Domain.Enums;
+using DeviceCertificate.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

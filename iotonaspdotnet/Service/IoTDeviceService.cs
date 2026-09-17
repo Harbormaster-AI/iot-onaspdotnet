@@ -1,12 +1,5 @@
 using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
-using iotonaspdotnet.Persistence.DeviceModels;
-using iotonaspdotnet.Persistence.Tenants;
-using iotonaspdotnet.Persistence.Sites;
-using iotonaspdotnet.Persistence.Rooms;
-using iotonaspdotnet.Persistence.Gateways;
-using iotonaspdotnet.Persistence.DigitalTwins;
-using iotonaspdotnet.Persistence.ProvisioningRecords;
 
 namespace iotonaspdotnet.Service;
 

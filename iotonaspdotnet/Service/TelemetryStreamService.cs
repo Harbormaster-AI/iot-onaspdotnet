@@ -1,10 +1,5 @@
 using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
-using iotonaspdotnet.Persistence.IoTDevices;
-using iotonaspdotnet.Persistence.SensorInstances;
-using iotonaspdotnet.Persistence.TelemetrySchemas;
-using iotonaspdotnet.Persistence.MessagingEndpoints;
-using iotonaspdotnet.Persistence.DataRetentionPolicys;
 
 namespace iotonaspdotnet.Service;
 

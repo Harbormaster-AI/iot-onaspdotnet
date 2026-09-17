@@ -1,6 +1,6 @@
-using MaintenanceTicket.Api.Domain;
-using MaintenanceTicket.Api.Domain.Enums;
-using MaintenanceTicket.Api.Domain.ValueObjects;
+using MaintenanceTicket.Domain;
+using MaintenanceTicket.Domain.Enums;
+using MaintenanceTicket.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

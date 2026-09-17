@@ -1,7 +1,5 @@
 using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
-using iotonaspdotnet.Persistence.DeviceVendors;
-using iotonaspdotnet.Persistence.TwinTemplates;
 
 namespace iotonaspdotnet.Service;
 

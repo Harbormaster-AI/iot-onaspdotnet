@@ -1,6 +1,6 @@
-using DeviceGroup.Api.Domain;
-using DeviceGroup.Api.Domain.Enums;
-using DeviceGroup.Api.Domain.ValueObjects;
+using DeviceGroup.Domain;
+using DeviceGroup.Domain.Enums;
+using DeviceGroup.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

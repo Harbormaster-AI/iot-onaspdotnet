@@ -1,6 +1,6 @@
-using HardwareModule.Api.Domain;
-using HardwareModule.Api.Domain.Enums;
-using HardwareModule.Api.Domain.ValueObjects;
+using HardwareModule.Domain;
+using HardwareModule.Domain.Enums;
+using HardwareModule.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

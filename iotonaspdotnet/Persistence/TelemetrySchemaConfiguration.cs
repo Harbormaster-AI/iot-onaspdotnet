@@ -1,6 +1,6 @@
-using TelemetrySchema.Api.Domain;
-using TelemetrySchema.Api.Domain.Enums;
-using TelemetrySchema.Api.Domain.ValueObjects;
+using TelemetrySchema.Domain;
+using TelemetrySchema.Domain.Enums;
+using TelemetrySchema.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

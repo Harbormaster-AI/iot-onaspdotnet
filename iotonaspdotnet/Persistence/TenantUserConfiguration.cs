@@ -1,6 +1,6 @@
-using TenantUser.Api.Domain;
-using TenantUser.Api.Domain.Enums;
-using TenantUser.Api.Domain.ValueObjects;
+using TenantUser.Domain;
+using TenantUser.Domain.Enums;
+using TenantUser.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

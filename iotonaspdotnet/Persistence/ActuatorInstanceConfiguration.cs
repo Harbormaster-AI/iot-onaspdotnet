@@ -1,6 +1,6 @@
-using ActuatorInstance.Api.Domain;
-using ActuatorInstance.Api.Domain.Enums;
-using ActuatorInstance.Api.Domain.ValueObjects;
+using ActuatorInstance.Domain;
+using ActuatorInstance.Domain.Enums;
+using ActuatorInstance.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

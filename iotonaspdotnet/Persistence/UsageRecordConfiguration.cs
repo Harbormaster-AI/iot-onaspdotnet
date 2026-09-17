@@ -1,6 +1,6 @@
-using UsageRecord.Api.Domain;
-using UsageRecord.Api.Domain.Enums;
-using UsageRecord.Api.Domain.ValueObjects;
+using UsageRecord.Domain;
+using UsageRecord.Domain.Enums;
+using UsageRecord.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

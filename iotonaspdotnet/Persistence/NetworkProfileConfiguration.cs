@@ -1,6 +1,6 @@
-using NetworkProfile.Api.Domain;
-using NetworkProfile.Api.Domain.Enums;
-using NetworkProfile.Api.Domain.ValueObjects;
+using NetworkProfile.Domain;
+using NetworkProfile.Domain.Enums;
+using NetworkProfile.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

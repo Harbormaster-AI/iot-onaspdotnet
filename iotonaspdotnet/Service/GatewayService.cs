@@ -1,8 +1,5 @@
 using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
-using iotonaspdotnet.Persistence.Sites;
-using iotonaspdotnet.Persistence.Rooms;
-using iotonaspdotnet.Persistence.DigitalTwins;
 
 namespace iotonaspdotnet.Service;
 

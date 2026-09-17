@@ -1,6 +1,6 @@
-using FirmwareRelease.Api.Domain;
-using FirmwareRelease.Api.Domain.Enums;
-using FirmwareRelease.Api.Domain.ValueObjects;
+using FirmwareRelease.Domain;
+using FirmwareRelease.Domain.Enums;
+using FirmwareRelease.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

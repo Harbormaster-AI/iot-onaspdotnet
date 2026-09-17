@@ -1,6 +1,6 @@
-using SimCard.Api.Domain;
-using SimCard.Api.Domain.Enums;
-using SimCard.Api.Domain.ValueObjects;
+using SimCard.Domain;
+using SimCard.Domain.Enums;
+using SimCard.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
