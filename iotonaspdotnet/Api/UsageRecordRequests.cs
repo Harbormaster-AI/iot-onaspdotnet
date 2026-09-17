@@ -1,5 +1,5 @@
 namespace iotonaspdotnet.Api.UsageRecord;
 
-public record CreateUsageRecordRequest(string UsageRecordNumber, decimal Balance , , , Guid TenantIdGuid IoTDeviceIdGuid ConnectivityPlanId);
-public record UpdateUsageRecordRequest(string UsageRecordNumber, decimal Balance , , , Guid TenantIdGuid IoTDeviceIdGuid ConnectivityPlanId);
-public record UsageRecordResponse(Guid Id, string UsageRecordNumber, decimal Balance , , , Guid TenantIdGuid IoTDeviceIdGuid ConnectivityPlanId);
+public record CreateUsageRecordRequest(string UsageRecordNumber, decimal Balance, Guid TenantId, Guid IoTDeviceId, Guid ConnectivityPlanId);
+public record UpdateUsageRecordRequest(string UsageRecordNumber, decimal Balance, Guid TenantId, Guid IoTDeviceId, Guid ConnectivityPlanId);
+public record UsageRecordResponse(Guid Id, string UsageRecordNumber, decimal Balance, Guid TenantId, Guid IoTDeviceId, Guid ConnectivityPlanId);
