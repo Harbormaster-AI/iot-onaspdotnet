@@ -7,11 +7,11 @@ public class AccessPolicy
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
-public virtual long accesspolicyId { get; set; }
- public virtual string name { get; set; }
- public virtual string scope { get; set; }
- public virtual DateTime expiresAt { get; set; }
-public virtual Tenant Tenant { get; set; }
-public virtual ApiKey ApiKeys { get; set; }
-public virtual TenantUser Users { get; set; }
+#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
+#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
+#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
+#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
+#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
+#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
+#getAttributeDeclaration( $attribute $forceDeclarePublic $autoGenPKs )
 }
