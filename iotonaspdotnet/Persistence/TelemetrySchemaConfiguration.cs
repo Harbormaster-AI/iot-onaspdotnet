@@ -1,10 +1,10 @@
-using TelemetrySchema.Domain;
-using TelemetrySchema.Domain.Enums;
-using TelemetrySchema.Domain.ValueObjects;
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Domain.Enums;
+using iotonaspdotnet.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace TelemetrySchema.Persistence;
+namespace iotonaspdotnet.Persistence;
 
 public class TelemetrySchemaConfiguration : IEntityTypeConfiguration<TelemetrySchema>
 {

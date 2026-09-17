@@ -1,10 +1,10 @@
-using MaintenanceTicket.Domain;
-using MaintenanceTicket.Domain.Enums;
-using MaintenanceTicket.Domain.ValueObjects;
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Domain.Enums;
+using iotonaspdotnet.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace MaintenanceTicket.Persistence;
+namespace iotonaspdotnet.Persistence;
 
 public class MaintenanceTicketConfiguration : IEntityTypeConfiguration<MaintenanceTicket>
 {

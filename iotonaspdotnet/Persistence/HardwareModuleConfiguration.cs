@@ -1,10 +1,10 @@
-using HardwareModule.Domain;
-using HardwareModule.Domain.Enums;
-using HardwareModule.Domain.ValueObjects;
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Domain.Enums;
+using iotonaspdotnet.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace HardwareModule.Persistence;
+namespace iotonaspdotnet.Persistence;
 
 public class HardwareModuleConfiguration : IEntityTypeConfiguration<HardwareModule>
 {

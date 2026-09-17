@@ -1,10 +1,10 @@
-using TwinChangeEvent.Domain;
-using TwinChangeEvent.Domain.Enums;
-using TwinChangeEvent.Domain.ValueObjects;
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Domain.Enums;
+using iotonaspdotnet.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace TwinChangeEvent.Persistence;
+namespace iotonaspdotnet.Persistence;
 
 public class TwinChangeEventConfiguration : IEntityTypeConfiguration<TwinChangeEvent>
 {

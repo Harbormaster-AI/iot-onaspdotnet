@@ -1,4 +1,4 @@
-namespace iotonaspdotnet.Api.DeviceGroup;
+namespace iotonaspdotnet.Api;
 
 public record CreateDeviceGroupRequest(string DeviceGroupNumber, decimal Balance, Guid TenantId);
 public record UpdateDeviceGroupRequest(string DeviceGroupNumber, decimal Balance, Guid TenantId);

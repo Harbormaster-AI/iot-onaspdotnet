@@ -1,10 +1,10 @@
-using SimCard.Domain;
-using SimCard.Domain.Enums;
-using SimCard.Domain.ValueObjects;
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Domain.Enums;
+using iotonaspdotnet.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace SimCard.Persistence;
+namespace iotonaspdotnet.Persistence;
 
 public class SimCardConfiguration : IEntityTypeConfiguration<SimCard>
 {

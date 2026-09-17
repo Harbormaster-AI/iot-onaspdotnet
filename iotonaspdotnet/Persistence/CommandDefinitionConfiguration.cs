@@ -1,10 +1,10 @@
-using CommandDefinition.Domain;
-using CommandDefinition.Domain.Enums;
-using CommandDefinition.Domain.ValueObjects;
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Domain.Enums;
+using iotonaspdotnet.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CommandDefinition.Persistence;
+namespace iotonaspdotnet.Persistence;
 
 public class CommandDefinitionConfiguration : IEntityTypeConfiguration<CommandDefinition>
 {

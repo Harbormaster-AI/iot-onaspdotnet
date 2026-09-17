@@ -1,10 +1,10 @@
-using Room.Domain;
-using Room.Domain.Enums;
-using Room.Domain.ValueObjects;
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Domain.Enums;
+using iotonaspdotnet.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Room.Persistence;
+namespace iotonaspdotnet.Persistence;
 
 public class RoomConfiguration : IEntityTypeConfiguration<Room>
 {

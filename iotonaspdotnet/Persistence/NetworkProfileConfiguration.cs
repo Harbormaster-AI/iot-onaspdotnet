@@ -1,10 +1,10 @@
-using NetworkProfile.Domain;
-using NetworkProfile.Domain.Enums;
-using NetworkProfile.Domain.ValueObjects;
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Domain.Enums;
+using iotonaspdotnet.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace NetworkProfile.Persistence;
+namespace iotonaspdotnet.Persistence;
 
 public class NetworkProfileConfiguration : IEntityTypeConfiguration<NetworkProfile>
 {

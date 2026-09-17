@@ -1,4 +1,4 @@
-namespace iotonaspdotnet.Api.Building;
+namespace iotonaspdotnet.Api;
 
 public record CreateBuildingRequest(string BuildingNumber, decimal Balance, Guid SiteId);
 public record UpdateBuildingRequest(string BuildingNumber, decimal Balance, Guid SiteId);

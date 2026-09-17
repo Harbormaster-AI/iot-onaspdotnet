@@ -1,10 +1,10 @@
-using TwinTemplate.Domain;
-using TwinTemplate.Domain.Enums;
-using TwinTemplate.Domain.ValueObjects;
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Domain.Enums;
+using iotonaspdotnet.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace TwinTemplate.Persistence;
+namespace iotonaspdotnet.Persistence;
 
 public class TwinTemplateConfiguration : IEntityTypeConfiguration<TwinTemplate>
 {

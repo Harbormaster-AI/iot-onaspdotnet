@@ -1,4 +1,4 @@
-namespace iotonaspdotnet.Api.EdgeApplication;
+namespace iotonaspdotnet.Api;
 
 public record CreateEdgeApplicationRequest(string EdgeApplicationNumber, decimal Balance, Guid GatewayId);
 public record UpdateEdgeApplicationRequest(string EdgeApplicationNumber, decimal Balance, Guid GatewayId);

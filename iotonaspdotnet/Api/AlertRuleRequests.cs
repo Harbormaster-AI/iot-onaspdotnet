@@ -1,4 +1,4 @@
-namespace iotonaspdotnet.Api.AlertRule;
+namespace iotonaspdotnet.Api;
 
 public record CreateAlertRuleRequest(string AlertRuleNumber, decimal Balance, Guid TenantId);
 public record UpdateAlertRuleRequest(string AlertRuleNumber, decimal Balance, Guid TenantId);

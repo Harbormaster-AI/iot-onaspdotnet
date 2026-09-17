@@ -1,10 +1,10 @@
-using Gateway.Domain;
-using Gateway.Domain.Enums;
-using Gateway.Domain.ValueObjects;
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Domain.Enums;
+using iotonaspdotnet.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Gateway.Persistence;
+namespace iotonaspdotnet.Persistence;
 
 public class GatewayConfiguration : IEntityTypeConfiguration<Gateway>
 {

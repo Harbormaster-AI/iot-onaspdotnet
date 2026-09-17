@@ -1,10 +1,10 @@
-using MessagingEndpoint.Domain;
-using MessagingEndpoint.Domain.Enums;
-using MessagingEndpoint.Domain.ValueObjects;
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Domain.Enums;
+using iotonaspdotnet.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace MessagingEndpoint.Persistence;
+namespace iotonaspdotnet.Persistence;
 
 public class MessagingEndpointConfiguration : IEntityTypeConfiguration<MessagingEndpoint>
 {

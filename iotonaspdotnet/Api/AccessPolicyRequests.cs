@@ -1,4 +1,4 @@
-namespace iotonaspdotnet.Api.AccessPolicy;
+namespace iotonaspdotnet.Api;
 
 public record CreateAccessPolicyRequest(string AccessPolicyNumber, decimal Balance, Guid TenantId);
 public record UpdateAccessPolicyRequest(string AccessPolicyNumber, decimal Balance, Guid TenantId);

@@ -1,10 +1,10 @@
-using IoTDevice.Domain;
-using IoTDevice.Domain.Enums;
-using IoTDevice.Domain.ValueObjects;
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Domain.Enums;
+using iotonaspdotnet.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace IoTDevice.Persistence;
+namespace iotonaspdotnet.Persistence;
 
 public class IoTDeviceConfiguration : IEntityTypeConfiguration<IoTDevice>
 {

@@ -1,4 +1,4 @@
-namespace iotonaspdotnet.Api.FirmwareRelease;
+namespace iotonaspdotnet.Api;
 
 public record CreateFirmwareReleaseRequest(string FirmwareReleaseNumber, decimal Balance, Guid DeviceModelId);
 public record UpdateFirmwareReleaseRequest(string FirmwareReleaseNumber, decimal Balance, Guid DeviceModelId);

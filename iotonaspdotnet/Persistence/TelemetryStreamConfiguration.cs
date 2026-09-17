@@ -1,10 +1,10 @@
-using TelemetryStream.Domain;
-using TelemetryStream.Domain.Enums;
-using TelemetryStream.Domain.ValueObjects;
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Domain.Enums;
+using iotonaspdotnet.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace TelemetryStream.Persistence;
+namespace iotonaspdotnet.Persistence;
 
 public class TelemetryStreamConfiguration : IEntityTypeConfiguration<TelemetryStream>
 {

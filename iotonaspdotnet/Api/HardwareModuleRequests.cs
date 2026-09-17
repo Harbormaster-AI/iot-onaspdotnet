@@ -1,4 +1,4 @@
-namespace iotonaspdotnet.Api.HardwareModule;
+namespace iotonaspdotnet.Api;
 
 public record CreateHardwareModuleRequest(string HardwareModuleNumber, decimal Balance, Guid DeviceVendorId);
 public record UpdateHardwareModuleRequest(string HardwareModuleNumber, decimal Balance, Guid DeviceVendorId);

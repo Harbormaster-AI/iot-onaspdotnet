@@ -1,10 +1,10 @@
-using AccessPolicy.Domain;
-using AccessPolicy.Domain.Enums;
-using AccessPolicy.Domain.ValueObjects;
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Domain.Enums;
+using iotonaspdotnet.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AccessPolicy.Persistence;
+namespace iotonaspdotnet.Persistence;
 
 public class AccessPolicyConfiguration : IEntityTypeConfiguration<AccessPolicy>
 {

@@ -1,4 +1,4 @@
-namespace iotonaspdotnet.Api.DeviceVendor;
+namespace iotonaspdotnet.Api;
 
 public record CreateDeviceVendorRequest(string DeviceVendorNumber, decimal Balance);
 public record UpdateDeviceVendorRequest(string DeviceVendorNumber, decimal Balance);

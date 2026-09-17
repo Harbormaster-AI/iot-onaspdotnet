@@ -1,4 +1,4 @@
-namespace iotonaspdotnet.Api.SoftwareUpdateCampaign;
+namespace iotonaspdotnet.Api;
 
 public record CreateSoftwareUpdateCampaignRequest(string SoftwareUpdateCampaignNumber, decimal Balance, Guid FirmwareReleaseId, Guid DeviceGroupId);
 public record UpdateSoftwareUpdateCampaignRequest(string SoftwareUpdateCampaignNumber, decimal Balance, Guid FirmwareReleaseId, Guid DeviceGroupId);

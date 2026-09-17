@@ -1,10 +1,10 @@
-using Tenant.Domain;
-using Tenant.Domain.Enums;
-using Tenant.Domain.ValueObjects;
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Domain.Enums;
+using iotonaspdotnet.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Tenant.Persistence;
+namespace iotonaspdotnet.Persistence;
 
 public class TenantConfiguration : IEntityTypeConfiguration<Tenant>
 {

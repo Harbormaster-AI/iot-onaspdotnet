@@ -1,4 +1,4 @@
-namespace iotonaspdotnet.Api.DeviceCertificate;
+namespace iotonaspdotnet.Api;
 
 public record CreateDeviceCertificateRequest(string DeviceCertificateNumber, decimal Balance, Guid IoTDeviceId, Guid GatewayId);
 public record UpdateDeviceCertificateRequest(string DeviceCertificateNumber, decimal Balance, Guid IoTDeviceId, Guid GatewayId);

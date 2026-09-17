@@ -1,4 +1,4 @@
-namespace iotonaspdotnet.Api.DigitalTwin;
+namespace iotonaspdotnet.Api;
 
 public record CreateDigitalTwinRequest(string DigitalTwinNumber, decimal Balance, Guid IoTDeviceId, Guid GatewayId, Guid TwinTemplateId);
 public record UpdateDigitalTwinRequest(string DigitalTwinNumber, decimal Balance, Guid IoTDeviceId, Guid GatewayId, Guid TwinTemplateId);

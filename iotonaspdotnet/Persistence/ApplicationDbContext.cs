@@ -39,7 +39,7 @@
             
 using Microsoft.EntityFrameworkCore;
 
-namespace iotonaspdotnet.Api.Persistence;
+namespace iotonaspdotnet.Persistence;
 
 public class ApplicationDbContext : DbContext
 {

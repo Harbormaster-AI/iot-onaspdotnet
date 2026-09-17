@@ -1,10 +1,10 @@
-using CommandInvocation.Domain;
-using CommandInvocation.Domain.Enums;
-using CommandInvocation.Domain.ValueObjects;
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Domain.Enums;
+using iotonaspdotnet.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CommandInvocation.Persistence;
+namespace iotonaspdotnet.Persistence;
 
 public class CommandInvocationConfiguration : IEntityTypeConfiguration<CommandInvocation>
 {

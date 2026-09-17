@@ -1,10 +1,10 @@
-using ProvisioningRecord.Domain;
-using ProvisioningRecord.Domain.Enums;
-using ProvisioningRecord.Domain.ValueObjects;
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Domain.Enums;
+using iotonaspdotnet.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ProvisioningRecord.Persistence;
+namespace iotonaspdotnet.Persistence;
 
 public class ProvisioningRecordConfiguration : IEntityTypeConfiguration<ProvisioningRecord>
 {

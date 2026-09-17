@@ -1,10 +1,10 @@
-using EdgeApplication.Domain;
-using EdgeApplication.Domain.Enums;
-using EdgeApplication.Domain.ValueObjects;
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Domain.Enums;
+using iotonaspdotnet.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace EdgeApplication.Persistence;
+namespace iotonaspdotnet.Persistence;
 
 public class EdgeApplicationConfiguration : IEntityTypeConfiguration<EdgeApplication>
 {

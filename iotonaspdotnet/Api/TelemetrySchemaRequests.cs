@@ -1,4 +1,4 @@
-namespace iotonaspdotnet.Api.TelemetrySchema;
+namespace iotonaspdotnet.Api;
 
 public record CreateTelemetrySchemaRequest(string TelemetrySchemaNumber, decimal Balance);
 public record UpdateTelemetrySchemaRequest(string TelemetrySchemaNumber, decimal Balance);

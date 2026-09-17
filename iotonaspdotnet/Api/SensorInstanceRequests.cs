@@ -1,4 +1,4 @@
-namespace iotonaspdotnet.Api.SensorInstance;
+namespace iotonaspdotnet.Api;
 
 public record CreateSensorInstanceRequest(string SensorInstanceNumber, decimal Balance, Guid IoTDeviceId);
 public record UpdateSensorInstanceRequest(string SensorInstanceNumber, decimal Balance, Guid IoTDeviceId);

@@ -1,10 +1,10 @@
-using ConnectivityPlan.Domain;
-using ConnectivityPlan.Domain.Enums;
-using ConnectivityPlan.Domain.ValueObjects;
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Domain.Enums;
+using iotonaspdotnet.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ConnectivityPlan.Persistence;
+namespace iotonaspdotnet.Persistence;
 
 public class ConnectivityPlanConfiguration : IEntityTypeConfiguration<ConnectivityPlan>
 {

@@ -1,10 +1,10 @@
-using Site.Domain;
-using Site.Domain.Enums;
-using Site.Domain.ValueObjects;
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Domain.Enums;
+using iotonaspdotnet.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Site.Persistence;
+namespace iotonaspdotnet.Persistence;
 
 public class SiteConfiguration : IEntityTypeConfiguration<Site>
 {

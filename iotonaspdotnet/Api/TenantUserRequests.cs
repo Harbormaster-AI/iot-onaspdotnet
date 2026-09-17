@@ -1,4 +1,4 @@
-namespace iotonaspdotnet.Api.TenantUser;
+namespace iotonaspdotnet.Api;
 
 public record CreateTenantUserRequest(string TenantUserNumber, decimal Balance, Guid TenantId);
 public record UpdateTenantUserRequest(string TenantUserNumber, decimal Balance, Guid TenantId);

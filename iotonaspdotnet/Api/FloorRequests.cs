@@ -1,4 +1,4 @@
-namespace iotonaspdotnet.Api.Floor;
+namespace iotonaspdotnet.Api;
 
 public record CreateFloorRequest(string FloorNumber, decimal Balance, Guid BuildingId);
 public record UpdateFloorRequest(string FloorNumber, decimal Balance, Guid BuildingId);

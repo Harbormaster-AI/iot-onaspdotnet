@@ -1,10 +1,10 @@
-using SoftwareUpdateCampaign.Domain;
-using SoftwareUpdateCampaign.Domain.Enums;
-using SoftwareUpdateCampaign.Domain.ValueObjects;
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Domain.Enums;
+using iotonaspdotnet.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace SoftwareUpdateCampaign.Persistence;
+namespace iotonaspdotnet.Persistence;
 
 public class SoftwareUpdateCampaignConfiguration : IEntityTypeConfiguration<SoftwareUpdateCampaign>
 {

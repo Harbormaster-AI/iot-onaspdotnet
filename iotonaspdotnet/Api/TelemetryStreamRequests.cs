@@ -1,4 +1,4 @@
-namespace iotonaspdotnet.Api.TelemetryStream;
+namespace iotonaspdotnet.Api;
 
 public record CreateTelemetryStreamRequest(string TelemetryStreamNumber, decimal Balance, Guid IoTDeviceId, Guid SensorInstanceId, Guid TelemetrySchemaId, Guid MessagingEndpointId, Guid DataRetentionPolicyId);
 public record UpdateTelemetryStreamRequest(string TelemetryStreamNumber, decimal Balance, Guid IoTDeviceId, Guid SensorInstanceId, Guid TelemetrySchemaId, Guid MessagingEndpointId, Guid DataRetentionPolicyId);

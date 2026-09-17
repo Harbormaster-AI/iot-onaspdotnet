@@ -1,10 +1,10 @@
-using DigitalTwin.Domain;
-using DigitalTwin.Domain.Enums;
-using DigitalTwin.Domain.ValueObjects;
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Domain.Enums;
+using iotonaspdotnet.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DigitalTwin.Persistence;
+namespace iotonaspdotnet.Persistence;
 
 public class DigitalTwinConfiguration : IEntityTypeConfiguration<DigitalTwin>
 {

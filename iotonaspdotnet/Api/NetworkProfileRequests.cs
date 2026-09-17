@@ -1,4 +1,4 @@
-namespace iotonaspdotnet.Api.NetworkProfile;
+namespace iotonaspdotnet.Api;
 
 public record CreateNetworkProfileRequest(string NetworkProfileNumber, decimal Balance, Guid IoTDeviceId, Guid GatewayId, Guid SimCardId);
 public record UpdateNetworkProfileRequest(string NetworkProfileNumber, decimal Balance, Guid IoTDeviceId, Guid GatewayId, Guid SimCardId);

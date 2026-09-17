@@ -1,10 +1,10 @@
-using Floor.Domain;
-using Floor.Domain.Enums;
-using Floor.Domain.ValueObjects;
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Domain.Enums;
+using iotonaspdotnet.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Floor.Persistence;
+namespace iotonaspdotnet.Persistence;
 
 public class FloorConfiguration : IEntityTypeConfiguration<Floor>
 {

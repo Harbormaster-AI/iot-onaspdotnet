@@ -1,10 +1,10 @@
-using FirmwareRelease.Domain;
-using FirmwareRelease.Domain.Enums;
-using FirmwareRelease.Domain.ValueObjects;
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Domain.Enums;
+using iotonaspdotnet.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace FirmwareRelease.Persistence;
+namespace iotonaspdotnet.Persistence;
 
 public class FirmwareReleaseConfiguration : IEntityTypeConfiguration<FirmwareRelease>
 {

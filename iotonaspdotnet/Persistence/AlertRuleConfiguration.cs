@@ -1,10 +1,10 @@
-using AlertRule.Domain;
-using AlertRule.Domain.Enums;
-using AlertRule.Domain.ValueObjects;
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Domain.Enums;
+using iotonaspdotnet.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AlertRule.Persistence;
+namespace iotonaspdotnet.Persistence;
 
 public class AlertRuleConfiguration : IEntityTypeConfiguration<AlertRule>
 {

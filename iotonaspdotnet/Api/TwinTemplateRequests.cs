@@ -1,4 +1,4 @@
-namespace iotonaspdotnet.Api.TwinTemplate;
+namespace iotonaspdotnet.Api;
 
 public record CreateTwinTemplateRequest(string TwinTemplateNumber, decimal Balance);
 public record UpdateTwinTemplateRequest(string TwinTemplateNumber, decimal Balance);

@@ -1,4 +1,4 @@
-namespace iotonaspdotnet.Api.SoftwareUpdateExecution;
+namespace iotonaspdotnet.Api;
 
 public record CreateSoftwareUpdateExecutionRequest(string SoftwareUpdateExecutionNumber, decimal Balance, Guid SoftwareUpdateCampaignId, Guid IoTDeviceId);
 public record UpdateSoftwareUpdateExecutionRequest(string SoftwareUpdateExecutionNumber, decimal Balance, Guid SoftwareUpdateCampaignId, Guid IoTDeviceId);

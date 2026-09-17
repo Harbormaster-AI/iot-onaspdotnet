@@ -1,10 +1,10 @@
-using DeviceVendor.Domain;
-using DeviceVendor.Domain.Enums;
-using DeviceVendor.Domain.ValueObjects;
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Domain.Enums;
+using iotonaspdotnet.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DeviceVendor.Persistence;
+namespace iotonaspdotnet.Persistence;
 
 public class DeviceVendorConfiguration : IEntityTypeConfiguration<DeviceVendor>
 {

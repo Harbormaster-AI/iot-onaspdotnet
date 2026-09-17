@@ -1,10 +1,10 @@
-using Building.Domain;
-using Building.Domain.Enums;
-using Building.Domain.ValueObjects;
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Domain.Enums;
+using iotonaspdotnet.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Building.Persistence;
+namespace iotonaspdotnet.Persistence;
 
 public class BuildingConfiguration : IEntityTypeConfiguration<Building>
 {

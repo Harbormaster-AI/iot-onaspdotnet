@@ -1,10 +1,10 @@
-using ActuatorInstance.Domain;
-using ActuatorInstance.Domain.Enums;
-using ActuatorInstance.Domain.ValueObjects;
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Domain.Enums;
+using iotonaspdotnet.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ActuatorInstance.Persistence;
+namespace iotonaspdotnet.Persistence;
 
 public class ActuatorInstanceConfiguration : IEntityTypeConfiguration<ActuatorInstance>
 {

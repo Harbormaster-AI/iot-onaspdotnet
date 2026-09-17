@@ -1,4 +1,4 @@
-namespace iotonaspdotnet.Api.CommandInvocation;
+namespace iotonaspdotnet.Api;
 
 public record CreateCommandInvocationRequest(string CommandInvocationNumber, decimal Balance, Guid IoTDeviceId, Guid CommandDefinitionId, Guid ActuatorInstanceId, Guid TenantUserId);
 public record UpdateCommandInvocationRequest(string CommandInvocationNumber, decimal Balance, Guid IoTDeviceId, Guid CommandDefinitionId, Guid ActuatorInstanceId, Guid TenantUserId);

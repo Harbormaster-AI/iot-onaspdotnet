@@ -1,10 +1,10 @@
-using UsageRecord.Domain;
-using UsageRecord.Domain.Enums;
-using UsageRecord.Domain.ValueObjects;
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Domain.Enums;
+using iotonaspdotnet.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace UsageRecord.Persistence;
+namespace iotonaspdotnet.Persistence;
 
 public class UsageRecordConfiguration : IEntityTypeConfiguration<UsageRecord>
 {

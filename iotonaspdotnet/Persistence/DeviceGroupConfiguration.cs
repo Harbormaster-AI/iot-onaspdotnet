@@ -1,10 +1,10 @@
-using DeviceGroup.Domain;
-using DeviceGroup.Domain.Enums;
-using DeviceGroup.Domain.ValueObjects;
+using iotonaspdotnet.Domain;
+using iotonaspdotnet.Domain.Enums;
+using iotonaspdotnet.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DeviceGroup.Persistence;
+namespace iotonaspdotnet.Persistence;
 
 public class DeviceGroupConfiguration : IEntityTypeConfiguration<DeviceGroup>
 {
