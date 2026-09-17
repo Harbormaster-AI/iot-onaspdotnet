@@ -42,28 +42,28 @@ public class CommandInvocationService : ICommandInvocationService
 
     public async Task CreateAsync(CommandInvocation commandInvocation, CancellationToken cancellationToken)
     {
-        var ioTDevice.Device = await _ioTDevices.GetByIdAsync(commandInvocation.Id, cancellationToken)
+        var ioTDevice = await _ioTDevices.GetByIdAsync(commandInvocation.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
         if (ioTDevice.Device is not null)
         {
             throw new InvalidOperationException("IoTDevice already has a(n) commandInvocation (1:1 relationship).");
         }
-        var commandDefinition.CommandDefinition = await _commandDefinitions.GetByIdAsync(commandInvocation.Id, cancellationToken)
+        var commandDefinition = await _commandDefinitions.GetByIdAsync(commandInvocation.Id, cancellationToken)
             ?? throw new InvalidOperationException("CommandDefinition not found.");
 
         if (commandDefinition.CommandDefinition is not null)
         {
             throw new InvalidOperationException("CommandDefinition already has a(n) commandInvocation (1:1 relationship).");
         }
-        var actuatorInstance.Actuator = await _actuatorInstances.GetByIdAsync(commandInvocation.Id, cancellationToken)
+        var actuatorInstance = await _actuatorInstances.GetByIdAsync(commandInvocation.Id, cancellationToken)
             ?? throw new InvalidOperationException("ActuatorInstance not found.");
 
         if (actuatorInstance.Actuator is not null)
         {
             throw new InvalidOperationException("ActuatorInstance already has a(n) commandInvocation (1:1 relationship).");
         }
-        var tenantUser.User = await _tenantUsers.GetByIdAsync(commandInvocation.Id, cancellationToken)
+        var tenantUser = await _tenantUsers.GetByIdAsync(commandInvocation.Id, cancellationToken)
             ?? throw new InvalidOperationException("TenantUser not found.");
 
         if (tenantUser.User is not null)

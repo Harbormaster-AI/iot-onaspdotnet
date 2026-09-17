@@ -33,7 +33,7 @@ public class TwinChangeEventService : ITwinChangeEventService
 
     public async Task CreateAsync(TwinChangeEvent twinChangeEvent, CancellationToken cancellationToken)
     {
-        var digitalTwin.Twin = await _digitalTwins.GetByIdAsync(twinChangeEvent.Id, cancellationToken)
+        var digitalTwin = await _digitalTwins.GetByIdAsync(twinChangeEvent.Id, cancellationToken)
             ?? throw new InvalidOperationException("DigitalTwin not found.");
 
         if (digitalTwin.Twin is not null)

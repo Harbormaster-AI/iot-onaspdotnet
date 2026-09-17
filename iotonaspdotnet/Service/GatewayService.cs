@@ -39,21 +39,21 @@ public class GatewayService : IGatewayService
 
     public async Task CreateAsync(Gateway gateway, CancellationToken cancellationToken)
     {
-        var site.Site = await _sites.GetByIdAsync(gateway.Id, cancellationToken)
+        var site = await _sites.GetByIdAsync(gateway.Id, cancellationToken)
             ?? throw new InvalidOperationException("Site not found.");
 
         if (site.Site is not null)
         {
             throw new InvalidOperationException("Site already has a(n) gateway (1:1 relationship).");
         }
-        var room.Room = await _rooms.GetByIdAsync(gateway.Id, cancellationToken)
+        var room = await _rooms.GetByIdAsync(gateway.Id, cancellationToken)
             ?? throw new InvalidOperationException("Room not found.");
 
         if (room.Room is not null)
         {
             throw new InvalidOperationException("Room already has a(n) gateway (1:1 relationship).");
         }
-        var digitalTwin.DigitalTwin = await _digitalTwins.GetByIdAsync(gateway.Id, cancellationToken)
+        var digitalTwin = await _digitalTwins.GetByIdAsync(gateway.Id, cancellationToken)
             ?? throw new InvalidOperationException("DigitalTwin not found.");
 
         if (digitalTwin.DigitalTwin is not null)

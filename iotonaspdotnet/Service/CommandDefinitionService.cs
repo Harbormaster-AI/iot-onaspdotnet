@@ -33,7 +33,7 @@ public class CommandDefinitionService : ICommandDefinitionService
 
     public async Task CreateAsync(CommandDefinition commandDefinition, CancellationToken cancellationToken)
     {
-        var deviceModel.DeviceModel = await _deviceModels.GetByIdAsync(commandDefinition.Id, cancellationToken)
+        var deviceModel = await _deviceModels.GetByIdAsync(commandDefinition.Id, cancellationToken)
             ?? throw new InvalidOperationException("DeviceModel not found.");
 
         if (deviceModel.DeviceModel is not null)

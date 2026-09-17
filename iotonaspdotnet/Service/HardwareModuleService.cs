@@ -33,7 +33,7 @@ public class HardwareModuleService : IHardwareModuleService
 
     public async Task CreateAsync(HardwareModule hardwareModule, CancellationToken cancellationToken)
     {
-        var deviceVendor.Vendor = await _deviceVendors.GetByIdAsync(hardwareModule.Id, cancellationToken)
+        var deviceVendor = await _deviceVendors.GetByIdAsync(hardwareModule.Id, cancellationToken)
             ?? throw new InvalidOperationException("DeviceVendor not found.");
 
         if (deviceVendor.Vendor is not null)

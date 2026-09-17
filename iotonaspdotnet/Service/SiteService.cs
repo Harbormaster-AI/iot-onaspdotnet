@@ -33,7 +33,7 @@ public class SiteService : ISiteService
 
     public async Task CreateAsync(Site site, CancellationToken cancellationToken)
     {
-        var tenant.Tenant = await _tenants.GetByIdAsync(site.Id, cancellationToken)
+        var tenant = await _tenants.GetByIdAsync(site.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
         if (tenant.Tenant is not null)

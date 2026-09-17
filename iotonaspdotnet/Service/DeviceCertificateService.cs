@@ -36,14 +36,14 @@ public class DeviceCertificateService : IDeviceCertificateService
 
     public async Task CreateAsync(DeviceCertificate deviceCertificate, CancellationToken cancellationToken)
     {
-        var ioTDevice.Device = await _ioTDevices.GetByIdAsync(deviceCertificate.Id, cancellationToken)
+        var ioTDevice = await _ioTDevices.GetByIdAsync(deviceCertificate.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
         if (ioTDevice.Device is not null)
         {
             throw new InvalidOperationException("IoTDevice already has a(n) deviceCertificate (1:1 relationship).");
         }
-        var gateway.Gateway = await _gateways.GetByIdAsync(deviceCertificate.Id, cancellationToken)
+        var gateway = await _gateways.GetByIdAsync(deviceCertificate.Id, cancellationToken)
             ?? throw new InvalidOperationException("Gateway not found.");
 
         if (gateway.Gateway is not null)

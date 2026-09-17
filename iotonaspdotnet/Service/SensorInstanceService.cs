@@ -33,7 +33,7 @@ public class SensorInstanceService : ISensorInstanceService
 
     public async Task CreateAsync(SensorInstance sensorInstance, CancellationToken cancellationToken)
     {
-        var ioTDevice.Device = await _ioTDevices.GetByIdAsync(sensorInstance.Id, cancellationToken)
+        var ioTDevice = await _ioTDevices.GetByIdAsync(sensorInstance.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
         if (ioTDevice.Device is not null)

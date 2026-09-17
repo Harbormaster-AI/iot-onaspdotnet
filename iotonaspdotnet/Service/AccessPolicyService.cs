@@ -33,7 +33,7 @@ public class AccessPolicyService : IAccessPolicyService
 
     public async Task CreateAsync(AccessPolicy accessPolicy, CancellationToken cancellationToken)
     {
-        var tenant.Tenant = await _tenants.GetByIdAsync(accessPolicy.Id, cancellationToken)
+        var tenant = await _tenants.GetByIdAsync(accessPolicy.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
         if (tenant.Tenant is not null)

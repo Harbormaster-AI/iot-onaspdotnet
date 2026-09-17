@@ -33,7 +33,7 @@ public class EdgeApplicationService : IEdgeApplicationService
 
     public async Task CreateAsync(EdgeApplication edgeApplication, CancellationToken cancellationToken)
     {
-        var gateway.Gateway = await _gateways.GetByIdAsync(edgeApplication.Id, cancellationToken)
+        var gateway = await _gateways.GetByIdAsync(edgeApplication.Id, cancellationToken)
             ?? throw new InvalidOperationException("Gateway not found.");
 
         if (gateway.Gateway is not null)

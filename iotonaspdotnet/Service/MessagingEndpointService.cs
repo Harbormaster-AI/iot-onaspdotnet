@@ -33,7 +33,7 @@ public class MessagingEndpointService : IMessagingEndpointService
 
     public async Task CreateAsync(MessagingEndpoint messagingEndpoint, CancellationToken cancellationToken)
     {
-        var tenant.Tenant = await _tenants.GetByIdAsync(messagingEndpoint.Id, cancellationToken)
+        var tenant = await _tenants.GetByIdAsync(messagingEndpoint.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
         if (tenant.Tenant is not null)

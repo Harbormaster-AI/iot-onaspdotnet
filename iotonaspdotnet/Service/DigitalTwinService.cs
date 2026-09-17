@@ -39,21 +39,21 @@ public class DigitalTwinService : IDigitalTwinService
 
     public async Task CreateAsync(DigitalTwin digitalTwin, CancellationToken cancellationToken)
     {
-        var ioTDevice.Device = await _ioTDevices.GetByIdAsync(digitalTwin.Id, cancellationToken)
+        var ioTDevice = await _ioTDevices.GetByIdAsync(digitalTwin.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
         if (ioTDevice.Device is not null)
         {
             throw new InvalidOperationException("IoTDevice already has a(n) digitalTwin (1:1 relationship).");
         }
-        var gateway.Gateway = await _gateways.GetByIdAsync(digitalTwin.Id, cancellationToken)
+        var gateway = await _gateways.GetByIdAsync(digitalTwin.Id, cancellationToken)
             ?? throw new InvalidOperationException("Gateway not found.");
 
         if (gateway.Gateway is not null)
         {
             throw new InvalidOperationException("Gateway already has a(n) digitalTwin (1:1 relationship).");
         }
-        var twinTemplate.Template = await _twinTemplates.GetByIdAsync(digitalTwin.Id, cancellationToken)
+        var twinTemplate = await _twinTemplates.GetByIdAsync(digitalTwin.Id, cancellationToken)
             ?? throw new InvalidOperationException("TwinTemplate not found.");
 
         if (twinTemplate.Template is not null)

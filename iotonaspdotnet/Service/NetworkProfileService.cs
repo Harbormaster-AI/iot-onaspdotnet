@@ -39,21 +39,21 @@ public class NetworkProfileService : INetworkProfileService
 
     public async Task CreateAsync(NetworkProfile networkProfile, CancellationToken cancellationToken)
     {
-        var ioTDevice.Device = await _ioTDevices.GetByIdAsync(networkProfile.Id, cancellationToken)
+        var ioTDevice = await _ioTDevices.GetByIdAsync(networkProfile.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
         if (ioTDevice.Device is not null)
         {
             throw new InvalidOperationException("IoTDevice already has a(n) networkProfile (1:1 relationship).");
         }
-        var gateway.Gateway = await _gateways.GetByIdAsync(networkProfile.Id, cancellationToken)
+        var gateway = await _gateways.GetByIdAsync(networkProfile.Id, cancellationToken)
             ?? throw new InvalidOperationException("Gateway not found.");
 
         if (gateway.Gateway is not null)
         {
             throw new InvalidOperationException("Gateway already has a(n) networkProfile (1:1 relationship).");
         }
-        var simCard.SimCard = await _simCards.GetByIdAsync(networkProfile.Id, cancellationToken)
+        var simCard = await _simCards.GetByIdAsync(networkProfile.Id, cancellationToken)
             ?? throw new InvalidOperationException("SimCard not found.");
 
         if (simCard.SimCard is not null)

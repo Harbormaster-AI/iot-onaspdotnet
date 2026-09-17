@@ -33,7 +33,7 @@ public class TenantUserService : ITenantUserService
 
     public async Task CreateAsync(TenantUser tenantUser, CancellationToken cancellationToken)
     {
-        var tenant.Tenant = await _tenants.GetByIdAsync(tenantUser.Id, cancellationToken)
+        var tenant = await _tenants.GetByIdAsync(tenantUser.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
         if (tenant.Tenant is not null)

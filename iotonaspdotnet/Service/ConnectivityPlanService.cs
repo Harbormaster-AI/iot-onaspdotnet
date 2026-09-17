@@ -33,7 +33,7 @@ public class ConnectivityPlanService : IConnectivityPlanService
 
     public async Task CreateAsync(ConnectivityPlan connectivityPlan, CancellationToken cancellationToken)
     {
-        var tenant.Tenant = await _tenants.GetByIdAsync(connectivityPlan.Id, cancellationToken)
+        var tenant = await _tenants.GetByIdAsync(connectivityPlan.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
         if (tenant.Tenant is not null)

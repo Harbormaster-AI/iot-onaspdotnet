@@ -33,7 +33,7 @@ public class FirmwareReleaseService : IFirmwareReleaseService
 
     public async Task CreateAsync(FirmwareRelease firmwareRelease, CancellationToken cancellationToken)
     {
-        var deviceModel.DeviceModel = await _deviceModels.GetByIdAsync(firmwareRelease.Id, cancellationToken)
+        var deviceModel = await _deviceModels.GetByIdAsync(firmwareRelease.Id, cancellationToken)
             ?? throw new InvalidOperationException("DeviceModel not found.");
 
         if (deviceModel.DeviceModel is not null)

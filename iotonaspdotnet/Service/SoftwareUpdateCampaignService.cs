@@ -36,14 +36,14 @@ public class SoftwareUpdateCampaignService : ISoftwareUpdateCampaignService
 
     public async Task CreateAsync(SoftwareUpdateCampaign softwareUpdateCampaign, CancellationToken cancellationToken)
     {
-        var firmwareRelease.FirmwareRelease = await _firmwareReleases.GetByIdAsync(softwareUpdateCampaign.Id, cancellationToken)
+        var firmwareRelease = await _firmwareReleases.GetByIdAsync(softwareUpdateCampaign.Id, cancellationToken)
             ?? throw new InvalidOperationException("FirmwareRelease not found.");
 
         if (firmwareRelease.FirmwareRelease is not null)
         {
             throw new InvalidOperationException("FirmwareRelease already has a(n) softwareUpdateCampaign (1:1 relationship).");
         }
-        var deviceGroup.DeviceGroup = await _deviceGroups.GetByIdAsync(softwareUpdateCampaign.Id, cancellationToken)
+        var deviceGroup = await _deviceGroups.GetByIdAsync(softwareUpdateCampaign.Id, cancellationToken)
             ?? throw new InvalidOperationException("DeviceGroup not found.");
 
         if (deviceGroup.DeviceGroup is not null)

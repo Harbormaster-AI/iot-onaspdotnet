@@ -33,7 +33,7 @@ public class FloorService : IFloorService
 
     public async Task CreateAsync(Floor floor, CancellationToken cancellationToken)
     {
-        var building.Building = await _buildings.GetByIdAsync(floor.Id, cancellationToken)
+        var building = await _buildings.GetByIdAsync(floor.Id, cancellationToken)
             ?? throw new InvalidOperationException("Building not found.");
 
         if (building.Building is not null)

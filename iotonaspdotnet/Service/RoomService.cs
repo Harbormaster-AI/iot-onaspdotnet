@@ -33,7 +33,7 @@ public class RoomService : IRoomService
 
     public async Task CreateAsync(Room room, CancellationToken cancellationToken)
     {
-        var floor.Floor = await _floors.GetByIdAsync(room.Id, cancellationToken)
+        var floor = await _floors.GetByIdAsync(room.Id, cancellationToken)
             ?? throw new InvalidOperationException("Floor not found.");
 
         if (floor.Floor is not null)

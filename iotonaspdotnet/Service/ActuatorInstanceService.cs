@@ -33,7 +33,7 @@ public class ActuatorInstanceService : IActuatorInstanceService
 
     public async Task CreateAsync(ActuatorInstance actuatorInstance, CancellationToken cancellationToken)
     {
-        var ioTDevice.Device = await _ioTDevices.GetByIdAsync(actuatorInstance.Id, cancellationToken)
+        var ioTDevice = await _ioTDevices.GetByIdAsync(actuatorInstance.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
         if (ioTDevice.Device is not null)

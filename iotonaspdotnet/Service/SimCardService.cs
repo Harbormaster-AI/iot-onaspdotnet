@@ -36,14 +36,14 @@ public class SimCardService : ISimCardService
 
     public async Task CreateAsync(SimCard simCard, CancellationToken cancellationToken)
     {
-        var tenant.Tenant = await _tenants.GetByIdAsync(simCard.Id, cancellationToken)
+        var tenant = await _tenants.GetByIdAsync(simCard.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
         if (tenant.Tenant is not null)
         {
             throw new InvalidOperationException("Tenant already has a(n) simCard (1:1 relationship).");
         }
-        var connectivityPlan.ConnectivityPlan = await _connectivityPlans.GetByIdAsync(simCard.Id, cancellationToken)
+        var connectivityPlan = await _connectivityPlans.GetByIdAsync(simCard.Id, cancellationToken)
             ?? throw new InvalidOperationException("ConnectivityPlan not found.");
 
         if (connectivityPlan.ConnectivityPlan is not null)

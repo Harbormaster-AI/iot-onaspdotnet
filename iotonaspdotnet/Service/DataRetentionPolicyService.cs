@@ -33,7 +33,7 @@ public class DataRetentionPolicyService : IDataRetentionPolicyService
 
     public async Task CreateAsync(DataRetentionPolicy dataRetentionPolicy, CancellationToken cancellationToken)
     {
-        var tenant.Tenant = await _tenants.GetByIdAsync(dataRetentionPolicy.Id, cancellationToken)
+        var tenant = await _tenants.GetByIdAsync(dataRetentionPolicy.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
         if (tenant.Tenant is not null)

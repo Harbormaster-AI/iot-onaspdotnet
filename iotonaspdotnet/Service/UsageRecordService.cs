@@ -39,21 +39,21 @@ public class UsageRecordService : IUsageRecordService
 
     public async Task CreateAsync(UsageRecord usageRecord, CancellationToken cancellationToken)
     {
-        var tenant.Tenant = await _tenants.GetByIdAsync(usageRecord.Id, cancellationToken)
+        var tenant = await _tenants.GetByIdAsync(usageRecord.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
         if (tenant.Tenant is not null)
         {
             throw new InvalidOperationException("Tenant already has a(n) usageRecord (1:1 relationship).");
         }
-        var ioTDevice.Device = await _ioTDevices.GetByIdAsync(usageRecord.Id, cancellationToken)
+        var ioTDevice = await _ioTDevices.GetByIdAsync(usageRecord.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
         if (ioTDevice.Device is not null)
         {
             throw new InvalidOperationException("IoTDevice already has a(n) usageRecord (1:1 relationship).");
         }
-        var connectivityPlan.ConnectivityPlan = await _connectivityPlans.GetByIdAsync(usageRecord.Id, cancellationToken)
+        var connectivityPlan = await _connectivityPlans.GetByIdAsync(usageRecord.Id, cancellationToken)
             ?? throw new InvalidOperationException("ConnectivityPlan not found.");
 
         if (connectivityPlan.ConnectivityPlan is not null)

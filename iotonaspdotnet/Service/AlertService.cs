@@ -36,14 +36,14 @@ public class AlertService : IAlertService
 
     public async Task CreateAsync(Alert alert, CancellationToken cancellationToken)
     {
-        var ioTDevice.Device = await _ioTDevices.GetByIdAsync(alert.Id, cancellationToken)
+        var ioTDevice = await _ioTDevices.GetByIdAsync(alert.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
         if (ioTDevice.Device is not null)
         {
             throw new InvalidOperationException("IoTDevice already has a(n) alert (1:1 relationship).");
         }
-        var alertRule.AlertRule = await _alertRules.GetByIdAsync(alert.Id, cancellationToken)
+        var alertRule = await _alertRules.GetByIdAsync(alert.Id, cancellationToken)
             ?? throw new InvalidOperationException("AlertRule not found.");
 
         if (alertRule.AlertRule is not null)

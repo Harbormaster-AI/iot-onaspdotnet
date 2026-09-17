@@ -33,7 +33,7 @@ public class AlertRuleService : IAlertRuleService
 
     public async Task CreateAsync(AlertRule alertRule, CancellationToken cancellationToken)
     {
-        var tenant.Tenant = await _tenants.GetByIdAsync(alertRule.Id, cancellationToken)
+        var tenant = await _tenants.GetByIdAsync(alertRule.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
         if (tenant.Tenant is not null)

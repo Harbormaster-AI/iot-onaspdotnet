@@ -39,21 +39,21 @@ public class ProvisioningRecordService : IProvisioningRecordService
 
     public async Task CreateAsync(ProvisioningRecord provisioningRecord, CancellationToken cancellationToken)
     {
-        var ioTDevice.Device = await _ioTDevices.GetByIdAsync(provisioningRecord.Id, cancellationToken)
+        var ioTDevice = await _ioTDevices.GetByIdAsync(provisioningRecord.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
         if (ioTDevice.Device is not null)
         {
             throw new InvalidOperationException("IoTDevice already has a(n) provisioningRecord (1:1 relationship).");
         }
-        var deviceCertificate.Certificate = await _deviceCertificates.GetByIdAsync(provisioningRecord.Id, cancellationToken)
+        var deviceCertificate = await _deviceCertificates.GetByIdAsync(provisioningRecord.Id, cancellationToken)
             ?? throw new InvalidOperationException("DeviceCertificate not found.");
 
         if (deviceCertificate.Certificate is not null)
         {
             throw new InvalidOperationException("DeviceCertificate already has a(n) provisioningRecord (1:1 relationship).");
         }
-        var tenant.Tenant = await _tenants.GetByIdAsync(provisioningRecord.Id, cancellationToken)
+        var tenant = await _tenants.GetByIdAsync(provisioningRecord.Id, cancellationToken)
             ?? throw new InvalidOperationException("Tenant not found.");
 
         if (tenant.Tenant is not null)

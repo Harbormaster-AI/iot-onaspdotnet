@@ -36,14 +36,14 @@ public class SoftwareUpdateExecutionService : ISoftwareUpdateExecutionService
 
     public async Task CreateAsync(SoftwareUpdateExecution softwareUpdateExecution, CancellationToken cancellationToken)
     {
-        var softwareUpdateCampaign.Campaign = await _softwareUpdateCampaigns.GetByIdAsync(softwareUpdateExecution.Id, cancellationToken)
+        var softwareUpdateCampaign = await _softwareUpdateCampaigns.GetByIdAsync(softwareUpdateExecution.Id, cancellationToken)
             ?? throw new InvalidOperationException("SoftwareUpdateCampaign not found.");
 
         if (softwareUpdateCampaign.Campaign is not null)
         {
             throw new InvalidOperationException("SoftwareUpdateCampaign already has a(n) softwareUpdateExecution (1:1 relationship).");
         }
-        var ioTDevice.Device = await _ioTDevices.GetByIdAsync(softwareUpdateExecution.Id, cancellationToken)
+        var ioTDevice = await _ioTDevices.GetByIdAsync(softwareUpdateExecution.Id, cancellationToken)
             ?? throw new InvalidOperationException("IoTDevice not found.");
 
         if (ioTDevice.Device is not null)
