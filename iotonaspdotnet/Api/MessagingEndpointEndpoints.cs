@@ -122,7 +122,7 @@ public static class MessagingEndpointEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@38e2043b mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@38e2043b( com.harbormaster.codetemplate.model.classes.ClassObject@38e2043bRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@41e29c30 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@41e29c30( com.harbormaster.codetemplate.model.classes.ClassObject@41e29c30Request request ) {
         var model = new MessagingEndpoint
         {
             Id = request.id,

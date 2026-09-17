@@ -122,7 +122,7 @@ public static class BuildingEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@6a1e8848 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@6a1e8848( com.harbormaster.codetemplate.model.classes.ClassObject@6a1e8848Request request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@44a35b0c mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@44a35b0c( com.harbormaster.codetemplate.model.classes.ClassObject@44a35b0cRequest request ) {
         var model = new Building
         {
             Id = request.id,

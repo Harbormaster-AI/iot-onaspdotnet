@@ -125,7 +125,7 @@ public static class AccessPolicyEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@4d428219 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@4d428219( com.harbormaster.codetemplate.model.classes.ClassObject@4d428219Request request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@409757e0 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@409757e0( com.harbormaster.codetemplate.model.classes.ClassObject@409757e0Request request ) {
         var model = new AccessPolicy
         {
             Id = request.id,
@@ -154,7 +154,7 @@ public static class AccessPolicyEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@4d428219 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@4d428219( com.harbormaster.codetemplate.model.classes.ClassObject@4d428219Request request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@409757e0 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@409757e0( com.harbormaster.codetemplate.model.classes.ClassObject@409757e0Request request ) {
         var model = new AccessPolicy
         {
             Id = request.id,

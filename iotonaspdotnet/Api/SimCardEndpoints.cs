@@ -140,7 +140,7 @@ public static class SimCardEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@323748b6 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@323748b6( com.harbormaster.codetemplate.model.classes.ClassObject@323748b6Request request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@359181ff mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@359181ff( com.harbormaster.codetemplate.model.classes.ClassObject@359181ffRequest request ) {
         var model = new SimCard
         {
             Id = request.id,

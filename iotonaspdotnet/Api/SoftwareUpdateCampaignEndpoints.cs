@@ -140,7 +140,7 @@ public static class SoftwareUpdateCampaignEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@576ec83e mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@576ec83e( com.harbormaster.codetemplate.model.classes.ClassObject@576ec83eRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@628e09f4 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@628e09f4( com.harbormaster.codetemplate.model.classes.ClassObject@628e09f4Request request ) {
         var model = new SoftwareUpdateCampaign
         {
             Id = request.id,

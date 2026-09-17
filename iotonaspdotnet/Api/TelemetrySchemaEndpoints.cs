@@ -104,7 +104,7 @@ public static class TelemetrySchemaEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@5efdce31 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@5efdce31( com.harbormaster.codetemplate.model.classes.ClassObject@5efdce31Request request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@3439211 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@3439211( com.harbormaster.codetemplate.model.classes.ClassObject@3439211Request request ) {
         var model = new TelemetrySchema
         {
             Id = request.id,

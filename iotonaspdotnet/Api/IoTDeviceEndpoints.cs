@@ -251,7 +251,7 @@ public static class IoTDeviceEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@3c0c008b mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@3c0c008b( com.harbormaster.codetemplate.model.classes.ClassObject@3c0c008bRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@694aae71 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@694aae71( com.harbormaster.codetemplate.model.classes.ClassObject@694aae71Request request ) {
         var model = new IoTDevice
         {
             Id = request.id,
@@ -295,7 +295,7 @@ public static class IoTDeviceEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@3c0c008b mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@3c0c008b( com.harbormaster.codetemplate.model.classes.ClassObject@3c0c008bRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@694aae71 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@694aae71( com.harbormaster.codetemplate.model.classes.ClassObject@694aae71Request request ) {
         var model = new IoTDevice
         {
             Id = request.id,
@@ -339,7 +339,7 @@ public static class IoTDeviceEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@3c0c008b mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@3c0c008b( com.harbormaster.codetemplate.model.classes.ClassObject@3c0c008bRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@694aae71 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@694aae71( com.harbormaster.codetemplate.model.classes.ClassObject@694aae71Request request ) {
         var model = new IoTDevice
         {
             Id = request.id,
@@ -383,7 +383,7 @@ public static class IoTDeviceEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@3c0c008b mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@3c0c008b( com.harbormaster.codetemplate.model.classes.ClassObject@3c0c008bRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@694aae71 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@694aae71( com.harbormaster.codetemplate.model.classes.ClassObject@694aae71Request request ) {
         var model = new IoTDevice
         {
             Id = request.id,
@@ -427,7 +427,7 @@ public static class IoTDeviceEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@3c0c008b mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@3c0c008b( com.harbormaster.codetemplate.model.classes.ClassObject@3c0c008bRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@694aae71 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@694aae71( com.harbormaster.codetemplate.model.classes.ClassObject@694aae71Request request ) {
         var model = new IoTDevice
         {
             Id = request.id,
@@ -471,7 +471,7 @@ public static class IoTDeviceEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@3c0c008b mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@3c0c008b( com.harbormaster.codetemplate.model.classes.ClassObject@3c0c008bRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@694aae71 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@694aae71( com.harbormaster.codetemplate.model.classes.ClassObject@694aae71Request request ) {
         var model = new IoTDevice
         {
             Id = request.id,
@@ -515,7 +515,7 @@ public static class IoTDeviceEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@3c0c008b mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@3c0c008b( com.harbormaster.codetemplate.model.classes.ClassObject@3c0c008bRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@694aae71 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@694aae71( com.harbormaster.codetemplate.model.classes.ClassObject@694aae71Request request ) {
         var model = new IoTDevice
         {
             Id = request.id,
@@ -559,7 +559,7 @@ public static class IoTDeviceEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@3c0c008b mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@3c0c008b( com.harbormaster.codetemplate.model.classes.ClassObject@3c0c008bRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@694aae71 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@694aae71( com.harbormaster.codetemplate.model.classes.ClassObject@694aae71Request request ) {
         var model = new IoTDevice
         {
             Id = request.id,

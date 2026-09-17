@@ -110,7 +110,7 @@ public static class DeviceVendorEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@75383051 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@75383051( com.harbormaster.codetemplate.model.classes.ClassObject@75383051Request request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@6a7bf400 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@6a7bf400( com.harbormaster.codetemplate.model.classes.ClassObject@6a7bf400Request request ) {
         var model = new DeviceVendor
         {
             Id = request.id,
@@ -140,7 +140,7 @@ public static class DeviceVendorEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@75383051 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@75383051( com.harbormaster.codetemplate.model.classes.ClassObject@75383051Request request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@6a7bf400 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@6a7bf400( com.harbormaster.codetemplate.model.classes.ClassObject@6a7bf400Request request ) {
         var model = new DeviceVendor
         {
             Id = request.id,
@@ -170,7 +170,7 @@ public static class DeviceVendorEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@75383051 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@75383051( com.harbormaster.codetemplate.model.classes.ClassObject@75383051Request request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@6a7bf400 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@6a7bf400( com.harbormaster.codetemplate.model.classes.ClassObject@6a7bf400Request request ) {
         var model = new DeviceVendor
         {
             Id = request.id,

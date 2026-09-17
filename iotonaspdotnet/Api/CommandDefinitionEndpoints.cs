@@ -125,7 +125,7 @@ public static class CommandDefinitionEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@4c456c4b mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@4c456c4b( com.harbormaster.codetemplate.model.classes.ClassObject@4c456c4bRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@787095f7 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@787095f7( com.harbormaster.codetemplate.model.classes.ClassObject@787095f7Request request ) {
         var model = new CommandDefinition
         {
             Id = request.id,
@@ -155,7 +155,7 @@ public static class CommandDefinitionEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@4c456c4b mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@4c456c4b( com.harbormaster.codetemplate.model.classes.ClassObject@4c456c4bRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@787095f7 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@787095f7( com.harbormaster.codetemplate.model.classes.ClassObject@787095f7Request request ) {
         var model = new CommandDefinition
         {
             Id = request.id,

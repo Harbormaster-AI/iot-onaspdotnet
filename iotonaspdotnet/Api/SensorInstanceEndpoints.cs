@@ -122,7 +122,7 @@ public static class SensorInstanceEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@2799b78 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@2799b78( com.harbormaster.codetemplate.model.classes.ClassObject@2799b78Request request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@7fc706df mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@7fc706df( com.harbormaster.codetemplate.model.classes.ClassObject@7fc706dfRequest request ) {
         var model = new SensorInstance
         {
             Id = request.id,

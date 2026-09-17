@@ -122,7 +122,7 @@ public static class ActuatorInstanceEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@46fc5c8f mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@46fc5c8f( com.harbormaster.codetemplate.model.classes.ClassObject@46fc5c8fRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@7bcffb6b mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@7bcffb6b( com.harbormaster.codetemplate.model.classes.ClassObject@7bcffb6bRequest request ) {
         var model = new ActuatorInstance
         {
             Id = request.id,

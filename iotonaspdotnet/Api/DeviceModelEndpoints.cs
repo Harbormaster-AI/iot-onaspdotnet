@@ -146,7 +146,7 @@ public static class DeviceModelEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@4370e62e mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@4370e62e( com.harbormaster.codetemplate.model.classes.ClassObject@4370e62eRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@4f796eb2 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@4f796eb2( com.harbormaster.codetemplate.model.classes.ClassObject@4f796eb2Request request ) {
         var model = new DeviceModel
         {
             Id = request.id,
@@ -179,7 +179,7 @@ public static class DeviceModelEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@4370e62e mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@4370e62e( com.harbormaster.codetemplate.model.classes.ClassObject@4370e62eRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@4f796eb2 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@4f796eb2( com.harbormaster.codetemplate.model.classes.ClassObject@4f796eb2Request request ) {
         var model = new DeviceModel
         {
             Id = request.id,
@@ -212,7 +212,7 @@ public static class DeviceModelEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@4370e62e mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@4370e62e( com.harbormaster.codetemplate.model.classes.ClassObject@4370e62eRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@4f796eb2 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@4f796eb2( com.harbormaster.codetemplate.model.classes.ClassObject@4f796eb2Request request ) {
         var model = new DeviceModel
         {
             Id = request.id,

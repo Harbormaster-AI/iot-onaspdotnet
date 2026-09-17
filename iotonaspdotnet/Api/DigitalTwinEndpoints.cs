@@ -158,7 +158,7 @@ public static class DigitalTwinEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@351c1e51 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@351c1e51( com.harbormaster.codetemplate.model.classes.ClassObject@351c1e51Request request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@78334954 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@78334954( com.harbormaster.codetemplate.model.classes.ClassObject@78334954Request request ) {
         var model = new DigitalTwin
         {
             Id = request.id,

@@ -122,7 +122,7 @@ public static class TenantUserEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@53dbdcbe mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@53dbdcbe( com.harbormaster.codetemplate.model.classes.ClassObject@53dbdcbeRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@695f74da mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@695f74da( com.harbormaster.codetemplate.model.classes.ClassObject@695f74daRequest request ) {
         var model = new TenantUser
         {
             Id = request.id,

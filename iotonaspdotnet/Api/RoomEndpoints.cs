@@ -125,7 +125,7 @@ public static class RoomEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@4d834230 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@4d834230( com.harbormaster.codetemplate.model.classes.ClassObject@4d834230Request request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@1c7f706d mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@1c7f706d( com.harbormaster.codetemplate.model.classes.ClassObject@1c7f706dRequest request ) {
         var model = new Room
         {
             Id = request.id,
@@ -152,7 +152,7 @@ public static class RoomEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@4d834230 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@4d834230( com.harbormaster.codetemplate.model.classes.ClassObject@4d834230Request request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@1c7f706d mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@1c7f706d( com.harbormaster.codetemplate.model.classes.ClassObject@1c7f706dRequest request ) {
         var model = new Room
         {
             Id = request.id,

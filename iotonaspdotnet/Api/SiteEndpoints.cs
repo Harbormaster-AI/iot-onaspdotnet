@@ -128,7 +128,7 @@ public static class SiteEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@279a7d4b mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@279a7d4b( com.harbormaster.codetemplate.model.classes.ClassObject@279a7d4bRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@6daa531c mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@6daa531c( com.harbormaster.codetemplate.model.classes.ClassObject@6daa531cRequest request ) {
         var model = new Site
         {
             Id = request.id,
@@ -160,7 +160,7 @@ public static class SiteEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@279a7d4b mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@279a7d4b( com.harbormaster.codetemplate.model.classes.ClassObject@279a7d4bRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@6daa531c mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@6daa531c( com.harbormaster.codetemplate.model.classes.ClassObject@6daa531cRequest request ) {
         var model = new Site
         {
             Id = request.id,
@@ -192,7 +192,7 @@ public static class SiteEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@279a7d4b mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@279a7d4b( com.harbormaster.codetemplate.model.classes.ClassObject@279a7d4bRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@6daa531c mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@6daa531c( com.harbormaster.codetemplate.model.classes.ClassObject@6daa531cRequest request ) {
         var model = new Site
         {
             Id = request.id,

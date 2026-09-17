@@ -125,7 +125,7 @@ public static class AlertRuleEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@58458e00 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@58458e00( com.harbormaster.codetemplate.model.classes.ClassObject@58458e00Request request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@632cebb6 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@632cebb6( com.harbormaster.codetemplate.model.classes.ClassObject@632cebb6Request request ) {
         var model = new AlertRule
         {
             Id = request.id,
@@ -154,7 +154,7 @@ public static class AlertRuleEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@58458e00 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@58458e00( com.harbormaster.codetemplate.model.classes.ClassObject@58458e00Request request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@632cebb6 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@632cebb6( com.harbormaster.codetemplate.model.classes.ClassObject@632cebb6Request request ) {
         var model = new AlertRule
         {
             Id = request.id,

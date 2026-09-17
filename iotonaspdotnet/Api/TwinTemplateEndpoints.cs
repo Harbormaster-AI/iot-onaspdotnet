@@ -104,7 +104,7 @@ public static class TwinTemplateEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@30ae56f4 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@30ae56f4( com.harbormaster.codetemplate.model.classes.ClassObject@30ae56f4Request request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@43cad3e mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@43cad3e( com.harbormaster.codetemplate.model.classes.ClassObject@43cad3eRequest request ) {
         var model = new TwinTemplate
         {
             Id = request.id,

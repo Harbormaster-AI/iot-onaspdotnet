@@ -122,7 +122,7 @@ public static class ConnectivityPlanEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@33465070 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@33465070( com.harbormaster.codetemplate.model.classes.ClassObject@33465070Request request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@1c5fd8a mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@1c5fd8a( com.harbormaster.codetemplate.model.classes.ClassObject@1c5fd8aRequest request ) {
         var model = new ConnectivityPlan
         {
             Id = request.id,
