@@ -49,11 +49,11 @@ public class ConnectivityPlanService : IConnectivityPlanService
         {
             return false;
         }
-        existing.Name = request.Name
-        existing.DataCapMB = request.DataCapMB
-        existing.BillingCycleDays = request.BillingCycleDays
-        existing.SimCards = request.SimCards
-        existing.Tenant = request.Tenant
+        existing.Name = request.Name;
+        existing.DataCapMB = request.DataCapMB;
+        existing.BillingCycleDays = request.BillingCycleDays;
+        existing.SimCards = request.SimCards;
+        existing.Tenant = request.Tenant;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

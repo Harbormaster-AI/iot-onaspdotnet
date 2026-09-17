@@ -49,10 +49,10 @@ public class HardwareModuleService : IHardwareModuleService
         {
             return false;
         }
-        existing.ModuleCode = request.ModuleCode
-        existing.DatasheetUri = request.DatasheetUri
-        existing.Vendor = request.Vendor
-        existing.ModuleType = request.ModuleType
+        existing.ModuleCode = request.ModuleCode;
+        existing.DatasheetUri = request.DatasheetUri;
+        existing.Vendor = request.Vendor;
+        existing.ModuleType = request.ModuleType;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

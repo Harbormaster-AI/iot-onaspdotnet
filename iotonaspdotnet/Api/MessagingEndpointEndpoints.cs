@@ -67,7 +67,7 @@ public static class MessagingEndpointEndpoints
         IMessagingEndpointService service,
         CancellationToken cancellationToken) {
 
-        var all; = await service.GetAllAsync(cancellationToken);
+        var all = await service.GetAllAsync(cancellationToken);
         return Results.Ok( all.Select( MessagingEndpointResponse.FromModel ) );
     }
 
@@ -122,7 +122,7 @@ public static class MessagingEndpointEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@41e29c30 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@41e29c30( com.harbormaster.codetemplate.model.classes.ClassObject@41e29c30Request request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@634fbbfa mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@634fbbfa( com.harbormaster.codetemplate.model.classes.ClassObject@634fbbfaRequest request ) {
         var model = new MessagingEndpoint
         {
             Id = request.id,

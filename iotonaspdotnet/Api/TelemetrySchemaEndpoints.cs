@@ -65,7 +65,7 @@ public static class TelemetrySchemaEndpoints
         ITelemetrySchemaService service,
         CancellationToken cancellationToken) {
 
-        var all; = await service.GetAllAsync(cancellationToken);
+        var all = await service.GetAllAsync(cancellationToken);
         return Results.Ok( all.Select( TelemetrySchemaResponse.FromModel ) );
     }
 
@@ -104,7 +104,7 @@ public static class TelemetrySchemaEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@3439211 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@3439211( com.harbormaster.codetemplate.model.classes.ClassObject@3439211Request request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@647a7e40 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@647a7e40( com.harbormaster.codetemplate.model.classes.ClassObject@647a7e40Request request ) {
         var model = new TelemetrySchema
         {
             Id = request.id,

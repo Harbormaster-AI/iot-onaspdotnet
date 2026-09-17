@@ -42,10 +42,10 @@ public class TelemetrySchemaService : ITelemetrySchemaService
         {
             return false;
         }
-        existing.SchemaId = request.SchemaId
-        existing.SchemaUri = request.SchemaUri
-        existing.Streams = request.Streams
-        existing.Encoding = request.Encoding
+        existing.SchemaId = request.SchemaId;
+        existing.SchemaUri = request.SchemaUri;
+        existing.Streams = request.Streams;
+        existing.Encoding = request.Encoding;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

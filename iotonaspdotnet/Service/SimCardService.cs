@@ -56,13 +56,13 @@ public class SimCardService : ISimCardService
         {
             return false;
         }
-        existing.Iccid = request.Iccid
-        existing.Imsi = request.Imsi
-        existing.Carrier = request.Carrier
-        existing.NetworkProfiles = request.NetworkProfiles
-        existing.Tenant = request.Tenant
-        existing.ConnectivityPlan = request.ConnectivityPlan
-        existing.Status = request.Status
+        existing.Iccid = request.Iccid;
+        existing.Imsi = request.Imsi;
+        existing.Carrier = request.Carrier;
+        existing.NetworkProfiles = request.NetworkProfiles;
+        existing.Tenant = request.Tenant;
+        existing.ConnectivityPlan = request.ConnectivityPlan;
+        existing.Status = request.Status;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

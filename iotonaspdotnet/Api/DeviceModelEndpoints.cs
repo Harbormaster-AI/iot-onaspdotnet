@@ -75,7 +75,7 @@ public static class DeviceModelEndpoints
         IDeviceModelService service,
         CancellationToken cancellationToken) {
 
-        var all; = await service.GetAllAsync(cancellationToken);
+        var all = await service.GetAllAsync(cancellationToken);
         return Results.Ok( all.Select( DeviceModelResponse.FromModel ) );
     }
 
@@ -146,7 +146,7 @@ public static class DeviceModelEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@4f796eb2 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@4f796eb2( com.harbormaster.codetemplate.model.classes.ClassObject@4f796eb2Request request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@38b6ea9e mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@38b6ea9e( com.harbormaster.codetemplate.model.classes.ClassObject@38b6ea9eRequest request ) {
         var model = new DeviceModel
         {
             Id = request.id,
@@ -179,7 +179,7 @@ public static class DeviceModelEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@4f796eb2 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@4f796eb2( com.harbormaster.codetemplate.model.classes.ClassObject@4f796eb2Request request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@38b6ea9e mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@38b6ea9e( com.harbormaster.codetemplate.model.classes.ClassObject@38b6ea9eRequest request ) {
         var model = new DeviceModel
         {
             Id = request.id,
@@ -212,7 +212,7 @@ public static class DeviceModelEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@4f796eb2 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@4f796eb2( com.harbormaster.codetemplate.model.classes.ClassObject@4f796eb2Request request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@38b6ea9e mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@38b6ea9e( com.harbormaster.codetemplate.model.classes.ClassObject@38b6ea9eRequest request ) {
         var model = new DeviceModel
         {
             Id = request.id,

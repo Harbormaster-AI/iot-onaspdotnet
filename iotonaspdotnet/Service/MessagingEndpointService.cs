@@ -49,12 +49,12 @@ public class MessagingEndpointService : IMessagingEndpointService
         {
             return false;
         }
-        existing.Host = request.Host
-        existing.Port = request.Port
-        existing.Secure = request.Secure
-        existing.Tenant = request.Tenant
-        existing.Streams = request.Streams
-        existing.Protocol = request.Protocol
+        existing.Host = request.Host;
+        existing.Port = request.Port;
+        existing.Secure = request.Secure;
+        existing.Tenant = request.Tenant;
+        existing.Streams = request.Streams;
+        existing.Protocol = request.Protocol;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

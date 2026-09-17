@@ -70,14 +70,14 @@ public class CommandInvocationService : ICommandInvocationService
         {
             return false;
         }
-        existing.InvocationId = request.InvocationId
-        existing.RequestedAt = request.RequestedAt
-        existing.CompletedAt = request.CompletedAt
-        existing.Device = request.Device
-        existing.CommandDefinition = request.CommandDefinition
-        existing.Actuator = request.Actuator
-        existing.User = request.User
-        existing.Status = request.Status
+        existing.InvocationId = request.InvocationId;
+        existing.RequestedAt = request.RequestedAt;
+        existing.CompletedAt = request.CompletedAt;
+        existing.Device = request.Device;
+        existing.CommandDefinition = request.CommandDefinition;
+        existing.Actuator = request.Actuator;
+        existing.User = request.User;
+        existing.Status = request.Status;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

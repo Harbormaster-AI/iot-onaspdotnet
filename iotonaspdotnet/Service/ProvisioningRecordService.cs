@@ -63,13 +63,13 @@ public class ProvisioningRecordService : IProvisioningRecordService
         {
             return false;
         }
-        existing.EnrolledAt = request.EnrolledAt
-        existing.ProvisioningService = request.ProvisioningService
-        existing.Device = request.Device
-        existing.Certificate = request.Certificate
-        existing.Tenant = request.Tenant
-        existing.Method = request.Method
-        existing.Status = request.Status
+        existing.EnrolledAt = request.EnrolledAt;
+        existing.ProvisioningService = request.ProvisioningService;
+        existing.Device = request.Device;
+        existing.Certificate = request.Certificate;
+        existing.Tenant = request.Tenant;
+        existing.Method = request.Method;
+        existing.Status = request.Status;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

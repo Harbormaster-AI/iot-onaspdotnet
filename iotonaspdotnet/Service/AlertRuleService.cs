@@ -49,12 +49,12 @@ public class AlertRuleService : IAlertRuleService
         {
             return false;
         }
-        existing.Name = request.Name
-        existing.Expression = request.Expression
-        existing.Tenant = request.Tenant
-        existing.Streams = request.Streams
-        existing.Alerts = request.Alerts
-        existing.Severity = request.Severity
+        existing.Name = request.Name;
+        existing.Expression = request.Expression;
+        existing.Tenant = request.Tenant;
+        existing.Streams = request.Streams;
+        existing.Alerts = request.Alerts;
+        existing.Severity = request.Severity;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

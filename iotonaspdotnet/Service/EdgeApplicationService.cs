@@ -49,11 +49,11 @@ public class EdgeApplicationService : IEdgeApplicationService
         {
             return false;
         }
-        existing.Name = request.Name
-        existing.Version = request.Version
-        existing.Image = request.Image
-        existing.Gateway = request.Gateway
-        existing.Status = request.Status
+        existing.Name = request.Name;
+        existing.Version = request.Version;
+        existing.Image = request.Image;
+        existing.Gateway = request.Gateway;
+        existing.Status = request.Status;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

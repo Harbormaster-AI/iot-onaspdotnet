@@ -63,13 +63,13 @@ public class UsageRecordService : IUsageRecordService
         {
             return false;
         }
-        existing.PeriodStart = request.PeriodStart
-        existing.PeriodEnd = request.PeriodEnd
-        existing.MessagesSent = request.MessagesSent
-        existing.DataVolumeMB = request.DataVolumeMB
-        existing.Tenant = request.Tenant
-        existing.Device = request.Device
-        existing.ConnectivityPlan = request.ConnectivityPlan
+        existing.PeriodStart = request.PeriodStart;
+        existing.PeriodEnd = request.PeriodEnd;
+        existing.MessagesSent = request.MessagesSent;
+        existing.DataVolumeMB = request.DataVolumeMB;
+        existing.Tenant = request.Tenant;
+        existing.Device = request.Device;
+        existing.ConnectivityPlan = request.ConnectivityPlan;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

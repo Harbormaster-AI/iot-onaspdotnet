@@ -73,7 +73,7 @@ public static class SiteEndpoints
         ISiteService service,
         CancellationToken cancellationToken) {
 
-        var all; = await service.GetAllAsync(cancellationToken);
+        var all = await service.GetAllAsync(cancellationToken);
         return Results.Ok( all.Select( SiteResponse.FromModel ) );
     }
 
@@ -128,7 +128,7 @@ public static class SiteEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@6daa531c mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@6daa531c( com.harbormaster.codetemplate.model.classes.ClassObject@6daa531cRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@73a891 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@73a891( com.harbormaster.codetemplate.model.classes.ClassObject@73a891Request request ) {
         var model = new Site
         {
             Id = request.id,
@@ -160,7 +160,7 @@ public static class SiteEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@6daa531c mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@6daa531c( com.harbormaster.codetemplate.model.classes.ClassObject@6daa531cRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@73a891 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@73a891( com.harbormaster.codetemplate.model.classes.ClassObject@73a891Request request ) {
         var model = new Site
         {
             Id = request.id,
@@ -192,7 +192,7 @@ public static class SiteEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@6daa531c mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@6daa531c( com.harbormaster.codetemplate.model.classes.ClassObject@6daa531cRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@73a891 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@73a891( com.harbormaster.codetemplate.model.classes.ClassObject@73a891Request request ) {
         var model = new Site
         {
             Id = request.id,

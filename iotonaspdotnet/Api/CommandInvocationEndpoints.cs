@@ -70,7 +70,7 @@ public static class CommandInvocationEndpoints
         ICommandInvocationService service,
         CancellationToken cancellationToken) {
 
-        var all; = await service.GetAllAsync(cancellationToken);
+        var all = await service.GetAllAsync(cancellationToken);
         return Results.Ok( all.Select( CommandInvocationResponse.FromModel ) );
     }
 

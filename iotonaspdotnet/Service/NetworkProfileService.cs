@@ -63,13 +63,13 @@ public class NetworkProfileService : INetworkProfileService
         {
             return false;
         }
-        existing.ProfileName = request.ProfileName
-        existing.Ssid = request.Ssid
-        existing.Apn = request.Apn
-        existing.Device = request.Device
-        existing.Gateway = request.Gateway
-        existing.SimCard = request.SimCard
-        existing.ConnectivityType = request.ConnectivityType
+        existing.ProfileName = request.ProfileName;
+        existing.Ssid = request.Ssid;
+        existing.Apn = request.Apn;
+        existing.Device = request.Device;
+        existing.Gateway = request.Gateway;
+        existing.SimCard = request.SimCard;
+        existing.ConnectivityType = request.ConnectivityType;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

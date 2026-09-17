@@ -49,11 +49,11 @@ public class ActuatorInstanceService : IActuatorInstanceService
         {
             return false;
         }
-        existing.Name = request.Name
-        existing.CommandTopic = request.CommandTopic
-        existing.Device = request.Device
-        existing.SupportedCommands = request.SupportedCommands
-        existing.ActuatorType = request.ActuatorType
+        existing.Name = request.Name;
+        existing.CommandTopic = request.CommandTopic;
+        existing.Device = request.Device;
+        existing.SupportedCommands = request.SupportedCommands;
+        existing.ActuatorType = request.ActuatorType;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

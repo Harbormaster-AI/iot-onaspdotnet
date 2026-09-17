@@ -80,7 +80,7 @@ public static class GatewayEndpoints
         IGatewayService service,
         CancellationToken cancellationToken) {
 
-        var all; = await service.GetAllAsync(cancellationToken);
+        var all = await service.GetAllAsync(cancellationToken);
         return Results.Ok( all.Select( GatewayResponse.FromModel ) );
     }
 
@@ -167,7 +167,7 @@ public static class GatewayEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@23f2e24d mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@23f2e24d( com.harbormaster.codetemplate.model.classes.ClassObject@23f2e24dRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@fd643e3 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@fd643e3( com.harbormaster.codetemplate.model.classes.ClassObject@fd643e3Request request ) {
         var model = new Gateway
         {
             Id = request.id,
@@ -199,7 +199,7 @@ public static class GatewayEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@23f2e24d mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@23f2e24d( com.harbormaster.codetemplate.model.classes.ClassObject@23f2e24dRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@fd643e3 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@fd643e3( com.harbormaster.codetemplate.model.classes.ClassObject@fd643e3Request request ) {
         var model = new Gateway
         {
             Id = request.id,
@@ -231,7 +231,7 @@ public static class GatewayEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@23f2e24d mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@23f2e24d( com.harbormaster.codetemplate.model.classes.ClassObject@23f2e24dRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@fd643e3 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@fd643e3( com.harbormaster.codetemplate.model.classes.ClassObject@fd643e3Request request ) {
         var model = new Gateway
         {
             Id = request.id,
@@ -263,7 +263,7 @@ public static class GatewayEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@23f2e24d mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@23f2e24d( com.harbormaster.codetemplate.model.classes.ClassObject@23f2e24dRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@fd643e3 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@fd643e3( com.harbormaster.codetemplate.model.classes.ClassObject@fd643e3Request request ) {
         var model = new Gateway
         {
             Id = request.id,

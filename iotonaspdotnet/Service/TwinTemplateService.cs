@@ -42,10 +42,10 @@ public class TwinTemplateService : ITwinTemplateService
         {
             return false;
         }
-        existing.Name = request.Name
-        existing.SchemaUri = request.SchemaUri
-        existing.Version = request.Version
-        existing.DeviceModels = request.DeviceModels
+        existing.Name = request.Name;
+        existing.SchemaUri = request.SchemaUri;
+        existing.Version = request.Version;
+        existing.DeviceModels = request.DeviceModels;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

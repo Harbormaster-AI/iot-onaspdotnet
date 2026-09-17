@@ -56,11 +56,11 @@ public class SoftwareUpdateExecutionService : ISoftwareUpdateExecutionService
         {
             return false;
         }
-        existing.StartedAt = request.StartedAt
-        existing.CompletedAt = request.CompletedAt
-        existing.Campaign = request.Campaign
-        existing.Device = request.Device
-        existing.Status = request.Status
+        existing.StartedAt = request.StartedAt;
+        existing.CompletedAt = request.CompletedAt;
+        existing.Campaign = request.Campaign;
+        existing.Device = request.Device;
+        existing.Status = request.Status;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

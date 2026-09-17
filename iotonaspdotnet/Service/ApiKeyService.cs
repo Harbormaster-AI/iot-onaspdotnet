@@ -49,11 +49,11 @@ public class ApiKeyService : IApiKeyService
         {
             return false;
         }
-        existing.KeyId = request.KeyId
-        existing.HashedSecret = request.HashedSecret
-        existing.CreatedAt = request.CreatedAt
-        existing.LastUsedAt = request.LastUsedAt
-        existing.AccessPolicy = request.AccessPolicy
+        existing.KeyId = request.KeyId;
+        existing.HashedSecret = request.HashedSecret;
+        existing.CreatedAt = request.CreatedAt;
+        existing.LastUsedAt = request.LastUsedAt;
+        existing.AccessPolicy = request.AccessPolicy;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

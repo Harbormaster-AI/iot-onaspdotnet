@@ -67,7 +67,7 @@ public static class DataRetentionPolicyEndpoints
         IDataRetentionPolicyService service,
         CancellationToken cancellationToken) {
 
-        var all; = await service.GetAllAsync(cancellationToken);
+        var all = await service.GetAllAsync(cancellationToken);
         return Results.Ok( all.Select( DataRetentionPolicyResponse.FromModel ) );
     }
 
@@ -122,7 +122,7 @@ public static class DataRetentionPolicyEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@3ba01e0 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@3ba01e0( com.harbormaster.codetemplate.model.classes.ClassObject@3ba01e0Request request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@11799709 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@11799709( com.harbormaster.codetemplate.model.classes.ClassObject@11799709Request request ) {
         var model = new DataRetentionPolicy
         {
             Id = request.id,

@@ -49,11 +49,11 @@ public class FirmwareReleaseService : IFirmwareReleaseService
         {
             return false;
         }
-        existing.Version = request.Version
-        existing.ReleaseDate = request.ReleaseDate
-        existing.ReleaseNotes = request.ReleaseNotes
-        existing.Checksum = request.Checksum
-        existing.DeviceModel = request.DeviceModel
+        existing.Version = request.Version;
+        existing.ReleaseDate = request.ReleaseDate;
+        existing.ReleaseNotes = request.ReleaseNotes;
+        existing.Checksum = request.Checksum;
+        existing.DeviceModel = request.DeviceModel;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

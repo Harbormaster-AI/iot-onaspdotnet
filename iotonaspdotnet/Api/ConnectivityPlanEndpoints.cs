@@ -67,7 +67,7 @@ public static class ConnectivityPlanEndpoints
         IConnectivityPlanService service,
         CancellationToken cancellationToken) {
 
-        var all; = await service.GetAllAsync(cancellationToken);
+        var all = await service.GetAllAsync(cancellationToken);
         return Results.Ok( all.Select( ConnectivityPlanResponse.FromModel ) );
     }
 
@@ -122,7 +122,7 @@ public static class ConnectivityPlanEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@1c5fd8a mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@1c5fd8a( com.harbormaster.codetemplate.model.classes.ClassObject@1c5fd8aRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@1e65e8e1 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@1e65e8e1( com.harbormaster.codetemplate.model.classes.ClassObject@1e65e8e1Request request ) {
         var model = new ConnectivityPlan
         {
             Id = request.id,

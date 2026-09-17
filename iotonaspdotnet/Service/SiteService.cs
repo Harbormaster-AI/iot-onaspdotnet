@@ -49,15 +49,15 @@ public class SiteService : ISiteService
         {
             return false;
         }
-        existing.Name = request.Name
-        existing.Address = request.Address
-        existing.Timezone = request.Timezone
-        existing.Latitude = request.Latitude
-        existing.Longitude = request.Longitude
-        existing.Tenant = request.Tenant
-        existing.Buildings = request.Buildings
-        existing.Devices = request.Devices
-        existing.Gateways = request.Gateways
+        existing.Name = request.Name;
+        existing.Address = request.Address;
+        existing.Timezone = request.Timezone;
+        existing.Latitude = request.Latitude;
+        existing.Longitude = request.Longitude;
+        existing.Tenant = request.Tenant;
+        existing.Buildings = request.Buildings;
+        existing.Devices = request.Devices;
+        existing.Gateways = request.Gateways;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

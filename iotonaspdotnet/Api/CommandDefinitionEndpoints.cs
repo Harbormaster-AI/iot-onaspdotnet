@@ -70,7 +70,7 @@ public static class CommandDefinitionEndpoints
         ICommandDefinitionService service,
         CancellationToken cancellationToken) {
 
-        var all; = await service.GetAllAsync(cancellationToken);
+        var all = await service.GetAllAsync(cancellationToken);
         return Results.Ok( all.Select( CommandDefinitionResponse.FromModel ) );
     }
 
@@ -125,7 +125,7 @@ public static class CommandDefinitionEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@787095f7 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@787095f7( com.harbormaster.codetemplate.model.classes.ClassObject@787095f7Request request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@33a96701 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@33a96701( com.harbormaster.codetemplate.model.classes.ClassObject@33a96701Request request ) {
         var model = new CommandDefinition
         {
             Id = request.id,
@@ -155,7 +155,7 @@ public static class CommandDefinitionEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@787095f7 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@787095f7( com.harbormaster.codetemplate.model.classes.ClassObject@787095f7Request request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@33a96701 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@33a96701( com.harbormaster.codetemplate.model.classes.ClassObject@33a96701Request request ) {
         var model = new CommandDefinition
         {
             Id = request.id,

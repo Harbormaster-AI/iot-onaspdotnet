@@ -72,7 +72,7 @@ public static class TelemetryStreamEndpoints
         ITelemetryStreamService service,
         CancellationToken cancellationToken) {
 
-        var all; = await service.GetAllAsync(cancellationToken);
+        var all = await service.GetAllAsync(cancellationToken);
         return Results.Ok( all.Select( TelemetryStreamResponse.FromModel ) );
     }
 

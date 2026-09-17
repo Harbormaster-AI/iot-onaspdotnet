@@ -70,7 +70,7 @@ public static class AlertRuleEndpoints
         IAlertRuleService service,
         CancellationToken cancellationToken) {
 
-        var all; = await service.GetAllAsync(cancellationToken);
+        var all = await service.GetAllAsync(cancellationToken);
         return Results.Ok( all.Select( AlertRuleResponse.FromModel ) );
     }
 
@@ -125,7 +125,7 @@ public static class AlertRuleEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@632cebb6 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@632cebb6( com.harbormaster.codetemplate.model.classes.ClassObject@632cebb6Request request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@4acf45d7 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@4acf45d7( com.harbormaster.codetemplate.model.classes.ClassObject@4acf45d7Request request ) {
         var model = new AlertRule
         {
             Id = request.id,
@@ -154,7 +154,7 @@ public static class AlertRuleEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@632cebb6 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@632cebb6( com.harbormaster.codetemplate.model.classes.ClassObject@632cebb6Request request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@4acf45d7 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@4acf45d7( com.harbormaster.codetemplate.model.classes.ClassObject@4acf45d7Request request ) {
         var model = new AlertRule
         {
             Id = request.id,

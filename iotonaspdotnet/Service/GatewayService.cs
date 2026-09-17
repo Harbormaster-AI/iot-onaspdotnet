@@ -63,15 +63,15 @@ public class GatewayService : IGatewayService
         {
             return false;
         }
-        existing.SoftwareVersion = request.SoftwareVersion
-        existing.Site = request.Site
-        existing.Room = request.Room
-        existing.Devices = request.Devices
-        existing.EdgeApplications = request.EdgeApplications
-        existing.Certificates = request.Certificates
-        existing.DigitalTwin = request.DigitalTwin
-        existing.NetworkProfiles = request.NetworkProfiles
-        existing.Status = request.Status
+        existing.SoftwareVersion = request.SoftwareVersion;
+        existing.Site = request.Site;
+        existing.Room = request.Room;
+        existing.Devices = request.Devices;
+        existing.EdgeApplications = request.EdgeApplications;
+        existing.Certificates = request.Certificates;
+        existing.DigitalTwin = request.DigitalTwin;
+        existing.NetworkProfiles = request.NetworkProfiles;
+        existing.Status = request.Status;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

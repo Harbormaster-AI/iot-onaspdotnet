@@ -56,13 +56,13 @@ public class SoftwareUpdateCampaignService : ISoftwareUpdateCampaignService
         {
             return false;
         }
-        existing.CampaignCode = request.CampaignCode
-        existing.ScheduledStart = request.ScheduledStart
-        existing.ScheduledEnd = request.ScheduledEnd
-        existing.FirmwareRelease = request.FirmwareRelease
-        existing.DeviceGroup = request.DeviceGroup
-        existing.Executions = request.Executions
-        existing.Status = request.Status
+        existing.CampaignCode = request.CampaignCode;
+        existing.ScheduledStart = request.ScheduledStart;
+        existing.ScheduledEnd = request.ScheduledEnd;
+        existing.FirmwareRelease = request.FirmwareRelease;
+        existing.DeviceGroup = request.DeviceGroup;
+        existing.Executions = request.Executions;
+        existing.Status = request.Status;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

@@ -49,9 +49,9 @@ public class BuildingService : IBuildingService
         {
             return false;
         }
-        existing.Name = request.Name
-        existing.Site = request.Site
-        existing.Floors = request.Floors
+        existing.Name = request.Name;
+        existing.Site = request.Site;
+        existing.Floors = request.Floors;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

@@ -69,7 +69,7 @@ public static class SimCardEndpoints
         ISimCardService service,
         CancellationToken cancellationToken) {
 
-        var all; = await service.GetAllAsync(cancellationToken);
+        var all = await service.GetAllAsync(cancellationToken);
         return Results.Ok( all.Select( SimCardResponse.FromModel ) );
     }
 
@@ -140,7 +140,7 @@ public static class SimCardEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@359181ff mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@359181ff( com.harbormaster.codetemplate.model.classes.ClassObject@359181ffRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@23116e3b mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@23116e3b( com.harbormaster.codetemplate.model.classes.ClassObject@23116e3bRequest request ) {
         var model = new SimCard
         {
             Id = request.id,

@@ -91,27 +91,27 @@ public class IoTDeviceService : IIoTDeviceService
         {
             return false;
         }
-        existing.DeviceId = request.DeviceId
-        existing.SerialNumber = request.SerialNumber
-        existing.LastSeen = request.LastSeen
-        existing.FirmwareVersion = request.FirmwareVersion
-        existing.DeviceModel = request.DeviceModel
-        existing.Tenant = request.Tenant
-        existing.Site = request.Site
-        existing.Room = request.Room
-        existing.Gateway = request.Gateway
-        existing.Sensors = request.Sensors
-        existing.Actuators = request.Actuators
-        existing.Certificates = request.Certificates
-        existing.DigitalTwin = request.DigitalTwin
-        existing.TelemetryStreams = request.TelemetryStreams
-        existing.CommandInvocations = request.CommandInvocations
-        existing.Alerts = request.Alerts
-        existing.ProvisioningRecord = request.ProvisioningRecord
-        existing.DeviceGroups = request.DeviceGroups
-        existing.NetworkProfiles = request.NetworkProfiles
-        existing.Status = request.Status
-        existing.PowerSource = request.PowerSource
+        existing.DeviceId = request.DeviceId;
+        existing.SerialNumber = request.SerialNumber;
+        existing.LastSeen = request.LastSeen;
+        existing.FirmwareVersion = request.FirmwareVersion;
+        existing.DeviceModel = request.DeviceModel;
+        existing.Tenant = request.Tenant;
+        existing.Site = request.Site;
+        existing.Room = request.Room;
+        existing.Gateway = request.Gateway;
+        existing.Sensors = request.Sensors;
+        existing.Actuators = request.Actuators;
+        existing.Certificates = request.Certificates;
+        existing.DigitalTwin = request.DigitalTwin;
+        existing.TelemetryStreams = request.TelemetryStreams;
+        existing.CommandInvocations = request.CommandInvocations;
+        existing.Alerts = request.Alerts;
+        existing.ProvisioningRecord = request.ProvisioningRecord;
+        existing.DeviceGroups = request.DeviceGroups;
+        existing.NetworkProfiles = request.NetworkProfiles;
+        existing.Status = request.Status;
+        existing.PowerSource = request.PowerSource;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

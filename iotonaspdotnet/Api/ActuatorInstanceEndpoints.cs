@@ -67,7 +67,7 @@ public static class ActuatorInstanceEndpoints
         IActuatorInstanceService service,
         CancellationToken cancellationToken) {
 
-        var all; = await service.GetAllAsync(cancellationToken);
+        var all = await service.GetAllAsync(cancellationToken);
         return Results.Ok( all.Select( ActuatorInstanceResponse.FromModel ) );
     }
 
@@ -122,7 +122,7 @@ public static class ActuatorInstanceEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@7bcffb6b mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@7bcffb6b( com.harbormaster.codetemplate.model.classes.ClassObject@7bcffb6bRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@4a8092e9 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@4a8092e9( com.harbormaster.codetemplate.model.classes.ClassObject@4a8092e9Request request ) {
         var model = new ActuatorInstance
         {
             Id = request.id,

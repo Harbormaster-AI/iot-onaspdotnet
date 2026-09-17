@@ -66,7 +66,7 @@ public static class SoftwareUpdateExecutionEndpoints
         ISoftwareUpdateExecutionService service,
         CancellationToken cancellationToken) {
 
-        var all; = await service.GetAllAsync(cancellationToken);
+        var all = await service.GetAllAsync(cancellationToken);
         return Results.Ok( all.Select( SoftwareUpdateExecutionResponse.FromModel ) );
     }
 

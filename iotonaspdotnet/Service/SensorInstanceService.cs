@@ -49,12 +49,12 @@ public class SensorInstanceService : ISensorInstanceService
         {
             return false;
         }
-        existing.Name = request.Name
-        existing.Unit = request.Unit
-        existing.SamplingIntervalMs = request.SamplingIntervalMs
-        existing.Device = request.Device
-        existing.TelemetryStreams = request.TelemetryStreams
-        existing.SensorType = request.SensorType
+        existing.Name = request.Name;
+        existing.Unit = request.Unit;
+        existing.SamplingIntervalMs = request.SamplingIntervalMs;
+        existing.Device = request.Device;
+        existing.TelemetryStreams = request.TelemetryStreams;
+        existing.SensorType = request.SensorType;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

@@ -67,7 +67,7 @@ public static class DeviceGroupEndpoints
         IDeviceGroupService service,
         CancellationToken cancellationToken) {
 
-        var all; = await service.GetAllAsync(cancellationToken);
+        var all = await service.GetAllAsync(cancellationToken);
         return Results.Ok( all.Select( DeviceGroupResponse.FromModel ) );
     }
 
@@ -122,7 +122,7 @@ public static class DeviceGroupEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@119b0b7b mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@119b0b7b( com.harbormaster.codetemplate.model.classes.ClassObject@119b0b7bRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@288a8e54 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@288a8e54( com.harbormaster.codetemplate.model.classes.ClassObject@288a8e54Request request ) {
         var model = new DeviceGroup
         {
             Id = request.id,

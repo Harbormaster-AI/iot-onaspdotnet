@@ -70,7 +70,7 @@ public static class RoomEndpoints
         IRoomService service,
         CancellationToken cancellationToken) {
 
-        var all; = await service.GetAllAsync(cancellationToken);
+        var all = await service.GetAllAsync(cancellationToken);
         return Results.Ok( all.Select( RoomResponse.FromModel ) );
     }
 
@@ -125,7 +125,7 @@ public static class RoomEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@1c7f706d mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@1c7f706d( com.harbormaster.codetemplate.model.classes.ClassObject@1c7f706dRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@127c461d mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@127c461d( com.harbormaster.codetemplate.model.classes.ClassObject@127c461dRequest request ) {
         var model = new Room
         {
             Id = request.id,
@@ -152,7 +152,7 @@ public static class RoomEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@1c7f706d mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@1c7f706d( com.harbormaster.codetemplate.model.classes.ClassObject@1c7f706dRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@127c461d mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@127c461d( com.harbormaster.codetemplate.model.classes.ClassObject@127c461dRequest request ) {
         var model = new Room
         {
             Id = request.id,

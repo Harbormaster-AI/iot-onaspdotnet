@@ -77,14 +77,14 @@ public class TelemetryStreamService : ITelemetryStreamService
         {
             return false;
         }
-        existing.StreamName = request.StreamName
-        existing.RetentionDays = request.RetentionDays
-        existing.Device = request.Device
-        existing.Sensor = request.Sensor
-        existing.Schema = request.Schema
-        existing.MessagingEndpoint = request.MessagingEndpoint
-        existing.RetentionPolicy = request.RetentionPolicy
-        existing.Qos = request.Qos
+        existing.StreamName = request.StreamName;
+        existing.RetentionDays = request.RetentionDays;
+        existing.Device = request.Device;
+        existing.Sensor = request.Sensor;
+        existing.Schema = request.Schema;
+        existing.MessagingEndpoint = request.MessagingEndpoint;
+        existing.RetentionPolicy = request.RetentionPolicy;
+        existing.Qos = request.Qos;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

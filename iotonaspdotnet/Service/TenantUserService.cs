@@ -49,12 +49,12 @@ public class TenantUserService : ITenantUserService
         {
             return false;
         }
-        existing.FirstName = request.FirstName
-        existing.LastName = request.LastName
-        existing.Email = request.Email
-        existing.Tenant = request.Tenant
-        existing.CommandInvocations = request.CommandInvocations
-        existing.Role = request.Role
+        existing.FirstName = request.FirstName;
+        existing.LastName = request.LastName;
+        existing.Email = request.Email;
+        existing.Tenant = request.Tenant;
+        existing.CommandInvocations = request.CommandInvocations;
+        existing.Role = request.Role;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

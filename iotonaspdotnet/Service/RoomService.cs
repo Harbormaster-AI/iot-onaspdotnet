@@ -49,10 +49,10 @@ public class RoomService : IRoomService
         {
             return false;
         }
-        existing.Name = request.Name
-        existing.Floor = request.Floor
-        existing.Devices = request.Devices
-        existing.Gateways = request.Gateways
+        existing.Name = request.Name;
+        existing.Floor = request.Floor;
+        existing.Devices = request.Devices;
+        existing.Gateways = request.Gateways;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

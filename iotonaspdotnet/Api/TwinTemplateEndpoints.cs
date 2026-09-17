@@ -65,7 +65,7 @@ public static class TwinTemplateEndpoints
         ITwinTemplateService service,
         CancellationToken cancellationToken) {
 
-        var all; = await service.GetAllAsync(cancellationToken);
+        var all = await service.GetAllAsync(cancellationToken);
         return Results.Ok( all.Select( TwinTemplateResponse.FromModel ) );
     }
 
@@ -104,7 +104,7 @@ public static class TwinTemplateEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@43cad3e mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@43cad3e( com.harbormaster.codetemplate.model.classes.ClassObject@43cad3eRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@35f15da0 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@35f15da0( com.harbormaster.codetemplate.model.classes.ClassObject@35f15da0Request request ) {
         var model = new TwinTemplate
         {
             Id = request.id,

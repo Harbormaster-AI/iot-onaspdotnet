@@ -42,13 +42,13 @@ public class DeviceVendorService : IDeviceVendorService
         {
             return false;
         }
-        existing.Name = request.Name
-        existing.LegalName = request.LegalName
-        existing.HeadquartersCountry = request.HeadquartersCountry
-        existing.Website = request.Website
-        existing.DeviceModels = request.DeviceModels
-        existing.FirmwareReleases = request.FirmwareReleases
-        existing.HardwareModules = request.HardwareModules
+        existing.Name = request.Name;
+        existing.LegalName = request.LegalName;
+        existing.HeadquartersCountry = request.HeadquartersCountry;
+        existing.Website = request.Website;
+        existing.DeviceModels = request.DeviceModels;
+        existing.FirmwareReleases = request.FirmwareReleases;
+        existing.HardwareModules = request.HardwareModules;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

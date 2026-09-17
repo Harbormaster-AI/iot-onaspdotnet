@@ -67,7 +67,7 @@ public static class TenantUserEndpoints
         ITenantUserService service,
         CancellationToken cancellationToken) {
 
-        var all; = await service.GetAllAsync(cancellationToken);
+        var all = await service.GetAllAsync(cancellationToken);
         return Results.Ok( all.Select( TenantUserResponse.FromModel ) );
     }
 
@@ -122,7 +122,7 @@ public static class TenantUserEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@695f74da mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@695f74da( com.harbormaster.codetemplate.model.classes.ClassObject@695f74daRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@3022a2bf mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@3022a2bf( com.harbormaster.codetemplate.model.classes.ClassObject@3022a2bfRequest request ) {
         var model = new TenantUser
         {
             Id = request.id,

@@ -56,12 +56,12 @@ public class AlertService : IAlertService
         {
             return false;
         }
-        existing.RaisedAt = request.RaisedAt
-        existing.ClearedAt = request.ClearedAt
-        existing.Message = request.Message
-        existing.Device = request.Device
-        existing.AlertRule = request.AlertRule
-        existing.Status = request.Status
+        existing.RaisedAt = request.RaisedAt;
+        existing.ClearedAt = request.ClearedAt;
+        existing.Message = request.Message;
+        existing.Device = request.Device;
+        existing.AlertRule = request.AlertRule;
+        existing.Status = request.Status;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

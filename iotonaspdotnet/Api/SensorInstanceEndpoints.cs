@@ -67,7 +67,7 @@ public static class SensorInstanceEndpoints
         ISensorInstanceService service,
         CancellationToken cancellationToken) {
 
-        var all; = await service.GetAllAsync(cancellationToken);
+        var all = await service.GetAllAsync(cancellationToken);
         return Results.Ok( all.Select( SensorInstanceResponse.FromModel ) );
     }
 
@@ -122,7 +122,7 @@ public static class SensorInstanceEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@7fc706df mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@7fc706df( com.harbormaster.codetemplate.model.classes.ClassObject@7fc706dfRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@456d72c0 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@456d72c0( com.harbormaster.codetemplate.model.classes.ClassObject@456d72c0Request request ) {
         var model = new SensorInstance
         {
             Id = request.id,

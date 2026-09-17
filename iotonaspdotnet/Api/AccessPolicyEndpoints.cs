@@ -70,7 +70,7 @@ public static class AccessPolicyEndpoints
         IAccessPolicyService service,
         CancellationToken cancellationToken) {
 
-        var all; = await service.GetAllAsync(cancellationToken);
+        var all = await service.GetAllAsync(cancellationToken);
         return Results.Ok( all.Select( AccessPolicyResponse.FromModel ) );
     }
 
@@ -125,7 +125,7 @@ public static class AccessPolicyEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@409757e0 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@409757e0( com.harbormaster.codetemplate.model.classes.ClassObject@409757e0Request request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@5c6ac380 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@5c6ac380( com.harbormaster.codetemplate.model.classes.ClassObject@5c6ac380Request request ) {
         var model = new AccessPolicy
         {
             Id = request.id,
@@ -154,7 +154,7 @@ public static class AccessPolicyEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@409757e0 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@409757e0( com.harbormaster.codetemplate.model.classes.ClassObject@409757e0Request request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@5c6ac380 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@5c6ac380( com.harbormaster.codetemplate.model.classes.ClassObject@5c6ac380Request request ) {
         var model = new AccessPolicy
         {
             Id = request.id,

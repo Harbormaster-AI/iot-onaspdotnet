@@ -49,13 +49,13 @@ public class CommandDefinitionService : ICommandDefinitionService
         {
             return false;
         }
-        existing.Name = request.Name
-        existing.RequestSchemaUri = request.RequestSchemaUri
-        existing.ResponseSchemaUri = request.ResponseSchemaUri
-        existing.TimeoutSeconds = request.TimeoutSeconds
-        existing.DeviceModel = request.DeviceModel
-        existing.Actuators = request.Actuators
-        existing.CommandInvocations = request.CommandInvocations
+        existing.Name = request.Name;
+        existing.RequestSchemaUri = request.RequestSchemaUri;
+        existing.ResponseSchemaUri = request.ResponseSchemaUri;
+        existing.TimeoutSeconds = request.TimeoutSeconds;
+        existing.DeviceModel = request.DeviceModel;
+        existing.Actuators = request.Actuators;
+        existing.CommandInvocations = request.CommandInvocations;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

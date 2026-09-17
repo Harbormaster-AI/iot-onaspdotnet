@@ -49,10 +49,10 @@ public class DeviceGroupService : IDeviceGroupService
         {
             return false;
         }
-        existing.Name = request.Name
-        existing.Criteria = request.Criteria
-        existing.Tenant = request.Tenant
-        existing.Devices = request.Devices
+        existing.Name = request.Name;
+        existing.Criteria = request.Criteria;
+        existing.Tenant = request.Tenant;
+        existing.Devices = request.Devices;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

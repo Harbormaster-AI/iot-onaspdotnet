@@ -98,7 +98,7 @@ public static class TenantEndpoints
         ITenantService service,
         CancellationToken cancellationToken) {
 
-        var all; = await service.GetAllAsync(cancellationToken);
+        var all = await service.GetAllAsync(cancellationToken);
         return Results.Ok( all.Select( TenantResponse.FromModel ) );
     }
 
@@ -137,7 +137,7 @@ public static class TenantEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@142bdacb mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@142bdacb( com.harbormaster.codetemplate.model.classes.ClassObject@142bdacbRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@48483d65 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@48483d65( com.harbormaster.codetemplate.model.classes.ClassObject@48483d65Request request ) {
         var model = new Tenant
         {
             Id = request.id,
@@ -174,7 +174,7 @@ public static class TenantEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@142bdacb mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@142bdacb( com.harbormaster.codetemplate.model.classes.ClassObject@142bdacbRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@48483d65 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@48483d65( com.harbormaster.codetemplate.model.classes.ClassObject@48483d65Request request ) {
         var model = new Tenant
         {
             Id = request.id,
@@ -211,7 +211,7 @@ public static class TenantEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@142bdacb mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@142bdacb( com.harbormaster.codetemplate.model.classes.ClassObject@142bdacbRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@48483d65 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@48483d65( com.harbormaster.codetemplate.model.classes.ClassObject@48483d65Request request ) {
         var model = new Tenant
         {
             Id = request.id,
@@ -248,7 +248,7 @@ public static class TenantEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@142bdacb mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@142bdacb( com.harbormaster.codetemplate.model.classes.ClassObject@142bdacbRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@48483d65 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@48483d65( com.harbormaster.codetemplate.model.classes.ClassObject@48483d65Request request ) {
         var model = new Tenant
         {
             Id = request.id,
@@ -285,7 +285,7 @@ public static class TenantEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@142bdacb mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@142bdacb( com.harbormaster.codetemplate.model.classes.ClassObject@142bdacbRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@48483d65 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@48483d65( com.harbormaster.codetemplate.model.classes.ClassObject@48483d65Request request ) {
         var model = new Tenant
         {
             Id = request.id,
@@ -322,7 +322,7 @@ public static class TenantEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@142bdacb mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@142bdacb( com.harbormaster.codetemplate.model.classes.ClassObject@142bdacbRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@48483d65 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@48483d65( com.harbormaster.codetemplate.model.classes.ClassObject@48483d65Request request ) {
         var model = new Tenant
         {
             Id = request.id,
@@ -359,7 +359,7 @@ public static class TenantEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@142bdacb mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@142bdacb( com.harbormaster.codetemplate.model.classes.ClassObject@142bdacbRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@48483d65 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@48483d65( com.harbormaster.codetemplate.model.classes.ClassObject@48483d65Request request ) {
         var model = new Tenant
         {
             Id = request.id,
@@ -396,7 +396,7 @@ public static class TenantEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@142bdacb mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@142bdacb( com.harbormaster.codetemplate.model.classes.ClassObject@142bdacbRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@48483d65 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@48483d65( com.harbormaster.codetemplate.model.classes.ClassObject@48483d65Request request ) {
         var model = new Tenant
         {
             Id = request.id,
@@ -433,7 +433,7 @@ public static class TenantEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@142bdacb mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@142bdacb( com.harbormaster.codetemplate.model.classes.ClassObject@142bdacbRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@48483d65 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@48483d65( com.harbormaster.codetemplate.model.classes.ClassObject@48483d65Request request ) {
         var model = new Tenant
         {
             Id = request.id,
@@ -470,7 +470,7 @@ public static class TenantEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@142bdacb mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@142bdacb( com.harbormaster.codetemplate.model.classes.ClassObject@142bdacbRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@48483d65 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@48483d65( com.harbormaster.codetemplate.model.classes.ClassObject@48483d65Request request ) {
         var model = new Tenant
         {
             Id = request.id,
@@ -507,7 +507,7 @@ public static class TenantEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@142bdacb mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@142bdacb( com.harbormaster.codetemplate.model.classes.ClassObject@142bdacbRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@48483d65 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@48483d65( com.harbormaster.codetemplate.model.classes.ClassObject@48483d65Request request ) {
         var model = new Tenant
         {
             Id = request.id,
@@ -544,7 +544,7 @@ public static class TenantEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@142bdacb mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@142bdacb( com.harbormaster.codetemplate.model.classes.ClassObject@142bdacbRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@48483d65 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@48483d65( com.harbormaster.codetemplate.model.classes.ClassObject@48483d65Request request ) {
         var model = new Tenant
         {
             Id = request.id,

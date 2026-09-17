@@ -42,20 +42,20 @@ public class TenantService : ITenantService
         {
             return false;
         }
-        existing.Name = request.Name
-        existing.Sites = request.Sites
-        existing.Users = request.Users
-        existing.Devices = request.Devices
-        existing.DataRetentionPolicies = request.DataRetentionPolicies
-        existing.ConnectivityPlans = request.ConnectivityPlans
-        existing.SimCards = request.SimCards
-        existing.MessagingEndpoints = request.MessagingEndpoints
-        existing.AccessPolicies = request.AccessPolicies
-        existing.DeviceGroups = request.DeviceGroups
-        existing.AlertRules = request.AlertRules
-        existing.MaintenanceTickets = request.MaintenanceTickets
-        existing.UsageRecords = request.UsageRecords
-        existing.TenantType = request.TenantType
+        existing.Name = request.Name;
+        existing.Sites = request.Sites;
+        existing.Users = request.Users;
+        existing.Devices = request.Devices;
+        existing.DataRetentionPolicies = request.DataRetentionPolicies;
+        existing.ConnectivityPlans = request.ConnectivityPlans;
+        existing.SimCards = request.SimCards;
+        existing.MessagingEndpoints = request.MessagingEndpoints;
+        existing.AccessPolicies = request.AccessPolicies;
+        existing.DeviceGroups = request.DeviceGroups;
+        existing.AlertRules = request.AlertRules;
+        existing.MaintenanceTickets = request.MaintenanceTickets;
+        existing.UsageRecords = request.UsageRecords;
+        existing.TenantType = request.TenantType;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

@@ -67,7 +67,7 @@ public static class FloorEndpoints
         IFloorService service,
         CancellationToken cancellationToken) {
 
-        var all; = await service.GetAllAsync(cancellationToken);
+        var all = await service.GetAllAsync(cancellationToken);
         return Results.Ok( all.Select( FloorResponse.FromModel ) );
     }
 
@@ -122,7 +122,7 @@ public static class FloorEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@e142cd1 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@e142cd1( com.harbormaster.codetemplate.model.classes.ClassObject@e142cd1Request request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@37ee2d05 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@37ee2d05( com.harbormaster.codetemplate.model.classes.ClassObject@37ee2d05Request request ) {
         var model = new Floor
         {
             Id = request.id,

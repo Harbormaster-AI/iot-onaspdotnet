@@ -56,13 +56,13 @@ public class MaintenanceTicketService : IMaintenanceTicketService
         {
             return false;
         }
-        existing.TicketNumber = request.TicketNumber
-        existing.OpenedAt = request.OpenedAt
-        existing.ClosedAt = request.ClosedAt
-        existing.Device = request.Device
-        existing.Tenant = request.Tenant
-        existing.Priority = request.Priority
-        existing.Status = request.Status
+        existing.TicketNumber = request.TicketNumber;
+        existing.OpenedAt = request.OpenedAt;
+        existing.ClosedAt = request.ClosedAt;
+        existing.Device = request.Device;
+        existing.Tenant = request.Tenant;
+        existing.Priority = request.Priority;
+        existing.Status = request.Status;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

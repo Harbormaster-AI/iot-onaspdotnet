@@ -69,7 +69,7 @@ public static class SoftwareUpdateCampaignEndpoints
         ISoftwareUpdateCampaignService service,
         CancellationToken cancellationToken) {
 
-        var all; = await service.GetAllAsync(cancellationToken);
+        var all = await service.GetAllAsync(cancellationToken);
         return Results.Ok( all.Select( SoftwareUpdateCampaignResponse.FromModel ) );
     }
 
@@ -140,7 +140,7 @@ public static class SoftwareUpdateCampaignEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@628e09f4 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@628e09f4( com.harbormaster.codetemplate.model.classes.ClassObject@628e09f4Request request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@2e5ac4db mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@2e5ac4db( com.harbormaster.codetemplate.model.classes.ClassObject@2e5ac4dbRequest request ) {
         var model = new SoftwareUpdateCampaign
         {
             Id = request.id,

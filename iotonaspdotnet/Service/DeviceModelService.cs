@@ -56,16 +56,16 @@ public class DeviceModelService : IDeviceModelService
         {
             return false;
         }
-        existing.Name = request.Name
-        existing.ModelNumber = request.ModelNumber
-        existing.HardwareRevision = request.HardwareRevision
-        existing.Vendor = request.Vendor
-        existing.HardwareModules = request.HardwareModules
-        existing.TwinTemplate = request.TwinTemplate
-        existing.FirmwareReleases = request.FirmwareReleases
-        existing.CommandDefinitions = request.CommandDefinitions
-        existing.SupportedConnectivity = request.SupportedConnectivity
-        existing.DefaultTelemetryEncoding = request.DefaultTelemetryEncoding
+        existing.Name = request.Name;
+        existing.ModelNumber = request.ModelNumber;
+        existing.HardwareRevision = request.HardwareRevision;
+        existing.Vendor = request.Vendor;
+        existing.HardwareModules = request.HardwareModules;
+        existing.TwinTemplate = request.TwinTemplate;
+        existing.FirmwareReleases = request.FirmwareReleases;
+        existing.CommandDefinitions = request.CommandDefinitions;
+        existing.SupportedConnectivity = request.SupportedConnectivity;
+        existing.DefaultTelemetryEncoding = request.DefaultTelemetryEncoding;
         await _repository.UpdateAsync(existing, cancellationToken);
     }
 

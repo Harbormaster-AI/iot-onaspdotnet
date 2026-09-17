@@ -67,7 +67,7 @@ public static class BuildingEndpoints
         IBuildingService service,
         CancellationToken cancellationToken) {
 
-        var all; = await service.GetAllAsync(cancellationToken);
+        var all = await service.GetAllAsync(cancellationToken);
         return Results.Ok( all.Select( BuildingResponse.FromModel ) );
     }
 
@@ -122,7 +122,7 @@ public static class BuildingEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@44a35b0c mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@44a35b0c( com.harbormaster.codetemplate.model.classes.ClassObject@44a35b0cRequest request ) {
+    private com.harbormaster.codetemplate.model.classes.ClassObject@3ec48cad mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@3ec48cad( com.harbormaster.codetemplate.model.classes.ClassObject@3ec48cadRequest request ) {
         var model = new Building
         {
             Id = request.id,

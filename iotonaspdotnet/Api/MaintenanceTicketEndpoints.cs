@@ -66,7 +66,7 @@ public static class MaintenanceTicketEndpoints
         IMaintenanceTicketService service,
         CancellationToken cancellationToken) {
 
-        var all; = await service.GetAllAsync(cancellationToken);
+        var all = await service.GetAllAsync(cancellationToken);
         return Results.Ok( all.Select( MaintenanceTicketResponse.FromModel ) );
     }
 
