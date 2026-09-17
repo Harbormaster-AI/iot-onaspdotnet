@@ -7,10 +7,10 @@ public class SoftwareUpdateExecution
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
- public virtual long  { get; set; }
- public virtual DateTime  { get; set; }
- public virtual DateTime  { get; set; }
-public virtual SoftwareUpdateCampaign  { get; set; }
-public virtual IoTDevice  { get; set; }
- public virtual UpdateStatus  { get; set; }
+ public virtual long SoftwareupdateexecutionId { get; set; }
+ public virtual DateTime StartedAt { get; set; }
+ public virtual DateTime CompletedAt { get; set; }
+public virtual SoftwareUpdateCampaign Campaign { get; set; }
+public virtual IoTDevice Device { get; set; }
+ public virtual UpdateStatus Status { get; set; }
 }

@@ -7,10 +7,10 @@ public class EdgeApplication
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
- public virtual long  { get; set; }
- public virtual string  { get; set; }
- public virtual string  { get; set; }
- public virtual string  { get; set; }
-public virtual Gateway  { get; set; }
- public virtual DeploymentStatus  { get; set; }
+ public virtual long EdgeapplicationId { get; set; }
+ public virtual string Name { get; set; }
+ public virtual string Version { get; set; }
+ public virtual string Image { get; set; }
+public virtual Gateway Gateway { get; set; }
+ public virtual DeploymentStatus Status { get; set; }
 }

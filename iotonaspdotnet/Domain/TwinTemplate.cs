@@ -7,9 +7,9 @@ public class TwinTemplate
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
- public virtual long  { get; set; }
- public virtual string  { get; set; }
- public virtual Uri_  { get; set; }
- public virtual string  { get; set; }
-public virtual DeviceModel  { get; set; }
+ public virtual long TwintemplateId { get; set; }
+ public virtual string Name { get; set; }
+ public virtual Uri_ SchemaUri { get; set; }
+ public virtual string Version { get; set; }
+public virtual DeviceModel DeviceModels { get; set; }
 }

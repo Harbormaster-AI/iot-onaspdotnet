@@ -7,15 +7,15 @@ public class DeviceModel
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
- public virtual long  { get; set; }
- public virtual string  { get; set; }
- public virtual string  { get; set; }
- public virtual string  { get; set; }
-public virtual DeviceVendor  { get; set; }
-public virtual HardwareModule  { get; set; }
-public virtual TwinTemplate  { get; set; }
-public virtual FirmwareRelease  { get; set; }
-public virtual CommandDefinition  { get; set; }
- public virtual ConnectivityType  { get; set; }
- public virtual TelemetryEncoding  { get; set; }
+ public virtual long DevicemodelId { get; set; }
+ public virtual string Name { get; set; }
+ public virtual string ModelNumber { get; set; }
+ public virtual string HardwareRevision { get; set; }
+public virtual DeviceVendor Vendor { get; set; }
+public virtual HardwareModule HardwareModules { get; set; }
+public virtual TwinTemplate TwinTemplate { get; set; }
+public virtual FirmwareRelease FirmwareReleases { get; set; }
+public virtual CommandDefinition CommandDefinitions { get; set; }
+ public virtual ConnectivityType SupportedConnectivity { get; set; }
+ public virtual TelemetryEncoding DefaultTelemetryEncoding { get; set; }
 }

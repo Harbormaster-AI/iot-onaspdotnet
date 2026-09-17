@@ -7,12 +7,12 @@ public class UsageRecord
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
- public virtual long  { get; set; }
- public virtual DateOnly  { get; set; }
- public virtual DateOnly  { get; set; }
- public virtual int  { get; set; }
- public virtual int  { get; set; }
-public virtual Tenant  { get; set; }
-public virtual IoTDevice  { get; set; }
-public virtual ConnectivityPlan  { get; set; }
+ public virtual long UsagerecordId { get; set; }
+ public virtual DateOnly PeriodStart { get; set; }
+ public virtual DateOnly PeriodEnd { get; set; }
+ public virtual int MessagesSent { get; set; }
+ public virtual int DataVolumeMB { get; set; }
+public virtual Tenant Tenant { get; set; }
+public virtual IoTDevice Device { get; set; }
+public virtual ConnectivityPlan ConnectivityPlan { get; set; }
 }

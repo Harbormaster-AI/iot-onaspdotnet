@@ -7,12 +7,12 @@ public class DeviceVendor
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
- public virtual long  { get; set; }
- public virtual string  { get; set; }
- public virtual string  { get; set; }
- public virtual string  { get; set; }
- public virtual string  { get; set; }
-public virtual DeviceModel  { get; set; }
-public virtual FirmwareRelease  { get; set; }
-public virtual HardwareModule  { get; set; }
+ public virtual long DevicevendorId { get; set; }
+ public virtual string Name { get; set; }
+ public virtual string LegalName { get; set; }
+ public virtual string HeadquartersCountry { get; set; }
+ public virtual string Website { get; set; }
+public virtual DeviceModel DeviceModels { get; set; }
+public virtual FirmwareRelease FirmwareReleases { get; set; }
+public virtual HardwareModule HardwareModules { get; set; }
 }

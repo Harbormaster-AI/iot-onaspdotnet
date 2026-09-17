@@ -7,10 +7,10 @@ public class ActuatorInstance
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
- public virtual long  { get; set; }
- public virtual string  { get; set; }
- public virtual TopicName  { get; set; }
-public virtual IoTDevice  { get; set; }
-public virtual CommandDefinition  { get; set; }
- public virtual ActuatorType  { get; set; }
+ public virtual long ActuatorinstanceId { get; set; }
+ public virtual string Name { get; set; }
+ public virtual TopicName CommandTopic { get; set; }
+public virtual IoTDevice Device { get; set; }
+public virtual CommandDefinition SupportedCommands { get; set; }
+ public virtual ActuatorType ActuatorType { get; set; }
 }

@@ -7,11 +7,11 @@ public class Alert
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
- public virtual long  { get; set; }
- public virtual DateTime  { get; set; }
- public virtual DateTime  { get; set; }
- public virtual string  { get; set; }
-public virtual IoTDevice  { get; set; }
-public virtual AlertRule  { get; set; }
- public virtual AlertStatus  { get; set; }
+ public virtual long AlertId { get; set; }
+ public virtual DateTime RaisedAt { get; set; }
+ public virtual DateTime ClearedAt { get; set; }
+ public virtual string Message { get; set; }
+public virtual IoTDevice Device { get; set; }
+public virtual AlertRule AlertRule { get; set; }
+ public virtual AlertStatus Status { get; set; }
 }

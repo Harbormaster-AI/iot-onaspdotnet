@@ -7,19 +7,19 @@ public class Tenant
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
- public virtual long  { get; set; }
- public virtual string  { get; set; }
-public virtual Site  { get; set; }
-public virtual TenantUser  { get; set; }
-public virtual IoTDevice  { get; set; }
-public virtual DataRetentionPolicy  { get; set; }
-public virtual ConnectivityPlan  { get; set; }
-public virtual SimCard  { get; set; }
-public virtual MessagingEndpoint  { get; set; }
-public virtual AccessPolicy  { get; set; }
-public virtual DeviceGroup  { get; set; }
-public virtual AlertRule  { get; set; }
-public virtual MaintenanceTicket  { get; set; }
-public virtual UsageRecord  { get; set; }
- public virtual TenantType  { get; set; }
+ public virtual long TenantId { get; set; }
+ public virtual string Name { get; set; }
+public virtual Site Sites { get; set; }
+public virtual TenantUser Users { get; set; }
+public virtual IoTDevice Devices { get; set; }
+public virtual DataRetentionPolicy DataRetentionPolicies { get; set; }
+public virtual ConnectivityPlan ConnectivityPlans { get; set; }
+public virtual SimCard SimCards { get; set; }
+public virtual MessagingEndpoint MessagingEndpoints { get; set; }
+public virtual AccessPolicy AccessPolicies { get; set; }
+public virtual DeviceGroup DeviceGroups { get; set; }
+public virtual AlertRule AlertRules { get; set; }
+public virtual MaintenanceTicket MaintenanceTickets { get; set; }
+public virtual UsageRecord UsageRecords { get; set; }
+ public virtual TenantType TenantType { get; set; }
 }

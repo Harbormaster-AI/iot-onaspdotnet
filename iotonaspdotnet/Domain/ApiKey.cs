@@ -7,10 +7,10 @@ public class ApiKey
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
- public virtual long  { get; set; }
- public virtual string  { get; set; }
- public virtual string  { get; set; }
- public virtual DateTime  { get; set; }
- public virtual DateTime  { get; set; }
-public virtual AccessPolicy  { get; set; }
+ public virtual long ApikeyId { get; set; }
+ public virtual string KeyId { get; set; }
+ public virtual string HashedSecret { get; set; }
+ public virtual DateTime CreatedAt { get; set; }
+ public virtual DateTime LastUsedAt { get; set; }
+public virtual AccessPolicy AccessPolicy { get; set; }
 }

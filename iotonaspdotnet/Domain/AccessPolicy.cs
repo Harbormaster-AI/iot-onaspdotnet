@@ -7,11 +7,11 @@ public class AccessPolicy
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
- public virtual long  { get; set; }
- public virtual string  { get; set; }
- public virtual string  { get; set; }
- public virtual DateTime  { get; set; }
-public virtual Tenant  { get; set; }
-public virtual ApiKey  { get; set; }
-public virtual TenantUser  { get; set; }
+ public virtual long AccesspolicyId { get; set; }
+ public virtual string Name { get; set; }
+ public virtual string Scope { get; set; }
+ public virtual DateTime ExpiresAt { get; set; }
+public virtual Tenant Tenant { get; set; }
+public virtual ApiKey ApiKeys { get; set; }
+public virtual TenantUser Users { get; set; }
 }

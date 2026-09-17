@@ -7,10 +7,10 @@ public class ConnectivityPlan
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
- public virtual long  { get; set; }
- public virtual string  { get; set; }
- public virtual int  { get; set; }
- public virtual int  { get; set; }
-public virtual SimCard  { get; set; }
-public virtual Tenant  { get; set; }
+ public virtual long ConnectivityplanId { get; set; }
+ public virtual string Name { get; set; }
+ public virtual int DataCapMB { get; set; }
+ public virtual int BillingCycleDays { get; set; }
+public virtual SimCard SimCards { get; set; }
+public virtual Tenant Tenant { get; set; }
 }
