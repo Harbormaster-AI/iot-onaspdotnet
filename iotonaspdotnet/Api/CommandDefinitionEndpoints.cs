@@ -125,17 +125,17 @@ public static class CommandDefinitionEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@33a96701 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@33a96701( com.harbormaster.codetemplate.model.classes.ClassObject@33a96701Request request ) {
+    private CommandDefinition mapRequestToCommandDefinition( CommandDefinitionRequest request ) {
         var model = new CommandDefinition
         {
             Id = request.id,
-        Name = request.Name
-        RequestSchemaUri = request.RequestSchemaUri
-        ResponseSchemaUri = request.ResponseSchemaUri
-        TimeoutSeconds = request.TimeoutSeconds
-        DeviceModel = request.DeviceModel
-        Actuators = request.Actuators
-        CommandInvocations = request.CommandInvocations
+            Name = request.Name;
+            RequestSchemaUri = request.RequestSchemaUri;
+            ResponseSchemaUri = request.ResponseSchemaUri;
+            TimeoutSeconds = request.TimeoutSeconds;
+            DeviceModel = request.DeviceModel;
+            Actuators = request.Actuators;
+            CommandInvocations = request.CommandInvocations;
         }
         return model;
     }
@@ -155,17 +155,17 @@ public static class CommandDefinitionEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@33a96701 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@33a96701( com.harbormaster.codetemplate.model.classes.ClassObject@33a96701Request request ) {
+    private CommandDefinition mapRequestToCommandDefinition( CommandDefinitionRequest request ) {
         var model = new CommandDefinition
         {
             Id = request.id,
-        Name = request.Name
-        RequestSchemaUri = request.RequestSchemaUri
-        ResponseSchemaUri = request.ResponseSchemaUri
-        TimeoutSeconds = request.TimeoutSeconds
-        DeviceModel = request.DeviceModel
-        Actuators = request.Actuators
-        CommandInvocations = request.CommandInvocations
+            Name = request.Name;
+            RequestSchemaUri = request.RequestSchemaUri;
+            ResponseSchemaUri = request.ResponseSchemaUri;
+            TimeoutSeconds = request.TimeoutSeconds;
+            DeviceModel = request.DeviceModel;
+            Actuators = request.Actuators;
+            CommandInvocations = request.CommandInvocations;
         }
         return model;
     }

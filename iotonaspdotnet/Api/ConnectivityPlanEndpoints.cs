@@ -122,15 +122,15 @@ public static class ConnectivityPlanEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@1e65e8e1 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@1e65e8e1( com.harbormaster.codetemplate.model.classes.ClassObject@1e65e8e1Request request ) {
+    private ConnectivityPlan mapRequestToConnectivityPlan( ConnectivityPlanRequest request ) {
         var model = new ConnectivityPlan
         {
             Id = request.id,
-        Name = request.Name
-        DataCapMB = request.DataCapMB
-        BillingCycleDays = request.BillingCycleDays
-        SimCards = request.SimCards
-        Tenant = request.Tenant
+            Name = request.Name;
+            DataCapMB = request.DataCapMB;
+            BillingCycleDays = request.BillingCycleDays;
+            SimCards = request.SimCards;
+            Tenant = request.Tenant;
         }
         return model;
     }

@@ -158,18 +158,18 @@ public static class DigitalTwinEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@51438f16 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@51438f16( com.harbormaster.codetemplate.model.classes.ClassObject@51438f16Request request ) {
+    private DigitalTwin mapRequestToDigitalTwin( DigitalTwinRequest request ) {
         var model = new DigitalTwin
         {
             Id = request.id,
-        TwinId = request.TwinId
-        DesiredStateVersion = request.DesiredStateVersion
-        ReportedStateVersion = request.ReportedStateVersion
-        LastSyncAt = request.LastSyncAt
-        Device = request.Device
-        Gateway = request.Gateway
-        Template = request.Template
-        ChangeEvents = request.ChangeEvents
+            TwinId = request.TwinId;
+            DesiredStateVersion = request.DesiredStateVersion;
+            ReportedStateVersion = request.ReportedStateVersion;
+            LastSyncAt = request.LastSyncAt;
+            Device = request.Device;
+            Gateway = request.Gateway;
+            Template = request.Template;
+            ChangeEvents = request.ChangeEvents;
         }
         return model;
     }

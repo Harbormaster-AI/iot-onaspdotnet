@@ -122,14 +122,14 @@ public static class DeviceGroupEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@288a8e54 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@288a8e54( com.harbormaster.codetemplate.model.classes.ClassObject@288a8e54Request request ) {
+    private DeviceGroup mapRequestToDeviceGroup( DeviceGroupRequest request ) {
         var model = new DeviceGroup
         {
             Id = request.id,
-        Name = request.Name
-        Criteria = request.Criteria
-        Tenant = request.Tenant
-        Devices = request.Devices
+            Name = request.Name;
+            Criteria = request.Criteria;
+            Tenant = request.Tenant;
+            Devices = request.Devices;
         }
         return model;
     }

@@ -104,14 +104,14 @@ public static class TelemetrySchemaEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@647a7e40 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@647a7e40( com.harbormaster.codetemplate.model.classes.ClassObject@647a7e40Request request ) {
+    private TelemetrySchema mapRequestToTelemetrySchema( TelemetrySchemaRequest request ) {
         var model = new TelemetrySchema
         {
             Id = request.id,
-        SchemaId = request.SchemaId
-        SchemaUri = request.SchemaUri
-        Streams = request.Streams
-        Encoding = request.Encoding
+            SchemaId = request.SchemaId;
+            SchemaUri = request.SchemaUri;
+            Streams = request.Streams;
+            Encoding = request.Encoding;
         }
         return model;
     }

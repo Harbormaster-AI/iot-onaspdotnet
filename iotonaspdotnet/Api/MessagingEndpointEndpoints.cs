@@ -122,16 +122,16 @@ public static class MessagingEndpointEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@634fbbfa mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@634fbbfa( com.harbormaster.codetemplate.model.classes.ClassObject@634fbbfaRequest request ) {
+    private MessagingEndpoint mapRequestToMessagingEndpoint( MessagingEndpointRequest request ) {
         var model = new MessagingEndpoint
         {
             Id = request.id,
-        Host = request.Host
-        Port = request.Port
-        Secure = request.Secure
-        Tenant = request.Tenant
-        Streams = request.Streams
-        Protocol = request.Protocol
+            Host = request.Host;
+            Port = request.Port;
+            Secure = request.Secure;
+            Tenant = request.Tenant;
+            Streams = request.Streams;
+            Protocol = request.Protocol;
         }
         return model;
     }

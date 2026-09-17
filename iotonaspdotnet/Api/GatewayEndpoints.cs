@@ -167,19 +167,19 @@ public static class GatewayEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@fd643e3 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@fd643e3( com.harbormaster.codetemplate.model.classes.ClassObject@fd643e3Request request ) {
+    private Gateway mapRequestToGateway( GatewayRequest request ) {
         var model = new Gateway
         {
             Id = request.id,
-        SoftwareVersion = request.SoftwareVersion
-        Site = request.Site
-        Room = request.Room
-        Devices = request.Devices
-        EdgeApplications = request.EdgeApplications
-        Certificates = request.Certificates
-        DigitalTwin = request.DigitalTwin
-        NetworkProfiles = request.NetworkProfiles
-        Status = request.Status
+            SoftwareVersion = request.SoftwareVersion;
+            Site = request.Site;
+            Room = request.Room;
+            Devices = request.Devices;
+            EdgeApplications = request.EdgeApplications;
+            Certificates = request.Certificates;
+            DigitalTwin = request.DigitalTwin;
+            NetworkProfiles = request.NetworkProfiles;
+            Status = request.Status;
         }
         return model;
     }
@@ -199,19 +199,19 @@ public static class GatewayEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@fd643e3 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@fd643e3( com.harbormaster.codetemplate.model.classes.ClassObject@fd643e3Request request ) {
+    private Gateway mapRequestToGateway( GatewayRequest request ) {
         var model = new Gateway
         {
             Id = request.id,
-        SoftwareVersion = request.SoftwareVersion
-        Site = request.Site
-        Room = request.Room
-        Devices = request.Devices
-        EdgeApplications = request.EdgeApplications
-        Certificates = request.Certificates
-        DigitalTwin = request.DigitalTwin
-        NetworkProfiles = request.NetworkProfiles
-        Status = request.Status
+            SoftwareVersion = request.SoftwareVersion;
+            Site = request.Site;
+            Room = request.Room;
+            Devices = request.Devices;
+            EdgeApplications = request.EdgeApplications;
+            Certificates = request.Certificates;
+            DigitalTwin = request.DigitalTwin;
+            NetworkProfiles = request.NetworkProfiles;
+            Status = request.Status;
         }
         return model;
     }
@@ -231,19 +231,19 @@ public static class GatewayEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@fd643e3 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@fd643e3( com.harbormaster.codetemplate.model.classes.ClassObject@fd643e3Request request ) {
+    private Gateway mapRequestToGateway( GatewayRequest request ) {
         var model = new Gateway
         {
             Id = request.id,
-        SoftwareVersion = request.SoftwareVersion
-        Site = request.Site
-        Room = request.Room
-        Devices = request.Devices
-        EdgeApplications = request.EdgeApplications
-        Certificates = request.Certificates
-        DigitalTwin = request.DigitalTwin
-        NetworkProfiles = request.NetworkProfiles
-        Status = request.Status
+            SoftwareVersion = request.SoftwareVersion;
+            Site = request.Site;
+            Room = request.Room;
+            Devices = request.Devices;
+            EdgeApplications = request.EdgeApplications;
+            Certificates = request.Certificates;
+            DigitalTwin = request.DigitalTwin;
+            NetworkProfiles = request.NetworkProfiles;
+            Status = request.Status;
         }
         return model;
     }
@@ -263,19 +263,19 @@ public static class GatewayEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@fd643e3 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@fd643e3( com.harbormaster.codetemplate.model.classes.ClassObject@fd643e3Request request ) {
+    private Gateway mapRequestToGateway( GatewayRequest request ) {
         var model = new Gateway
         {
             Id = request.id,
-        SoftwareVersion = request.SoftwareVersion
-        Site = request.Site
-        Room = request.Room
-        Devices = request.Devices
-        EdgeApplications = request.EdgeApplications
-        Certificates = request.Certificates
-        DigitalTwin = request.DigitalTwin
-        NetworkProfiles = request.NetworkProfiles
-        Status = request.Status
+            SoftwareVersion = request.SoftwareVersion;
+            Site = request.Site;
+            Room = request.Room;
+            Devices = request.Devices;
+            EdgeApplications = request.EdgeApplications;
+            Certificates = request.Certificates;
+            DigitalTwin = request.DigitalTwin;
+            NetworkProfiles = request.NetworkProfiles;
+            Status = request.Status;
         }
         return model;
     }

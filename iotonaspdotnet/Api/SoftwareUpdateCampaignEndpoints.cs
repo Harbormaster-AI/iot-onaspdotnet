@@ -140,17 +140,17 @@ public static class SoftwareUpdateCampaignEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@2e5ac4db mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@2e5ac4db( com.harbormaster.codetemplate.model.classes.ClassObject@2e5ac4dbRequest request ) {
+    private SoftwareUpdateCampaign mapRequestToSoftwareUpdateCampaign( SoftwareUpdateCampaignRequest request ) {
         var model = new SoftwareUpdateCampaign
         {
             Id = request.id,
-        CampaignCode = request.CampaignCode
-        ScheduledStart = request.ScheduledStart
-        ScheduledEnd = request.ScheduledEnd
-        FirmwareRelease = request.FirmwareRelease
-        DeviceGroup = request.DeviceGroup
-        Executions = request.Executions
-        Status = request.Status
+            CampaignCode = request.CampaignCode;
+            ScheduledStart = request.ScheduledStart;
+            ScheduledEnd = request.ScheduledEnd;
+            FirmwareRelease = request.FirmwareRelease;
+            DeviceGroup = request.DeviceGroup;
+            Executions = request.Executions;
+            Status = request.Status;
         }
         return model;
     }

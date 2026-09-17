@@ -140,17 +140,17 @@ public static class SimCardEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@23116e3b mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@23116e3b( com.harbormaster.codetemplate.model.classes.ClassObject@23116e3bRequest request ) {
+    private SimCard mapRequestToSimCard( SimCardRequest request ) {
         var model = new SimCard
         {
             Id = request.id,
-        Iccid = request.Iccid
-        Imsi = request.Imsi
-        Carrier = request.Carrier
-        NetworkProfiles = request.NetworkProfiles
-        Tenant = request.Tenant
-        ConnectivityPlan = request.ConnectivityPlan
-        Status = request.Status
+            Iccid = request.Iccid;
+            Imsi = request.Imsi;
+            Carrier = request.Carrier;
+            NetworkProfiles = request.NetworkProfiles;
+            Tenant = request.Tenant;
+            ConnectivityPlan = request.ConnectivityPlan;
+            Status = request.Status;
         }
         return model;
     }

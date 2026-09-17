@@ -251,31 +251,31 @@ public static class IoTDeviceEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@2a3a78a3 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@2a3a78a3( com.harbormaster.codetemplate.model.classes.ClassObject@2a3a78a3Request request ) {
+    private IoTDevice mapRequestToIoTDevice( IoTDeviceRequest request ) {
         var model = new IoTDevice
         {
             Id = request.id,
-        DeviceId = request.DeviceId
-        SerialNumber = request.SerialNumber
-        LastSeen = request.LastSeen
-        FirmwareVersion = request.FirmwareVersion
-        DeviceModel = request.DeviceModel
-        Tenant = request.Tenant
-        Site = request.Site
-        Room = request.Room
-        Gateway = request.Gateway
-        Sensors = request.Sensors
-        Actuators = request.Actuators
-        Certificates = request.Certificates
-        DigitalTwin = request.DigitalTwin
-        TelemetryStreams = request.TelemetryStreams
-        CommandInvocations = request.CommandInvocations
-        Alerts = request.Alerts
-        ProvisioningRecord = request.ProvisioningRecord
-        DeviceGroups = request.DeviceGroups
-        NetworkProfiles = request.NetworkProfiles
-        Status = request.Status
-        PowerSource = request.PowerSource
+            DeviceId = request.DeviceId;
+            SerialNumber = request.SerialNumber;
+            LastSeen = request.LastSeen;
+            FirmwareVersion = request.FirmwareVersion;
+            DeviceModel = request.DeviceModel;
+            Tenant = request.Tenant;
+            Site = request.Site;
+            Room = request.Room;
+            Gateway = request.Gateway;
+            Sensors = request.Sensors;
+            Actuators = request.Actuators;
+            Certificates = request.Certificates;
+            DigitalTwin = request.DigitalTwin;
+            TelemetryStreams = request.TelemetryStreams;
+            CommandInvocations = request.CommandInvocations;
+            Alerts = request.Alerts;
+            ProvisioningRecord = request.ProvisioningRecord;
+            DeviceGroups = request.DeviceGroups;
+            NetworkProfiles = request.NetworkProfiles;
+            Status = request.Status;
+            PowerSource = request.PowerSource;
         }
         return model;
     }
@@ -295,31 +295,31 @@ public static class IoTDeviceEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@2a3a78a3 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@2a3a78a3( com.harbormaster.codetemplate.model.classes.ClassObject@2a3a78a3Request request ) {
+    private IoTDevice mapRequestToIoTDevice( IoTDeviceRequest request ) {
         var model = new IoTDevice
         {
             Id = request.id,
-        DeviceId = request.DeviceId
-        SerialNumber = request.SerialNumber
-        LastSeen = request.LastSeen
-        FirmwareVersion = request.FirmwareVersion
-        DeviceModel = request.DeviceModel
-        Tenant = request.Tenant
-        Site = request.Site
-        Room = request.Room
-        Gateway = request.Gateway
-        Sensors = request.Sensors
-        Actuators = request.Actuators
-        Certificates = request.Certificates
-        DigitalTwin = request.DigitalTwin
-        TelemetryStreams = request.TelemetryStreams
-        CommandInvocations = request.CommandInvocations
-        Alerts = request.Alerts
-        ProvisioningRecord = request.ProvisioningRecord
-        DeviceGroups = request.DeviceGroups
-        NetworkProfiles = request.NetworkProfiles
-        Status = request.Status
-        PowerSource = request.PowerSource
+            DeviceId = request.DeviceId;
+            SerialNumber = request.SerialNumber;
+            LastSeen = request.LastSeen;
+            FirmwareVersion = request.FirmwareVersion;
+            DeviceModel = request.DeviceModel;
+            Tenant = request.Tenant;
+            Site = request.Site;
+            Room = request.Room;
+            Gateway = request.Gateway;
+            Sensors = request.Sensors;
+            Actuators = request.Actuators;
+            Certificates = request.Certificates;
+            DigitalTwin = request.DigitalTwin;
+            TelemetryStreams = request.TelemetryStreams;
+            CommandInvocations = request.CommandInvocations;
+            Alerts = request.Alerts;
+            ProvisioningRecord = request.ProvisioningRecord;
+            DeviceGroups = request.DeviceGroups;
+            NetworkProfiles = request.NetworkProfiles;
+            Status = request.Status;
+            PowerSource = request.PowerSource;
         }
         return model;
     }
@@ -339,31 +339,31 @@ public static class IoTDeviceEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@2a3a78a3 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@2a3a78a3( com.harbormaster.codetemplate.model.classes.ClassObject@2a3a78a3Request request ) {
+    private IoTDevice mapRequestToIoTDevice( IoTDeviceRequest request ) {
         var model = new IoTDevice
         {
             Id = request.id,
-        DeviceId = request.DeviceId
-        SerialNumber = request.SerialNumber
-        LastSeen = request.LastSeen
-        FirmwareVersion = request.FirmwareVersion
-        DeviceModel = request.DeviceModel
-        Tenant = request.Tenant
-        Site = request.Site
-        Room = request.Room
-        Gateway = request.Gateway
-        Sensors = request.Sensors
-        Actuators = request.Actuators
-        Certificates = request.Certificates
-        DigitalTwin = request.DigitalTwin
-        TelemetryStreams = request.TelemetryStreams
-        CommandInvocations = request.CommandInvocations
-        Alerts = request.Alerts
-        ProvisioningRecord = request.ProvisioningRecord
-        DeviceGroups = request.DeviceGroups
-        NetworkProfiles = request.NetworkProfiles
-        Status = request.Status
-        PowerSource = request.PowerSource
+            DeviceId = request.DeviceId;
+            SerialNumber = request.SerialNumber;
+            LastSeen = request.LastSeen;
+            FirmwareVersion = request.FirmwareVersion;
+            DeviceModel = request.DeviceModel;
+            Tenant = request.Tenant;
+            Site = request.Site;
+            Room = request.Room;
+            Gateway = request.Gateway;
+            Sensors = request.Sensors;
+            Actuators = request.Actuators;
+            Certificates = request.Certificates;
+            DigitalTwin = request.DigitalTwin;
+            TelemetryStreams = request.TelemetryStreams;
+            CommandInvocations = request.CommandInvocations;
+            Alerts = request.Alerts;
+            ProvisioningRecord = request.ProvisioningRecord;
+            DeviceGroups = request.DeviceGroups;
+            NetworkProfiles = request.NetworkProfiles;
+            Status = request.Status;
+            PowerSource = request.PowerSource;
         }
         return model;
     }
@@ -383,31 +383,31 @@ public static class IoTDeviceEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@2a3a78a3 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@2a3a78a3( com.harbormaster.codetemplate.model.classes.ClassObject@2a3a78a3Request request ) {
+    private IoTDevice mapRequestToIoTDevice( IoTDeviceRequest request ) {
         var model = new IoTDevice
         {
             Id = request.id,
-        DeviceId = request.DeviceId
-        SerialNumber = request.SerialNumber
-        LastSeen = request.LastSeen
-        FirmwareVersion = request.FirmwareVersion
-        DeviceModel = request.DeviceModel
-        Tenant = request.Tenant
-        Site = request.Site
-        Room = request.Room
-        Gateway = request.Gateway
-        Sensors = request.Sensors
-        Actuators = request.Actuators
-        Certificates = request.Certificates
-        DigitalTwin = request.DigitalTwin
-        TelemetryStreams = request.TelemetryStreams
-        CommandInvocations = request.CommandInvocations
-        Alerts = request.Alerts
-        ProvisioningRecord = request.ProvisioningRecord
-        DeviceGroups = request.DeviceGroups
-        NetworkProfiles = request.NetworkProfiles
-        Status = request.Status
-        PowerSource = request.PowerSource
+            DeviceId = request.DeviceId;
+            SerialNumber = request.SerialNumber;
+            LastSeen = request.LastSeen;
+            FirmwareVersion = request.FirmwareVersion;
+            DeviceModel = request.DeviceModel;
+            Tenant = request.Tenant;
+            Site = request.Site;
+            Room = request.Room;
+            Gateway = request.Gateway;
+            Sensors = request.Sensors;
+            Actuators = request.Actuators;
+            Certificates = request.Certificates;
+            DigitalTwin = request.DigitalTwin;
+            TelemetryStreams = request.TelemetryStreams;
+            CommandInvocations = request.CommandInvocations;
+            Alerts = request.Alerts;
+            ProvisioningRecord = request.ProvisioningRecord;
+            DeviceGroups = request.DeviceGroups;
+            NetworkProfiles = request.NetworkProfiles;
+            Status = request.Status;
+            PowerSource = request.PowerSource;
         }
         return model;
     }
@@ -427,31 +427,31 @@ public static class IoTDeviceEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@2a3a78a3 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@2a3a78a3( com.harbormaster.codetemplate.model.classes.ClassObject@2a3a78a3Request request ) {
+    private IoTDevice mapRequestToIoTDevice( IoTDeviceRequest request ) {
         var model = new IoTDevice
         {
             Id = request.id,
-        DeviceId = request.DeviceId
-        SerialNumber = request.SerialNumber
-        LastSeen = request.LastSeen
-        FirmwareVersion = request.FirmwareVersion
-        DeviceModel = request.DeviceModel
-        Tenant = request.Tenant
-        Site = request.Site
-        Room = request.Room
-        Gateway = request.Gateway
-        Sensors = request.Sensors
-        Actuators = request.Actuators
-        Certificates = request.Certificates
-        DigitalTwin = request.DigitalTwin
-        TelemetryStreams = request.TelemetryStreams
-        CommandInvocations = request.CommandInvocations
-        Alerts = request.Alerts
-        ProvisioningRecord = request.ProvisioningRecord
-        DeviceGroups = request.DeviceGroups
-        NetworkProfiles = request.NetworkProfiles
-        Status = request.Status
-        PowerSource = request.PowerSource
+            DeviceId = request.DeviceId;
+            SerialNumber = request.SerialNumber;
+            LastSeen = request.LastSeen;
+            FirmwareVersion = request.FirmwareVersion;
+            DeviceModel = request.DeviceModel;
+            Tenant = request.Tenant;
+            Site = request.Site;
+            Room = request.Room;
+            Gateway = request.Gateway;
+            Sensors = request.Sensors;
+            Actuators = request.Actuators;
+            Certificates = request.Certificates;
+            DigitalTwin = request.DigitalTwin;
+            TelemetryStreams = request.TelemetryStreams;
+            CommandInvocations = request.CommandInvocations;
+            Alerts = request.Alerts;
+            ProvisioningRecord = request.ProvisioningRecord;
+            DeviceGroups = request.DeviceGroups;
+            NetworkProfiles = request.NetworkProfiles;
+            Status = request.Status;
+            PowerSource = request.PowerSource;
         }
         return model;
     }
@@ -471,31 +471,31 @@ public static class IoTDeviceEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@2a3a78a3 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@2a3a78a3( com.harbormaster.codetemplate.model.classes.ClassObject@2a3a78a3Request request ) {
+    private IoTDevice mapRequestToIoTDevice( IoTDeviceRequest request ) {
         var model = new IoTDevice
         {
             Id = request.id,
-        DeviceId = request.DeviceId
-        SerialNumber = request.SerialNumber
-        LastSeen = request.LastSeen
-        FirmwareVersion = request.FirmwareVersion
-        DeviceModel = request.DeviceModel
-        Tenant = request.Tenant
-        Site = request.Site
-        Room = request.Room
-        Gateway = request.Gateway
-        Sensors = request.Sensors
-        Actuators = request.Actuators
-        Certificates = request.Certificates
-        DigitalTwin = request.DigitalTwin
-        TelemetryStreams = request.TelemetryStreams
-        CommandInvocations = request.CommandInvocations
-        Alerts = request.Alerts
-        ProvisioningRecord = request.ProvisioningRecord
-        DeviceGroups = request.DeviceGroups
-        NetworkProfiles = request.NetworkProfiles
-        Status = request.Status
-        PowerSource = request.PowerSource
+            DeviceId = request.DeviceId;
+            SerialNumber = request.SerialNumber;
+            LastSeen = request.LastSeen;
+            FirmwareVersion = request.FirmwareVersion;
+            DeviceModel = request.DeviceModel;
+            Tenant = request.Tenant;
+            Site = request.Site;
+            Room = request.Room;
+            Gateway = request.Gateway;
+            Sensors = request.Sensors;
+            Actuators = request.Actuators;
+            Certificates = request.Certificates;
+            DigitalTwin = request.DigitalTwin;
+            TelemetryStreams = request.TelemetryStreams;
+            CommandInvocations = request.CommandInvocations;
+            Alerts = request.Alerts;
+            ProvisioningRecord = request.ProvisioningRecord;
+            DeviceGroups = request.DeviceGroups;
+            NetworkProfiles = request.NetworkProfiles;
+            Status = request.Status;
+            PowerSource = request.PowerSource;
         }
         return model;
     }
@@ -515,31 +515,31 @@ public static class IoTDeviceEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@2a3a78a3 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@2a3a78a3( com.harbormaster.codetemplate.model.classes.ClassObject@2a3a78a3Request request ) {
+    private IoTDevice mapRequestToIoTDevice( IoTDeviceRequest request ) {
         var model = new IoTDevice
         {
             Id = request.id,
-        DeviceId = request.DeviceId
-        SerialNumber = request.SerialNumber
-        LastSeen = request.LastSeen
-        FirmwareVersion = request.FirmwareVersion
-        DeviceModel = request.DeviceModel
-        Tenant = request.Tenant
-        Site = request.Site
-        Room = request.Room
-        Gateway = request.Gateway
-        Sensors = request.Sensors
-        Actuators = request.Actuators
-        Certificates = request.Certificates
-        DigitalTwin = request.DigitalTwin
-        TelemetryStreams = request.TelemetryStreams
-        CommandInvocations = request.CommandInvocations
-        Alerts = request.Alerts
-        ProvisioningRecord = request.ProvisioningRecord
-        DeviceGroups = request.DeviceGroups
-        NetworkProfiles = request.NetworkProfiles
-        Status = request.Status
-        PowerSource = request.PowerSource
+            DeviceId = request.DeviceId;
+            SerialNumber = request.SerialNumber;
+            LastSeen = request.LastSeen;
+            FirmwareVersion = request.FirmwareVersion;
+            DeviceModel = request.DeviceModel;
+            Tenant = request.Tenant;
+            Site = request.Site;
+            Room = request.Room;
+            Gateway = request.Gateway;
+            Sensors = request.Sensors;
+            Actuators = request.Actuators;
+            Certificates = request.Certificates;
+            DigitalTwin = request.DigitalTwin;
+            TelemetryStreams = request.TelemetryStreams;
+            CommandInvocations = request.CommandInvocations;
+            Alerts = request.Alerts;
+            ProvisioningRecord = request.ProvisioningRecord;
+            DeviceGroups = request.DeviceGroups;
+            NetworkProfiles = request.NetworkProfiles;
+            Status = request.Status;
+            PowerSource = request.PowerSource;
         }
         return model;
     }
@@ -559,31 +559,31 @@ public static class IoTDeviceEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@2a3a78a3 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@2a3a78a3( com.harbormaster.codetemplate.model.classes.ClassObject@2a3a78a3Request request ) {
+    private IoTDevice mapRequestToIoTDevice( IoTDeviceRequest request ) {
         var model = new IoTDevice
         {
             Id = request.id,
-        DeviceId = request.DeviceId
-        SerialNumber = request.SerialNumber
-        LastSeen = request.LastSeen
-        FirmwareVersion = request.FirmwareVersion
-        DeviceModel = request.DeviceModel
-        Tenant = request.Tenant
-        Site = request.Site
-        Room = request.Room
-        Gateway = request.Gateway
-        Sensors = request.Sensors
-        Actuators = request.Actuators
-        Certificates = request.Certificates
-        DigitalTwin = request.DigitalTwin
-        TelemetryStreams = request.TelemetryStreams
-        CommandInvocations = request.CommandInvocations
-        Alerts = request.Alerts
-        ProvisioningRecord = request.ProvisioningRecord
-        DeviceGroups = request.DeviceGroups
-        NetworkProfiles = request.NetworkProfiles
-        Status = request.Status
-        PowerSource = request.PowerSource
+            DeviceId = request.DeviceId;
+            SerialNumber = request.SerialNumber;
+            LastSeen = request.LastSeen;
+            FirmwareVersion = request.FirmwareVersion;
+            DeviceModel = request.DeviceModel;
+            Tenant = request.Tenant;
+            Site = request.Site;
+            Room = request.Room;
+            Gateway = request.Gateway;
+            Sensors = request.Sensors;
+            Actuators = request.Actuators;
+            Certificates = request.Certificates;
+            DigitalTwin = request.DigitalTwin;
+            TelemetryStreams = request.TelemetryStreams;
+            CommandInvocations = request.CommandInvocations;
+            Alerts = request.Alerts;
+            ProvisioningRecord = request.ProvisioningRecord;
+            DeviceGroups = request.DeviceGroups;
+            NetworkProfiles = request.NetworkProfiles;
+            Status = request.Status;
+            PowerSource = request.PowerSource;
         }
         return model;
     }

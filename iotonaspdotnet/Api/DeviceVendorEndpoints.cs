@@ -110,17 +110,17 @@ public static class DeviceVendorEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@17589d75 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@17589d75( com.harbormaster.codetemplate.model.classes.ClassObject@17589d75Request request ) {
+    private DeviceVendor mapRequestToDeviceVendor( DeviceVendorRequest request ) {
         var model = new DeviceVendor
         {
             Id = request.id,
-        Name = request.Name
-        LegalName = request.LegalName
-        HeadquartersCountry = request.HeadquartersCountry
-        Website = request.Website
-        DeviceModels = request.DeviceModels
-        FirmwareReleases = request.FirmwareReleases
-        HardwareModules = request.HardwareModules
+            Name = request.Name;
+            LegalName = request.LegalName;
+            HeadquartersCountry = request.HeadquartersCountry;
+            Website = request.Website;
+            DeviceModels = request.DeviceModels;
+            FirmwareReleases = request.FirmwareReleases;
+            HardwareModules = request.HardwareModules;
         }
         return model;
     }
@@ -140,17 +140,17 @@ public static class DeviceVendorEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@17589d75 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@17589d75( com.harbormaster.codetemplate.model.classes.ClassObject@17589d75Request request ) {
+    private DeviceVendor mapRequestToDeviceVendor( DeviceVendorRequest request ) {
         var model = new DeviceVendor
         {
             Id = request.id,
-        Name = request.Name
-        LegalName = request.LegalName
-        HeadquartersCountry = request.HeadquartersCountry
-        Website = request.Website
-        DeviceModels = request.DeviceModels
-        FirmwareReleases = request.FirmwareReleases
-        HardwareModules = request.HardwareModules
+            Name = request.Name;
+            LegalName = request.LegalName;
+            HeadquartersCountry = request.HeadquartersCountry;
+            Website = request.Website;
+            DeviceModels = request.DeviceModels;
+            FirmwareReleases = request.FirmwareReleases;
+            HardwareModules = request.HardwareModules;
         }
         return model;
     }
@@ -170,17 +170,17 @@ public static class DeviceVendorEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@17589d75 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@17589d75( com.harbormaster.codetemplate.model.classes.ClassObject@17589d75Request request ) {
+    private DeviceVendor mapRequestToDeviceVendor( DeviceVendorRequest request ) {
         var model = new DeviceVendor
         {
             Id = request.id,
-        Name = request.Name
-        LegalName = request.LegalName
-        HeadquartersCountry = request.HeadquartersCountry
-        Website = request.Website
-        DeviceModels = request.DeviceModels
-        FirmwareReleases = request.FirmwareReleases
-        HardwareModules = request.HardwareModules
+            Name = request.Name;
+            LegalName = request.LegalName;
+            HeadquartersCountry = request.HeadquartersCountry;
+            Website = request.Website;
+            DeviceModels = request.DeviceModels;
+            FirmwareReleases = request.FirmwareReleases;
+            HardwareModules = request.HardwareModules;
         }
         return model;
     }

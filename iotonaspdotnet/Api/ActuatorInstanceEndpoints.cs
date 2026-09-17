@@ -122,15 +122,15 @@ public static class ActuatorInstanceEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@4a8092e9 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@4a8092e9( com.harbormaster.codetemplate.model.classes.ClassObject@4a8092e9Request request ) {
+    private ActuatorInstance mapRequestToActuatorInstance( ActuatorInstanceRequest request ) {
         var model = new ActuatorInstance
         {
             Id = request.id,
-        Name = request.Name
-        CommandTopic = request.CommandTopic
-        Device = request.Device
-        SupportedCommands = request.SupportedCommands
-        ActuatorType = request.ActuatorType
+            Name = request.Name;
+            CommandTopic = request.CommandTopic;
+            Device = request.Device;
+            SupportedCommands = request.SupportedCommands;
+            ActuatorType = request.ActuatorType;
         }
         return model;
     }

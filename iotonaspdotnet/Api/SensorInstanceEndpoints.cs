@@ -122,16 +122,16 @@ public static class SensorInstanceEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@456d72c0 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@456d72c0( com.harbormaster.codetemplate.model.classes.ClassObject@456d72c0Request request ) {
+    private SensorInstance mapRequestToSensorInstance( SensorInstanceRequest request ) {
         var model = new SensorInstance
         {
             Id = request.id,
-        Name = request.Name
-        Unit = request.Unit
-        SamplingIntervalMs = request.SamplingIntervalMs
-        Device = request.Device
-        TelemetryStreams = request.TelemetryStreams
-        SensorType = request.SensorType
+            Name = request.Name;
+            Unit = request.Unit;
+            SamplingIntervalMs = request.SamplingIntervalMs;
+            Device = request.Device;
+            TelemetryStreams = request.TelemetryStreams;
+            SensorType = request.SensorType;
         }
         return model;
     }

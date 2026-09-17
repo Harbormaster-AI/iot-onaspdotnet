@@ -137,24 +137,24 @@ public static class TenantEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@48483d65 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@48483d65( com.harbormaster.codetemplate.model.classes.ClassObject@48483d65Request request ) {
+    private Tenant mapRequestToTenant( TenantRequest request ) {
         var model = new Tenant
         {
             Id = request.id,
-        Name = request.Name
-        Sites = request.Sites
-        Users = request.Users
-        Devices = request.Devices
-        DataRetentionPolicies = request.DataRetentionPolicies
-        ConnectivityPlans = request.ConnectivityPlans
-        SimCards = request.SimCards
-        MessagingEndpoints = request.MessagingEndpoints
-        AccessPolicies = request.AccessPolicies
-        DeviceGroups = request.DeviceGroups
-        AlertRules = request.AlertRules
-        MaintenanceTickets = request.MaintenanceTickets
-        UsageRecords = request.UsageRecords
-        TenantType = request.TenantType
+            Name = request.Name;
+            Sites = request.Sites;
+            Users = request.Users;
+            Devices = request.Devices;
+            DataRetentionPolicies = request.DataRetentionPolicies;
+            ConnectivityPlans = request.ConnectivityPlans;
+            SimCards = request.SimCards;
+            MessagingEndpoints = request.MessagingEndpoints;
+            AccessPolicies = request.AccessPolicies;
+            DeviceGroups = request.DeviceGroups;
+            AlertRules = request.AlertRules;
+            MaintenanceTickets = request.MaintenanceTickets;
+            UsageRecords = request.UsageRecords;
+            TenantType = request.TenantType;
         }
         return model;
     }
@@ -174,24 +174,24 @@ public static class TenantEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@48483d65 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@48483d65( com.harbormaster.codetemplate.model.classes.ClassObject@48483d65Request request ) {
+    private Tenant mapRequestToTenant( TenantRequest request ) {
         var model = new Tenant
         {
             Id = request.id,
-        Name = request.Name
-        Sites = request.Sites
-        Users = request.Users
-        Devices = request.Devices
-        DataRetentionPolicies = request.DataRetentionPolicies
-        ConnectivityPlans = request.ConnectivityPlans
-        SimCards = request.SimCards
-        MessagingEndpoints = request.MessagingEndpoints
-        AccessPolicies = request.AccessPolicies
-        DeviceGroups = request.DeviceGroups
-        AlertRules = request.AlertRules
-        MaintenanceTickets = request.MaintenanceTickets
-        UsageRecords = request.UsageRecords
-        TenantType = request.TenantType
+            Name = request.Name;
+            Sites = request.Sites;
+            Users = request.Users;
+            Devices = request.Devices;
+            DataRetentionPolicies = request.DataRetentionPolicies;
+            ConnectivityPlans = request.ConnectivityPlans;
+            SimCards = request.SimCards;
+            MessagingEndpoints = request.MessagingEndpoints;
+            AccessPolicies = request.AccessPolicies;
+            DeviceGroups = request.DeviceGroups;
+            AlertRules = request.AlertRules;
+            MaintenanceTickets = request.MaintenanceTickets;
+            UsageRecords = request.UsageRecords;
+            TenantType = request.TenantType;
         }
         return model;
     }
@@ -211,24 +211,24 @@ public static class TenantEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@48483d65 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@48483d65( com.harbormaster.codetemplate.model.classes.ClassObject@48483d65Request request ) {
+    private Tenant mapRequestToTenant( TenantRequest request ) {
         var model = new Tenant
         {
             Id = request.id,
-        Name = request.Name
-        Sites = request.Sites
-        Users = request.Users
-        Devices = request.Devices
-        DataRetentionPolicies = request.DataRetentionPolicies
-        ConnectivityPlans = request.ConnectivityPlans
-        SimCards = request.SimCards
-        MessagingEndpoints = request.MessagingEndpoints
-        AccessPolicies = request.AccessPolicies
-        DeviceGroups = request.DeviceGroups
-        AlertRules = request.AlertRules
-        MaintenanceTickets = request.MaintenanceTickets
-        UsageRecords = request.UsageRecords
-        TenantType = request.TenantType
+            Name = request.Name;
+            Sites = request.Sites;
+            Users = request.Users;
+            Devices = request.Devices;
+            DataRetentionPolicies = request.DataRetentionPolicies;
+            ConnectivityPlans = request.ConnectivityPlans;
+            SimCards = request.SimCards;
+            MessagingEndpoints = request.MessagingEndpoints;
+            AccessPolicies = request.AccessPolicies;
+            DeviceGroups = request.DeviceGroups;
+            AlertRules = request.AlertRules;
+            MaintenanceTickets = request.MaintenanceTickets;
+            UsageRecords = request.UsageRecords;
+            TenantType = request.TenantType;
         }
         return model;
     }
@@ -248,24 +248,24 @@ public static class TenantEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@48483d65 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@48483d65( com.harbormaster.codetemplate.model.classes.ClassObject@48483d65Request request ) {
+    private Tenant mapRequestToTenant( TenantRequest request ) {
         var model = new Tenant
         {
             Id = request.id,
-        Name = request.Name
-        Sites = request.Sites
-        Users = request.Users
-        Devices = request.Devices
-        DataRetentionPolicies = request.DataRetentionPolicies
-        ConnectivityPlans = request.ConnectivityPlans
-        SimCards = request.SimCards
-        MessagingEndpoints = request.MessagingEndpoints
-        AccessPolicies = request.AccessPolicies
-        DeviceGroups = request.DeviceGroups
-        AlertRules = request.AlertRules
-        MaintenanceTickets = request.MaintenanceTickets
-        UsageRecords = request.UsageRecords
-        TenantType = request.TenantType
+            Name = request.Name;
+            Sites = request.Sites;
+            Users = request.Users;
+            Devices = request.Devices;
+            DataRetentionPolicies = request.DataRetentionPolicies;
+            ConnectivityPlans = request.ConnectivityPlans;
+            SimCards = request.SimCards;
+            MessagingEndpoints = request.MessagingEndpoints;
+            AccessPolicies = request.AccessPolicies;
+            DeviceGroups = request.DeviceGroups;
+            AlertRules = request.AlertRules;
+            MaintenanceTickets = request.MaintenanceTickets;
+            UsageRecords = request.UsageRecords;
+            TenantType = request.TenantType;
         }
         return model;
     }
@@ -285,24 +285,24 @@ public static class TenantEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@48483d65 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@48483d65( com.harbormaster.codetemplate.model.classes.ClassObject@48483d65Request request ) {
+    private Tenant mapRequestToTenant( TenantRequest request ) {
         var model = new Tenant
         {
             Id = request.id,
-        Name = request.Name
-        Sites = request.Sites
-        Users = request.Users
-        Devices = request.Devices
-        DataRetentionPolicies = request.DataRetentionPolicies
-        ConnectivityPlans = request.ConnectivityPlans
-        SimCards = request.SimCards
-        MessagingEndpoints = request.MessagingEndpoints
-        AccessPolicies = request.AccessPolicies
-        DeviceGroups = request.DeviceGroups
-        AlertRules = request.AlertRules
-        MaintenanceTickets = request.MaintenanceTickets
-        UsageRecords = request.UsageRecords
-        TenantType = request.TenantType
+            Name = request.Name;
+            Sites = request.Sites;
+            Users = request.Users;
+            Devices = request.Devices;
+            DataRetentionPolicies = request.DataRetentionPolicies;
+            ConnectivityPlans = request.ConnectivityPlans;
+            SimCards = request.SimCards;
+            MessagingEndpoints = request.MessagingEndpoints;
+            AccessPolicies = request.AccessPolicies;
+            DeviceGroups = request.DeviceGroups;
+            AlertRules = request.AlertRules;
+            MaintenanceTickets = request.MaintenanceTickets;
+            UsageRecords = request.UsageRecords;
+            TenantType = request.TenantType;
         }
         return model;
     }
@@ -322,24 +322,24 @@ public static class TenantEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@48483d65 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@48483d65( com.harbormaster.codetemplate.model.classes.ClassObject@48483d65Request request ) {
+    private Tenant mapRequestToTenant( TenantRequest request ) {
         var model = new Tenant
         {
             Id = request.id,
-        Name = request.Name
-        Sites = request.Sites
-        Users = request.Users
-        Devices = request.Devices
-        DataRetentionPolicies = request.DataRetentionPolicies
-        ConnectivityPlans = request.ConnectivityPlans
-        SimCards = request.SimCards
-        MessagingEndpoints = request.MessagingEndpoints
-        AccessPolicies = request.AccessPolicies
-        DeviceGroups = request.DeviceGroups
-        AlertRules = request.AlertRules
-        MaintenanceTickets = request.MaintenanceTickets
-        UsageRecords = request.UsageRecords
-        TenantType = request.TenantType
+            Name = request.Name;
+            Sites = request.Sites;
+            Users = request.Users;
+            Devices = request.Devices;
+            DataRetentionPolicies = request.DataRetentionPolicies;
+            ConnectivityPlans = request.ConnectivityPlans;
+            SimCards = request.SimCards;
+            MessagingEndpoints = request.MessagingEndpoints;
+            AccessPolicies = request.AccessPolicies;
+            DeviceGroups = request.DeviceGroups;
+            AlertRules = request.AlertRules;
+            MaintenanceTickets = request.MaintenanceTickets;
+            UsageRecords = request.UsageRecords;
+            TenantType = request.TenantType;
         }
         return model;
     }
@@ -359,24 +359,24 @@ public static class TenantEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@48483d65 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@48483d65( com.harbormaster.codetemplate.model.classes.ClassObject@48483d65Request request ) {
+    private Tenant mapRequestToTenant( TenantRequest request ) {
         var model = new Tenant
         {
             Id = request.id,
-        Name = request.Name
-        Sites = request.Sites
-        Users = request.Users
-        Devices = request.Devices
-        DataRetentionPolicies = request.DataRetentionPolicies
-        ConnectivityPlans = request.ConnectivityPlans
-        SimCards = request.SimCards
-        MessagingEndpoints = request.MessagingEndpoints
-        AccessPolicies = request.AccessPolicies
-        DeviceGroups = request.DeviceGroups
-        AlertRules = request.AlertRules
-        MaintenanceTickets = request.MaintenanceTickets
-        UsageRecords = request.UsageRecords
-        TenantType = request.TenantType
+            Name = request.Name;
+            Sites = request.Sites;
+            Users = request.Users;
+            Devices = request.Devices;
+            DataRetentionPolicies = request.DataRetentionPolicies;
+            ConnectivityPlans = request.ConnectivityPlans;
+            SimCards = request.SimCards;
+            MessagingEndpoints = request.MessagingEndpoints;
+            AccessPolicies = request.AccessPolicies;
+            DeviceGroups = request.DeviceGroups;
+            AlertRules = request.AlertRules;
+            MaintenanceTickets = request.MaintenanceTickets;
+            UsageRecords = request.UsageRecords;
+            TenantType = request.TenantType;
         }
         return model;
     }
@@ -396,24 +396,24 @@ public static class TenantEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@48483d65 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@48483d65( com.harbormaster.codetemplate.model.classes.ClassObject@48483d65Request request ) {
+    private Tenant mapRequestToTenant( TenantRequest request ) {
         var model = new Tenant
         {
             Id = request.id,
-        Name = request.Name
-        Sites = request.Sites
-        Users = request.Users
-        Devices = request.Devices
-        DataRetentionPolicies = request.DataRetentionPolicies
-        ConnectivityPlans = request.ConnectivityPlans
-        SimCards = request.SimCards
-        MessagingEndpoints = request.MessagingEndpoints
-        AccessPolicies = request.AccessPolicies
-        DeviceGroups = request.DeviceGroups
-        AlertRules = request.AlertRules
-        MaintenanceTickets = request.MaintenanceTickets
-        UsageRecords = request.UsageRecords
-        TenantType = request.TenantType
+            Name = request.Name;
+            Sites = request.Sites;
+            Users = request.Users;
+            Devices = request.Devices;
+            DataRetentionPolicies = request.DataRetentionPolicies;
+            ConnectivityPlans = request.ConnectivityPlans;
+            SimCards = request.SimCards;
+            MessagingEndpoints = request.MessagingEndpoints;
+            AccessPolicies = request.AccessPolicies;
+            DeviceGroups = request.DeviceGroups;
+            AlertRules = request.AlertRules;
+            MaintenanceTickets = request.MaintenanceTickets;
+            UsageRecords = request.UsageRecords;
+            TenantType = request.TenantType;
         }
         return model;
     }
@@ -433,24 +433,24 @@ public static class TenantEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@48483d65 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@48483d65( com.harbormaster.codetemplate.model.classes.ClassObject@48483d65Request request ) {
+    private Tenant mapRequestToTenant( TenantRequest request ) {
         var model = new Tenant
         {
             Id = request.id,
-        Name = request.Name
-        Sites = request.Sites
-        Users = request.Users
-        Devices = request.Devices
-        DataRetentionPolicies = request.DataRetentionPolicies
-        ConnectivityPlans = request.ConnectivityPlans
-        SimCards = request.SimCards
-        MessagingEndpoints = request.MessagingEndpoints
-        AccessPolicies = request.AccessPolicies
-        DeviceGroups = request.DeviceGroups
-        AlertRules = request.AlertRules
-        MaintenanceTickets = request.MaintenanceTickets
-        UsageRecords = request.UsageRecords
-        TenantType = request.TenantType
+            Name = request.Name;
+            Sites = request.Sites;
+            Users = request.Users;
+            Devices = request.Devices;
+            DataRetentionPolicies = request.DataRetentionPolicies;
+            ConnectivityPlans = request.ConnectivityPlans;
+            SimCards = request.SimCards;
+            MessagingEndpoints = request.MessagingEndpoints;
+            AccessPolicies = request.AccessPolicies;
+            DeviceGroups = request.DeviceGroups;
+            AlertRules = request.AlertRules;
+            MaintenanceTickets = request.MaintenanceTickets;
+            UsageRecords = request.UsageRecords;
+            TenantType = request.TenantType;
         }
         return model;
     }
@@ -470,24 +470,24 @@ public static class TenantEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@48483d65 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@48483d65( com.harbormaster.codetemplate.model.classes.ClassObject@48483d65Request request ) {
+    private Tenant mapRequestToTenant( TenantRequest request ) {
         var model = new Tenant
         {
             Id = request.id,
-        Name = request.Name
-        Sites = request.Sites
-        Users = request.Users
-        Devices = request.Devices
-        DataRetentionPolicies = request.DataRetentionPolicies
-        ConnectivityPlans = request.ConnectivityPlans
-        SimCards = request.SimCards
-        MessagingEndpoints = request.MessagingEndpoints
-        AccessPolicies = request.AccessPolicies
-        DeviceGroups = request.DeviceGroups
-        AlertRules = request.AlertRules
-        MaintenanceTickets = request.MaintenanceTickets
-        UsageRecords = request.UsageRecords
-        TenantType = request.TenantType
+            Name = request.Name;
+            Sites = request.Sites;
+            Users = request.Users;
+            Devices = request.Devices;
+            DataRetentionPolicies = request.DataRetentionPolicies;
+            ConnectivityPlans = request.ConnectivityPlans;
+            SimCards = request.SimCards;
+            MessagingEndpoints = request.MessagingEndpoints;
+            AccessPolicies = request.AccessPolicies;
+            DeviceGroups = request.DeviceGroups;
+            AlertRules = request.AlertRules;
+            MaintenanceTickets = request.MaintenanceTickets;
+            UsageRecords = request.UsageRecords;
+            TenantType = request.TenantType;
         }
         return model;
     }
@@ -507,24 +507,24 @@ public static class TenantEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@48483d65 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@48483d65( com.harbormaster.codetemplate.model.classes.ClassObject@48483d65Request request ) {
+    private Tenant mapRequestToTenant( TenantRequest request ) {
         var model = new Tenant
         {
             Id = request.id,
-        Name = request.Name
-        Sites = request.Sites
-        Users = request.Users
-        Devices = request.Devices
-        DataRetentionPolicies = request.DataRetentionPolicies
-        ConnectivityPlans = request.ConnectivityPlans
-        SimCards = request.SimCards
-        MessagingEndpoints = request.MessagingEndpoints
-        AccessPolicies = request.AccessPolicies
-        DeviceGroups = request.DeviceGroups
-        AlertRules = request.AlertRules
-        MaintenanceTickets = request.MaintenanceTickets
-        UsageRecords = request.UsageRecords
-        TenantType = request.TenantType
+            Name = request.Name;
+            Sites = request.Sites;
+            Users = request.Users;
+            Devices = request.Devices;
+            DataRetentionPolicies = request.DataRetentionPolicies;
+            ConnectivityPlans = request.ConnectivityPlans;
+            SimCards = request.SimCards;
+            MessagingEndpoints = request.MessagingEndpoints;
+            AccessPolicies = request.AccessPolicies;
+            DeviceGroups = request.DeviceGroups;
+            AlertRules = request.AlertRules;
+            MaintenanceTickets = request.MaintenanceTickets;
+            UsageRecords = request.UsageRecords;
+            TenantType = request.TenantType;
         }
         return model;
     }
@@ -544,24 +544,24 @@ public static class TenantEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@48483d65 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@48483d65( com.harbormaster.codetemplate.model.classes.ClassObject@48483d65Request request ) {
+    private Tenant mapRequestToTenant( TenantRequest request ) {
         var model = new Tenant
         {
             Id = request.id,
-        Name = request.Name
-        Sites = request.Sites
-        Users = request.Users
-        Devices = request.Devices
-        DataRetentionPolicies = request.DataRetentionPolicies
-        ConnectivityPlans = request.ConnectivityPlans
-        SimCards = request.SimCards
-        MessagingEndpoints = request.MessagingEndpoints
-        AccessPolicies = request.AccessPolicies
-        DeviceGroups = request.DeviceGroups
-        AlertRules = request.AlertRules
-        MaintenanceTickets = request.MaintenanceTickets
-        UsageRecords = request.UsageRecords
-        TenantType = request.TenantType
+            Name = request.Name;
+            Sites = request.Sites;
+            Users = request.Users;
+            Devices = request.Devices;
+            DataRetentionPolicies = request.DataRetentionPolicies;
+            ConnectivityPlans = request.ConnectivityPlans;
+            SimCards = request.SimCards;
+            MessagingEndpoints = request.MessagingEndpoints;
+            AccessPolicies = request.AccessPolicies;
+            DeviceGroups = request.DeviceGroups;
+            AlertRules = request.AlertRules;
+            MaintenanceTickets = request.MaintenanceTickets;
+            UsageRecords = request.UsageRecords;
+            TenantType = request.TenantType;
         }
         return model;
     }

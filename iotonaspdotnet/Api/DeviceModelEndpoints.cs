@@ -146,20 +146,20 @@ public static class DeviceModelEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@38b6ea9e mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@38b6ea9e( com.harbormaster.codetemplate.model.classes.ClassObject@38b6ea9eRequest request ) {
+    private DeviceModel mapRequestToDeviceModel( DeviceModelRequest request ) {
         var model = new DeviceModel
         {
             Id = request.id,
-        Name = request.Name
-        ModelNumber = request.ModelNumber
-        HardwareRevision = request.HardwareRevision
-        Vendor = request.Vendor
-        HardwareModules = request.HardwareModules
-        TwinTemplate = request.TwinTemplate
-        FirmwareReleases = request.FirmwareReleases
-        CommandDefinitions = request.CommandDefinitions
-        SupportedConnectivity = request.SupportedConnectivity
-        DefaultTelemetryEncoding = request.DefaultTelemetryEncoding
+            Name = request.Name;
+            ModelNumber = request.ModelNumber;
+            HardwareRevision = request.HardwareRevision;
+            Vendor = request.Vendor;
+            HardwareModules = request.HardwareModules;
+            TwinTemplate = request.TwinTemplate;
+            FirmwareReleases = request.FirmwareReleases;
+            CommandDefinitions = request.CommandDefinitions;
+            SupportedConnectivity = request.SupportedConnectivity;
+            DefaultTelemetryEncoding = request.DefaultTelemetryEncoding;
         }
         return model;
     }
@@ -179,20 +179,20 @@ public static class DeviceModelEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@38b6ea9e mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@38b6ea9e( com.harbormaster.codetemplate.model.classes.ClassObject@38b6ea9eRequest request ) {
+    private DeviceModel mapRequestToDeviceModel( DeviceModelRequest request ) {
         var model = new DeviceModel
         {
             Id = request.id,
-        Name = request.Name
-        ModelNumber = request.ModelNumber
-        HardwareRevision = request.HardwareRevision
-        Vendor = request.Vendor
-        HardwareModules = request.HardwareModules
-        TwinTemplate = request.TwinTemplate
-        FirmwareReleases = request.FirmwareReleases
-        CommandDefinitions = request.CommandDefinitions
-        SupportedConnectivity = request.SupportedConnectivity
-        DefaultTelemetryEncoding = request.DefaultTelemetryEncoding
+            Name = request.Name;
+            ModelNumber = request.ModelNumber;
+            HardwareRevision = request.HardwareRevision;
+            Vendor = request.Vendor;
+            HardwareModules = request.HardwareModules;
+            TwinTemplate = request.TwinTemplate;
+            FirmwareReleases = request.FirmwareReleases;
+            CommandDefinitions = request.CommandDefinitions;
+            SupportedConnectivity = request.SupportedConnectivity;
+            DefaultTelemetryEncoding = request.DefaultTelemetryEncoding;
         }
         return model;
     }
@@ -212,20 +212,20 @@ public static class DeviceModelEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@38b6ea9e mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@38b6ea9e( com.harbormaster.codetemplate.model.classes.ClassObject@38b6ea9eRequest request ) {
+    private DeviceModel mapRequestToDeviceModel( DeviceModelRequest request ) {
         var model = new DeviceModel
         {
             Id = request.id,
-        Name = request.Name
-        ModelNumber = request.ModelNumber
-        HardwareRevision = request.HardwareRevision
-        Vendor = request.Vendor
-        HardwareModules = request.HardwareModules
-        TwinTemplate = request.TwinTemplate
-        FirmwareReleases = request.FirmwareReleases
-        CommandDefinitions = request.CommandDefinitions
-        SupportedConnectivity = request.SupportedConnectivity
-        DefaultTelemetryEncoding = request.DefaultTelemetryEncoding
+            Name = request.Name;
+            ModelNumber = request.ModelNumber;
+            HardwareRevision = request.HardwareRevision;
+            Vendor = request.Vendor;
+            HardwareModules = request.HardwareModules;
+            TwinTemplate = request.TwinTemplate;
+            FirmwareReleases = request.FirmwareReleases;
+            CommandDefinitions = request.CommandDefinitions;
+            SupportedConnectivity = request.SupportedConnectivity;
+            DefaultTelemetryEncoding = request.DefaultTelemetryEncoding;
         }
         return model;
     }

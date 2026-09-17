@@ -122,16 +122,16 @@ public static class TenantUserEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@3022a2bf mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@3022a2bf( com.harbormaster.codetemplate.model.classes.ClassObject@3022a2bfRequest request ) {
+    private TenantUser mapRequestToTenantUser( TenantUserRequest request ) {
         var model = new TenantUser
         {
             Id = request.id,
-        FirstName = request.FirstName
-        LastName = request.LastName
-        Email = request.Email
-        Tenant = request.Tenant
-        CommandInvocations = request.CommandInvocations
-        Role = request.Role
+            FirstName = request.FirstName;
+            LastName = request.LastName;
+            Email = request.Email;
+            Tenant = request.Tenant;
+            CommandInvocations = request.CommandInvocations;
+            Role = request.Role;
         }
         return model;
     }

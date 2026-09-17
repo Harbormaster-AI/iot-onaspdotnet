@@ -125,16 +125,16 @@ public static class AlertRuleEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@4acf45d7 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@4acf45d7( com.harbormaster.codetemplate.model.classes.ClassObject@4acf45d7Request request ) {
+    private AlertRule mapRequestToAlertRule( AlertRuleRequest request ) {
         var model = new AlertRule
         {
             Id = request.id,
-        Name = request.Name
-        Expression = request.Expression
-        Tenant = request.Tenant
-        Streams = request.Streams
-        Alerts = request.Alerts
-        Severity = request.Severity
+            Name = request.Name;
+            Expression = request.Expression;
+            Tenant = request.Tenant;
+            Streams = request.Streams;
+            Alerts = request.Alerts;
+            Severity = request.Severity;
         }
         return model;
     }
@@ -154,16 +154,16 @@ public static class AlertRuleEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@4acf45d7 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@4acf45d7( com.harbormaster.codetemplate.model.classes.ClassObject@4acf45d7Request request ) {
+    private AlertRule mapRequestToAlertRule( AlertRuleRequest request ) {
         var model = new AlertRule
         {
             Id = request.id,
-        Name = request.Name
-        Expression = request.Expression
-        Tenant = request.Tenant
-        Streams = request.Streams
-        Alerts = request.Alerts
-        Severity = request.Severity
+            Name = request.Name;
+            Expression = request.Expression;
+            Tenant = request.Tenant;
+            Streams = request.Streams;
+            Alerts = request.Alerts;
+            Severity = request.Severity;
         }
         return model;
     }

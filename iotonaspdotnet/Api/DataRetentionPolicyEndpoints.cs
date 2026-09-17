@@ -122,14 +122,14 @@ public static class DataRetentionPolicyEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@11799709 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@11799709( com.harbormaster.codetemplate.model.classes.ClassObject@11799709Request request ) {
+    private DataRetentionPolicy mapRequestToDataRetentionPolicy( DataRetentionPolicyRequest request ) {
         var model = new DataRetentionPolicy
         {
             Id = request.id,
-        Name = request.Name
-        RetentionDays = request.RetentionDays
-        Tenant = request.Tenant
-        Streams = request.Streams
+            Name = request.Name;
+            RetentionDays = request.RetentionDays;
+            Tenant = request.Tenant;
+            Streams = request.Streams;
         }
         return model;
     }

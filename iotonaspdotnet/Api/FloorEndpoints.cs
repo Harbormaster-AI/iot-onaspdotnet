@@ -122,14 +122,14 @@ public static class FloorEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@37ee2d05 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@37ee2d05( com.harbormaster.codetemplate.model.classes.ClassObject@37ee2d05Request request ) {
+    private Floor mapRequestToFloor( FloorRequest request ) {
         var model = new Floor
         {
             Id = request.id,
-        Name = request.Name
-        Level = request.Level
-        Building = request.Building
-        Rooms = request.Rooms
+            Name = request.Name;
+            Level = request.Level;
+            Building = request.Building;
+            Rooms = request.Rooms;
         }
         return model;
     }

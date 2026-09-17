@@ -128,19 +128,19 @@ public static class SiteEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@73a891 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@73a891( com.harbormaster.codetemplate.model.classes.ClassObject@73a891Request request ) {
+    private Site mapRequestToSite( SiteRequest request ) {
         var model = new Site
         {
             Id = request.id,
-        Name = request.Name
-        Address = request.Address
-        Timezone = request.Timezone
-        Latitude = request.Latitude
-        Longitude = request.Longitude
-        Tenant = request.Tenant
-        Buildings = request.Buildings
-        Devices = request.Devices
-        Gateways = request.Gateways
+            Name = request.Name;
+            Address = request.Address;
+            Timezone = request.Timezone;
+            Latitude = request.Latitude;
+            Longitude = request.Longitude;
+            Tenant = request.Tenant;
+            Buildings = request.Buildings;
+            Devices = request.Devices;
+            Gateways = request.Gateways;
         }
         return model;
     }
@@ -160,19 +160,19 @@ public static class SiteEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@73a891 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@73a891( com.harbormaster.codetemplate.model.classes.ClassObject@73a891Request request ) {
+    private Site mapRequestToSite( SiteRequest request ) {
         var model = new Site
         {
             Id = request.id,
-        Name = request.Name
-        Address = request.Address
-        Timezone = request.Timezone
-        Latitude = request.Latitude
-        Longitude = request.Longitude
-        Tenant = request.Tenant
-        Buildings = request.Buildings
-        Devices = request.Devices
-        Gateways = request.Gateways
+            Name = request.Name;
+            Address = request.Address;
+            Timezone = request.Timezone;
+            Latitude = request.Latitude;
+            Longitude = request.Longitude;
+            Tenant = request.Tenant;
+            Buildings = request.Buildings;
+            Devices = request.Devices;
+            Gateways = request.Gateways;
         }
         return model;
     }
@@ -192,19 +192,19 @@ public static class SiteEndpoints
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
-    private com.harbormaster.codetemplate.model.classes.ClassObject@73a891 mapRequestTocom.harbormaster.codetemplate.model.classes.ClassObject@73a891( com.harbormaster.codetemplate.model.classes.ClassObject@73a891Request request ) {
+    private Site mapRequestToSite( SiteRequest request ) {
         var model = new Site
         {
             Id = request.id,
-        Name = request.Name
-        Address = request.Address
-        Timezone = request.Timezone
-        Latitude = request.Latitude
-        Longitude = request.Longitude
-        Tenant = request.Tenant
-        Buildings = request.Buildings
-        Devices = request.Devices
-        Gateways = request.Gateways
+            Name = request.Name;
+            Address = request.Address;
+            Timezone = request.Timezone;
+            Latitude = request.Latitude;
+            Longitude = request.Longitude;
+            Tenant = request.Tenant;
+            Buildings = request.Buildings;
+            Devices = request.Devices;
+            Gateways = request.Gateways;
         }
         return model;
     }
