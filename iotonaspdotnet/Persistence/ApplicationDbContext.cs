@@ -39,6 +39,8 @@
             
 using Microsoft.EntityFrameworkCore;
 
+using iotonaspdotnet.Domain;
+
 namespace iotonaspdotnet.Persistence;
 
 public class ApplicationDbContext : DbContext
