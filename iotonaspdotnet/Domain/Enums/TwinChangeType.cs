@@ -25,48 +25,48 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace iotonaspdotnet.Domain.Enums
+namespace iotonaspdotnet.Domain.Enums;
+
+/// <summary>
+/// TwinChangeType enumerator class
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum TwinChangeType
 {
-    /// <summary>
-    /// TwinChangeType enumerator class
-    /// </summary>
-	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public enum TwinChangeType
-	{
-		DesiredUpdated=1,ReportedUpdated=2,TagUpdated=3
-	}
-
-    /// <summary>
-    /// Extension of capabilities for the TwinChangeType enum
-    /// </summary>
-	public static class TwinChangeTypeExtensions
-	{
-		//************************************************************************
-		// static implementations
-		//************************************************************************
-        public static class TwinChangeTypeExtensions
-        {
-            public static List<TwinChangeType> GetValues()
-            {
-                return Enum.GetValues<TwinChangeType>().ToList();
-            }
-
-            public static TwinChangeType GetDefaultValue()
-            {
-                return Enum.GetValues<TwinChangeType>().First();
-            }
-
-            public static TwinChangeType WhichOne(string name)
-            {
-                if (Enum.TryParse<TwinChangeType>(name, true, out var value))
-                {
-                    return value;
-                }
-
-                return GetDefaultValue();
-            }
-        }
-	}
+    DesiredUpdated=1,ReportedUpdated=2,TagUpdated=3
 }
+
+/// <summary>
+/// Extension of capabilities for the TwinChangeType enum
+/// </summary>
+public static class TwinChangeTypeExtensions
+{
+    //************************************************************************
+    // static implementations
+    //************************************************************************
+    public static class TwinChangeTypeExtensions
+    {
+        public static List<TwinChangeType> GetValues()
+        {
+            return Enum.GetValues<TwinChangeType>().ToList();
+        }
+
+        public static TwinChangeType GetDefaultValue()
+        {
+            return Enum.GetValues<TwinChangeType>().First();
+        }
+
+        public static TwinChangeType WhichOne(string name)
+        {
+            if (Enum.TryParse<TwinChangeType>(name, true, out var value))
+            {
+                return value;
+            }
+
+            return GetDefaultValue();
+        }
+    }
+}
+
 
 

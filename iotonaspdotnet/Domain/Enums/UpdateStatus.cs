@@ -25,48 +25,48 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace iotonaspdotnet.Domain.Enums
+namespace iotonaspdotnet.Domain.Enums;
+
+/// <summary>
+/// UpdateStatus enumerator class
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum UpdateStatus
 {
-    /// <summary>
-    /// UpdateStatus enumerator class
-    /// </summary>
-	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public enum UpdateStatus
-	{
-		Downloading=1,Installing=2,Rebooting=3,Success=4,Failure=5,Deferred=6
-	}
-
-    /// <summary>
-    /// Extension of capabilities for the UpdateStatus enum
-    /// </summary>
-	public static class UpdateStatusExtensions
-	{
-		//************************************************************************
-		// static implementations
-		//************************************************************************
-        public static class UpdateStatusExtensions
-        {
-            public static List<UpdateStatus> GetValues()
-            {
-                return Enum.GetValues<UpdateStatus>().ToList();
-            }
-
-            public static UpdateStatus GetDefaultValue()
-            {
-                return Enum.GetValues<UpdateStatus>().First();
-            }
-
-            public static UpdateStatus WhichOne(string name)
-            {
-                if (Enum.TryParse<UpdateStatus>(name, true, out var value))
-                {
-                    return value;
-                }
-
-                return GetDefaultValue();
-            }
-        }
-	}
+    Downloading=1,Installing=2,Rebooting=3,Success=4,Failure=5,Deferred=6
 }
+
+/// <summary>
+/// Extension of capabilities for the UpdateStatus enum
+/// </summary>
+public static class UpdateStatusExtensions
+{
+    //************************************************************************
+    // static implementations
+    //************************************************************************
+    public static class UpdateStatusExtensions
+    {
+        public static List<UpdateStatus> GetValues()
+        {
+            return Enum.GetValues<UpdateStatus>().ToList();
+        }
+
+        public static UpdateStatus GetDefaultValue()
+        {
+            return Enum.GetValues<UpdateStatus>().First();
+        }
+
+        public static UpdateStatus WhichOne(string name)
+        {
+            if (Enum.TryParse<UpdateStatus>(name, true, out var value))
+            {
+                return value;
+            }
+
+            return GetDefaultValue();
+        }
+    }
+}
+
 
 

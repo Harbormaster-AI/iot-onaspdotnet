@@ -25,48 +25,48 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace iotonaspdotnet.Domain.Enums
+namespace iotonaspdotnet.Domain.Enums;
+
+/// <summary>
+/// SimStatus enumerator class
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum SimStatus
 {
-    /// <summary>
-    /// SimStatus enumerator class
-    /// </summary>
-	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public enum SimStatus
-	{
-		Active=1,Suspended=2,Retired=3
-	}
-
-    /// <summary>
-    /// Extension of capabilities for the SimStatus enum
-    /// </summary>
-	public static class SimStatusExtensions
-	{
-		//************************************************************************
-		// static implementations
-		//************************************************************************
-        public static class SimStatusExtensions
-        {
-            public static List<SimStatus> GetValues()
-            {
-                return Enum.GetValues<SimStatus>().ToList();
-            }
-
-            public static SimStatus GetDefaultValue()
-            {
-                return Enum.GetValues<SimStatus>().First();
-            }
-
-            public static SimStatus WhichOne(string name)
-            {
-                if (Enum.TryParse<SimStatus>(name, true, out var value))
-                {
-                    return value;
-                }
-
-                return GetDefaultValue();
-            }
-        }
-	}
+    Active=1,Suspended=2,Retired=3
 }
+
+/// <summary>
+/// Extension of capabilities for the SimStatus enum
+/// </summary>
+public static class SimStatusExtensions
+{
+    //************************************************************************
+    // static implementations
+    //************************************************************************
+    public static class SimStatusExtensions
+    {
+        public static List<SimStatus> GetValues()
+        {
+            return Enum.GetValues<SimStatus>().ToList();
+        }
+
+        public static SimStatus GetDefaultValue()
+        {
+            return Enum.GetValues<SimStatus>().First();
+        }
+
+        public static SimStatus WhichOne(string name)
+        {
+            if (Enum.TryParse<SimStatus>(name, true, out var value))
+            {
+                return value;
+            }
+
+            return GetDefaultValue();
+        }
+    }
+}
+
 
 

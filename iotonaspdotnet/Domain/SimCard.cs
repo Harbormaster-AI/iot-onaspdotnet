@@ -1,6 +1,3 @@
-using iotonaspdotnet.Domain.NetworkProfiles;
-using iotonaspdotnet.Domain.Tenants;
-using iotonaspdotnet.Domain.ConnectivityPlans;
 using iotonaspdotnet.Domain.Enums;
 using iotonaspdotnet.Domain.ValueObjects;
 namespace iotonaspdotnet.Domain;

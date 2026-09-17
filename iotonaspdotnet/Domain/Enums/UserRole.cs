@@ -25,48 +25,48 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace iotonaspdotnet.Domain.Enums
+namespace iotonaspdotnet.Domain.Enums;
+
+/// <summary>
+/// UserRole enumerator class
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum UserRole
 {
-    /// <summary>
-    /// UserRole enumerator class
-    /// </summary>
-	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public enum UserRole
-	{
-		Admin=1,Operator=2,Viewer=3,Integrator=4
-	}
-
-    /// <summary>
-    /// Extension of capabilities for the UserRole enum
-    /// </summary>
-	public static class UserRoleExtensions
-	{
-		//************************************************************************
-		// static implementations
-		//************************************************************************
-        public static class UserRoleExtensions
-        {
-            public static List<UserRole> GetValues()
-            {
-                return Enum.GetValues<UserRole>().ToList();
-            }
-
-            public static UserRole GetDefaultValue()
-            {
-                return Enum.GetValues<UserRole>().First();
-            }
-
-            public static UserRole WhichOne(string name)
-            {
-                if (Enum.TryParse<UserRole>(name, true, out var value))
-                {
-                    return value;
-                }
-
-                return GetDefaultValue();
-            }
-        }
-	}
+    Admin=1,Operator=2,Viewer=3,Integrator=4
 }
+
+/// <summary>
+/// Extension of capabilities for the UserRole enum
+/// </summary>
+public static class UserRoleExtensions
+{
+    //************************************************************************
+    // static implementations
+    //************************************************************************
+    public static class UserRoleExtensions
+    {
+        public static List<UserRole> GetValues()
+        {
+            return Enum.GetValues<UserRole>().ToList();
+        }
+
+        public static UserRole GetDefaultValue()
+        {
+            return Enum.GetValues<UserRole>().First();
+        }
+
+        public static UserRole WhichOne(string name)
+        {
+            if (Enum.TryParse<UserRole>(name, true, out var value))
+            {
+                return value;
+            }
+
+            return GetDefaultValue();
+        }
+    }
+}
+
 
 

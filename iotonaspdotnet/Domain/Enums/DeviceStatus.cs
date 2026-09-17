@@ -25,48 +25,48 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace iotonaspdotnet.Domain.Enums
+namespace iotonaspdotnet.Domain.Enums;
+
+/// <summary>
+/// DeviceStatus enumerator class
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum DeviceStatus
 {
-    /// <summary>
-    /// DeviceStatus enumerator class
-    /// </summary>
-	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public enum DeviceStatus
-	{
-		Provisioning=1,Active=2,Suspended=3,Offline=4,Decommissioned=5
-	}
-
-    /// <summary>
-    /// Extension of capabilities for the DeviceStatus enum
-    /// </summary>
-	public static class DeviceStatusExtensions
-	{
-		//************************************************************************
-		// static implementations
-		//************************************************************************
-        public static class DeviceStatusExtensions
-        {
-            public static List<DeviceStatus> GetValues()
-            {
-                return Enum.GetValues<DeviceStatus>().ToList();
-            }
-
-            public static DeviceStatus GetDefaultValue()
-            {
-                return Enum.GetValues<DeviceStatus>().First();
-            }
-
-            public static DeviceStatus WhichOne(string name)
-            {
-                if (Enum.TryParse<DeviceStatus>(name, true, out var value))
-                {
-                    return value;
-                }
-
-                return GetDefaultValue();
-            }
-        }
-	}
+    Provisioning=1,Active=2,Suspended=3,Offline=4,Decommissioned=5
 }
+
+/// <summary>
+/// Extension of capabilities for the DeviceStatus enum
+/// </summary>
+public static class DeviceStatusExtensions
+{
+    //************************************************************************
+    // static implementations
+    //************************************************************************
+    public static class DeviceStatusExtensions
+    {
+        public static List<DeviceStatus> GetValues()
+        {
+            return Enum.GetValues<DeviceStatus>().ToList();
+        }
+
+        public static DeviceStatus GetDefaultValue()
+        {
+            return Enum.GetValues<DeviceStatus>().First();
+        }
+
+        public static DeviceStatus WhichOne(string name)
+        {
+            if (Enum.TryParse<DeviceStatus>(name, true, out var value))
+            {
+                return value;
+            }
+
+            return GetDefaultValue();
+        }
+    }
+}
+
 
 

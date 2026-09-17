@@ -25,48 +25,48 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace iotonaspdotnet.Domain.Enums
+namespace iotonaspdotnet.Domain.Enums;
+
+/// <summary>
+/// ActuatorType enumerator class
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum ActuatorType
 {
-    /// <summary>
-    /// ActuatorType enumerator class
-    /// </summary>
-	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public enum ActuatorType
-	{
-		Relay=1,Motor=2,Valve=3,LED=4,Buzzer=5,Display=6
-	}
-
-    /// <summary>
-    /// Extension of capabilities for the ActuatorType enum
-    /// </summary>
-	public static class ActuatorTypeExtensions
-	{
-		//************************************************************************
-		// static implementations
-		//************************************************************************
-        public static class ActuatorTypeExtensions
-        {
-            public static List<ActuatorType> GetValues()
-            {
-                return Enum.GetValues<ActuatorType>().ToList();
-            }
-
-            public static ActuatorType GetDefaultValue()
-            {
-                return Enum.GetValues<ActuatorType>().First();
-            }
-
-            public static ActuatorType WhichOne(string name)
-            {
-                if (Enum.TryParse<ActuatorType>(name, true, out var value))
-                {
-                    return value;
-                }
-
-                return GetDefaultValue();
-            }
-        }
-	}
+    Relay=1,Motor=2,Valve=3,LED=4,Buzzer=5,Display=6
 }
+
+/// <summary>
+/// Extension of capabilities for the ActuatorType enum
+/// </summary>
+public static class ActuatorTypeExtensions
+{
+    //************************************************************************
+    // static implementations
+    //************************************************************************
+    public static class ActuatorTypeExtensions
+    {
+        public static List<ActuatorType> GetValues()
+        {
+            return Enum.GetValues<ActuatorType>().ToList();
+        }
+
+        public static ActuatorType GetDefaultValue()
+        {
+            return Enum.GetValues<ActuatorType>().First();
+        }
+
+        public static ActuatorType WhichOne(string name)
+        {
+            if (Enum.TryParse<ActuatorType>(name, true, out var value))
+            {
+                return value;
+            }
+
+            return GetDefaultValue();
+        }
+    }
+}
+
 
 

@@ -25,48 +25,48 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace iotonaspdotnet.Domain.Enums
+namespace iotonaspdotnet.Domain.Enums;
+
+/// <summary>
+/// TelemetryEncoding enumerator class
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum TelemetryEncoding
 {
-    /// <summary>
-    /// TelemetryEncoding enumerator class
-    /// </summary>
-	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public enum TelemetryEncoding
-	{
-		JSON=1,CBOR=2,Protobuf=3,Avro=4,Binary=5
-	}
-
-    /// <summary>
-    /// Extension of capabilities for the TelemetryEncoding enum
-    /// </summary>
-	public static class TelemetryEncodingExtensions
-	{
-		//************************************************************************
-		// static implementations
-		//************************************************************************
-        public static class TelemetryEncodingExtensions
-        {
-            public static List<TelemetryEncoding> GetValues()
-            {
-                return Enum.GetValues<TelemetryEncoding>().ToList();
-            }
-
-            public static TelemetryEncoding GetDefaultValue()
-            {
-                return Enum.GetValues<TelemetryEncoding>().First();
-            }
-
-            public static TelemetryEncoding WhichOne(string name)
-            {
-                if (Enum.TryParse<TelemetryEncoding>(name, true, out var value))
-                {
-                    return value;
-                }
-
-                return GetDefaultValue();
-            }
-        }
-	}
+    JSON=1,CBOR=2,Protobuf=3,Avro=4,Binary=5
 }
+
+/// <summary>
+/// Extension of capabilities for the TelemetryEncoding enum
+/// </summary>
+public static class TelemetryEncodingExtensions
+{
+    //************************************************************************
+    // static implementations
+    //************************************************************************
+    public static class TelemetryEncodingExtensions
+    {
+        public static List<TelemetryEncoding> GetValues()
+        {
+            return Enum.GetValues<TelemetryEncoding>().ToList();
+        }
+
+        public static TelemetryEncoding GetDefaultValue()
+        {
+            return Enum.GetValues<TelemetryEncoding>().First();
+        }
+
+        public static TelemetryEncoding WhichOne(string name)
+        {
+            if (Enum.TryParse<TelemetryEncoding>(name, true, out var value))
+            {
+                return value;
+            }
+
+            return GetDefaultValue();
+        }
+    }
+}
+
 
 

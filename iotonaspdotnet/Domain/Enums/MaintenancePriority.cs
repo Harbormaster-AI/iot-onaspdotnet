@@ -25,48 +25,48 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace iotonaspdotnet.Domain.Enums
+namespace iotonaspdotnet.Domain.Enums;
+
+/// <summary>
+/// MaintenancePriority enumerator class
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum MaintenancePriority
 {
-    /// <summary>
-    /// MaintenancePriority enumerator class
-    /// </summary>
-	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public enum MaintenancePriority
-	{
-		Low=1,Medium=2,High=3,Urgent=4
-	}
-
-    /// <summary>
-    /// Extension of capabilities for the MaintenancePriority enum
-    /// </summary>
-	public static class MaintenancePriorityExtensions
-	{
-		//************************************************************************
-		// static implementations
-		//************************************************************************
-        public static class MaintenancePriorityExtensions
-        {
-            public static List<MaintenancePriority> GetValues()
-            {
-                return Enum.GetValues<MaintenancePriority>().ToList();
-            }
-
-            public static MaintenancePriority GetDefaultValue()
-            {
-                return Enum.GetValues<MaintenancePriority>().First();
-            }
-
-            public static MaintenancePriority WhichOne(string name)
-            {
-                if (Enum.TryParse<MaintenancePriority>(name, true, out var value))
-                {
-                    return value;
-                }
-
-                return GetDefaultValue();
-            }
-        }
-	}
+    Low=1,Medium=2,High=3,Urgent=4
 }
+
+/// <summary>
+/// Extension of capabilities for the MaintenancePriority enum
+/// </summary>
+public static class MaintenancePriorityExtensions
+{
+    //************************************************************************
+    // static implementations
+    //************************************************************************
+    public static class MaintenancePriorityExtensions
+    {
+        public static List<MaintenancePriority> GetValues()
+        {
+            return Enum.GetValues<MaintenancePriority>().ToList();
+        }
+
+        public static MaintenancePriority GetDefaultValue()
+        {
+            return Enum.GetValues<MaintenancePriority>().First();
+        }
+
+        public static MaintenancePriority WhichOne(string name)
+        {
+            if (Enum.TryParse<MaintenancePriority>(name, true, out var value))
+            {
+                return value;
+            }
+
+            return GetDefaultValue();
+        }
+    }
+}
+
 
 

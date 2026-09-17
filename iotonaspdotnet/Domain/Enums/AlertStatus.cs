@@ -25,48 +25,48 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace iotonaspdotnet.Domain.Enums
+namespace iotonaspdotnet.Domain.Enums;
+
+/// <summary>
+/// AlertStatus enumerator class
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum AlertStatus
 {
-    /// <summary>
-    /// AlertStatus enumerator class
-    /// </summary>
-	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public enum AlertStatus
-	{
-		Open=1,Acknowledged=2,Resolved=3,Suppressed=4
-	}
-
-    /// <summary>
-    /// Extension of capabilities for the AlertStatus enum
-    /// </summary>
-	public static class AlertStatusExtensions
-	{
-		//************************************************************************
-		// static implementations
-		//************************************************************************
-        public static class AlertStatusExtensions
-        {
-            public static List<AlertStatus> GetValues()
-            {
-                return Enum.GetValues<AlertStatus>().ToList();
-            }
-
-            public static AlertStatus GetDefaultValue()
-            {
-                return Enum.GetValues<AlertStatus>().First();
-            }
-
-            public static AlertStatus WhichOne(string name)
-            {
-                if (Enum.TryParse<AlertStatus>(name, true, out var value))
-                {
-                    return value;
-                }
-
-                return GetDefaultValue();
-            }
-        }
-	}
+    Open=1,Acknowledged=2,Resolved=3,Suppressed=4
 }
+
+/// <summary>
+/// Extension of capabilities for the AlertStatus enum
+/// </summary>
+public static class AlertStatusExtensions
+{
+    //************************************************************************
+    // static implementations
+    //************************************************************************
+    public static class AlertStatusExtensions
+    {
+        public static List<AlertStatus> GetValues()
+        {
+            return Enum.GetValues<AlertStatus>().ToList();
+        }
+
+        public static AlertStatus GetDefaultValue()
+        {
+            return Enum.GetValues<AlertStatus>().First();
+        }
+
+        public static AlertStatus WhichOne(string name)
+        {
+            if (Enum.TryParse<AlertStatus>(name, true, out var value))
+            {
+                return value;
+            }
+
+            return GetDefaultValue();
+        }
+    }
+}
+
 
 

@@ -25,48 +25,48 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace iotonaspdotnet.Domain.Enums
+namespace iotonaspdotnet.Domain.Enums;
+
+/// <summary>
+/// AlertSeverity enumerator class
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum AlertSeverity
 {
-    /// <summary>
-    /// AlertSeverity enumerator class
-    /// </summary>
-	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public enum AlertSeverity
-	{
-		Info=1,Warning=2,Critical=3
-	}
-
-    /// <summary>
-    /// Extension of capabilities for the AlertSeverity enum
-    /// </summary>
-	public static class AlertSeverityExtensions
-	{
-		//************************************************************************
-		// static implementations
-		//************************************************************************
-        public static class AlertSeverityExtensions
-        {
-            public static List<AlertSeverity> GetValues()
-            {
-                return Enum.GetValues<AlertSeverity>().ToList();
-            }
-
-            public static AlertSeverity GetDefaultValue()
-            {
-                return Enum.GetValues<AlertSeverity>().First();
-            }
-
-            public static AlertSeverity WhichOne(string name)
-            {
-                if (Enum.TryParse<AlertSeverity>(name, true, out var value))
-                {
-                    return value;
-                }
-
-                return GetDefaultValue();
-            }
-        }
-	}
+    Info=1,Warning=2,Critical=3
 }
+
+/// <summary>
+/// Extension of capabilities for the AlertSeverity enum
+/// </summary>
+public static class AlertSeverityExtensions
+{
+    //************************************************************************
+    // static implementations
+    //************************************************************************
+    public static class AlertSeverityExtensions
+    {
+        public static List<AlertSeverity> GetValues()
+        {
+            return Enum.GetValues<AlertSeverity>().ToList();
+        }
+
+        public static AlertSeverity GetDefaultValue()
+        {
+            return Enum.GetValues<AlertSeverity>().First();
+        }
+
+        public static AlertSeverity WhichOne(string name)
+        {
+            if (Enum.TryParse<AlertSeverity>(name, true, out var value))
+            {
+                return value;
+            }
+
+            return GetDefaultValue();
+        }
+    }
+}
+
 
 

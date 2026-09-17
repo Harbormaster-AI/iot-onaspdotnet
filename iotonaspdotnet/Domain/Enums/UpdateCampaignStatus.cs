@@ -25,48 +25,48 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace iotonaspdotnet.Domain.Enums
+namespace iotonaspdotnet.Domain.Enums;
+
+/// <summary>
+/// UpdateCampaignStatus enumerator class
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum UpdateCampaignStatus
 {
-    /// <summary>
-    /// UpdateCampaignStatus enumerator class
-    /// </summary>
-	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public enum UpdateCampaignStatus
-	{
-		Planned=1,InProgress=2,Paused=3,Completed=4,Cancelled=5
-	}
-
-    /// <summary>
-    /// Extension of capabilities for the UpdateCampaignStatus enum
-    /// </summary>
-	public static class UpdateCampaignStatusExtensions
-	{
-		//************************************************************************
-		// static implementations
-		//************************************************************************
-        public static class UpdateCampaignStatusExtensions
-        {
-            public static List<UpdateCampaignStatus> GetValues()
-            {
-                return Enum.GetValues<UpdateCampaignStatus>().ToList();
-            }
-
-            public static UpdateCampaignStatus GetDefaultValue()
-            {
-                return Enum.GetValues<UpdateCampaignStatus>().First();
-            }
-
-            public static UpdateCampaignStatus WhichOne(string name)
-            {
-                if (Enum.TryParse<UpdateCampaignStatus>(name, true, out var value))
-                {
-                    return value;
-                }
-
-                return GetDefaultValue();
-            }
-        }
-	}
+    Planned=1,InProgress=2,Paused=3,Completed=4,Cancelled=5
 }
+
+/// <summary>
+/// Extension of capabilities for the UpdateCampaignStatus enum
+/// </summary>
+public static class UpdateCampaignStatusExtensions
+{
+    //************************************************************************
+    // static implementations
+    //************************************************************************
+    public static class UpdateCampaignStatusExtensions
+    {
+        public static List<UpdateCampaignStatus> GetValues()
+        {
+            return Enum.GetValues<UpdateCampaignStatus>().ToList();
+        }
+
+        public static UpdateCampaignStatus GetDefaultValue()
+        {
+            return Enum.GetValues<UpdateCampaignStatus>().First();
+        }
+
+        public static UpdateCampaignStatus WhichOne(string name)
+        {
+            if (Enum.TryParse<UpdateCampaignStatus>(name, true, out var value))
+            {
+                return value;
+            }
+
+            return GetDefaultValue();
+        }
+    }
+}
+
 
 

@@ -1,5 +1,3 @@
-using iotonaspdotnet.Domain.Tenants;
-using iotonaspdotnet.Domain.TelemetryStreams;
 using iotonaspdotnet.Domain.Enums;
 using iotonaspdotnet.Domain.ValueObjects;
 namespace iotonaspdotnet.Domain;

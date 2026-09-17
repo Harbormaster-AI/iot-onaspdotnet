@@ -25,48 +25,48 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace iotonaspdotnet.Domain.Enums
+namespace iotonaspdotnet.Domain.Enums;
+
+/// <summary>
+/// TenantType enumerator class
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum TenantType
 {
-    /// <summary>
-    /// TenantType enumerator class
-    /// </summary>
-	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public enum TenantType
-	{
-		Enterprise=1,SMB=2,ISV=3,SystemIntegrator=4,Government=5
-	}
-
-    /// <summary>
-    /// Extension of capabilities for the TenantType enum
-    /// </summary>
-	public static class TenantTypeExtensions
-	{
-		//************************************************************************
-		// static implementations
-		//************************************************************************
-        public static class TenantTypeExtensions
-        {
-            public static List<TenantType> GetValues()
-            {
-                return Enum.GetValues<TenantType>().ToList();
-            }
-
-            public static TenantType GetDefaultValue()
-            {
-                return Enum.GetValues<TenantType>().First();
-            }
-
-            public static TenantType WhichOne(string name)
-            {
-                if (Enum.TryParse<TenantType>(name, true, out var value))
-                {
-                    return value;
-                }
-
-                return GetDefaultValue();
-            }
-        }
-	}
+    Enterprise=1,SMB=2,ISV=3,SystemIntegrator=4,Government=5
 }
+
+/// <summary>
+/// Extension of capabilities for the TenantType enum
+/// </summary>
+public static class TenantTypeExtensions
+{
+    //************************************************************************
+    // static implementations
+    //************************************************************************
+    public static class TenantTypeExtensions
+    {
+        public static List<TenantType> GetValues()
+        {
+            return Enum.GetValues<TenantType>().ToList();
+        }
+
+        public static TenantType GetDefaultValue()
+        {
+            return Enum.GetValues<TenantType>().First();
+        }
+
+        public static TenantType WhichOne(string name)
+        {
+            if (Enum.TryParse<TenantType>(name, true, out var value))
+            {
+                return value;
+            }
+
+            return GetDefaultValue();
+        }
+    }
+}
+
 
 

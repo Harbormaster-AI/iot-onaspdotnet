@@ -1,8 +1,3 @@
-using iotonaspdotnet.Domain.DeviceVendors;
-using iotonaspdotnet.Domain.HardwareModules;
-using iotonaspdotnet.Domain.TwinTemplates;
-using iotonaspdotnet.Domain.FirmwareReleases;
-using iotonaspdotnet.Domain.CommandDefinitions;
 using iotonaspdotnet.Domain.Enums;
 using iotonaspdotnet.Domain.ValueObjects;
 namespace iotonaspdotnet.Domain;

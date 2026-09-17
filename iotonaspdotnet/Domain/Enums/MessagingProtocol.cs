@@ -25,48 +25,48 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace iotonaspdotnet.Domain.Enums
+namespace iotonaspdotnet.Domain.Enums;
+
+/// <summary>
+/// MessagingProtocol enumerator class
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum MessagingProtocol
 {
-    /// <summary>
-    /// MessagingProtocol enumerator class
-    /// </summary>
-	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public enum MessagingProtocol
-	{
-		MQTT=1,AMQP=2,HTTP=3,CoAP=4,WebSocket=5
-	}
-
-    /// <summary>
-    /// Extension of capabilities for the MessagingProtocol enum
-    /// </summary>
-	public static class MessagingProtocolExtensions
-	{
-		//************************************************************************
-		// static implementations
-		//************************************************************************
-        public static class MessagingProtocolExtensions
-        {
-            public static List<MessagingProtocol> GetValues()
-            {
-                return Enum.GetValues<MessagingProtocol>().ToList();
-            }
-
-            public static MessagingProtocol GetDefaultValue()
-            {
-                return Enum.GetValues<MessagingProtocol>().First();
-            }
-
-            public static MessagingProtocol WhichOne(string name)
-            {
-                if (Enum.TryParse<MessagingProtocol>(name, true, out var value))
-                {
-                    return value;
-                }
-
-                return GetDefaultValue();
-            }
-        }
-	}
+    MQTT=1,AMQP=2,HTTP=3,CoAP=4,WebSocket=5
 }
+
+/// <summary>
+/// Extension of capabilities for the MessagingProtocol enum
+/// </summary>
+public static class MessagingProtocolExtensions
+{
+    //************************************************************************
+    // static implementations
+    //************************************************************************
+    public static class MessagingProtocolExtensions
+    {
+        public static List<MessagingProtocol> GetValues()
+        {
+            return Enum.GetValues<MessagingProtocol>().ToList();
+        }
+
+        public static MessagingProtocol GetDefaultValue()
+        {
+            return Enum.GetValues<MessagingProtocol>().First();
+        }
+
+        public static MessagingProtocol WhichOne(string name)
+        {
+            if (Enum.TryParse<MessagingProtocol>(name, true, out var value))
+            {
+                return value;
+            }
+
+            return GetDefaultValue();
+        }
+    }
+}
+
 
 

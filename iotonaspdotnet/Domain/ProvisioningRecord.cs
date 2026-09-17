@@ -1,6 +1,3 @@
-using iotonaspdotnet.Domain.IoTDevices;
-using iotonaspdotnet.Domain.DeviceCertificates;
-using iotonaspdotnet.Domain.Tenants;
 using iotonaspdotnet.Domain.Enums;
 using iotonaspdotnet.Domain.ValueObjects;
 namespace iotonaspdotnet.Domain;

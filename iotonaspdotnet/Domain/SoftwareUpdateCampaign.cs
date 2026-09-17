@@ -1,6 +1,3 @@
-using iotonaspdotnet.Domain.FirmwareReleases;
-using iotonaspdotnet.Domain.DeviceGroups;
-using iotonaspdotnet.Domain.SoftwareUpdateExecutions;
 using iotonaspdotnet.Domain.Enums;
 using iotonaspdotnet.Domain.ValueObjects;
 namespace iotonaspdotnet.Domain;

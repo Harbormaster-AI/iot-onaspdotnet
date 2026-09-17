@@ -25,48 +25,48 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace iotonaspdotnet.Domain.Enums
+namespace iotonaspdotnet.Domain.Enums;
+
+/// <summary>
+/// MaintenanceStatus enumerator class
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum MaintenanceStatus
 {
-    /// <summary>
-    /// MaintenanceStatus enumerator class
-    /// </summary>
-	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public enum MaintenanceStatus
-	{
-		Open=1,InProgress=2,WaitingOnParts=3,Closed=4
-	}
-
-    /// <summary>
-    /// Extension of capabilities for the MaintenanceStatus enum
-    /// </summary>
-	public static class MaintenanceStatusExtensions
-	{
-		//************************************************************************
-		// static implementations
-		//************************************************************************
-        public static class MaintenanceStatusExtensions
-        {
-            public static List<MaintenanceStatus> GetValues()
-            {
-                return Enum.GetValues<MaintenanceStatus>().ToList();
-            }
-
-            public static MaintenanceStatus GetDefaultValue()
-            {
-                return Enum.GetValues<MaintenanceStatus>().First();
-            }
-
-            public static MaintenanceStatus WhichOne(string name)
-            {
-                if (Enum.TryParse<MaintenanceStatus>(name, true, out var value))
-                {
-                    return value;
-                }
-
-                return GetDefaultValue();
-            }
-        }
-	}
+    Open=1,InProgress=2,WaitingOnParts=3,Closed=4
 }
+
+/// <summary>
+/// Extension of capabilities for the MaintenanceStatus enum
+/// </summary>
+public static class MaintenanceStatusExtensions
+{
+    //************************************************************************
+    // static implementations
+    //************************************************************************
+    public static class MaintenanceStatusExtensions
+    {
+        public static List<MaintenanceStatus> GetValues()
+        {
+            return Enum.GetValues<MaintenanceStatus>().ToList();
+        }
+
+        public static MaintenanceStatus GetDefaultValue()
+        {
+            return Enum.GetValues<MaintenanceStatus>().First();
+        }
+
+        public static MaintenanceStatus WhichOne(string name)
+        {
+            if (Enum.TryParse<MaintenanceStatus>(name, true, out var value))
+            {
+                return value;
+            }
+
+            return GetDefaultValue();
+        }
+    }
+}
+
 
 

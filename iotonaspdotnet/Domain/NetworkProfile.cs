@@ -1,6 +1,3 @@
-using iotonaspdotnet.Domain.IoTDevices;
-using iotonaspdotnet.Domain.Gateways;
-using iotonaspdotnet.Domain.SimCards;
 using iotonaspdotnet.Domain.Enums;
 using iotonaspdotnet.Domain.ValueObjects;
 namespace iotonaspdotnet.Domain;

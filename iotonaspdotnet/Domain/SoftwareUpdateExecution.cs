@@ -1,5 +1,3 @@
-using iotonaspdotnet.Domain.SoftwareUpdateCampaigns;
-using iotonaspdotnet.Domain.IoTDevices;
 using iotonaspdotnet.Domain.Enums;
 using iotonaspdotnet.Domain.ValueObjects;
 namespace iotonaspdotnet.Domain;

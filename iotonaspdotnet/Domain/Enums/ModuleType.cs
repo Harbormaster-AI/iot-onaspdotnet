@@ -25,48 +25,48 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace iotonaspdotnet.Domain.Enums
+namespace iotonaspdotnet.Domain.Enums;
+
+/// <summary>
+/// ModuleType enumerator class
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum ModuleType
 {
-    /// <summary>
-    /// ModuleType enumerator class
-    /// </summary>
-	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public enum ModuleType
-	{
-		RFModule=1,MCU=2,SensorChipset=3,PowerManagement=4,Storage=5,Other=6
-	}
-
-    /// <summary>
-    /// Extension of capabilities for the ModuleType enum
-    /// </summary>
-	public static class ModuleTypeExtensions
-	{
-		//************************************************************************
-		// static implementations
-		//************************************************************************
-        public static class ModuleTypeExtensions
-        {
-            public static List<ModuleType> GetValues()
-            {
-                return Enum.GetValues<ModuleType>().ToList();
-            }
-
-            public static ModuleType GetDefaultValue()
-            {
-                return Enum.GetValues<ModuleType>().First();
-            }
-
-            public static ModuleType WhichOne(string name)
-            {
-                if (Enum.TryParse<ModuleType>(name, true, out var value))
-                {
-                    return value;
-                }
-
-                return GetDefaultValue();
-            }
-        }
-	}
+    RFModule=1,MCU=2,SensorChipset=3,PowerManagement=4,Storage=5,Other=6
 }
+
+/// <summary>
+/// Extension of capabilities for the ModuleType enum
+/// </summary>
+public static class ModuleTypeExtensions
+{
+    //************************************************************************
+    // static implementations
+    //************************************************************************
+    public static class ModuleTypeExtensions
+    {
+        public static List<ModuleType> GetValues()
+        {
+            return Enum.GetValues<ModuleType>().ToList();
+        }
+
+        public static ModuleType GetDefaultValue()
+        {
+            return Enum.GetValues<ModuleType>().First();
+        }
+
+        public static ModuleType WhichOne(string name)
+        {
+            if (Enum.TryParse<ModuleType>(name, true, out var value))
+            {
+                return value;
+            }
+
+            return GetDefaultValue();
+        }
+    }
+}
+
 
 

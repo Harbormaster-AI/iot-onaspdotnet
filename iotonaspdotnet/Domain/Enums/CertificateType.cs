@@ -25,48 +25,48 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace iotonaspdotnet.Domain.Enums
+namespace iotonaspdotnet.Domain.Enums;
+
+/// <summary>
+/// CertificateType enumerator class
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum CertificateType
 {
-    /// <summary>
-    /// CertificateType enumerator class
-    /// </summary>
-	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public enum CertificateType
-	{
-		X509=1,X509_CA=2,X509_SelfSigned=3
-	}
-
-    /// <summary>
-    /// Extension of capabilities for the CertificateType enum
-    /// </summary>
-	public static class CertificateTypeExtensions
-	{
-		//************************************************************************
-		// static implementations
-		//************************************************************************
-        public static class CertificateTypeExtensions
-        {
-            public static List<CertificateType> GetValues()
-            {
-                return Enum.GetValues<CertificateType>().ToList();
-            }
-
-            public static CertificateType GetDefaultValue()
-            {
-                return Enum.GetValues<CertificateType>().First();
-            }
-
-            public static CertificateType WhichOne(string name)
-            {
-                if (Enum.TryParse<CertificateType>(name, true, out var value))
-                {
-                    return value;
-                }
-
-                return GetDefaultValue();
-            }
-        }
-	}
+    X509=1,X509_CA=2,X509_SelfSigned=3
 }
+
+/// <summary>
+/// Extension of capabilities for the CertificateType enum
+/// </summary>
+public static class CertificateTypeExtensions
+{
+    //************************************************************************
+    // static implementations
+    //************************************************************************
+    public static class CertificateTypeExtensions
+    {
+        public static List<CertificateType> GetValues()
+        {
+            return Enum.GetValues<CertificateType>().ToList();
+        }
+
+        public static CertificateType GetDefaultValue()
+        {
+            return Enum.GetValues<CertificateType>().First();
+        }
+
+        public static CertificateType WhichOne(string name)
+        {
+            if (Enum.TryParse<CertificateType>(name, true, out var value))
+            {
+                return value;
+            }
+
+            return GetDefaultValue();
+        }
+    }
+}
+
 
 

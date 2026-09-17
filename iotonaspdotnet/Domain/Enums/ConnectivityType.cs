@@ -25,48 +25,48 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace iotonaspdotnet.Domain.Enums
+namespace iotonaspdotnet.Domain.Enums;
+
+/// <summary>
+/// ConnectivityType enumerator class
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum ConnectivityType
 {
-    /// <summary>
-    /// ConnectivityType enumerator class
-    /// </summary>
-	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public enum ConnectivityType
-	{
-		WiFi=1,Ethernet=2,LTE=3,FiveG=4,NBIoT=5,LoRaWAN=6,Zigbee=7,BLE=8,Satellite=9
-	}
-
-    /// <summary>
-    /// Extension of capabilities for the ConnectivityType enum
-    /// </summary>
-	public static class ConnectivityTypeExtensions
-	{
-		//************************************************************************
-		// static implementations
-		//************************************************************************
-        public static class ConnectivityTypeExtensions
-        {
-            public static List<ConnectivityType> GetValues()
-            {
-                return Enum.GetValues<ConnectivityType>().ToList();
-            }
-
-            public static ConnectivityType GetDefaultValue()
-            {
-                return Enum.GetValues<ConnectivityType>().First();
-            }
-
-            public static ConnectivityType WhichOne(string name)
-            {
-                if (Enum.TryParse<ConnectivityType>(name, true, out var value))
-                {
-                    return value;
-                }
-
-                return GetDefaultValue();
-            }
-        }
-	}
+    WiFi=1,Ethernet=2,LTE=3,FiveG=4,NBIoT=5,LoRaWAN=6,Zigbee=7,BLE=8,Satellite=9
 }
+
+/// <summary>
+/// Extension of capabilities for the ConnectivityType enum
+/// </summary>
+public static class ConnectivityTypeExtensions
+{
+    //************************************************************************
+    // static implementations
+    //************************************************************************
+    public static class ConnectivityTypeExtensions
+    {
+        public static List<ConnectivityType> GetValues()
+        {
+            return Enum.GetValues<ConnectivityType>().ToList();
+        }
+
+        public static ConnectivityType GetDefaultValue()
+        {
+            return Enum.GetValues<ConnectivityType>().First();
+        }
+
+        public static ConnectivityType WhichOne(string name)
+        {
+            if (Enum.TryParse<ConnectivityType>(name, true, out var value))
+            {
+                return value;
+            }
+
+            return GetDefaultValue();
+        }
+    }
+}
+
 
 

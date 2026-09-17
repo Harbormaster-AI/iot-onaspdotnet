@@ -25,48 +25,48 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace iotonaspdotnet.Domain.Enums
+namespace iotonaspdotnet.Domain.Enums;
+
+/// <summary>
+/// ProvisioningMethod enumerator class
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum ProvisioningMethod
 {
-    /// <summary>
-    /// ProvisioningMethod enumerator class
-    /// </summary>
-	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public enum ProvisioningMethod
-	{
-		Manual=1,JITP=2,JITR=3,Bulk=4,ZeroTouch=5
-	}
-
-    /// <summary>
-    /// Extension of capabilities for the ProvisioningMethod enum
-    /// </summary>
-	public static class ProvisioningMethodExtensions
-	{
-		//************************************************************************
-		// static implementations
-		//************************************************************************
-        public static class ProvisioningMethodExtensions
-        {
-            public static List<ProvisioningMethod> GetValues()
-            {
-                return Enum.GetValues<ProvisioningMethod>().ToList();
-            }
-
-            public static ProvisioningMethod GetDefaultValue()
-            {
-                return Enum.GetValues<ProvisioningMethod>().First();
-            }
-
-            public static ProvisioningMethod WhichOne(string name)
-            {
-                if (Enum.TryParse<ProvisioningMethod>(name, true, out var value))
-                {
-                    return value;
-                }
-
-                return GetDefaultValue();
-            }
-        }
-	}
+    Manual=1,JITP=2,JITR=3,Bulk=4,ZeroTouch=5
 }
+
+/// <summary>
+/// Extension of capabilities for the ProvisioningMethod enum
+/// </summary>
+public static class ProvisioningMethodExtensions
+{
+    //************************************************************************
+    // static implementations
+    //************************************************************************
+    public static class ProvisioningMethodExtensions
+    {
+        public static List<ProvisioningMethod> GetValues()
+        {
+            return Enum.GetValues<ProvisioningMethod>().ToList();
+        }
+
+        public static ProvisioningMethod GetDefaultValue()
+        {
+            return Enum.GetValues<ProvisioningMethod>().First();
+        }
+
+        public static ProvisioningMethod WhichOne(string name)
+        {
+            if (Enum.TryParse<ProvisioningMethod>(name, true, out var value))
+            {
+                return value;
+            }
+
+            return GetDefaultValue();
+        }
+    }
+}
+
 
 

@@ -25,48 +25,48 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace iotonaspdotnet.Domain.Enums
+namespace iotonaspdotnet.Domain.Enums;
+
+/// <summary>
+/// SensorType enumerator class
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum SensorType
 {
-    /// <summary>
-    /// SensorType enumerator class
-    /// </summary>
-	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public enum SensorType
-	{
-		Temperature=1,Humidity=2,Pressure=3,Accelerometer=4,Gyroscope=5,GPS=6,Light=7,CO2=8,VOC=9,Current=10,Voltage=11
-	}
-
-    /// <summary>
-    /// Extension of capabilities for the SensorType enum
-    /// </summary>
-	public static class SensorTypeExtensions
-	{
-		//************************************************************************
-		// static implementations
-		//************************************************************************
-        public static class SensorTypeExtensions
-        {
-            public static List<SensorType> GetValues()
-            {
-                return Enum.GetValues<SensorType>().ToList();
-            }
-
-            public static SensorType GetDefaultValue()
-            {
-                return Enum.GetValues<SensorType>().First();
-            }
-
-            public static SensorType WhichOne(string name)
-            {
-                if (Enum.TryParse<SensorType>(name, true, out var value))
-                {
-                    return value;
-                }
-
-                return GetDefaultValue();
-            }
-        }
-	}
+    Temperature=1,Humidity=2,Pressure=3,Accelerometer=4,Gyroscope=5,GPS=6,Light=7,CO2=8,VOC=9,Current=10,Voltage=11
 }
+
+/// <summary>
+/// Extension of capabilities for the SensorType enum
+/// </summary>
+public static class SensorTypeExtensions
+{
+    //************************************************************************
+    // static implementations
+    //************************************************************************
+    public static class SensorTypeExtensions
+    {
+        public static List<SensorType> GetValues()
+        {
+            return Enum.GetValues<SensorType>().ToList();
+        }
+
+        public static SensorType GetDefaultValue()
+        {
+            return Enum.GetValues<SensorType>().First();
+        }
+
+        public static SensorType WhichOne(string name)
+        {
+            if (Enum.TryParse<SensorType>(name, true, out var value))
+            {
+                return value;
+            }
+
+            return GetDefaultValue();
+        }
+    }
+}
+
 
 

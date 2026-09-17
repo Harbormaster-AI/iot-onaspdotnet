@@ -25,48 +25,48 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace iotonaspdotnet.Domain.Enums
+namespace iotonaspdotnet.Domain.Enums;
+
+/// <summary>
+/// PowerSource enumerator class
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum PowerSource
 {
-    /// <summary>
-    /// PowerSource enumerator class
-    /// </summary>
-	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public enum PowerSource
-	{
-		Battery=1,Mains=2,PoE=3,EnergyHarvesting=4,Solar=5
-	}
-
-    /// <summary>
-    /// Extension of capabilities for the PowerSource enum
-    /// </summary>
-	public static class PowerSourceExtensions
-	{
-		//************************************************************************
-		// static implementations
-		//************************************************************************
-        public static class PowerSourceExtensions
-        {
-            public static List<PowerSource> GetValues()
-            {
-                return Enum.GetValues<PowerSource>().ToList();
-            }
-
-            public static PowerSource GetDefaultValue()
-            {
-                return Enum.GetValues<PowerSource>().First();
-            }
-
-            public static PowerSource WhichOne(string name)
-            {
-                if (Enum.TryParse<PowerSource>(name, true, out var value))
-                {
-                    return value;
-                }
-
-                return GetDefaultValue();
-            }
-        }
-	}
+    Battery=1,Mains=2,PoE=3,EnergyHarvesting=4,Solar=5
 }
+
+/// <summary>
+/// Extension of capabilities for the PowerSource enum
+/// </summary>
+public static class PowerSourceExtensions
+{
+    //************************************************************************
+    // static implementations
+    //************************************************************************
+    public static class PowerSourceExtensions
+    {
+        public static List<PowerSource> GetValues()
+        {
+            return Enum.GetValues<PowerSource>().ToList();
+        }
+
+        public static PowerSource GetDefaultValue()
+        {
+            return Enum.GetValues<PowerSource>().First();
+        }
+
+        public static PowerSource WhichOne(string name)
+        {
+            if (Enum.TryParse<PowerSource>(name, true, out var value))
+            {
+                return value;
+            }
+
+            return GetDefaultValue();
+        }
+    }
+}
+
 
 

@@ -25,48 +25,48 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace iotonaspdotnet.Domain.Enums
+namespace iotonaspdotnet.Domain.Enums;
+
+/// <summary>
+/// ProvisioningStatus enumerator class
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum ProvisioningStatus
 {
-    /// <summary>
-    /// ProvisioningStatus enumerator class
-    /// </summary>
-	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public enum ProvisioningStatus
-	{
-		Pending=1,Enrolled=2,Failed=3,Revoked=4
-	}
-
-    /// <summary>
-    /// Extension of capabilities for the ProvisioningStatus enum
-    /// </summary>
-	public static class ProvisioningStatusExtensions
-	{
-		//************************************************************************
-		// static implementations
-		//************************************************************************
-        public static class ProvisioningStatusExtensions
-        {
-            public static List<ProvisioningStatus> GetValues()
-            {
-                return Enum.GetValues<ProvisioningStatus>().ToList();
-            }
-
-            public static ProvisioningStatus GetDefaultValue()
-            {
-                return Enum.GetValues<ProvisioningStatus>().First();
-            }
-
-            public static ProvisioningStatus WhichOne(string name)
-            {
-                if (Enum.TryParse<ProvisioningStatus>(name, true, out var value))
-                {
-                    return value;
-                }
-
-                return GetDefaultValue();
-            }
-        }
-	}
+    Pending=1,Enrolled=2,Failed=3,Revoked=4
 }
+
+/// <summary>
+/// Extension of capabilities for the ProvisioningStatus enum
+/// </summary>
+public static class ProvisioningStatusExtensions
+{
+    //************************************************************************
+    // static implementations
+    //************************************************************************
+    public static class ProvisioningStatusExtensions
+    {
+        public static List<ProvisioningStatus> GetValues()
+        {
+            return Enum.GetValues<ProvisioningStatus>().ToList();
+        }
+
+        public static ProvisioningStatus GetDefaultValue()
+        {
+            return Enum.GetValues<ProvisioningStatus>().First();
+        }
+
+        public static ProvisioningStatus WhichOne(string name)
+        {
+            if (Enum.TryParse<ProvisioningStatus>(name, true, out var value))
+            {
+                return value;
+            }
+
+            return GetDefaultValue();
+        }
+    }
+}
+
 
 

@@ -25,48 +25,48 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace iotonaspdotnet.Domain.Enums
+namespace iotonaspdotnet.Domain.Enums;
+
+/// <summary>
+/// MessageQoS enumerator class
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum MessageQoS
 {
-    /// <summary>
-    /// MessageQoS enumerator class
-    /// </summary>
-	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public enum MessageQoS
-	{
-		AtMostOnce=1,AtLeastOnce=2,ExactlyOnce=3
-	}
-
-    /// <summary>
-    /// Extension of capabilities for the MessageQoS enum
-    /// </summary>
-	public static class MessageQoSExtensions
-	{
-		//************************************************************************
-		// static implementations
-		//************************************************************************
-        public static class MessageQoSExtensions
-        {
-            public static List<MessageQoS> GetValues()
-            {
-                return Enum.GetValues<MessageQoS>().ToList();
-            }
-
-            public static MessageQoS GetDefaultValue()
-            {
-                return Enum.GetValues<MessageQoS>().First();
-            }
-
-            public static MessageQoS WhichOne(string name)
-            {
-                if (Enum.TryParse<MessageQoS>(name, true, out var value))
-                {
-                    return value;
-                }
-
-                return GetDefaultValue();
-            }
-        }
-	}
+    AtMostOnce=1,AtLeastOnce=2,ExactlyOnce=3
 }
+
+/// <summary>
+/// Extension of capabilities for the MessageQoS enum
+/// </summary>
+public static class MessageQoSExtensions
+{
+    //************************************************************************
+    // static implementations
+    //************************************************************************
+    public static class MessageQoSExtensions
+    {
+        public static List<MessageQoS> GetValues()
+        {
+            return Enum.GetValues<MessageQoS>().ToList();
+        }
+
+        public static MessageQoS GetDefaultValue()
+        {
+            return Enum.GetValues<MessageQoS>().First();
+        }
+
+        public static MessageQoS WhichOne(string name)
+        {
+            if (Enum.TryParse<MessageQoS>(name, true, out var value))
+            {
+                return value;
+            }
+
+            return GetDefaultValue();
+        }
+    }
+}
+
 
 

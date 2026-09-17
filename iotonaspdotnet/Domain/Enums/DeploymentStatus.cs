@@ -25,48 +25,48 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace iotonaspdotnet.Domain.Enums
+namespace iotonaspdotnet.Domain.Enums;
+
+/// <summary>
+/// DeploymentStatus enumerator class
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum DeploymentStatus
 {
-    /// <summary>
-    /// DeploymentStatus enumerator class
-    /// </summary>
-	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public enum DeploymentStatus
-	{
-		Pending=1,Deploying=2,Running=3,Failed=4,Stopped=5
-	}
-
-    /// <summary>
-    /// Extension of capabilities for the DeploymentStatus enum
-    /// </summary>
-	public static class DeploymentStatusExtensions
-	{
-		//************************************************************************
-		// static implementations
-		//************************************************************************
-        public static class DeploymentStatusExtensions
-        {
-            public static List<DeploymentStatus> GetValues()
-            {
-                return Enum.GetValues<DeploymentStatus>().ToList();
-            }
-
-            public static DeploymentStatus GetDefaultValue()
-            {
-                return Enum.GetValues<DeploymentStatus>().First();
-            }
-
-            public static DeploymentStatus WhichOne(string name)
-            {
-                if (Enum.TryParse<DeploymentStatus>(name, true, out var value))
-                {
-                    return value;
-                }
-
-                return GetDefaultValue();
-            }
-        }
-	}
+    Pending=1,Deploying=2,Running=3,Failed=4,Stopped=5
 }
+
+/// <summary>
+/// Extension of capabilities for the DeploymentStatus enum
+/// </summary>
+public static class DeploymentStatusExtensions
+{
+    //************************************************************************
+    // static implementations
+    //************************************************************************
+    public static class DeploymentStatusExtensions
+    {
+        public static List<DeploymentStatus> GetValues()
+        {
+            return Enum.GetValues<DeploymentStatus>().ToList();
+        }
+
+        public static DeploymentStatus GetDefaultValue()
+        {
+            return Enum.GetValues<DeploymentStatus>().First();
+        }
+
+        public static DeploymentStatus WhichOne(string name)
+        {
+            if (Enum.TryParse<DeploymentStatus>(name, true, out var value))
+            {
+                return value;
+            }
+
+            return GetDefaultValue();
+        }
+    }
+}
+
 
 

@@ -25,48 +25,48 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace iotonaspdotnet.Domain.Enums
+namespace iotonaspdotnet.Domain.Enums;
+
+/// <summary>
+/// CommandStatus enumerator class
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum CommandStatus
 {
-    /// <summary>
-    /// CommandStatus enumerator class
-    /// </summary>
-	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public enum CommandStatus
-	{
-		Queued=1,Sent=2,Succeeded=3,Failed=4,TimedOut=5,Cancelled=6
-	}
-
-    /// <summary>
-    /// Extension of capabilities for the CommandStatus enum
-    /// </summary>
-	public static class CommandStatusExtensions
-	{
-		//************************************************************************
-		// static implementations
-		//************************************************************************
-        public static class CommandStatusExtensions
-        {
-            public static List<CommandStatus> GetValues()
-            {
-                return Enum.GetValues<CommandStatus>().ToList();
-            }
-
-            public static CommandStatus GetDefaultValue()
-            {
-                return Enum.GetValues<CommandStatus>().First();
-            }
-
-            public static CommandStatus WhichOne(string name)
-            {
-                if (Enum.TryParse<CommandStatus>(name, true, out var value))
-                {
-                    return value;
-                }
-
-                return GetDefaultValue();
-            }
-        }
-	}
+    Queued=1,Sent=2,Succeeded=3,Failed=4,TimedOut=5,Cancelled=6
 }
+
+/// <summary>
+/// Extension of capabilities for the CommandStatus enum
+/// </summary>
+public static class CommandStatusExtensions
+{
+    //************************************************************************
+    // static implementations
+    //************************************************************************
+    public static class CommandStatusExtensions
+    {
+        public static List<CommandStatus> GetValues()
+        {
+            return Enum.GetValues<CommandStatus>().ToList();
+        }
+
+        public static CommandStatus GetDefaultValue()
+        {
+            return Enum.GetValues<CommandStatus>().First();
+        }
+
+        public static CommandStatus WhichOne(string name)
+        {
+            if (Enum.TryParse<CommandStatus>(name, true, out var value))
+            {
+                return value;
+            }
+
+            return GetDefaultValue();
+        }
+    }
+}
+
 
 

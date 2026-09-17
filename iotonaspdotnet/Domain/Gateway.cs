@@ -1,10 +1,3 @@
-using iotonaspdotnet.Domain.Sites;
-using iotonaspdotnet.Domain.Rooms;
-using iotonaspdotnet.Domain.IoTDevices;
-using iotonaspdotnet.Domain.EdgeApplications;
-using iotonaspdotnet.Domain.DeviceCertificates;
-using iotonaspdotnet.Domain.DigitalTwins;
-using iotonaspdotnet.Domain.NetworkProfiles;
 using iotonaspdotnet.Domain.Enums;
 using iotonaspdotnet.Domain.ValueObjects;
 namespace iotonaspdotnet.Domain;
