@@ -23,7 +23,7 @@ public class FloorRepository : IFloorRepository
     {
         return await _db.Floors
             .AsNoTracking()
-            .Include(x => x.${$roleName})
+            .Include(x => x.Building)
             .ToListAsync(cancellationToken);
     }
 

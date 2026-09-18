@@ -23,7 +23,7 @@ public class HardwareModuleRepository : IHardwareModuleRepository
     {
         return await _db.HardwareModules
             .AsNoTracking()
-            .Include(x => x.${$roleName})
+            .Include(x => x.Vendor)
             .ToListAsync(cancellationToken);
     }
 

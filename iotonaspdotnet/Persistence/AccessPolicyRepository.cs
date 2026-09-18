@@ -23,7 +23,7 @@ public class AccessPolicyRepository : IAccessPolicyRepository
     {
         return await _db.AccessPolicys
             .AsNoTracking()
-            .Include(x => x.${$roleName})
+            .Include(x => x.Tenant)
             .ToListAsync(cancellationToken);
     }
 

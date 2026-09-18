@@ -24,8 +24,8 @@ public class SoftwareUpdateCampaignRepository : ISoftwareUpdateCampaignRepositor
     {
         return await _db.SoftwareUpdateCampaigns
             .AsNoTracking()
-            .Include(x => x.${$roleName})
-            .Include(x => x.${$roleName})
+            .Include(x => x.FirmwareRelease)
+            .Include(x => x.DeviceGroup)
             .ToListAsync(cancellationToken);
     }
 

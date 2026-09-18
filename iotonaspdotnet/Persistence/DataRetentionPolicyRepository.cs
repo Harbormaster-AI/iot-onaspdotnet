@@ -23,7 +23,7 @@ public class DataRetentionPolicyRepository : IDataRetentionPolicyRepository
     {
         return await _db.DataRetentionPolicys
             .AsNoTracking()
-            .Include(x => x.${$roleName})
+            .Include(x => x.Tenant)
             .ToListAsync(cancellationToken);
     }
 

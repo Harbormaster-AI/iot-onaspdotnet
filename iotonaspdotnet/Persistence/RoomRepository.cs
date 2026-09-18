@@ -23,7 +23,7 @@ public class RoomRepository : IRoomRepository
     {
         return await _db.Rooms
             .AsNoTracking()
-            .Include(x => x.${$roleName})
+            .Include(x => x.Floor)
             .ToListAsync(cancellationToken);
     }
 

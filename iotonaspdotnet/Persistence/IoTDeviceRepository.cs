@@ -29,13 +29,13 @@ public class IoTDeviceRepository : IIoTDeviceRepository
     {
         return await _db.IoTDevices
             .AsNoTracking()
-            .Include(x => x.${$roleName})
-            .Include(x => x.${$roleName})
-            .Include(x => x.${$roleName})
-            .Include(x => x.${$roleName})
-            .Include(x => x.${$roleName})
-            .Include(x => x.${$roleName})
-            .Include(x => x.${$roleName})
+            .Include(x => x.DeviceModel)
+            .Include(x => x.Tenant)
+            .Include(x => x.Site)
+            .Include(x => x.Room)
+            .Include(x => x.Gateway)
+            .Include(x => x.DigitalTwin)
+            .Include(x => x.ProvisioningRecord)
             .ToListAsync(cancellationToken);
     }
 

@@ -24,8 +24,8 @@ public class DeviceCertificateRepository : IDeviceCertificateRepository
     {
         return await _db.DeviceCertificates
             .AsNoTracking()
-            .Include(x => x.${$roleName})
-            .Include(x => x.${$roleName})
+            .Include(x => x.Device)
+            .Include(x => x.Gateway)
             .ToListAsync(cancellationToken);
     }
 

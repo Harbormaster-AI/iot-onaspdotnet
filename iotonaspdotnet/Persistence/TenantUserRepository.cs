@@ -23,7 +23,7 @@ public class TenantUserRepository : ITenantUserRepository
     {
         return await _db.TenantUsers
             .AsNoTracking()
-            .Include(x => x.${$roleName})
+            .Include(x => x.Tenant)
             .ToListAsync(cancellationToken);
     }
 

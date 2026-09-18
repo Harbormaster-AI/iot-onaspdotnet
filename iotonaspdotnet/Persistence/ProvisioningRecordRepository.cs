@@ -25,9 +25,9 @@ public class ProvisioningRecordRepository : IProvisioningRecordRepository
     {
         return await _db.ProvisioningRecords
             .AsNoTracking()
-            .Include(x => x.${$roleName})
-            .Include(x => x.${$roleName})
-            .Include(x => x.${$roleName})
+            .Include(x => x.Device)
+            .Include(x => x.Certificate)
+            .Include(x => x.Tenant)
             .ToListAsync(cancellationToken);
     }
 

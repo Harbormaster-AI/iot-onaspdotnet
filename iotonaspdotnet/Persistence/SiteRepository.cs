@@ -23,7 +23,7 @@ public class SiteRepository : ISiteRepository
     {
         return await _db.Sites
             .AsNoTracking()
-            .Include(x => x.${$roleName})
+            .Include(x => x.Tenant)
             .ToListAsync(cancellationToken);
     }
 

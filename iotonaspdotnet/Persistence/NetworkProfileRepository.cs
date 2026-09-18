@@ -25,9 +25,9 @@ public class NetworkProfileRepository : INetworkProfileRepository
     {
         return await _db.NetworkProfiles
             .AsNoTracking()
-            .Include(x => x.${$roleName})
-            .Include(x => x.${$roleName})
-            .Include(x => x.${$roleName})
+            .Include(x => x.Device)
+            .Include(x => x.Gateway)
+            .Include(x => x.SimCard)
             .ToListAsync(cancellationToken);
     }
 
