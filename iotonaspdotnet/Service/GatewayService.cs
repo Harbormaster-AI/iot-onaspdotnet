@@ -108,53 +108,53 @@ public class GatewayService : IGatewayService
         return true;
     }
 
-    Task<bool> AssignSite(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AssignSite(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> UnassignSite(AssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-
-    Task<bool> AssignRoom(AssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-    Task<bool> UnassignRoom(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> UnassignSite(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 
-    Task<bool> AssignDigitalTwin(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AssignRoom(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> UnassignDigitalTwin(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> UnassignRoom(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    public async Task<bool> AssignDigitalTwin(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    public async Task<bool> UnassignDigitalTwin(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 
 
-    Task<bool> AddToDevices(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AddToDevices(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> RemoveFromDevices(MultipleAssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-
-    Task<bool> AddToEdgeApplications(MultipleAssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-    Task<bool> RemoveFromEdgeApplications(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> RemoveFromDevices(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 
-    Task<bool> AddToCertificates(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AddToEdgeApplications(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> RemoveFromCertificates(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> RemoveFromEdgeApplications(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 
-    Task<bool> AddToNetworkProfiles(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AddToCertificates(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> RemoveFromNetworkProfiles(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> RemoveFromCertificates(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    public async Task<bool> AddToNetworkProfiles(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    public async Task<bool> RemoveFromNetworkProfiles(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 

@@ -78,18 +78,18 @@ public class BuildingService : IBuildingService
         return true;
     }
 
-    Task<bool> AssignSite(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AssignSite(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> UnassignSite(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> UnassignSite(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 
 
-    Task<bool> AddToFloors(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AddToFloors(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> RemoveFromFloors(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> RemoveFromFloors(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 

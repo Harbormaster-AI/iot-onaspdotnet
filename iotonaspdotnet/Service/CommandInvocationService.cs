@@ -108,31 +108,31 @@ public class CommandInvocationService : ICommandInvocationService
         return true;
     }
 
-    Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> UnassignDevice(AssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-
-    Task<bool> AssignCommandDefinition(AssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-    Task<bool> UnassignCommandDefinition(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> UnassignDevice(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 
-    Task<bool> AssignActuator(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AssignCommandDefinition(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> UnassignActuator(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> UnassignCommandDefinition(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 
-    Task<bool> AssignUser(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AssignActuator(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> UnassignUser(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> UnassignActuator(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    public async Task<bool> AssignUser(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    public async Task<bool> UnassignUser(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 

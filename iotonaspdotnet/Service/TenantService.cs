@@ -103,87 +103,87 @@ public class TenantService : ITenantService
     }
 
 
-    Task<bool> AddToSites(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AddToSites(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> RemoveFromSites(MultipleAssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-
-    Task<bool> AddToUsers(MultipleAssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-    Task<bool> RemoveFromUsers(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> RemoveFromSites(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 
-    Task<bool> AddToDevices(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AddToUsers(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> RemoveFromDevices(MultipleAssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-
-    Task<bool> AddToDataRetentionPolicies(MultipleAssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-    Task<bool> RemoveFromDataRetentionPolicies(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> RemoveFromUsers(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 
-    Task<bool> AddToConnectivityPlans(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AddToDevices(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> RemoveFromConnectivityPlans(MultipleAssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-
-    Task<bool> AddToSimCards(MultipleAssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-    Task<bool> RemoveFromSimCards(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> RemoveFromDevices(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 
-    Task<bool> AddToMessagingEndpoints(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AddToDataRetentionPolicies(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> RemoveFromMessagingEndpoints(MultipleAssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-
-    Task<bool> AddToAccessPolicies(MultipleAssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-    Task<bool> RemoveFromAccessPolicies(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> RemoveFromDataRetentionPolicies(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 
-    Task<bool> AddToDeviceGroups(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AddToConnectivityPlans(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> RemoveFromDeviceGroups(MultipleAssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-
-    Task<bool> AddToAlertRules(MultipleAssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-    Task<bool> RemoveFromAlertRules(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> RemoveFromConnectivityPlans(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 
-    Task<bool> AddToMaintenanceTickets(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AddToSimCards(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> RemoveFromMaintenanceTickets(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> RemoveFromSimCards(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 
-    Task<bool> AddToUsageRecords(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AddToMessagingEndpoints(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> RemoveFromUsageRecords(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> RemoveFromMessagingEndpoints(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    public async Task<bool> AddToAccessPolicies(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    public async Task<bool> RemoveFromAccessPolicies(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    public async Task<bool> AddToDeviceGroups(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    public async Task<bool> RemoveFromDeviceGroups(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    public async Task<bool> AddToAlertRules(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    public async Task<bool> RemoveFromAlertRules(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    public async Task<bool> AddToMaintenanceTickets(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    public async Task<bool> RemoveFromMaintenanceTickets(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    public async Task<bool> AddToUsageRecords(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    public async Task<bool> RemoveFromUsageRecords(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 

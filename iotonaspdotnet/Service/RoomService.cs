@@ -81,25 +81,25 @@ public class RoomService : IRoomService
         return true;
     }
 
-    Task<bool> AssignFloor(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AssignFloor(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> UnassignFloor(AssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-
-
-    Task<bool> AddToDevices(MultipleAssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-    Task<bool> RemoveFromDevices(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> UnassignFloor(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 
-    Task<bool> AddToGateways(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+
+    public async Task<bool> AddToDevices(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> RemoveFromGateways(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> RemoveFromDevices(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    public async Task<bool> AddToGateways(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    public async Task<bool> RemoveFromGateways(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 

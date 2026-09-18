@@ -98,24 +98,24 @@ public class ProvisioningRecordService : IProvisioningRecordService
         return true;
     }
 
-    Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> UnassignDevice(AssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-
-    Task<bool> AssignCertificate(AssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-    Task<bool> UnassignCertificate(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> UnassignDevice(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 
-    Task<bool> AssignTenant(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AssignCertificate(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> UnassignTenant(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> UnassignCertificate(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    public async Task<bool> AssignTenant(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    public async Task<bool> UnassignTenant(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 

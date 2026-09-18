@@ -84,25 +84,25 @@ public class CommandDefinitionService : ICommandDefinitionService
         return true;
     }
 
-    Task<bool> AssignDeviceModel(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AssignDeviceModel(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> UnassignDeviceModel(AssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-
-
-    Task<bool> AddToActuators(MultipleAssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-    Task<bool> RemoveFromActuators(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> UnassignDeviceModel(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 
-    Task<bool> AddToCommandInvocations(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+
+    public async Task<bool> AddToActuators(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> RemoveFromCommandInvocations(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> RemoveFromActuators(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    public async Task<bool> AddToCommandInvocations(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    public async Task<bool> RemoveFromCommandInvocations(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 

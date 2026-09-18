@@ -101,32 +101,32 @@ public class DigitalTwinService : IDigitalTwinService
         return true;
     }
 
-    Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> UnassignDevice(AssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-
-    Task<bool> AssignGateway(AssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-    Task<bool> UnassignGateway(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> UnassignDevice(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 
-    Task<bool> AssignTemplate(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AssignGateway(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> UnassignTemplate(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> UnassignGateway(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    public async Task<bool> AssignTemplate(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    public async Task<bool> UnassignTemplate(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 
 
-    Task<bool> AddToChangeEvents(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AddToChangeEvents(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> RemoveFromChangeEvents(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> RemoveFromChangeEvents(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 

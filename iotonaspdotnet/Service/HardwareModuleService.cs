@@ -77,10 +77,10 @@ public class HardwareModuleService : IHardwareModuleService
         return true;
     }
 
-    Task<bool> AssignVendor(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AssignVendor(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> UnassignVendor(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> UnassignVendor(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 

@@ -78,10 +78,10 @@ public class ApiKeyService : IApiKeyService
         return true;
     }
 
-    Task<bool> AssignAccessPolicy(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AssignAccessPolicy(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> UnassignAccessPolicy(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> UnassignAccessPolicy(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 

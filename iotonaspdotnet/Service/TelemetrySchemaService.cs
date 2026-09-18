@@ -71,10 +71,10 @@ public class TelemetrySchemaService : ITelemetrySchemaService
     }
 
 
-    Task<bool> AddToStreams(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AddToStreams(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> RemoveFromStreams(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> RemoveFromStreams(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 

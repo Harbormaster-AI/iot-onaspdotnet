@@ -88,17 +88,17 @@ public class AlertService : IAlertService
         return true;
     }
 
-    Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> UnassignDevice(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> UnassignDevice(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 
-    Task<bool> AssignAlertRule(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AssignAlertRule(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> UnassignAlertRule(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> UnassignAlertRule(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 

@@ -83,25 +83,25 @@ public class AccessPolicyService : IAccessPolicyService
         return true;
     }
 
-    Task<bool> AssignTenant(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AssignTenant(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> UnassignTenant(AssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-
-
-    Task<bool> AddToApiKeys(MultipleAssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-    Task<bool> RemoveFromApiKeys(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> UnassignTenant(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 
-    Task<bool> AddToUsers(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+
+    public async Task<bool> AddToApiKeys(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> RemoveFromUsers(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> RemoveFromApiKeys(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    public async Task<bool> AddToUsers(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    public async Task<bool> RemoveFromUsers(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 

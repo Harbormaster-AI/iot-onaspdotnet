@@ -117,38 +117,38 @@ public class TelemetryStreamService : ITelemetryStreamService
         return true;
     }
 
-    Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> UnassignDevice(AssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-
-    Task<bool> AssignSensor(AssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-    Task<bool> UnassignSensor(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> UnassignDevice(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 
-    Task<bool> AssignSchema(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AssignSensor(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> UnassignSchema(AssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-
-    Task<bool> AssignMessagingEndpoint(AssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-    Task<bool> UnassignMessagingEndpoint(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> UnassignSensor(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 
-    Task<bool> AssignRetentionPolicy(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AssignSchema(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> UnassignRetentionPolicy(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> UnassignSchema(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    public async Task<bool> AssignMessagingEndpoint(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    public async Task<bool> UnassignMessagingEndpoint(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    public async Task<bool> AssignRetentionPolicy(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    public async Task<bool> UnassignRetentionPolicy(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 

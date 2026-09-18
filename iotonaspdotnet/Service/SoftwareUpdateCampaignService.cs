@@ -91,25 +91,25 @@ public class SoftwareUpdateCampaignService : ISoftwareUpdateCampaignService
         return true;
     }
 
-    Task<bool> AssignFirmwareRelease(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AssignFirmwareRelease(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> UnassignFirmwareRelease(AssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-
-    Task<bool> AssignDeviceGroup(AssociationRequest request, CancellationToken cancellationToken) {
-        return true;
-    }
-    Task<bool> UnassignDeviceGroup(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> UnassignFirmwareRelease(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 
-
-    Task<bool> AddToExecutions(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AssignDeviceGroup(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> RemoveFromExecutions(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> UnassignDeviceGroup(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+
+    public async Task<bool> AddToExecutions(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    public async Task<bool> RemoveFromExecutions(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 

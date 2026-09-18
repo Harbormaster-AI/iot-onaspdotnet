@@ -78,10 +78,10 @@ public class FirmwareReleaseService : IFirmwareReleaseService
         return true;
     }
 
-    Task<bool> AssignDeviceModel(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AssignDeviceModel(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> UnassignDeviceModel(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> UnassignDeviceModel(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 

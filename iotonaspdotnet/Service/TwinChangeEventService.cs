@@ -77,10 +77,10 @@ public class TwinChangeEventService : ITwinChangeEventService
         return true;
     }
 
-    Task<bool> AssignTwin(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AssignTwin(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> UnassignTwin(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> UnassignTwin(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 

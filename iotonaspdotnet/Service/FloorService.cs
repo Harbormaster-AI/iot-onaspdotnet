@@ -79,18 +79,18 @@ public class FloorService : IFloorService
         return true;
     }
 
-    Task<bool> AssignBuilding(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AssignBuilding(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> UnassignBuilding(AssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> UnassignBuilding(AssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 
 
-    Task<bool> AddToRooms(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AddToRooms(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> RemoveFromRooms(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> RemoveFromRooms(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 

@@ -71,10 +71,10 @@ public class TwinTemplateService : ITwinTemplateService
     }
 
 
-    Task<bool> AddToDeviceModels(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> AddToDeviceModels(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
-    Task<bool> RemoveFromDeviceModels(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+    public async Task<bool> RemoveFromDeviceModels(MultipleAssociationRequest request, CancellationToken cancellationToken) {
         return true;
     }
 
