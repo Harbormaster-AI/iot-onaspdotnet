@@ -161,7 +161,7 @@ public static class SiteEndpoints
     private static Site mapRequestToSite( SiteRequest request ) {
         var model = new Site
         {
-            Id = request.id,
+            Id = request.Id,
             Name = request.Name,
             Address = request.Address,
             Timezone = request.Timezone,

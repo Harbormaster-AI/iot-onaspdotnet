@@ -125,7 +125,7 @@ public static class MaintenanceTicketEndpoints
     private static MaintenanceTicket mapRequestToMaintenanceTicket( MaintenanceTicketRequest request ) {
         var model = new MaintenanceTicket
         {
-            Id = request.id,
+            Id = request.Id,
             TicketNumber = request.TicketNumber,
             OpenedAt = request.OpenedAt,
             ClosedAt = request.ClosedAt,

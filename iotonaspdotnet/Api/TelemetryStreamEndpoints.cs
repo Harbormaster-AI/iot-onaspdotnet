@@ -179,7 +179,7 @@ public static class TelemetryStreamEndpoints
     private static TelemetryStream mapRequestToTelemetryStream( TelemetryStreamRequest request ) {
         var model = new TelemetryStream
         {
-            Id = request.id,
+            Id = request.Id,
             StreamName = request.StreamName,
             RetentionDays = request.RetentionDays,
             Qos = request.Qos,

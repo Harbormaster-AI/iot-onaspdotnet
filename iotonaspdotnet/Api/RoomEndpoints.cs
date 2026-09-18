@@ -143,7 +143,7 @@ public static class RoomEndpoints
     private static Room mapRequestToRoom( RoomRequest request ) {
         var model = new Room
         {
-            Id = request.id,
+            Id = request.Id,
             Name = request.Name,
         };
         return model;

@@ -143,7 +143,7 @@ public static class CommandDefinitionEndpoints
     private static CommandDefinition mapRequestToCommandDefinition( CommandDefinitionRequest request ) {
         var model = new CommandDefinition
         {
-            Id = request.id,
+            Id = request.Id,
             Name = request.Name,
             RequestSchemaUri = request.RequestSchemaUri,
             ResponseSchemaUri = request.ResponseSchemaUri,

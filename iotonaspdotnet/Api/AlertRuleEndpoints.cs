@@ -143,7 +143,7 @@ public static class AlertRuleEndpoints
     private static AlertRule mapRequestToAlertRule( AlertRuleRequest request ) {
         var model = new AlertRule
         {
-            Id = request.id,
+            Id = request.Id,
             Name = request.Name,
             Expression = request.Expression,
             Severity = request.Severity,

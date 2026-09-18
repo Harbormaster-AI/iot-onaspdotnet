@@ -107,7 +107,7 @@ public static class TwinTemplateEndpoints
     private static TwinTemplate mapRequestToTwinTemplate( TwinTemplateRequest request ) {
         var model = new TwinTemplate
         {
-            Id = request.id,
+            Id = request.Id,
             Name = request.Name,
             SchemaUri = request.SchemaUri,
             Version = request.Version,

@@ -215,7 +215,7 @@ public static class GatewayEndpoints
     private static Gateway mapRequestToGateway( GatewayRequest request ) {
         var model = new Gateway
         {
-            Id = request.id,
+            Id = request.Id,
             SoftwareVersion = request.SoftwareVersion,
             Status = request.Status,
         };

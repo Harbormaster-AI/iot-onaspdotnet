@@ -143,7 +143,7 @@ public static class SoftwareUpdateCampaignEndpoints
     private static SoftwareUpdateCampaign mapRequestToSoftwareUpdateCampaign( SoftwareUpdateCampaignRequest request ) {
         var model = new SoftwareUpdateCampaign
         {
-            Id = request.id,
+            Id = request.Id,
             CampaignCode = request.CampaignCode,
             ScheduledStart = request.ScheduledStart,
             ScheduledEnd = request.ScheduledEnd,

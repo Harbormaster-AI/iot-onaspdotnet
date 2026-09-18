@@ -125,7 +125,7 @@ public static class BuildingEndpoints
     private static Building mapRequestToBuilding( BuildingRequest request ) {
         var model = new Building
         {
-            Id = request.id,
+            Id = request.Id,
             Name = request.Name,
         };
         return model;

@@ -125,7 +125,7 @@ public static class DeviceGroupEndpoints
     private static DeviceGroup mapRequestToDeviceGroup( DeviceGroupRequest request ) {
         var model = new DeviceGroup
         {
-            Id = request.id,
+            Id = request.Id,
             Name = request.Name,
             Criteria = request.Criteria,
         };

@@ -125,7 +125,7 @@ public static class ActuatorInstanceEndpoints
     private static ActuatorInstance mapRequestToActuatorInstance( ActuatorInstanceRequest request ) {
         var model = new ActuatorInstance
         {
-            Id = request.id,
+            Id = request.Id,
             Name = request.Name,
             CommandTopic = request.CommandTopic,
             ActuatorType = request.ActuatorType,

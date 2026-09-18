@@ -161,7 +161,7 @@ public static class CommandInvocationEndpoints
     private static CommandInvocation mapRequestToCommandInvocation( CommandInvocationRequest request ) {
         var model = new CommandInvocation
         {
-            Id = request.id,
+            Id = request.Id,
             InvocationId = request.InvocationId,
             RequestedAt = request.RequestedAt,
             CompletedAt = request.CompletedAt,

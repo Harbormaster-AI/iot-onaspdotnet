@@ -107,7 +107,7 @@ public static class FirmwareReleaseEndpoints
     private static FirmwareRelease mapRequestToFirmwareRelease( FirmwareReleaseRequest request ) {
         var model = new FirmwareRelease
         {
-            Id = request.id,
+            Id = request.Id,
             Version = request.Version,
             ReleaseDate = request.ReleaseDate,
             ReleaseNotes = request.ReleaseNotes,

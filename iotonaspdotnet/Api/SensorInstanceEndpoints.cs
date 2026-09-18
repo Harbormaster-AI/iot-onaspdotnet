@@ -125,7 +125,7 @@ public static class SensorInstanceEndpoints
     private static SensorInstance mapRequestToSensorInstance( SensorInstanceRequest request ) {
         var model = new SensorInstance
         {
-            Id = request.id,
+            Id = request.Id,
             Name = request.Name,
             Unit = request.Unit,
             SamplingIntervalMs = request.SamplingIntervalMs,

@@ -125,7 +125,7 @@ public static class DataRetentionPolicyEndpoints
     private static DataRetentionPolicy mapRequestToDataRetentionPolicy( DataRetentionPolicyRequest request ) {
         var model = new DataRetentionPolicy
         {
-            Id = request.id,
+            Id = request.Id,
             Name = request.Name,
             RetentionDays = request.RetentionDays,
         };

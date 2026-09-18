@@ -125,7 +125,7 @@ public static class DeviceCertificateEndpoints
     private static DeviceCertificate mapRequestToDeviceCertificate( DeviceCertificateRequest request ) {
         var model = new DeviceCertificate
         {
-            Id = request.id,
+            Id = request.Id,
             SerialNumber = request.SerialNumber,
             NotBefore = request.NotBefore,
             NotAfter = request.NotAfter,

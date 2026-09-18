@@ -125,7 +125,7 @@ public static class MessagingEndpointEndpoints
     private static MessagingEndpoint mapRequestToMessagingEndpoint( MessagingEndpointRequest request ) {
         var model = new MessagingEndpoint
         {
-            Id = request.id,
+            Id = request.Id,
             Host = request.Host,
             Port = request.Port,
             Secure = request.Secure,

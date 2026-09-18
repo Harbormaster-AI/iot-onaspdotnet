@@ -125,7 +125,7 @@ public static class ConnectivityPlanEndpoints
     private static ConnectivityPlan mapRequestToConnectivityPlan( ConnectivityPlanRequest request ) {
         var model = new ConnectivityPlan
         {
-            Id = request.id,
+            Id = request.Id,
             Name = request.Name,
             DataCapMB = request.DataCapMB,
             BillingCycleDays = request.BillingCycleDays,

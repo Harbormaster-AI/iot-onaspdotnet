@@ -107,7 +107,7 @@ public static class TelemetrySchemaEndpoints
     private static TelemetrySchema mapRequestToTelemetrySchema( TelemetrySchemaRequest request ) {
         var model = new TelemetrySchema
         {
-            Id = request.id,
+            Id = request.Id,
             SchemaId = request.SchemaId,
             SchemaUri = request.SchemaUri,
             Encoding = request.Encoding,

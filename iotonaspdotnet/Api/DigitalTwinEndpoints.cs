@@ -161,7 +161,7 @@ public static class DigitalTwinEndpoints
     private static DigitalTwin mapRequestToDigitalTwin( DigitalTwinRequest request ) {
         var model = new DigitalTwin
         {
-            Id = request.id,
+            Id = request.Id,
             TwinId = request.TwinId,
             DesiredStateVersion = request.DesiredStateVersion,
             ReportedStateVersion = request.ReportedStateVersion,

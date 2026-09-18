@@ -125,7 +125,7 @@ public static class SoftwareUpdateExecutionEndpoints
     private static SoftwareUpdateExecution mapRequestToSoftwareUpdateExecution( SoftwareUpdateExecutionRequest request ) {
         var model = new SoftwareUpdateExecution
         {
-            Id = request.id,
+            Id = request.Id,
             StartedAt = request.StartedAt,
             CompletedAt = request.CompletedAt,
             Status = request.Status,

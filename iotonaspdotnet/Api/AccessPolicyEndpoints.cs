@@ -143,7 +143,7 @@ public static class AccessPolicyEndpoints
     private static AccessPolicy mapRequestToAccessPolicy( AccessPolicyRequest request ) {
         var model = new AccessPolicy
         {
-            Id = request.id,
+            Id = request.Id,
             Name = request.Name,
             Scope = request.Scope,
             ExpiresAt = request.ExpiresAt,

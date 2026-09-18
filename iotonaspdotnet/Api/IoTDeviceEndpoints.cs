@@ -359,7 +359,7 @@ public static class IoTDeviceEndpoints
     private static IoTDevice mapRequestToIoTDevice( IoTDeviceRequest request ) {
         var model = new IoTDevice
         {
-            Id = request.id,
+            Id = request.Id,
             DeviceId = request.DeviceId,
             SerialNumber = request.SerialNumber,
             LastSeen = request.LastSeen,

@@ -305,7 +305,7 @@ public static class TenantEndpoints
     private static Tenant mapRequestToTenant( TenantRequest request ) {
         var model = new Tenant
         {
-            Id = request.id,
+            Id = request.Id,
             Name = request.Name,
             TenantType = request.TenantType,
         };

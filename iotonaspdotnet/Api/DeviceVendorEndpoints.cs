@@ -143,7 +143,7 @@ public static class DeviceVendorEndpoints
     private static DeviceVendor mapRequestToDeviceVendor( DeviceVendorRequest request ) {
         var model = new DeviceVendor
         {
-            Id = request.id,
+            Id = request.Id,
             Name = request.Name,
             LegalName = request.LegalName,
             HeadquartersCountry = request.HeadquartersCountry,

@@ -143,7 +143,7 @@ public static class NetworkProfileEndpoints
     private static NetworkProfile mapRequestToNetworkProfile( NetworkProfileRequest request ) {
         var model = new NetworkProfile
         {
-            Id = request.id,
+            Id = request.Id,
             ProfileName = request.ProfileName,
             Ssid = request.Ssid,
             Apn = request.Apn,

@@ -6,14 +6,14 @@ public class CommandDefinition
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
- public virtual long CommanddefinitionId { get; set; }
- public virtual string Name { get; set; }
- public virtual Uri_ RequestSchemaUri { get; set; }
- public virtual Uri_ ResponseSchemaUri { get; set; }
- public virtual int TimeoutSeconds { get; set; }
-public virtual DeviceModel DeviceModel { get; set; }
-public virtual ActuatorInstance Actuators { get; set; }
-public virtual CommandInvocation CommandInvocations { get; set; }
+ public virtual long? CommanddefinitionId { get; set; }
+ public virtual string? Name { get; set; }
+ public virtual Uri_? RequestSchemaUri { get; set; }
+ public virtual Uri_? ResponseSchemaUri { get; set; }
+ public virtual int? TimeoutSeconds { get; set; }
+public virtual DeviceModel? DeviceModel { get; set; }
+public virtual ActuatorInstance? Actuators { get; set; }
+public virtual CommandInvocation? CommandInvocations { get; set; }
 
     public static CommandDefinition FromRequest(CommandDefinitionRequest request) {
         return new CommandDefinition {

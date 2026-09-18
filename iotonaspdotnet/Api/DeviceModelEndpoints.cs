@@ -179,7 +179,7 @@ public static class DeviceModelEndpoints
     private static DeviceModel mapRequestToDeviceModel( DeviceModelRequest request ) {
         var model = new DeviceModel
         {
-            Id = request.id,
+            Id = request.Id,
             Name = request.Name,
             ModelNumber = request.ModelNumber,
             HardwareRevision = request.HardwareRevision,

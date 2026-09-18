@@ -107,7 +107,7 @@ public static class ApiKeyEndpoints
     private static ApiKey mapRequestToApiKey( ApiKeyRequest request ) {
         var model = new ApiKey
         {
-            Id = request.id,
+            Id = request.Id,
             KeyId = request.KeyId,
             HashedSecret = request.HashedSecret,
             CreatedAt = request.CreatedAt,

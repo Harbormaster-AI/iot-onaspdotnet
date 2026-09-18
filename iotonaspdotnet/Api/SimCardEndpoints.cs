@@ -143,7 +143,7 @@ public static class SimCardEndpoints
     private static SimCard mapRequestToSimCard( SimCardRequest request ) {
         var model = new SimCard
         {
-            Id = request.id,
+            Id = request.Id,
             Iccid = request.Iccid,
             Imsi = request.Imsi,
             Carrier = request.Carrier,

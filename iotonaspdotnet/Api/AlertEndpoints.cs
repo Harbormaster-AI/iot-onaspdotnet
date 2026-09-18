@@ -125,7 +125,7 @@ public static class AlertEndpoints
     private static Alert mapRequestToAlert( AlertRequest request ) {
         var model = new Alert
         {
-            Id = request.id,
+            Id = request.Id,
             RaisedAt = request.RaisedAt,
             ClearedAt = request.ClearedAt,
             Message = request.Message,

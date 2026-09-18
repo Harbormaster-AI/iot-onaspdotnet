@@ -125,7 +125,7 @@ public static class FloorEndpoints
     private static Floor mapRequestToFloor( FloorRequest request ) {
         var model = new Floor
         {
-            Id = request.id,
+            Id = request.Id,
             Name = request.Name,
             Level = request.Level,
         };

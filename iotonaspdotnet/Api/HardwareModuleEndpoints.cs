@@ -107,7 +107,7 @@ public static class HardwareModuleEndpoints
     private static HardwareModule mapRequestToHardwareModule( HardwareModuleRequest request ) {
         var model = new HardwareModule
         {
-            Id = request.id,
+            Id = request.Id,
             ModuleCode = request.ModuleCode,
             DatasheetUri = request.DatasheetUri,
             ModuleType = request.ModuleType,

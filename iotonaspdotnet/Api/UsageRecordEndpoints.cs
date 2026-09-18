@@ -143,7 +143,7 @@ public static class UsageRecordEndpoints
     private static UsageRecord mapRequestToUsageRecord( UsageRecordRequest request ) {
         var model = new UsageRecord
         {
-            Id = request.id,
+            Id = request.Id,
             PeriodStart = request.PeriodStart,
             PeriodEnd = request.PeriodEnd,
             MessagesSent = request.MessagesSent,
