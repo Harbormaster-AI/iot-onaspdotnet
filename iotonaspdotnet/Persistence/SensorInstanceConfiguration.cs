@@ -8,7 +8,7 @@ public class SensorInstanceConfiguration : IEntityTypeConfiguration<SensorInstan
 {
     public void Configure(EntityTypeBuilder<SensorInstance> builder)
     {
-        builder.ToTable("sensorInstances");
+        builder.ToTable("SensorInstances");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

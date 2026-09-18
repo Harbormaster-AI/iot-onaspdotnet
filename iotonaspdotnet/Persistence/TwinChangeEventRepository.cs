@@ -15,7 +15,7 @@ public class TwinChangeEventRepository : ITwinChangeEventRepository
     public async Task<TwinChangeEvent?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         return await _db.TwinChangeEvents
-            .Include(x => x.DigitalTwin)
+            .Include(x => x.Twin)
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
 
@@ -23,7 +23,7 @@ public class TwinChangeEventRepository : ITwinChangeEventRepository
     {
         return await _db.TwinChangeEvents
             .AsNoTracking()
-            .Include(x => x.DigitalTwin)
+            .Include(x => x.Twin)
             .ToListAsync(cancellationToken);
     }
 

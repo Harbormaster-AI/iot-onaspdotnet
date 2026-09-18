@@ -8,7 +8,7 @@ public class SimCardConfiguration : IEntityTypeConfiguration<SimCard>
 {
     public void Configure(EntityTypeBuilder<SimCard> builder)
     {
-        builder.ToTable("simCards");
+        builder.ToTable("SimCards");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

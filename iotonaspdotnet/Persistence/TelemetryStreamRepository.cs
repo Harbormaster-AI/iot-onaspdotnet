@@ -15,11 +15,11 @@ public class TelemetryStreamRepository : ITelemetryStreamRepository
     public async Task<TelemetryStream?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         return await _db.TelemetryStreams
-            .Include(x => x.IoTDevice)
-            .Include(x => x.SensorInstance)
-            .Include(x => x.TelemetrySchema)
+            .Include(x => x.Device)
+            .Include(x => x.Sensor)
+            .Include(x => x.Schema)
             .Include(x => x.MessagingEndpoint)
-            .Include(x => x.DataRetentionPolicy)
+            .Include(x => x.RetentionPolicy)
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
 
@@ -27,11 +27,11 @@ public class TelemetryStreamRepository : ITelemetryStreamRepository
     {
         return await _db.TelemetryStreams
             .AsNoTracking()
-            .Include(x => x.IoTDevice)
-            .Include(x => x.SensorInstance)
-            .Include(x => x.TelemetrySchema)
+            .Include(x => x.Device)
+            .Include(x => x.Sensor)
+            .Include(x => x.Schema)
             .Include(x => x.MessagingEndpoint)
-            .Include(x => x.DataRetentionPolicy)
+            .Include(x => x.RetentionPolicy)
             .ToListAsync(cancellationToken);
     }
 

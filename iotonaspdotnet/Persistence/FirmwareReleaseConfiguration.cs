@@ -8,7 +8,7 @@ public class FirmwareReleaseConfiguration : IEntityTypeConfiguration<FirmwareRel
 {
     public void Configure(EntityTypeBuilder<FirmwareRelease> builder)
     {
-        builder.ToTable("firmwareReleases");
+        builder.ToTable("FirmwareReleases");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

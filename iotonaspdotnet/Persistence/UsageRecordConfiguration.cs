@@ -8,7 +8,7 @@ public class UsageRecordConfiguration : IEntityTypeConfiguration<UsageRecord>
 {
     public void Configure(EntityTypeBuilder<UsageRecord> builder)
     {
-        builder.ToTable("usageRecords");
+        builder.ToTable("UsageRecords");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

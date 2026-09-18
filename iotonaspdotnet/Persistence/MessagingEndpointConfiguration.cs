@@ -8,7 +8,7 @@ public class MessagingEndpointConfiguration : IEntityTypeConfiguration<Messaging
 {
     public void Configure(EntityTypeBuilder<MessagingEndpoint> builder)
     {
-        builder.ToTable("messagingEndpoints");
+        builder.ToTable("MessagingEndpoints");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

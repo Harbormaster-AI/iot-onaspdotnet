@@ -8,7 +8,7 @@ public class GatewayConfiguration : IEntityTypeConfiguration<Gateway>
 {
     public void Configure(EntityTypeBuilder<Gateway> builder)
     {
-        builder.ToTable("gateways");
+        builder.ToTable("Gateways");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

@@ -8,7 +8,7 @@ public class CommandDefinitionConfiguration : IEntityTypeConfiguration<CommandDe
 {
     public void Configure(EntityTypeBuilder<CommandDefinition> builder)
     {
-        builder.ToTable("commandDefinitions");
+        builder.ToTable("CommandDefinitions");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

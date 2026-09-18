@@ -8,7 +8,7 @@ public class SoftwareUpdateExecutionConfiguration : IEntityTypeConfiguration<Sof
 {
     public void Configure(EntityTypeBuilder<SoftwareUpdateExecution> builder)
     {
-        builder.ToTable("softwareUpdateExecutions");
+        builder.ToTable("SoftwareUpdateExecutions");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

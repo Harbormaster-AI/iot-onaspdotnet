@@ -8,7 +8,7 @@ public class SiteConfiguration : IEntityTypeConfiguration<Site>
 {
     public void Configure(EntityTypeBuilder<Site> builder)
     {
-        builder.ToTable("sites");
+        builder.ToTable("Sites");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

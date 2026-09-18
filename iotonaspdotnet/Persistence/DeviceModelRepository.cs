@@ -15,7 +15,7 @@ public class DeviceModelRepository : IDeviceModelRepository
     public async Task<DeviceModel?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         return await _db.DeviceModels
-            .Include(x => x.DeviceVendor)
+            .Include(x => x.Vendor)
             .Include(x => x.TwinTemplate)
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
@@ -24,7 +24,7 @@ public class DeviceModelRepository : IDeviceModelRepository
     {
         return await _db.DeviceModels
             .AsNoTracking()
-            .Include(x => x.DeviceVendor)
+            .Include(x => x.Vendor)
             .Include(x => x.TwinTemplate)
             .ToListAsync(cancellationToken);
     }

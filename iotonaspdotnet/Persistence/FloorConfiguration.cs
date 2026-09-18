@@ -8,7 +8,7 @@ public class FloorConfiguration : IEntityTypeConfiguration<Floor>
 {
     public void Configure(EntityTypeBuilder<Floor> builder)
     {
-        builder.ToTable("floors");
+        builder.ToTable("Floors");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

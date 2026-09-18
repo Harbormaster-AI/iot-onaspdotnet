@@ -15,7 +15,7 @@ public class HardwareModuleRepository : IHardwareModuleRepository
     public async Task<HardwareModule?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         return await _db.HardwareModules
-            .Include(x => x.DeviceVendor)
+            .Include(x => x.Vendor)
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
 
@@ -23,7 +23,7 @@ public class HardwareModuleRepository : IHardwareModuleRepository
     {
         return await _db.HardwareModules
             .AsNoTracking()
-            .Include(x => x.DeviceVendor)
+            .Include(x => x.Vendor)
             .ToListAsync(cancellationToken);
     }
 

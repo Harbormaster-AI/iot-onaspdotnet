@@ -8,7 +8,7 @@ public class TwinTemplateConfiguration : IEntityTypeConfiguration<TwinTemplate>
 {
     public void Configure(EntityTypeBuilder<TwinTemplate> builder)
     {
-        builder.ToTable("twinTemplates");
+        builder.ToTable("TwinTemplates");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

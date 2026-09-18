@@ -15,7 +15,7 @@ public class AlertRepository : IAlertRepository
     public async Task<Alert?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         return await _db.Alerts
-            .Include(x => x.IoTDevice)
+            .Include(x => x.Device)
             .Include(x => x.AlertRule)
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
@@ -24,7 +24,7 @@ public class AlertRepository : IAlertRepository
     {
         return await _db.Alerts
             .AsNoTracking()
-            .Include(x => x.IoTDevice)
+            .Include(x => x.Device)
             .Include(x => x.AlertRule)
             .ToListAsync(cancellationToken);
     }

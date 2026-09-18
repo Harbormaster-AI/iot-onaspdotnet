@@ -8,7 +8,7 @@ public class ProvisioningRecordConfiguration : IEntityTypeConfiguration<Provisio
 {
     public void Configure(EntityTypeBuilder<ProvisioningRecord> builder)
     {
-        builder.ToTable("provisioningRecords");
+        builder.ToTable("ProvisioningRecords");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

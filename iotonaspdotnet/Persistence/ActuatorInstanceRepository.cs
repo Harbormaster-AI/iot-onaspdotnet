@@ -15,7 +15,7 @@ public class ActuatorInstanceRepository : IActuatorInstanceRepository
     public async Task<ActuatorInstance?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         return await _db.ActuatorInstances
-            .Include(x => x.IoTDevice)
+            .Include(x => x.Device)
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
 
@@ -23,7 +23,7 @@ public class ActuatorInstanceRepository : IActuatorInstanceRepository
     {
         return await _db.ActuatorInstances
             .AsNoTracking()
-            .Include(x => x.IoTDevice)
+            .Include(x => x.Device)
             .ToListAsync(cancellationToken);
     }
 

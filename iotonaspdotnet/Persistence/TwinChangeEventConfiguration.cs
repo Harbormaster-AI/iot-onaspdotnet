@@ -8,7 +8,7 @@ public class TwinChangeEventConfiguration : IEntityTypeConfiguration<TwinChangeE
 {
     public void Configure(EntityTypeBuilder<TwinChangeEvent> builder)
     {
-        builder.ToTable("twinChangeEvents");
+        builder.ToTable("TwinChangeEvents");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

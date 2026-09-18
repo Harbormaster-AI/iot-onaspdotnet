@@ -15,7 +15,7 @@ public class NetworkProfileRepository : INetworkProfileRepository
     public async Task<NetworkProfile?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         return await _db.NetworkProfiles
-            .Include(x => x.IoTDevice)
+            .Include(x => x.Device)
             .Include(x => x.Gateway)
             .Include(x => x.SimCard)
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
@@ -25,7 +25,7 @@ public class NetworkProfileRepository : INetworkProfileRepository
     {
         return await _db.NetworkProfiles
             .AsNoTracking()
-            .Include(x => x.IoTDevice)
+            .Include(x => x.Device)
             .Include(x => x.Gateway)
             .Include(x => x.SimCard)
             .ToListAsync(cancellationToken);

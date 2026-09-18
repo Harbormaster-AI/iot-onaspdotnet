@@ -8,7 +8,7 @@ public class SoftwareUpdateCampaignConfiguration : IEntityTypeConfiguration<Soft
 {
     public void Configure(EntityTypeBuilder<SoftwareUpdateCampaign> builder)
     {
-        builder.ToTable("softwareUpdateCampaigns");
+        builder.ToTable("SoftwareUpdateCampaigns");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

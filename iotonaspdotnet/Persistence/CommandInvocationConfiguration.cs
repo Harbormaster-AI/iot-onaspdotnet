@@ -8,7 +8,7 @@ public class CommandInvocationConfiguration : IEntityTypeConfiguration<CommandIn
 {
     public void Configure(EntityTypeBuilder<CommandInvocation> builder)
     {
-        builder.ToTable("commandInvocations");
+        builder.ToTable("CommandInvocations");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

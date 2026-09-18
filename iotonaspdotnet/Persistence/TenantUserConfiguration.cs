@@ -8,7 +8,7 @@ public class TenantUserConfiguration : IEntityTypeConfiguration<TenantUser>
 {
     public void Configure(EntityTypeBuilder<TenantUser> builder)
     {
-        builder.ToTable("tenantUsers");
+        builder.ToTable("TenantUsers");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

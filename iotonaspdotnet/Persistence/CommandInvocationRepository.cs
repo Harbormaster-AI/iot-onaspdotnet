@@ -15,10 +15,10 @@ public class CommandInvocationRepository : ICommandInvocationRepository
     public async Task<CommandInvocation?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         return await _db.CommandInvocations
-            .Include(x => x.IoTDevice)
+            .Include(x => x.Device)
             .Include(x => x.CommandDefinition)
-            .Include(x => x.ActuatorInstance)
-            .Include(x => x.TenantUser)
+            .Include(x => x.Actuator)
+            .Include(x => x.User)
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
 
@@ -26,10 +26,10 @@ public class CommandInvocationRepository : ICommandInvocationRepository
     {
         return await _db.CommandInvocations
             .AsNoTracking()
-            .Include(x => x.IoTDevice)
+            .Include(x => x.Device)
             .Include(x => x.CommandDefinition)
-            .Include(x => x.ActuatorInstance)
-            .Include(x => x.TenantUser)
+            .Include(x => x.Actuator)
+            .Include(x => x.User)
             .ToListAsync(cancellationToken);
     }
 

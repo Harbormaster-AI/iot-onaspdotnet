@@ -15,8 +15,8 @@ public class SoftwareUpdateExecutionRepository : ISoftwareUpdateExecutionReposit
     public async Task<SoftwareUpdateExecution?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         return await _db.SoftwareUpdateExecutions
-            .Include(x => x.SoftwareUpdateCampaign)
-            .Include(x => x.IoTDevice)
+            .Include(x => x.Campaign)
+            .Include(x => x.Device)
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
 
@@ -24,8 +24,8 @@ public class SoftwareUpdateExecutionRepository : ISoftwareUpdateExecutionReposit
     {
         return await _db.SoftwareUpdateExecutions
             .AsNoTracking()
-            .Include(x => x.SoftwareUpdateCampaign)
-            .Include(x => x.IoTDevice)
+            .Include(x => x.Campaign)
+            .Include(x => x.Device)
             .ToListAsync(cancellationToken);
     }
 

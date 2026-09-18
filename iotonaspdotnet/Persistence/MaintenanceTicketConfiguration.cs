@@ -8,7 +8,7 @@ public class MaintenanceTicketConfiguration : IEntityTypeConfiguration<Maintenan
 {
     public void Configure(EntityTypeBuilder<MaintenanceTicket> builder)
     {
-        builder.ToTable("maintenanceTickets");
+        builder.ToTable("MaintenanceTickets");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

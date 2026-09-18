@@ -8,7 +8,7 @@ public class NetworkProfileConfiguration : IEntityTypeConfiguration<NetworkProfi
 {
     public void Configure(EntityTypeBuilder<NetworkProfile> builder)
     {
-        builder.ToTable("networkProfiles");
+        builder.ToTable("NetworkProfiles");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

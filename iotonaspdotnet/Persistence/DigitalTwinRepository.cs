@@ -15,9 +15,9 @@ public class DigitalTwinRepository : IDigitalTwinRepository
     public async Task<DigitalTwin?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         return await _db.DigitalTwins
-            .Include(x => x.IoTDevice)
+            .Include(x => x.Device)
             .Include(x => x.Gateway)
-            .Include(x => x.TwinTemplate)
+            .Include(x => x.Template)
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
 
@@ -25,9 +25,9 @@ public class DigitalTwinRepository : IDigitalTwinRepository
     {
         return await _db.DigitalTwins
             .AsNoTracking()
-            .Include(x => x.IoTDevice)
+            .Include(x => x.Device)
             .Include(x => x.Gateway)
-            .Include(x => x.TwinTemplate)
+            .Include(x => x.Template)
             .ToListAsync(cancellationToken);
     }
 

@@ -8,7 +8,7 @@ public class TelemetrySchemaConfiguration : IEntityTypeConfiguration<TelemetrySc
 {
     public void Configure(EntityTypeBuilder<TelemetrySchema> builder)
     {
-        builder.ToTable("telemetrySchemas");
+        builder.ToTable("TelemetrySchemas");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

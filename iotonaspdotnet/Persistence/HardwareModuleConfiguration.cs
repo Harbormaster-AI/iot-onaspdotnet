@@ -8,7 +8,7 @@ public class HardwareModuleConfiguration : IEntityTypeConfiguration<HardwareModu
 {
     public void Configure(EntityTypeBuilder<HardwareModule> builder)
     {
-        builder.ToTable("hardwareModules");
+        builder.ToTable("HardwareModules");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

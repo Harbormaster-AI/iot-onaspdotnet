@@ -8,7 +8,7 @@ public class DeviceVendorConfiguration : IEntityTypeConfiguration<DeviceVendor>
 {
     public void Configure(EntityTypeBuilder<DeviceVendor> builder)
     {
-        builder.ToTable("deviceVendors");
+        builder.ToTable("DeviceVendors");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

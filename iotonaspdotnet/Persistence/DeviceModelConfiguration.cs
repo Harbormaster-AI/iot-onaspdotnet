@@ -8,7 +8,7 @@ public class DeviceModelConfiguration : IEntityTypeConfiguration<DeviceModel>
 {
     public void Configure(EntityTypeBuilder<DeviceModel> builder)
     {
-        builder.ToTable("deviceModels");
+        builder.ToTable("DeviceModels");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

@@ -8,7 +8,7 @@ public class EdgeApplicationConfiguration : IEntityTypeConfiguration<EdgeApplica
 {
     public void Configure(EntityTypeBuilder<EdgeApplication> builder)
     {
-        builder.ToTable("edgeApplications");
+        builder.ToTable("EdgeApplications");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

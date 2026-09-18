@@ -8,7 +8,7 @@ public class DataRetentionPolicyConfiguration : IEntityTypeConfiguration<DataRet
 {
     public void Configure(EntityTypeBuilder<DataRetentionPolicy> builder)
     {
-        builder.ToTable("dataRetentionPolicys");
+        builder.ToTable("DataRetentionPolicys");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

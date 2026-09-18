@@ -8,7 +8,7 @@ public class DeviceCertificateConfiguration : IEntityTypeConfiguration<DeviceCer
 {
     public void Configure(EntityTypeBuilder<DeviceCertificate> builder)
     {
-        builder.ToTable("deviceCertificates");
+        builder.ToTable("DeviceCertificates");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

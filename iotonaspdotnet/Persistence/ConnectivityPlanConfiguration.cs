@@ -8,7 +8,7 @@ public class ConnectivityPlanConfiguration : IEntityTypeConfiguration<Connectivi
 {
     public void Configure(EntityTypeBuilder<ConnectivityPlan> builder)
     {
-        builder.ToTable("connectivityPlans");
+        builder.ToTable("ConnectivityPlans");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

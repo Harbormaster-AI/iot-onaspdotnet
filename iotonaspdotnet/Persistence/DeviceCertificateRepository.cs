@@ -15,7 +15,7 @@ public class DeviceCertificateRepository : IDeviceCertificateRepository
     public async Task<DeviceCertificate?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         return await _db.DeviceCertificates
-            .Include(x => x.IoTDevice)
+            .Include(x => x.Device)
             .Include(x => x.Gateway)
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
@@ -24,7 +24,7 @@ public class DeviceCertificateRepository : IDeviceCertificateRepository
     {
         return await _db.DeviceCertificates
             .AsNoTracking()
-            .Include(x => x.IoTDevice)
+            .Include(x => x.Device)
             .Include(x => x.Gateway)
             .ToListAsync(cancellationToken);
     }

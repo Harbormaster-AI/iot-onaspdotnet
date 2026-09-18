@@ -8,7 +8,7 @@ public class AccessPolicyConfiguration : IEntityTypeConfiguration<AccessPolicy>
 {
     public void Configure(EntityTypeBuilder<AccessPolicy> builder)
     {
-        builder.ToTable("accessPolicys");
+        builder.ToTable("AccessPolicys");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

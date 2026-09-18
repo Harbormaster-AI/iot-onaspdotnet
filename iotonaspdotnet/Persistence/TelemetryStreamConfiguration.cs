@@ -8,7 +8,7 @@ public class TelemetryStreamConfiguration : IEntityTypeConfiguration<TelemetrySt
 {
     public void Configure(EntityTypeBuilder<TelemetryStream> builder)
     {
-        builder.ToTable("telemetryStreams");
+        builder.ToTable("TelemetryStreams");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

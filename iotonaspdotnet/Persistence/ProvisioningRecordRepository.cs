@@ -15,8 +15,8 @@ public class ProvisioningRecordRepository : IProvisioningRecordRepository
     public async Task<ProvisioningRecord?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         return await _db.ProvisioningRecords
-            .Include(x => x.IoTDevice)
-            .Include(x => x.DeviceCertificate)
+            .Include(x => x.Device)
+            .Include(x => x.Certificate)
             .Include(x => x.Tenant)
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
@@ -25,8 +25,8 @@ public class ProvisioningRecordRepository : IProvisioningRecordRepository
     {
         return await _db.ProvisioningRecords
             .AsNoTracking()
-            .Include(x => x.IoTDevice)
-            .Include(x => x.DeviceCertificate)
+            .Include(x => x.Device)
+            .Include(x => x.Certificate)
             .Include(x => x.Tenant)
             .ToListAsync(cancellationToken);
     }

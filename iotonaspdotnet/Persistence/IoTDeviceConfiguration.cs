@@ -8,7 +8,7 @@ public class IoTDeviceConfiguration : IEntityTypeConfiguration<IoTDevice>
 {
     public void Configure(EntityTypeBuilder<IoTDevice> builder)
     {
-        builder.ToTable("ioTDevices");
+        builder.ToTable("IoTDevices");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

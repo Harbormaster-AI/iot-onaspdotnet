@@ -8,7 +8,7 @@ public class AlertRuleConfiguration : IEntityTypeConfiguration<AlertRule>
 {
     public void Configure(EntityTypeBuilder<AlertRule> builder)
     {
-        builder.ToTable("alertRules");
+        builder.ToTable("AlertRules");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

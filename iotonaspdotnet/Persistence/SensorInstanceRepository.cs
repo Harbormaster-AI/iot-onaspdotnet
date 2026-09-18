@@ -15,7 +15,7 @@ public class SensorInstanceRepository : ISensorInstanceRepository
     public async Task<SensorInstance?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         return await _db.SensorInstances
-            .Include(x => x.IoTDevice)
+            .Include(x => x.Device)
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
 
@@ -23,7 +23,7 @@ public class SensorInstanceRepository : ISensorInstanceRepository
     {
         return await _db.SensorInstances
             .AsNoTracking()
-            .Include(x => x.IoTDevice)
+            .Include(x => x.Device)
             .ToListAsync(cancellationToken);
     }
 

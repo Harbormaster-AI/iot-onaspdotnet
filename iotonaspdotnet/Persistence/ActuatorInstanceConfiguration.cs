@@ -8,7 +8,7 @@ public class ActuatorInstanceConfiguration : IEntityTypeConfiguration<ActuatorIn
 {
     public void Configure(EntityTypeBuilder<ActuatorInstance> builder)
     {
-        builder.ToTable("actuatorInstances");
+        builder.ToTable("ActuatorInstances");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

@@ -8,7 +8,7 @@ public class DigitalTwinConfiguration : IEntityTypeConfiguration<DigitalTwin>
 {
     public void Configure(EntityTypeBuilder<DigitalTwin> builder)
     {
-        builder.ToTable("digitalTwins");
+        builder.ToTable("DigitalTwins");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 

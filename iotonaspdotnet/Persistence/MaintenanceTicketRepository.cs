@@ -15,7 +15,7 @@ public class MaintenanceTicketRepository : IMaintenanceTicketRepository
     public async Task<MaintenanceTicket?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         return await _db.MaintenanceTickets
-            .Include(x => x.IoTDevice)
+            .Include(x => x.Device)
             .Include(x => x.Tenant)
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
@@ -24,7 +24,7 @@ public class MaintenanceTicketRepository : IMaintenanceTicketRepository
     {
         return await _db.MaintenanceTickets
             .AsNoTracking()
-            .Include(x => x.IoTDevice)
+            .Include(x => x.Device)
             .Include(x => x.Tenant)
             .ToListAsync(cancellationToken);
     }
