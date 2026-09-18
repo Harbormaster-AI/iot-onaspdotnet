@@ -4,13 +4,23 @@ using iotonaspdotnet.Persistence;
 namespace iotonaspdotnet.Service;
 
 public interface ISoftwareUpdateCampaignService
-{
-    Task<SoftwareUpdateCampaign?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
-    Task<IReadOnlyList<SoftwareUpdateCampaign>> GetAll(CancellationToken cancellationToken);
+
     Task Create(SoftwareUpdateCampaignRequest request , CancellationToken cancellationToken);
     Task<bool> Update(SoftwareUpdateCampaignRequest request, CancellationToken cancellationToken);
+    Task<SoftwareUpdateCampaign?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<SoftwareUpdateCampaign>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
 
+    // ------------------------------
+    // Single Associations
+    // -------------------------------
+    Task<bool> AssignFirmwareRelease(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignFirmwareRelease(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> AssignDeviceGroup(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignDeviceGroup(AssociationRequest request, CancellationToken cancellationToken);
+
+    Task<bool> AddToExecutions(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> RemoveFromExecutions(MultipleAssociationRequest request, CancellationToken cancellationToken);
 
 }
 
@@ -68,7 +78,7 @@ public class SoftwareUpdateCampaignService : ISoftwareUpdateCampaignService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
+    public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
         var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
@@ -79,6 +89,29 @@ public class SoftwareUpdateCampaignService : ISoftwareUpdateCampaignService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+    Task<bool> AssignFirmwareRelease(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignFirmwareRelease(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    Task<bool> AssignDeviceGroup(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignDeviceGroup(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+
+    Task<bool> AddToExecutions(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> RemoveFromExecutions(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
 
 
 }

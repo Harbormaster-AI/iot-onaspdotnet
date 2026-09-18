@@ -16,14 +16,14 @@ public static class AccessPolicyEndpoints
         group.MapPut("/", update);
         group.MapDelete("/", delete);
 
-        group.MapDelete("/", assignTenant);
-        group.MapDelete("/", unassignTenant);
+        group.MapPut("/", assignTenant);
+        group.MapPut("/", unassignTenant);
 
-    group.MapDelete("/", addToApiKeys);
-    group.MapDelete("/", removeFromApiKeys);
+    group.MapPut("/", addToApiKeys);
+    group.MapPut("/", removeFromApiKeys);
 
-    group.MapDelete("/", addToUsers);
-    group.MapDelete("/", removeFromUsers);
+    group.MapPut("/", addToUsers);
+    group.MapPut("/", removeFromUsers);
 
 
         return app;
@@ -38,7 +38,7 @@ public static class AccessPolicyEndpoints
 
         try
         {
-            await service.CreateAsync(lowercaseClassName, cancellationToken);
+            await service.Create(lowercaseClassName, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -57,7 +57,7 @@ public static class AccessPolicyEndpoints
 
         try
         {
-            var updated = await service.UpdateAsync(model, cancellationToken);
+            var updated = await service.Update(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -66,29 +66,30 @@ public static class AccessPolicyEndpoints
         }
     }
 
-    private static async Task<IResult> GetAll(
-        IAccessPolicyService service,
-        CancellationToken cancellationToken) {
-
-        var all = await service.GetAllAsync(cancellationToken);
-        return Results.Ok( all.Select( AccessPolicyResponse.FromModel ) );
-    }
 
     private static async Task<IResult> Get(
         IdentifierRequest identifier,
         IAccessPolicyService service,
         CancellationToken cancellationToken) {
 
-        var accessPolicy = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        var accessPolicy = await service.Get(identifier, cancellationToken);
         return accessPolicy is null ? Results.NotFound() : Results.Ok( accessPolicy );
     }
 
+
+    private static async Task<IResult> GetAll(
+        IAccessPolicyService service,
+        CancellationToken cancellationToken) {
+
+        var all = await service.GetAll(cancellationToken);
+        return Results.Ok( all.Select( AccessPolicyResponse.FromModel ) );
+        }
 
     private static async Task<IResult> Delete(
         IdentifierRequest identifier,
         IAccessPolicyService service,
         CancellationToken cancellationToken) {
-        var deleted = await service.DeleteAsync(identifier, cancellationToken);
+        var deleted = await service.Delete(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
@@ -96,35 +97,49 @@ public static class AccessPolicyEndpoints
         AssociationRequest request,
         IAccessPolicyService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AssignTenantAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var assigned = await service.AssignTenant(request, cancellationToken);
+        return assigned ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignTenant(
+    private static async Task<IResult> UnassignTenant(
     AssociationRequest request,
     IAccessPolicyService service,
     CancellationToken cancellationToken) {
-        var deleted = await service.AssignTenantAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var unassigned = await service.UnassignTenant(request, cancellationToken);
+        return unassigned ? Results.NoContent() : Results.NotFound();
     }
 
 
-    private static async Task<IResult> AssignApiKeys(
-        AssociationRequest request,
+    private static async Task<IResult> AddToApiKeys(
+        MultipleAssociationRequest request,
         IAccessPolicyService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AddToApiKeysAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var addTo = await service.AddToApiKeys(request, cancellationToken);
+        return addTo ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignApiKeys(
-        AssociationRequest request,
+    private static async Task<IResult> RemoveFromApiKeys(
+        MultipleAssociationRequest request,
         IAccessPolicyService service,
         CancellationToken cancellationToken) {
-        var deleted = await service.RemoveFromApiKeysAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var removeFrom = await service.RemoveFromApiKeys(request, cancellationToken);
+        return removeFrom ? Results.NoContent() : Results.NotFound();
+    }
+    private static async Task<IResult> AddToUsers(
+        MultipleAssociationRequest request,
+        IAccessPolicyService service,
+        CancellationToken cancellationToken) {
+        var addTo = await service.AddToUsers(request, cancellationToken);
+        return addTo ? Results.NoContent() : Results.NotFound();
     }
 
+    private static async Task<IResult> RemoveFromUsers(
+        MultipleAssociationRequest request,
+        IAccessPolicyService service,
+        CancellationToken cancellationToken) {
+        var removeFrom = await service.RemoveFromUsers(request, cancellationToken);
+        return removeFrom ? Results.NoContent() : Results.NotFound();
+    }
     private AccessPolicy mapRequestToAccessPolicy( AccessPolicyRequest request ) {
         var model = new AccessPolicy
         {
@@ -138,33 +153,5 @@ public static class AccessPolicyEndpoints
         }
         return model;
     }
-    private static async Task<IResult> AssignUsers(
-        AssociationRequest request,
-        IAccessPolicyService service,
-        CancellationToken cancellationToken) {
-        var assign = await service.AddToUsersAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
-    }
 
-    private static async Task<IResult> AssignUsers(
-        AssociationRequest request,
-        IAccessPolicyService service,
-        CancellationToken cancellationToken) {
-        var deleted = await service.RemoveFromUsersAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
-    }
-
-    private AccessPolicy mapRequestToAccessPolicy( AccessPolicyRequest request ) {
-        var model = new AccessPolicy
-        {
-            Id = request.id,
-            Name = request.Name,
-            Scope = request.Scope,
-            ExpiresAt = request.ExpiresAt,
-            Tenant = request.Tenant,
-            ApiKeys = request.ApiKeys,
-            Users = request.Users,
-        }
-        return model;
-    }
 }

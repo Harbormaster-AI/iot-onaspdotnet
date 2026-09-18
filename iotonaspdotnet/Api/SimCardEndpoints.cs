@@ -16,13 +16,13 @@ public static class SimCardEndpoints
         group.MapPut("/", update);
         group.MapDelete("/", delete);
 
-        group.MapDelete("/", assignTenant);
-        group.MapDelete("/", unassignTenant);
-        group.MapDelete("/", assignConnectivityPlan);
-        group.MapDelete("/", unassignConnectivityPlan);
+        group.MapPut("/", assignTenant);
+        group.MapPut("/", unassignTenant);
+        group.MapPut("/", assignConnectivityPlan);
+        group.MapPut("/", unassignConnectivityPlan);
 
-    group.MapDelete("/", addToNetworkProfiles);
-    group.MapDelete("/", removeFromNetworkProfiles);
+    group.MapPut("/", addToNetworkProfiles);
+    group.MapPut("/", removeFromNetworkProfiles);
 
 
         return app;
@@ -37,7 +37,7 @@ public static class SimCardEndpoints
 
         try
         {
-            await service.CreateAsync(lowercaseClassName, cancellationToken);
+            await service.Create(lowercaseClassName, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -56,7 +56,7 @@ public static class SimCardEndpoints
 
         try
         {
-            var updated = await service.UpdateAsync(model, cancellationToken);
+            var updated = await service.Update(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -65,29 +65,30 @@ public static class SimCardEndpoints
         }
     }
 
-    private static async Task<IResult> GetAll(
-        ISimCardService service,
-        CancellationToken cancellationToken) {
-
-        var all = await service.GetAllAsync(cancellationToken);
-        return Results.Ok( all.Select( SimCardResponse.FromModel ) );
-    }
 
     private static async Task<IResult> Get(
         IdentifierRequest identifier,
         ISimCardService service,
         CancellationToken cancellationToken) {
 
-        var simCard = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        var simCard = await service.Get(identifier, cancellationToken);
         return simCard is null ? Results.NotFound() : Results.Ok( simCard );
     }
 
+
+    private static async Task<IResult> GetAll(
+        ISimCardService service,
+        CancellationToken cancellationToken) {
+
+        var all = await service.GetAll(cancellationToken);
+        return Results.Ok( all.Select( SimCardResponse.FromModel ) );
+        }
 
     private static async Task<IResult> Delete(
         IdentifierRequest identifier,
         ISimCardService service,
         CancellationToken cancellationToken) {
-        var deleted = await service.DeleteAsync(identifier, cancellationToken);
+        var deleted = await service.Delete(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
@@ -95,51 +96,50 @@ public static class SimCardEndpoints
         AssociationRequest request,
         ISimCardService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AssignTenantAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var assigned = await service.AssignTenant(request, cancellationToken);
+        return assigned ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignTenant(
+    private static async Task<IResult> UnassignTenant(
     AssociationRequest request,
     ISimCardService service,
     CancellationToken cancellationToken) {
-        var deleted = await service.AssignTenantAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var unassigned = await service.UnassignTenant(request, cancellationToken);
+        return unassigned ? Results.NoContent() : Results.NotFound();
     }
 
     private static async Task<IResult> AssignConnectivityPlan(
         AssociationRequest request,
         ISimCardService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AssignConnectivityPlanAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var assigned = await service.AssignConnectivityPlan(request, cancellationToken);
+        return assigned ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignConnectivityPlan(
+    private static async Task<IResult> UnassignConnectivityPlan(
     AssociationRequest request,
     ISimCardService service,
     CancellationToken cancellationToken) {
-        var deleted = await service.AssignConnectivityPlanAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var unassigned = await service.UnassignConnectivityPlan(request, cancellationToken);
+        return unassigned ? Results.NoContent() : Results.NotFound();
     }
 
 
-    private static async Task<IResult> AssignNetworkProfiles(
-        AssociationRequest request,
+    private static async Task<IResult> AddToNetworkProfiles(
+        MultipleAssociationRequest request,
         ISimCardService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AddToNetworkProfilesAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var addTo = await service.AddToNetworkProfiles(request, cancellationToken);
+        return addTo ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignNetworkProfiles(
-        AssociationRequest request,
+    private static async Task<IResult> RemoveFromNetworkProfiles(
+        MultipleAssociationRequest request,
         ISimCardService service,
         CancellationToken cancellationToken) {
-        var deleted = await service.RemoveFromNetworkProfilesAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var removeFrom = await service.RemoveFromNetworkProfiles(request, cancellationToken);
+        return removeFrom ? Results.NoContent() : Results.NotFound();
     }
-
     private SimCard mapRequestToSimCard( SimCardRequest request ) {
         var model = new SimCard
         {
@@ -154,4 +154,5 @@ public static class SimCardEndpoints
         }
         return model;
     }
+
 }

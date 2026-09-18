@@ -4,13 +4,21 @@ using iotonaspdotnet.Persistence;
 namespace iotonaspdotnet.Service;
 
 public interface IDeviceGroupService
-{
-    Task<DeviceGroup?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
-    Task<IReadOnlyList<DeviceGroup>> GetAll(CancellationToken cancellationToken);
+
     Task Create(DeviceGroupRequest request , CancellationToken cancellationToken);
     Task<bool> Update(DeviceGroupRequest request, CancellationToken cancellationToken);
+    Task<DeviceGroup?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<DeviceGroup>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
 
+    // ------------------------------
+    // Single Associations
+    // -------------------------------
+    Task<bool> AssignTenant(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignTenant(AssociationRequest request, CancellationToken cancellationToken);
+
+    Task<bool> AddToDevices(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> RemoveFromDevices(MultipleAssociationRequest request, CancellationToken cancellationToken);
 
 }
 
@@ -58,7 +66,7 @@ public class DeviceGroupService : IDeviceGroupService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
+    public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
         var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
@@ -69,6 +77,22 @@ public class DeviceGroupService : IDeviceGroupService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+    Task<bool> AssignTenant(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignTenant(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+
+    Task<bool> AddToDevices(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> RemoveFromDevices(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
 
 
 }

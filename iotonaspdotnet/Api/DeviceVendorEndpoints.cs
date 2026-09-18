@@ -17,14 +17,14 @@ public static class DeviceVendorEndpoints
         group.MapDelete("/", delete);
 
 
-    group.MapDelete("/", addToDeviceModels);
-    group.MapDelete("/", removeFromDeviceModels);
+    group.MapPut("/", addToDeviceModels);
+    group.MapPut("/", removeFromDeviceModels);
 
-    group.MapDelete("/", addToFirmwareReleases);
-    group.MapDelete("/", removeFromFirmwareReleases);
+    group.MapPut("/", addToFirmwareReleases);
+    group.MapPut("/", removeFromFirmwareReleases);
 
-    group.MapDelete("/", addToHardwareModules);
-    group.MapDelete("/", removeFromHardwareModules);
+    group.MapPut("/", addToHardwareModules);
+    group.MapPut("/", removeFromHardwareModules);
 
 
         return app;
@@ -39,7 +39,7 @@ public static class DeviceVendorEndpoints
 
         try
         {
-            await service.CreateAsync(lowercaseClassName, cancellationToken);
+            await service.Create(lowercaseClassName, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -58,7 +58,7 @@ public static class DeviceVendorEndpoints
 
         try
         {
-            var updated = await service.UpdateAsync(model, cancellationToken);
+            var updated = await service.Update(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -67,49 +67,79 @@ public static class DeviceVendorEndpoints
         }
     }
 
-    private static async Task<IResult> GetAll(
-        IDeviceVendorService service,
-        CancellationToken cancellationToken) {
-
-        var all = await service.GetAllAsync(cancellationToken);
-        return Results.Ok( all.Select( DeviceVendorResponse.FromModel ) );
-    }
 
     private static async Task<IResult> Get(
         IdentifierRequest identifier,
         IDeviceVendorService service,
         CancellationToken cancellationToken) {
 
-        var deviceVendor = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        var deviceVendor = await service.Get(identifier, cancellationToken);
         return deviceVendor is null ? Results.NotFound() : Results.Ok( deviceVendor );
     }
 
+
+    private static async Task<IResult> GetAll(
+        IDeviceVendorService service,
+        CancellationToken cancellationToken) {
+
+        var all = await service.GetAll(cancellationToken);
+        return Results.Ok( all.Select( DeviceVendorResponse.FromModel ) );
+        }
 
     private static async Task<IResult> Delete(
         IdentifierRequest identifier,
         IDeviceVendorService service,
         CancellationToken cancellationToken) {
-        var deleted = await service.DeleteAsync(identifier, cancellationToken);
+        var deleted = await service.Delete(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
 
-    private static async Task<IResult> AssignDeviceModels(
-        AssociationRequest request,
+    private static async Task<IResult> AddToDeviceModels(
+        MultipleAssociationRequest request,
         IDeviceVendorService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AddToDeviceModelsAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var addTo = await service.AddToDeviceModels(request, cancellationToken);
+        return addTo ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignDeviceModels(
-        AssociationRequest request,
+    private static async Task<IResult> RemoveFromDeviceModels(
+        MultipleAssociationRequest request,
         IDeviceVendorService service,
         CancellationToken cancellationToken) {
-        var deleted = await service.RemoveFromDeviceModelsAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var removeFrom = await service.RemoveFromDeviceModels(request, cancellationToken);
+        return removeFrom ? Results.NoContent() : Results.NotFound();
+    }
+    private static async Task<IResult> AddToFirmwareReleases(
+        MultipleAssociationRequest request,
+        IDeviceVendorService service,
+        CancellationToken cancellationToken) {
+        var addTo = await service.AddToFirmwareReleases(request, cancellationToken);
+        return addTo ? Results.NoContent() : Results.NotFound();
     }
 
+    private static async Task<IResult> RemoveFromFirmwareReleases(
+        MultipleAssociationRequest request,
+        IDeviceVendorService service,
+        CancellationToken cancellationToken) {
+        var removeFrom = await service.RemoveFromFirmwareReleases(request, cancellationToken);
+        return removeFrom ? Results.NoContent() : Results.NotFound();
+    }
+    private static async Task<IResult> AddToHardwareModules(
+        MultipleAssociationRequest request,
+        IDeviceVendorService service,
+        CancellationToken cancellationToken) {
+        var addTo = await service.AddToHardwareModules(request, cancellationToken);
+        return addTo ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> RemoveFromHardwareModules(
+        MultipleAssociationRequest request,
+        IDeviceVendorService service,
+        CancellationToken cancellationToken) {
+        var removeFrom = await service.RemoveFromHardwareModules(request, cancellationToken);
+        return removeFrom ? Results.NoContent() : Results.NotFound();
+    }
     private DeviceVendor mapRequestToDeviceVendor( DeviceVendorRequest request ) {
         var model = new DeviceVendor
         {
@@ -124,64 +154,5 @@ public static class DeviceVendorEndpoints
         }
         return model;
     }
-    private static async Task<IResult> AssignFirmwareReleases(
-        AssociationRequest request,
-        IDeviceVendorService service,
-        CancellationToken cancellationToken) {
-        var assign = await service.AddToFirmwareReleasesAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
-    }
 
-    private static async Task<IResult> AssignFirmwareReleases(
-        AssociationRequest request,
-        IDeviceVendorService service,
-        CancellationToken cancellationToken) {
-        var deleted = await service.RemoveFromFirmwareReleasesAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
-    }
-
-    private DeviceVendor mapRequestToDeviceVendor( DeviceVendorRequest request ) {
-        var model = new DeviceVendor
-        {
-            Id = request.id,
-            Name = request.Name,
-            LegalName = request.LegalName,
-            HeadquartersCountry = request.HeadquartersCountry,
-            Website = request.Website,
-            DeviceModels = request.DeviceModels,
-            FirmwareReleases = request.FirmwareReleases,
-            HardwareModules = request.HardwareModules,
-        }
-        return model;
-    }
-    private static async Task<IResult> AssignHardwareModules(
-        AssociationRequest request,
-        IDeviceVendorService service,
-        CancellationToken cancellationToken) {
-        var assign = await service.AddToHardwareModulesAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
-    }
-
-    private static async Task<IResult> AssignHardwareModules(
-        AssociationRequest request,
-        IDeviceVendorService service,
-        CancellationToken cancellationToken) {
-        var deleted = await service.RemoveFromHardwareModulesAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
-    }
-
-    private DeviceVendor mapRequestToDeviceVendor( DeviceVendorRequest request ) {
-        var model = new DeviceVendor
-        {
-            Id = request.id,
-            Name = request.Name,
-            LegalName = request.LegalName,
-            HeadquartersCountry = request.HeadquartersCountry,
-            Website = request.Website,
-            DeviceModels = request.DeviceModels,
-            FirmwareReleases = request.FirmwareReleases,
-            HardwareModules = request.HardwareModules,
-        }
-        return model;
-    }
 }

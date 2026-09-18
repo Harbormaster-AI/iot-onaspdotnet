@@ -4,13 +4,23 @@ using iotonaspdotnet.Persistence;
 namespace iotonaspdotnet.Service;
 
 public interface IAccessPolicyService
-{
-    Task<AccessPolicy?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
-    Task<IReadOnlyList<AccessPolicy>> GetAll(CancellationToken cancellationToken);
+
     Task Create(AccessPolicyRequest request , CancellationToken cancellationToken);
     Task<bool> Update(AccessPolicyRequest request, CancellationToken cancellationToken);
+    Task<AccessPolicy?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<AccessPolicy>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
 
+    // ------------------------------
+    // Single Associations
+    // -------------------------------
+    Task<bool> AssignTenant(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignTenant(AssociationRequest request, CancellationToken cancellationToken);
+
+    Task<bool> AddToApiKeys(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> RemoveFromApiKeys(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> AddToUsers(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> RemoveFromUsers(MultipleAssociationRequest request, CancellationToken cancellationToken);
 
 }
 
@@ -60,7 +70,7 @@ public class AccessPolicyService : IAccessPolicyService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
+    public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
         var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
@@ -71,6 +81,29 @@ public class AccessPolicyService : IAccessPolicyService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+    Task<bool> AssignTenant(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignTenant(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+
+    Task<bool> AddToApiKeys(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> RemoveFromApiKeys(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    Task<bool> AddToUsers(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> RemoveFromUsers(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
 
 
 }

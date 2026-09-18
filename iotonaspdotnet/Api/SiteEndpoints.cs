@@ -16,17 +16,17 @@ public static class SiteEndpoints
         group.MapPut("/", update);
         group.MapDelete("/", delete);
 
-        group.MapDelete("/", assignTenant);
-        group.MapDelete("/", unassignTenant);
+        group.MapPut("/", assignTenant);
+        group.MapPut("/", unassignTenant);
 
-    group.MapDelete("/", addToBuildings);
-    group.MapDelete("/", removeFromBuildings);
+    group.MapPut("/", addToBuildings);
+    group.MapPut("/", removeFromBuildings);
 
-    group.MapDelete("/", addToDevices);
-    group.MapDelete("/", removeFromDevices);
+    group.MapPut("/", addToDevices);
+    group.MapPut("/", removeFromDevices);
 
-    group.MapDelete("/", addToGateways);
-    group.MapDelete("/", removeFromGateways);
+    group.MapPut("/", addToGateways);
+    group.MapPut("/", removeFromGateways);
 
 
         return app;
@@ -41,7 +41,7 @@ public static class SiteEndpoints
 
         try
         {
-            await service.CreateAsync(lowercaseClassName, cancellationToken);
+            await service.Create(lowercaseClassName, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -60,7 +60,7 @@ public static class SiteEndpoints
 
         try
         {
-            var updated = await service.UpdateAsync(model, cancellationToken);
+            var updated = await service.Update(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -69,29 +69,30 @@ public static class SiteEndpoints
         }
     }
 
-    private static async Task<IResult> GetAll(
-        ISiteService service,
-        CancellationToken cancellationToken) {
-
-        var all = await service.GetAllAsync(cancellationToken);
-        return Results.Ok( all.Select( SiteResponse.FromModel ) );
-    }
 
     private static async Task<IResult> Get(
         IdentifierRequest identifier,
         ISiteService service,
         CancellationToken cancellationToken) {
 
-        var site = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        var site = await service.Get(identifier, cancellationToken);
         return site is null ? Results.NotFound() : Results.Ok( site );
     }
 
+
+    private static async Task<IResult> GetAll(
+        ISiteService service,
+        CancellationToken cancellationToken) {
+
+        var all = await service.GetAll(cancellationToken);
+        return Results.Ok( all.Select( SiteResponse.FromModel ) );
+        }
 
     private static async Task<IResult> Delete(
         IdentifierRequest identifier,
         ISiteService service,
         CancellationToken cancellationToken) {
-        var deleted = await service.DeleteAsync(identifier, cancellationToken);
+        var deleted = await service.Delete(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
@@ -99,35 +100,64 @@ public static class SiteEndpoints
         AssociationRequest request,
         ISiteService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AssignTenantAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var assigned = await service.AssignTenant(request, cancellationToken);
+        return assigned ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignTenant(
+    private static async Task<IResult> UnassignTenant(
     AssociationRequest request,
     ISiteService service,
     CancellationToken cancellationToken) {
-        var deleted = await service.AssignTenantAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var unassigned = await service.UnassignTenant(request, cancellationToken);
+        return unassigned ? Results.NoContent() : Results.NotFound();
     }
 
 
-    private static async Task<IResult> AssignBuildings(
-        AssociationRequest request,
+    private static async Task<IResult> AddToBuildings(
+        MultipleAssociationRequest request,
         ISiteService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AddToBuildingsAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var addTo = await service.AddToBuildings(request, cancellationToken);
+        return addTo ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignBuildings(
-        AssociationRequest request,
+    private static async Task<IResult> RemoveFromBuildings(
+        MultipleAssociationRequest request,
         ISiteService service,
         CancellationToken cancellationToken) {
-        var deleted = await service.RemoveFromBuildingsAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var removeFrom = await service.RemoveFromBuildings(request, cancellationToken);
+        return removeFrom ? Results.NoContent() : Results.NotFound();
+    }
+    private static async Task<IResult> AddToDevices(
+        MultipleAssociationRequest request,
+        ISiteService service,
+        CancellationToken cancellationToken) {
+        var addTo = await service.AddToDevices(request, cancellationToken);
+        return addTo ? Results.NoContent() : Results.NotFound();
     }
 
+    private static async Task<IResult> RemoveFromDevices(
+        MultipleAssociationRequest request,
+        ISiteService service,
+        CancellationToken cancellationToken) {
+        var removeFrom = await service.RemoveFromDevices(request, cancellationToken);
+        return removeFrom ? Results.NoContent() : Results.NotFound();
+    }
+    private static async Task<IResult> AddToGateways(
+        MultipleAssociationRequest request,
+        ISiteService service,
+        CancellationToken cancellationToken) {
+        var addTo = await service.AddToGateways(request, cancellationToken);
+        return addTo ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> RemoveFromGateways(
+        MultipleAssociationRequest request,
+        ISiteService service,
+        CancellationToken cancellationToken) {
+        var removeFrom = await service.RemoveFromGateways(request, cancellationToken);
+        return removeFrom ? Results.NoContent() : Results.NotFound();
+    }
     private Site mapRequestToSite( SiteRequest request ) {
         var model = new Site
         {
@@ -144,68 +174,5 @@ public static class SiteEndpoints
         }
         return model;
     }
-    private static async Task<IResult> AssignDevices(
-        AssociationRequest request,
-        ISiteService service,
-        CancellationToken cancellationToken) {
-        var assign = await service.AddToDevicesAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
-    }
 
-    private static async Task<IResult> AssignDevices(
-        AssociationRequest request,
-        ISiteService service,
-        CancellationToken cancellationToken) {
-        var deleted = await service.RemoveFromDevicesAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
-    }
-
-    private Site mapRequestToSite( SiteRequest request ) {
-        var model = new Site
-        {
-            Id = request.id,
-            Name = request.Name,
-            Address = request.Address,
-            Timezone = request.Timezone,
-            Latitude = request.Latitude,
-            Longitude = request.Longitude,
-            Tenant = request.Tenant,
-            Buildings = request.Buildings,
-            Devices = request.Devices,
-            Gateways = request.Gateways,
-        }
-        return model;
-    }
-    private static async Task<IResult> AssignGateways(
-        AssociationRequest request,
-        ISiteService service,
-        CancellationToken cancellationToken) {
-        var assign = await service.AddToGatewaysAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
-    }
-
-    private static async Task<IResult> AssignGateways(
-        AssociationRequest request,
-        ISiteService service,
-        CancellationToken cancellationToken) {
-        var deleted = await service.RemoveFromGatewaysAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
-    }
-
-    private Site mapRequestToSite( SiteRequest request ) {
-        var model = new Site
-        {
-            Id = request.id,
-            Name = request.Name,
-            Address = request.Address,
-            Timezone = request.Timezone,
-            Latitude = request.Latitude,
-            Longitude = request.Longitude,
-            Tenant = request.Tenant,
-            Buildings = request.Buildings,
-            Devices = request.Devices,
-            Gateways = request.Gateways,
-        }
-        return model;
-    }
 }

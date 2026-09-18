@@ -16,12 +16,12 @@ public static class NetworkProfileEndpoints
         group.MapPut("/", update);
         group.MapDelete("/", delete);
 
-        group.MapDelete("/", assignDevice);
-        group.MapDelete("/", unassignDevice);
-        group.MapDelete("/", assignGateway);
-        group.MapDelete("/", unassignGateway);
-        group.MapDelete("/", assignSimCard);
-        group.MapDelete("/", unassignSimCard);
+        group.MapPut("/", assignDevice);
+        group.MapPut("/", unassignDevice);
+        group.MapPut("/", assignGateway);
+        group.MapPut("/", unassignGateway);
+        group.MapPut("/", assignSimCard);
+        group.MapPut("/", unassignSimCard);
 
 
         return app;
@@ -36,7 +36,7 @@ public static class NetworkProfileEndpoints
 
         try
         {
-            await service.CreateAsync(lowercaseClassName, cancellationToken);
+            await service.Create(lowercaseClassName, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -55,7 +55,7 @@ public static class NetworkProfileEndpoints
 
         try
         {
-            var updated = await service.UpdateAsync(model, cancellationToken);
+            var updated = await service.Update(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -64,29 +64,30 @@ public static class NetworkProfileEndpoints
         }
     }
 
-    private static async Task<IResult> GetAll(
-        INetworkProfileService service,
-        CancellationToken cancellationToken) {
-
-        var all = await service.GetAllAsync(cancellationToken);
-        return Results.Ok( all.Select( NetworkProfileResponse.FromModel ) );
-    }
 
     private static async Task<IResult> Get(
         IdentifierRequest identifier,
         INetworkProfileService service,
         CancellationToken cancellationToken) {
 
-        var networkProfile = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        var networkProfile = await service.Get(identifier, cancellationToken);
         return networkProfile is null ? Results.NotFound() : Results.Ok( networkProfile );
     }
 
+
+    private static async Task<IResult> GetAll(
+        INetworkProfileService service,
+        CancellationToken cancellationToken) {
+
+        var all = await service.GetAll(cancellationToken);
+        return Results.Ok( all.Select( NetworkProfileResponse.FromModel ) );
+        }
 
     private static async Task<IResult> Delete(
         IdentifierRequest identifier,
         INetworkProfileService service,
         CancellationToken cancellationToken) {
-        var deleted = await service.DeleteAsync(identifier, cancellationToken);
+        var deleted = await service.Delete(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
@@ -94,49 +95,64 @@ public static class NetworkProfileEndpoints
         AssociationRequest request,
         INetworkProfileService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AssignDeviceAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var assigned = await service.AssignDevice(request, cancellationToken);
+        return assigned ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignDevice(
+    private static async Task<IResult> UnassignDevice(
     AssociationRequest request,
     INetworkProfileService service,
     CancellationToken cancellationToken) {
-        var deleted = await service.AssignDeviceAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var unassigned = await service.UnassignDevice(request, cancellationToken);
+        return unassigned ? Results.NoContent() : Results.NotFound();
     }
 
     private static async Task<IResult> AssignGateway(
         AssociationRequest request,
         INetworkProfileService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AssignGatewayAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var assigned = await service.AssignGateway(request, cancellationToken);
+        return assigned ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignGateway(
+    private static async Task<IResult> UnassignGateway(
     AssociationRequest request,
     INetworkProfileService service,
     CancellationToken cancellationToken) {
-        var deleted = await service.AssignGatewayAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var unassigned = await service.UnassignGateway(request, cancellationToken);
+        return unassigned ? Results.NoContent() : Results.NotFound();
     }
 
     private static async Task<IResult> AssignSimCard(
         AssociationRequest request,
         INetworkProfileService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AssignSimCardAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var assigned = await service.AssignSimCard(request, cancellationToken);
+        return assigned ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignSimCard(
+    private static async Task<IResult> UnassignSimCard(
     AssociationRequest request,
     INetworkProfileService service,
     CancellationToken cancellationToken) {
-        var deleted = await service.AssignSimCardAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var unassigned = await service.UnassignSimCard(request, cancellationToken);
+        return unassigned ? Results.NoContent() : Results.NotFound();
     }
 
+
+    private NetworkProfile mapRequestToNetworkProfile( NetworkProfileRequest request ) {
+        var model = new NetworkProfile
+        {
+            Id = request.id,
+            ProfileName = request.ProfileName,
+            Ssid = request.Ssid,
+            Apn = request.Apn,
+            Device = request.Device,
+            Gateway = request.Gateway,
+            SimCard = request.SimCard,
+            ConnectivityType = request.ConnectivityType,
+        }
+        return model;
+    }
 
 }

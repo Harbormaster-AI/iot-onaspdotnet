@@ -4,13 +4,19 @@ using iotonaspdotnet.Persistence;
 namespace iotonaspdotnet.Service;
 
 public interface ITelemetrySchemaService
-{
-    Task<TelemetrySchema?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
-    Task<IReadOnlyList<TelemetrySchema>> GetAll(CancellationToken cancellationToken);
+
     Task Create(TelemetrySchemaRequest request , CancellationToken cancellationToken);
     Task<bool> Update(TelemetrySchemaRequest request, CancellationToken cancellationToken);
+    Task<TelemetrySchema?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<TelemetrySchema>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
 
+    // ------------------------------
+    // Single Associations
+    // -------------------------------
+
+    Task<bool> AddToStreams(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> RemoveFromStreams(MultipleAssociationRequest request, CancellationToken cancellationToken);
 
 }
 
@@ -51,7 +57,7 @@ public class TelemetrySchemaService : ITelemetrySchemaService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
+    public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
         var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
@@ -62,6 +68,15 @@ public class TelemetrySchemaService : ITelemetrySchemaService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+
+    Task<bool> AddToStreams(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> RemoveFromStreams(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
 
 
 }

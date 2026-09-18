@@ -4,12 +4,20 @@ using iotonaspdotnet.Persistence;
 namespace iotonaspdotnet.Service;
 
 public interface IAlertService
-{
-    Task<Alert?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
-    Task<IReadOnlyList<Alert>> GetAll(CancellationToken cancellationToken);
+
     Task Create(AlertRequest request , CancellationToken cancellationToken);
     Task<bool> Update(AlertRequest request, CancellationToken cancellationToken);
+    Task<Alert?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<Alert>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+    // ------------------------------
+    // Single Associations
+    // -------------------------------
+    Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignDevice(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> AssignAlertRule(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignAlertRule(AssociationRequest request, CancellationToken cancellationToken);
 
 
 }
@@ -67,7 +75,7 @@ public class AlertService : IAlertService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
+    public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
         var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
@@ -78,6 +86,22 @@ public class AlertService : IAlertService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+    Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignDevice(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    Task<bool> AssignAlertRule(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignAlertRule(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+
 
 
 }

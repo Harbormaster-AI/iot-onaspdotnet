@@ -16,14 +16,14 @@ public static class CommandInvocationEndpoints
         group.MapPut("/", update);
         group.MapDelete("/", delete);
 
-        group.MapDelete("/", assignDevice);
-        group.MapDelete("/", unassignDevice);
-        group.MapDelete("/", assignCommandDefinition);
-        group.MapDelete("/", unassignCommandDefinition);
-        group.MapDelete("/", assignActuator);
-        group.MapDelete("/", unassignActuator);
-        group.MapDelete("/", assignUser);
-        group.MapDelete("/", unassignUser);
+        group.MapPut("/", assignDevice);
+        group.MapPut("/", unassignDevice);
+        group.MapPut("/", assignCommandDefinition);
+        group.MapPut("/", unassignCommandDefinition);
+        group.MapPut("/", assignActuator);
+        group.MapPut("/", unassignActuator);
+        group.MapPut("/", assignUser);
+        group.MapPut("/", unassignUser);
 
 
         return app;
@@ -38,7 +38,7 @@ public static class CommandInvocationEndpoints
 
         try
         {
-            await service.CreateAsync(lowercaseClassName, cancellationToken);
+            await service.Create(lowercaseClassName, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -57,7 +57,7 @@ public static class CommandInvocationEndpoints
 
         try
         {
-            var updated = await service.UpdateAsync(model, cancellationToken);
+            var updated = await service.Update(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -66,29 +66,30 @@ public static class CommandInvocationEndpoints
         }
     }
 
-    private static async Task<IResult> GetAll(
-        ICommandInvocationService service,
-        CancellationToken cancellationToken) {
-
-        var all = await service.GetAllAsync(cancellationToken);
-        return Results.Ok( all.Select( CommandInvocationResponse.FromModel ) );
-    }
 
     private static async Task<IResult> Get(
         IdentifierRequest identifier,
         ICommandInvocationService service,
         CancellationToken cancellationToken) {
 
-        var commandInvocation = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        var commandInvocation = await service.Get(identifier, cancellationToken);
         return commandInvocation is null ? Results.NotFound() : Results.Ok( commandInvocation );
     }
 
+
+    private static async Task<IResult> GetAll(
+        ICommandInvocationService service,
+        CancellationToken cancellationToken) {
+
+        var all = await service.GetAll(cancellationToken);
+        return Results.Ok( all.Select( CommandInvocationResponse.FromModel ) );
+        }
 
     private static async Task<IResult> Delete(
         IdentifierRequest identifier,
         ICommandInvocationService service,
         CancellationToken cancellationToken) {
-        var deleted = await service.DeleteAsync(identifier, cancellationToken);
+        var deleted = await service.Delete(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
@@ -96,65 +97,81 @@ public static class CommandInvocationEndpoints
         AssociationRequest request,
         ICommandInvocationService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AssignDeviceAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var assigned = await service.AssignDevice(request, cancellationToken);
+        return assigned ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignDevice(
+    private static async Task<IResult> UnassignDevice(
     AssociationRequest request,
     ICommandInvocationService service,
     CancellationToken cancellationToken) {
-        var deleted = await service.AssignDeviceAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var unassigned = await service.UnassignDevice(request, cancellationToken);
+        return unassigned ? Results.NoContent() : Results.NotFound();
     }
 
     private static async Task<IResult> AssignCommandDefinition(
         AssociationRequest request,
         ICommandInvocationService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AssignCommandDefinitionAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var assigned = await service.AssignCommandDefinition(request, cancellationToken);
+        return assigned ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignCommandDefinition(
+    private static async Task<IResult> UnassignCommandDefinition(
     AssociationRequest request,
     ICommandInvocationService service,
     CancellationToken cancellationToken) {
-        var deleted = await service.AssignCommandDefinitionAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var unassigned = await service.UnassignCommandDefinition(request, cancellationToken);
+        return unassigned ? Results.NoContent() : Results.NotFound();
     }
 
     private static async Task<IResult> AssignActuator(
         AssociationRequest request,
         ICommandInvocationService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AssignActuatorAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var assigned = await service.AssignActuator(request, cancellationToken);
+        return assigned ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignActuator(
+    private static async Task<IResult> UnassignActuator(
     AssociationRequest request,
     ICommandInvocationService service,
     CancellationToken cancellationToken) {
-        var deleted = await service.AssignActuatorAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var unassigned = await service.UnassignActuator(request, cancellationToken);
+        return unassigned ? Results.NoContent() : Results.NotFound();
     }
 
     private static async Task<IResult> AssignUser(
         AssociationRequest request,
         ICommandInvocationService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AssignUserAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var assigned = await service.AssignUser(request, cancellationToken);
+        return assigned ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignUser(
+    private static async Task<IResult> UnassignUser(
     AssociationRequest request,
     ICommandInvocationService service,
     CancellationToken cancellationToken) {
-        var deleted = await service.AssignUserAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var unassigned = await service.UnassignUser(request, cancellationToken);
+        return unassigned ? Results.NoContent() : Results.NotFound();
     }
 
+
+    private CommandInvocation mapRequestToCommandInvocation( CommandInvocationRequest request ) {
+        var model = new CommandInvocation
+        {
+            Id = request.id,
+            InvocationId = request.InvocationId,
+            RequestedAt = request.RequestedAt,
+            CompletedAt = request.CompletedAt,
+            Device = request.Device,
+            CommandDefinition = request.CommandDefinition,
+            Actuator = request.Actuator,
+            User = request.User,
+            Status = request.Status,
+        }
+        return model;
+    }
 
 }

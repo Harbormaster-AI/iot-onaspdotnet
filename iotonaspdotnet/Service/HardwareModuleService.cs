@@ -4,12 +4,18 @@ using iotonaspdotnet.Persistence;
 namespace iotonaspdotnet.Service;
 
 public interface IHardwareModuleService
-{
-    Task<HardwareModule?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
-    Task<IReadOnlyList<HardwareModule>> GetAll(CancellationToken cancellationToken);
+
     Task Create(HardwareModuleRequest request , CancellationToken cancellationToken);
     Task<bool> Update(HardwareModuleRequest request, CancellationToken cancellationToken);
+    Task<HardwareModule?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<HardwareModule>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+    // ------------------------------
+    // Single Associations
+    // -------------------------------
+    Task<bool> AssignVendor(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignVendor(AssociationRequest request, CancellationToken cancellationToken);
 
 
 }
@@ -58,7 +64,7 @@ public class HardwareModuleService : IHardwareModuleService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
+    public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
         var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
@@ -69,6 +75,15 @@ public class HardwareModuleService : IHardwareModuleService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+    Task<bool> AssignVendor(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignVendor(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+
 
 
 }

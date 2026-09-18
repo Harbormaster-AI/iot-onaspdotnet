@@ -4,12 +4,22 @@ using iotonaspdotnet.Persistence;
 namespace iotonaspdotnet.Service;
 
 public interface IUsageRecordService
-{
-    Task<UsageRecord?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
-    Task<IReadOnlyList<UsageRecord>> GetAll(CancellationToken cancellationToken);
+
     Task Create(UsageRecordRequest request , CancellationToken cancellationToken);
     Task<bool> Update(UsageRecordRequest request, CancellationToken cancellationToken);
+    Task<UsageRecord?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<UsageRecord>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+    // ------------------------------
+    // Single Associations
+    // -------------------------------
+    Task<bool> AssignTenant(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignTenant(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignDevice(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> AssignConnectivityPlan(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignConnectivityPlan(AssociationRequest request, CancellationToken cancellationToken);
 
 
 }
@@ -75,7 +85,7 @@ public class UsageRecordService : IUsageRecordService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
+    public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
         var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
@@ -86,6 +96,29 @@ public class UsageRecordService : IUsageRecordService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+    Task<bool> AssignTenant(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignTenant(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignDevice(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    Task<bool> AssignConnectivityPlan(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignConnectivityPlan(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+
 
 
 }

@@ -4,13 +4,19 @@ using iotonaspdotnet.Persistence;
 namespace iotonaspdotnet.Service;
 
 public interface ITwinTemplateService
-{
-    Task<TwinTemplate?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
-    Task<IReadOnlyList<TwinTemplate>> GetAll(CancellationToken cancellationToken);
+
     Task Create(TwinTemplateRequest request , CancellationToken cancellationToken);
     Task<bool> Update(TwinTemplateRequest request, CancellationToken cancellationToken);
+    Task<TwinTemplate?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<TwinTemplate>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
 
+    // ------------------------------
+    // Single Associations
+    // -------------------------------
+
+    Task<bool> AddToDeviceModels(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> RemoveFromDeviceModels(MultipleAssociationRequest request, CancellationToken cancellationToken);
 
 }
 
@@ -51,7 +57,7 @@ public class TwinTemplateService : ITwinTemplateService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
+    public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
         var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
@@ -62,6 +68,15 @@ public class TwinTemplateService : ITwinTemplateService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+
+    Task<bool> AddToDeviceModels(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> RemoveFromDeviceModels(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
 
 
 }

@@ -4,13 +4,21 @@ using iotonaspdotnet.Persistence;
 namespace iotonaspdotnet.Service;
 
 public interface ISensorInstanceService
-{
-    Task<SensorInstance?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
-    Task<IReadOnlyList<SensorInstance>> GetAll(CancellationToken cancellationToken);
+
     Task Create(SensorInstanceRequest request , CancellationToken cancellationToken);
     Task<bool> Update(SensorInstanceRequest request, CancellationToken cancellationToken);
+    Task<SensorInstance?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<SensorInstance>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
 
+    // ------------------------------
+    // Single Associations
+    // -------------------------------
+    Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignDevice(AssociationRequest request, CancellationToken cancellationToken);
+
+    Task<bool> AddToTelemetryStreams(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> RemoveFromTelemetryStreams(MultipleAssociationRequest request, CancellationToken cancellationToken);
 
 }
 
@@ -60,7 +68,7 @@ public class SensorInstanceService : ISensorInstanceService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
+    public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
         var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
@@ -71,6 +79,22 @@ public class SensorInstanceService : ISensorInstanceService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+    Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignDevice(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+
+    Task<bool> AddToTelemetryStreams(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> RemoveFromTelemetryStreams(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
 
 
 }

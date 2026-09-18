@@ -4,12 +4,26 @@ using iotonaspdotnet.Persistence;
 namespace iotonaspdotnet.Service;
 
 public interface ITelemetryStreamService
-{
-    Task<TelemetryStream?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
-    Task<IReadOnlyList<TelemetryStream>> GetAll(CancellationToken cancellationToken);
+
     Task Create(TelemetryStreamRequest request , CancellationToken cancellationToken);
     Task<bool> Update(TelemetryStreamRequest request, CancellationToken cancellationToken);
+    Task<TelemetryStream?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<TelemetryStream>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+    // ------------------------------
+    // Single Associations
+    // -------------------------------
+    Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignDevice(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> AssignSensor(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignSensor(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> AssignSchema(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignSchema(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> AssignMessagingEndpoint(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignMessagingEndpoint(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> AssignRetentionPolicy(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignRetentionPolicy(AssociationRequest request, CancellationToken cancellationToken);
 
 
 }
@@ -90,7 +104,7 @@ public class TelemetryStreamService : ITelemetryStreamService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
+    public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
         var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
@@ -101,6 +115,43 @@ public class TelemetryStreamService : ITelemetryStreamService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+    Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignDevice(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    Task<bool> AssignSensor(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignSensor(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    Task<bool> AssignSchema(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignSchema(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    Task<bool> AssignMessagingEndpoint(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignMessagingEndpoint(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    Task<bool> AssignRetentionPolicy(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignRetentionPolicy(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+
 
 
 }

@@ -16,11 +16,11 @@ public static class ActuatorInstanceEndpoints
         group.MapPut("/", update);
         group.MapDelete("/", delete);
 
-        group.MapDelete("/", assignDevice);
-        group.MapDelete("/", unassignDevice);
+        group.MapPut("/", assignDevice);
+        group.MapPut("/", unassignDevice);
 
-    group.MapDelete("/", addToSupportedCommands);
-    group.MapDelete("/", removeFromSupportedCommands);
+    group.MapPut("/", addToSupportedCommands);
+    group.MapPut("/", removeFromSupportedCommands);
 
 
         return app;
@@ -35,7 +35,7 @@ public static class ActuatorInstanceEndpoints
 
         try
         {
-            await service.CreateAsync(lowercaseClassName, cancellationToken);
+            await service.Create(lowercaseClassName, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -54,7 +54,7 @@ public static class ActuatorInstanceEndpoints
 
         try
         {
-            var updated = await service.UpdateAsync(model, cancellationToken);
+            var updated = await service.Update(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -63,29 +63,30 @@ public static class ActuatorInstanceEndpoints
         }
     }
 
-    private static async Task<IResult> GetAll(
-        IActuatorInstanceService service,
-        CancellationToken cancellationToken) {
-
-        var all = await service.GetAllAsync(cancellationToken);
-        return Results.Ok( all.Select( ActuatorInstanceResponse.FromModel ) );
-    }
 
     private static async Task<IResult> Get(
         IdentifierRequest identifier,
         IActuatorInstanceService service,
         CancellationToken cancellationToken) {
 
-        var actuatorInstance = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        var actuatorInstance = await service.Get(identifier, cancellationToken);
         return actuatorInstance is null ? Results.NotFound() : Results.Ok( actuatorInstance );
     }
 
+
+    private static async Task<IResult> GetAll(
+        IActuatorInstanceService service,
+        CancellationToken cancellationToken) {
+
+        var all = await service.GetAll(cancellationToken);
+        return Results.Ok( all.Select( ActuatorInstanceResponse.FromModel ) );
+        }
 
     private static async Task<IResult> Delete(
         IdentifierRequest identifier,
         IActuatorInstanceService service,
         CancellationToken cancellationToken) {
-        var deleted = await service.DeleteAsync(identifier, cancellationToken);
+        var deleted = await service.Delete(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
@@ -93,35 +94,34 @@ public static class ActuatorInstanceEndpoints
         AssociationRequest request,
         IActuatorInstanceService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AssignDeviceAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var assigned = await service.AssignDevice(request, cancellationToken);
+        return assigned ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignDevice(
+    private static async Task<IResult> UnassignDevice(
     AssociationRequest request,
     IActuatorInstanceService service,
     CancellationToken cancellationToken) {
-        var deleted = await service.AssignDeviceAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var unassigned = await service.UnassignDevice(request, cancellationToken);
+        return unassigned ? Results.NoContent() : Results.NotFound();
     }
 
 
-    private static async Task<IResult> AssignSupportedCommands(
-        AssociationRequest request,
+    private static async Task<IResult> AddToSupportedCommands(
+        MultipleAssociationRequest request,
         IActuatorInstanceService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AddToSupportedCommandsAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var addTo = await service.AddToSupportedCommands(request, cancellationToken);
+        return addTo ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignSupportedCommands(
-        AssociationRequest request,
+    private static async Task<IResult> RemoveFromSupportedCommands(
+        MultipleAssociationRequest request,
         IActuatorInstanceService service,
         CancellationToken cancellationToken) {
-        var deleted = await service.RemoveFromSupportedCommandsAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var removeFrom = await service.RemoveFromSupportedCommands(request, cancellationToken);
+        return removeFrom ? Results.NoContent() : Results.NotFound();
     }
-
     private ActuatorInstance mapRequestToActuatorInstance( ActuatorInstanceRequest request ) {
         var model = new ActuatorInstance
         {
@@ -134,4 +134,5 @@ public static class ActuatorInstanceEndpoints
         }
         return model;
     }
+
 }

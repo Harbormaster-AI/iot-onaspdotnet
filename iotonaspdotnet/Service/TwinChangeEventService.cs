@@ -4,12 +4,18 @@ using iotonaspdotnet.Persistence;
 namespace iotonaspdotnet.Service;
 
 public interface ITwinChangeEventService
-{
-    Task<TwinChangeEvent?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
-    Task<IReadOnlyList<TwinChangeEvent>> GetAll(CancellationToken cancellationToken);
+
     Task Create(TwinChangeEventRequest request , CancellationToken cancellationToken);
     Task<bool> Update(TwinChangeEventRequest request, CancellationToken cancellationToken);
+    Task<TwinChangeEvent?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<TwinChangeEvent>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+    // ------------------------------
+    // Single Associations
+    // -------------------------------
+    Task<bool> AssignTwin(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignTwin(AssociationRequest request, CancellationToken cancellationToken);
 
 
 }
@@ -58,7 +64,7 @@ public class TwinChangeEventService : ITwinChangeEventService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
+    public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
         var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
@@ -69,6 +75,15 @@ public class TwinChangeEventService : ITwinChangeEventService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+    Task<bool> AssignTwin(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignTwin(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+
 
 
 }

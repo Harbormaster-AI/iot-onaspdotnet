@@ -4,13 +4,23 @@ using iotonaspdotnet.Persistence;
 namespace iotonaspdotnet.Service;
 
 public interface IDeviceVendorService
-{
-    Task<DeviceVendor?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
-    Task<IReadOnlyList<DeviceVendor>> GetAll(CancellationToken cancellationToken);
+
     Task Create(DeviceVendorRequest request , CancellationToken cancellationToken);
     Task<bool> Update(DeviceVendorRequest request, CancellationToken cancellationToken);
+    Task<DeviceVendor?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<DeviceVendor>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
 
+    // ------------------------------
+    // Single Associations
+    // -------------------------------
+
+    Task<bool> AddToDeviceModels(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> RemoveFromDeviceModels(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> AddToFirmwareReleases(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> RemoveFromFirmwareReleases(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> AddToHardwareModules(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> RemoveFromHardwareModules(MultipleAssociationRequest request, CancellationToken cancellationToken);
 
 }
 
@@ -54,7 +64,7 @@ public class DeviceVendorService : IDeviceVendorService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
+    public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
         var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
@@ -65,6 +75,29 @@ public class DeviceVendorService : IDeviceVendorService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+
+    Task<bool> AddToDeviceModels(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> RemoveFromDeviceModels(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    Task<bool> AddToFirmwareReleases(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> RemoveFromFirmwareReleases(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    Task<bool> AddToHardwareModules(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> RemoveFromHardwareModules(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
 
 
 }

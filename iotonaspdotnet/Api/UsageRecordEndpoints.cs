@@ -16,12 +16,12 @@ public static class UsageRecordEndpoints
         group.MapPut("/", update);
         group.MapDelete("/", delete);
 
-        group.MapDelete("/", assignTenant);
-        group.MapDelete("/", unassignTenant);
-        group.MapDelete("/", assignDevice);
-        group.MapDelete("/", unassignDevice);
-        group.MapDelete("/", assignConnectivityPlan);
-        group.MapDelete("/", unassignConnectivityPlan);
+        group.MapPut("/", assignTenant);
+        group.MapPut("/", unassignTenant);
+        group.MapPut("/", assignDevice);
+        group.MapPut("/", unassignDevice);
+        group.MapPut("/", assignConnectivityPlan);
+        group.MapPut("/", unassignConnectivityPlan);
 
 
         return app;
@@ -36,7 +36,7 @@ public static class UsageRecordEndpoints
 
         try
         {
-            await service.CreateAsync(lowercaseClassName, cancellationToken);
+            await service.Create(lowercaseClassName, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -55,7 +55,7 @@ public static class UsageRecordEndpoints
 
         try
         {
-            var updated = await service.UpdateAsync(model, cancellationToken);
+            var updated = await service.Update(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -64,29 +64,30 @@ public static class UsageRecordEndpoints
         }
     }
 
-    private static async Task<IResult> GetAll(
-        IUsageRecordService service,
-        CancellationToken cancellationToken) {
-
-        var all = await service.GetAllAsync(cancellationToken);
-        return Results.Ok( all.Select( UsageRecordResponse.FromModel ) );
-    }
 
     private static async Task<IResult> Get(
         IdentifierRequest identifier,
         IUsageRecordService service,
         CancellationToken cancellationToken) {
 
-        var usageRecord = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        var usageRecord = await service.Get(identifier, cancellationToken);
         return usageRecord is null ? Results.NotFound() : Results.Ok( usageRecord );
     }
 
+
+    private static async Task<IResult> GetAll(
+        IUsageRecordService service,
+        CancellationToken cancellationToken) {
+
+        var all = await service.GetAll(cancellationToken);
+        return Results.Ok( all.Select( UsageRecordResponse.FromModel ) );
+        }
 
     private static async Task<IResult> Delete(
         IdentifierRequest identifier,
         IUsageRecordService service,
         CancellationToken cancellationToken) {
-        var deleted = await service.DeleteAsync(identifier, cancellationToken);
+        var deleted = await service.Delete(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
@@ -94,49 +95,64 @@ public static class UsageRecordEndpoints
         AssociationRequest request,
         IUsageRecordService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AssignTenantAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var assigned = await service.AssignTenant(request, cancellationToken);
+        return assigned ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignTenant(
+    private static async Task<IResult> UnassignTenant(
     AssociationRequest request,
     IUsageRecordService service,
     CancellationToken cancellationToken) {
-        var deleted = await service.AssignTenantAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var unassigned = await service.UnassignTenant(request, cancellationToken);
+        return unassigned ? Results.NoContent() : Results.NotFound();
     }
 
     private static async Task<IResult> AssignDevice(
         AssociationRequest request,
         IUsageRecordService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AssignDeviceAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var assigned = await service.AssignDevice(request, cancellationToken);
+        return assigned ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignDevice(
+    private static async Task<IResult> UnassignDevice(
     AssociationRequest request,
     IUsageRecordService service,
     CancellationToken cancellationToken) {
-        var deleted = await service.AssignDeviceAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var unassigned = await service.UnassignDevice(request, cancellationToken);
+        return unassigned ? Results.NoContent() : Results.NotFound();
     }
 
     private static async Task<IResult> AssignConnectivityPlan(
         AssociationRequest request,
         IUsageRecordService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AssignConnectivityPlanAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var assigned = await service.AssignConnectivityPlan(request, cancellationToken);
+        return assigned ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignConnectivityPlan(
+    private static async Task<IResult> UnassignConnectivityPlan(
     AssociationRequest request,
     IUsageRecordService service,
     CancellationToken cancellationToken) {
-        var deleted = await service.AssignConnectivityPlanAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var unassigned = await service.UnassignConnectivityPlan(request, cancellationToken);
+        return unassigned ? Results.NoContent() : Results.NotFound();
     }
 
+
+    private UsageRecord mapRequestToUsageRecord( UsageRecordRequest request ) {
+        var model = new UsageRecord
+        {
+            Id = request.id,
+            PeriodStart = request.PeriodStart,
+            PeriodEnd = request.PeriodEnd,
+            MessagesSent = request.MessagesSent,
+            DataVolumeMB = request.DataVolumeMB,
+            Tenant = request.Tenant,
+            Device = request.Device,
+            ConnectivityPlan = request.ConnectivityPlan,
+        }
+        return model;
+    }
 
 }

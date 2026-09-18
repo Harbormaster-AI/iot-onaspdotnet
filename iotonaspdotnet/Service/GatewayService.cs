@@ -4,13 +4,31 @@ using iotonaspdotnet.Persistence;
 namespace iotonaspdotnet.Service;
 
 public interface IGatewayService
-{
-    Task<Gateway?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
-    Task<IReadOnlyList<Gateway>> GetAll(CancellationToken cancellationToken);
+
     Task Create(GatewayRequest request , CancellationToken cancellationToken);
     Task<bool> Update(GatewayRequest request, CancellationToken cancellationToken);
+    Task<Gateway?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<Gateway>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
 
+    // ------------------------------
+    // Single Associations
+    // -------------------------------
+    Task<bool> AssignSite(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignSite(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> AssignRoom(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignRoom(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> AssignDigitalTwin(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignDigitalTwin(AssociationRequest request, CancellationToken cancellationToken);
+
+    Task<bool> AddToDevices(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> RemoveFromDevices(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> AddToEdgeApplications(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> RemoveFromEdgeApplications(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> AddToCertificates(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> RemoveFromCertificates(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> AddToNetworkProfiles(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> RemoveFromNetworkProfiles(MultipleAssociationRequest request, CancellationToken cancellationToken);
 
 }
 
@@ -77,7 +95,7 @@ public class GatewayService : IGatewayService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
+    public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
         var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
@@ -88,6 +106,57 @@ public class GatewayService : IGatewayService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+    Task<bool> AssignSite(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignSite(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    Task<bool> AssignRoom(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignRoom(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    Task<bool> AssignDigitalTwin(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignDigitalTwin(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+
+    Task<bool> AddToDevices(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> RemoveFromDevices(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    Task<bool> AddToEdgeApplications(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> RemoveFromEdgeApplications(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    Task<bool> AddToCertificates(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> RemoveFromCertificates(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    Task<bool> AddToNetworkProfiles(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> RemoveFromNetworkProfiles(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
 
 
 }

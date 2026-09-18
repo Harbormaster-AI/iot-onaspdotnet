@@ -4,13 +4,25 @@ using iotonaspdotnet.Persistence;
 namespace iotonaspdotnet.Service;
 
 public interface ISiteService
-{
-    Task<Site?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
-    Task<IReadOnlyList<Site>> GetAll(CancellationToken cancellationToken);
+
     Task Create(SiteRequest request , CancellationToken cancellationToken);
     Task<bool> Update(SiteRequest request, CancellationToken cancellationToken);
+    Task<Site?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<Site>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
 
+    // ------------------------------
+    // Single Associations
+    // -------------------------------
+    Task<bool> AssignTenant(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignTenant(AssociationRequest request, CancellationToken cancellationToken);
+
+    Task<bool> AddToBuildings(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> RemoveFromBuildings(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> AddToDevices(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> RemoveFromDevices(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> AddToGateways(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> RemoveFromGateways(MultipleAssociationRequest request, CancellationToken cancellationToken);
 
 }
 
@@ -63,7 +75,7 @@ public class SiteService : ISiteService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
+    public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
         var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
@@ -74,6 +86,36 @@ public class SiteService : ISiteService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+    Task<bool> AssignTenant(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignTenant(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+
+    Task<bool> AddToBuildings(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> RemoveFromBuildings(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    Task<bool> AddToDevices(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> RemoveFromDevices(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    Task<bool> AddToGateways(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> RemoveFromGateways(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
 
 
 }

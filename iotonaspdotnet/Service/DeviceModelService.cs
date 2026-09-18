@@ -4,13 +4,27 @@ using iotonaspdotnet.Persistence;
 namespace iotonaspdotnet.Service;
 
 public interface IDeviceModelService
-{
-    Task<DeviceModel?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
-    Task<IReadOnlyList<DeviceModel>> GetAll(CancellationToken cancellationToken);
+
     Task Create(DeviceModelRequest request , CancellationToken cancellationToken);
     Task<bool> Update(DeviceModelRequest request, CancellationToken cancellationToken);
+    Task<DeviceModel?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<DeviceModel>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
 
+    // ------------------------------
+    // Single Associations
+    // -------------------------------
+    Task<bool> AssignVendor(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignVendor(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> AssignTwinTemplate(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignTwinTemplate(AssociationRequest request, CancellationToken cancellationToken);
+
+    Task<bool> AddToHardwareModules(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> RemoveFromHardwareModules(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> AddToFirmwareReleases(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> RemoveFromFirmwareReleases(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> AddToCommandDefinitions(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> RemoveFromCommandDefinitions(MultipleAssociationRequest request, CancellationToken cancellationToken);
 
 }
 
@@ -71,7 +85,7 @@ public class DeviceModelService : IDeviceModelService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
+    public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
         var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
@@ -82,6 +96,43 @@ public class DeviceModelService : IDeviceModelService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+    Task<bool> AssignVendor(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignVendor(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    Task<bool> AssignTwinTemplate(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignTwinTemplate(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+
+    Task<bool> AddToHardwareModules(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> RemoveFromHardwareModules(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    Task<bool> AddToFirmwareReleases(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> RemoveFromFirmwareReleases(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    Task<bool> AddToCommandDefinitions(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> RemoveFromCommandDefinitions(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
 
 
 }

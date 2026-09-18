@@ -4,13 +4,21 @@ using iotonaspdotnet.Persistence;
 namespace iotonaspdotnet.Service;
 
 public interface IMessagingEndpointService
-{
-    Task<MessagingEndpoint?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
-    Task<IReadOnlyList<MessagingEndpoint>> GetAll(CancellationToken cancellationToken);
+
     Task Create(MessagingEndpointRequest request , CancellationToken cancellationToken);
     Task<bool> Update(MessagingEndpointRequest request, CancellationToken cancellationToken);
+    Task<MessagingEndpoint?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<MessagingEndpoint>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
 
+    // ------------------------------
+    // Single Associations
+    // -------------------------------
+    Task<bool> AssignTenant(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignTenant(AssociationRequest request, CancellationToken cancellationToken);
+
+    Task<bool> AddToStreams(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> RemoveFromStreams(MultipleAssociationRequest request, CancellationToken cancellationToken);
 
 }
 
@@ -60,7 +68,7 @@ public class MessagingEndpointService : IMessagingEndpointService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
+    public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
         var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
@@ -71,6 +79,22 @@ public class MessagingEndpointService : IMessagingEndpointService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+    Task<bool> AssignTenant(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignTenant(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+
+    Task<bool> AddToStreams(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> RemoveFromStreams(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
 
 
 }

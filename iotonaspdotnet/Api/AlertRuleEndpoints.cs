@@ -16,14 +16,14 @@ public static class AlertRuleEndpoints
         group.MapPut("/", update);
         group.MapDelete("/", delete);
 
-        group.MapDelete("/", assignTenant);
-        group.MapDelete("/", unassignTenant);
+        group.MapPut("/", assignTenant);
+        group.MapPut("/", unassignTenant);
 
-    group.MapDelete("/", addToStreams);
-    group.MapDelete("/", removeFromStreams);
+    group.MapPut("/", addToStreams);
+    group.MapPut("/", removeFromStreams);
 
-    group.MapDelete("/", addToAlerts);
-    group.MapDelete("/", removeFromAlerts);
+    group.MapPut("/", addToAlerts);
+    group.MapPut("/", removeFromAlerts);
 
 
         return app;
@@ -38,7 +38,7 @@ public static class AlertRuleEndpoints
 
         try
         {
-            await service.CreateAsync(lowercaseClassName, cancellationToken);
+            await service.Create(lowercaseClassName, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -57,7 +57,7 @@ public static class AlertRuleEndpoints
 
         try
         {
-            var updated = await service.UpdateAsync(model, cancellationToken);
+            var updated = await service.Update(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -66,29 +66,30 @@ public static class AlertRuleEndpoints
         }
     }
 
-    private static async Task<IResult> GetAll(
-        IAlertRuleService service,
-        CancellationToken cancellationToken) {
-
-        var all = await service.GetAllAsync(cancellationToken);
-        return Results.Ok( all.Select( AlertRuleResponse.FromModel ) );
-    }
 
     private static async Task<IResult> Get(
         IdentifierRequest identifier,
         IAlertRuleService service,
         CancellationToken cancellationToken) {
 
-        var alertRule = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        var alertRule = await service.Get(identifier, cancellationToken);
         return alertRule is null ? Results.NotFound() : Results.Ok( alertRule );
     }
 
+
+    private static async Task<IResult> GetAll(
+        IAlertRuleService service,
+        CancellationToken cancellationToken) {
+
+        var all = await service.GetAll(cancellationToken);
+        return Results.Ok( all.Select( AlertRuleResponse.FromModel ) );
+        }
 
     private static async Task<IResult> Delete(
         IdentifierRequest identifier,
         IAlertRuleService service,
         CancellationToken cancellationToken) {
-        var deleted = await service.DeleteAsync(identifier, cancellationToken);
+        var deleted = await service.Delete(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
@@ -96,35 +97,49 @@ public static class AlertRuleEndpoints
         AssociationRequest request,
         IAlertRuleService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AssignTenantAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var assigned = await service.AssignTenant(request, cancellationToken);
+        return assigned ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignTenant(
+    private static async Task<IResult> UnassignTenant(
     AssociationRequest request,
     IAlertRuleService service,
     CancellationToken cancellationToken) {
-        var deleted = await service.AssignTenantAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var unassigned = await service.UnassignTenant(request, cancellationToken);
+        return unassigned ? Results.NoContent() : Results.NotFound();
     }
 
 
-    private static async Task<IResult> AssignStreams(
-        AssociationRequest request,
+    private static async Task<IResult> AddToStreams(
+        MultipleAssociationRequest request,
         IAlertRuleService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AddToStreamsAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var addTo = await service.AddToStreams(request, cancellationToken);
+        return addTo ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignStreams(
-        AssociationRequest request,
+    private static async Task<IResult> RemoveFromStreams(
+        MultipleAssociationRequest request,
         IAlertRuleService service,
         CancellationToken cancellationToken) {
-        var deleted = await service.RemoveFromStreamsAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var removeFrom = await service.RemoveFromStreams(request, cancellationToken);
+        return removeFrom ? Results.NoContent() : Results.NotFound();
+    }
+    private static async Task<IResult> AddToAlerts(
+        MultipleAssociationRequest request,
+        IAlertRuleService service,
+        CancellationToken cancellationToken) {
+        var addTo = await service.AddToAlerts(request, cancellationToken);
+        return addTo ? Results.NoContent() : Results.NotFound();
     }
 
+    private static async Task<IResult> RemoveFromAlerts(
+        MultipleAssociationRequest request,
+        IAlertRuleService service,
+        CancellationToken cancellationToken) {
+        var removeFrom = await service.RemoveFromAlerts(request, cancellationToken);
+        return removeFrom ? Results.NoContent() : Results.NotFound();
+    }
     private AlertRule mapRequestToAlertRule( AlertRuleRequest request ) {
         var model = new AlertRule
         {
@@ -138,33 +153,5 @@ public static class AlertRuleEndpoints
         }
         return model;
     }
-    private static async Task<IResult> AssignAlerts(
-        AssociationRequest request,
-        IAlertRuleService service,
-        CancellationToken cancellationToken) {
-        var assign = await service.AddToAlertsAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
-    }
 
-    private static async Task<IResult> AssignAlerts(
-        AssociationRequest request,
-        IAlertRuleService service,
-        CancellationToken cancellationToken) {
-        var deleted = await service.RemoveFromAlertsAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
-    }
-
-    private AlertRule mapRequestToAlertRule( AlertRuleRequest request ) {
-        var model = new AlertRule
-        {
-            Id = request.id,
-            Name = request.Name,
-            Expression = request.Expression,
-            Tenant = request.Tenant,
-            Streams = request.Streams,
-            Alerts = request.Alerts,
-            Severity = request.Severity,
-        }
-        return model;
-    }
 }

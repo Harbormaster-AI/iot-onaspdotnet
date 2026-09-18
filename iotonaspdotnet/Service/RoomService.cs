@@ -4,13 +4,23 @@ using iotonaspdotnet.Persistence;
 namespace iotonaspdotnet.Service;
 
 public interface IRoomService
-{
-    Task<Room?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
-    Task<IReadOnlyList<Room>> GetAll(CancellationToken cancellationToken);
+
     Task Create(RoomRequest request , CancellationToken cancellationToken);
     Task<bool> Update(RoomRequest request, CancellationToken cancellationToken);
+    Task<Room?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<Room>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
 
+    // ------------------------------
+    // Single Associations
+    // -------------------------------
+    Task<bool> AssignFloor(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignFloor(AssociationRequest request, CancellationToken cancellationToken);
+
+    Task<bool> AddToDevices(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> RemoveFromDevices(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> AddToGateways(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> RemoveFromGateways(MultipleAssociationRequest request, CancellationToken cancellationToken);
 
 }
 
@@ -58,7 +68,7 @@ public class RoomService : IRoomService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
+    public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
         var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
@@ -69,6 +79,29 @@ public class RoomService : IRoomService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+    Task<bool> AssignFloor(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignFloor(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+
+    Task<bool> AddToDevices(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> RemoveFromDevices(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    Task<bool> AddToGateways(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> RemoveFromGateways(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
 
 
 }

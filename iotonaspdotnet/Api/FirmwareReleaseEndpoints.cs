@@ -16,8 +16,8 @@ public static class FirmwareReleaseEndpoints
         group.MapPut("/", update);
         group.MapDelete("/", delete);
 
-        group.MapDelete("/", assignDeviceModel);
-        group.MapDelete("/", unassignDeviceModel);
+        group.MapPut("/", assignDeviceModel);
+        group.MapPut("/", unassignDeviceModel);
 
 
         return app;
@@ -32,7 +32,7 @@ public static class FirmwareReleaseEndpoints
 
         try
         {
-            await service.CreateAsync(lowercaseClassName, cancellationToken);
+            await service.Create(lowercaseClassName, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -51,7 +51,7 @@ public static class FirmwareReleaseEndpoints
 
         try
         {
-            var updated = await service.UpdateAsync(model, cancellationToken);
+            var updated = await service.Update(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -60,29 +60,30 @@ public static class FirmwareReleaseEndpoints
         }
     }
 
-    private static async Task<IResult> GetAll(
-        IFirmwareReleaseService service,
-        CancellationToken cancellationToken) {
-
-        var all = await service.GetAllAsync(cancellationToken);
-        return Results.Ok( all.Select( FirmwareReleaseResponse.FromModel ) );
-    }
 
     private static async Task<IResult> Get(
         IdentifierRequest identifier,
         IFirmwareReleaseService service,
         CancellationToken cancellationToken) {
 
-        var firmwareRelease = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        var firmwareRelease = await service.Get(identifier, cancellationToken);
         return firmwareRelease is null ? Results.NotFound() : Results.Ok( firmwareRelease );
     }
 
+
+    private static async Task<IResult> GetAll(
+        IFirmwareReleaseService service,
+        CancellationToken cancellationToken) {
+
+        var all = await service.GetAll(cancellationToken);
+        return Results.Ok( all.Select( FirmwareReleaseResponse.FromModel ) );
+        }
 
     private static async Task<IResult> Delete(
         IdentifierRequest identifier,
         IFirmwareReleaseService service,
         CancellationToken cancellationToken) {
-        var deleted = await service.DeleteAsync(identifier, cancellationToken);
+        var deleted = await service.Delete(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
@@ -90,17 +91,30 @@ public static class FirmwareReleaseEndpoints
         AssociationRequest request,
         IFirmwareReleaseService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AssignDeviceModelAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var assigned = await service.AssignDeviceModel(request, cancellationToken);
+        return assigned ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignDeviceModel(
+    private static async Task<IResult> UnassignDeviceModel(
     AssociationRequest request,
     IFirmwareReleaseService service,
     CancellationToken cancellationToken) {
-        var deleted = await service.AssignDeviceModelAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var unassigned = await service.UnassignDeviceModel(request, cancellationToken);
+        return unassigned ? Results.NoContent() : Results.NotFound();
     }
 
+
+    private FirmwareRelease mapRequestToFirmwareRelease( FirmwareReleaseRequest request ) {
+        var model = new FirmwareRelease
+        {
+            Id = request.id,
+            Version = request.Version,
+            ReleaseDate = request.ReleaseDate,
+            ReleaseNotes = request.ReleaseNotes,
+            Checksum = request.Checksum,
+            DeviceModel = request.DeviceModel,
+        }
+        return model;
+    }
 
 }

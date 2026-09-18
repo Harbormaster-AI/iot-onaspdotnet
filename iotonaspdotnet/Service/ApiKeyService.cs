@@ -4,12 +4,18 @@ using iotonaspdotnet.Persistence;
 namespace iotonaspdotnet.Service;
 
 public interface IApiKeyService
-{
-    Task<ApiKey?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
-    Task<IReadOnlyList<ApiKey>> GetAll(CancellationToken cancellationToken);
+
     Task Create(ApiKeyRequest request , CancellationToken cancellationToken);
     Task<bool> Update(ApiKeyRequest request, CancellationToken cancellationToken);
+    Task<ApiKey?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<ApiKey>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+    // ------------------------------
+    // Single Associations
+    // -------------------------------
+    Task<bool> AssignAccessPolicy(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignAccessPolicy(AssociationRequest request, CancellationToken cancellationToken);
 
 
 }
@@ -59,7 +65,7 @@ public class ApiKeyService : IApiKeyService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
+    public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
         var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
@@ -70,6 +76,15 @@ public class ApiKeyService : IApiKeyService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+    Task<bool> AssignAccessPolicy(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignAccessPolicy(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+
 
 
 }

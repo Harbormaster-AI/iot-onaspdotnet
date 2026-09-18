@@ -4,13 +4,25 @@ using iotonaspdotnet.Persistence;
 namespace iotonaspdotnet.Service;
 
 public interface IDigitalTwinService
-{
-    Task<DigitalTwin?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
-    Task<IReadOnlyList<DigitalTwin>> GetAll(CancellationToken cancellationToken);
+
     Task Create(DigitalTwinRequest request , CancellationToken cancellationToken);
     Task<bool> Update(DigitalTwinRequest request, CancellationToken cancellationToken);
+    Task<DigitalTwin?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<DigitalTwin>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
 
+    // ------------------------------
+    // Single Associations
+    // -------------------------------
+    Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignDevice(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> AssignGateway(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignGateway(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> AssignTemplate(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignTemplate(AssociationRequest request, CancellationToken cancellationToken);
+
+    Task<bool> AddToChangeEvents(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> RemoveFromChangeEvents(MultipleAssociationRequest request, CancellationToken cancellationToken);
 
 }
 
@@ -76,7 +88,7 @@ public class DigitalTwinService : IDigitalTwinService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
+    public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
         var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
@@ -87,6 +99,36 @@ public class DigitalTwinService : IDigitalTwinService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+    Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignDevice(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    Task<bool> AssignGateway(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignGateway(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    Task<bool> AssignTemplate(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignTemplate(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+
+    Task<bool> AddToChangeEvents(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> RemoveFromChangeEvents(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
 
 
 }

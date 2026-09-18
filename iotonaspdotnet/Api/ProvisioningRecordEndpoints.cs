@@ -16,12 +16,12 @@ public static class ProvisioningRecordEndpoints
         group.MapPut("/", update);
         group.MapDelete("/", delete);
 
-        group.MapDelete("/", assignDevice);
-        group.MapDelete("/", unassignDevice);
-        group.MapDelete("/", assignCertificate);
-        group.MapDelete("/", unassignCertificate);
-        group.MapDelete("/", assignTenant);
-        group.MapDelete("/", unassignTenant);
+        group.MapPut("/", assignDevice);
+        group.MapPut("/", unassignDevice);
+        group.MapPut("/", assignCertificate);
+        group.MapPut("/", unassignCertificate);
+        group.MapPut("/", assignTenant);
+        group.MapPut("/", unassignTenant);
 
 
         return app;
@@ -36,7 +36,7 @@ public static class ProvisioningRecordEndpoints
 
         try
         {
-            await service.CreateAsync(lowercaseClassName, cancellationToken);
+            await service.Create(lowercaseClassName, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -55,7 +55,7 @@ public static class ProvisioningRecordEndpoints
 
         try
         {
-            var updated = await service.UpdateAsync(model, cancellationToken);
+            var updated = await service.Update(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -64,29 +64,30 @@ public static class ProvisioningRecordEndpoints
         }
     }
 
-    private static async Task<IResult> GetAll(
-        IProvisioningRecordService service,
-        CancellationToken cancellationToken) {
-
-        var all = await service.GetAllAsync(cancellationToken);
-        return Results.Ok( all.Select( ProvisioningRecordResponse.FromModel ) );
-    }
 
     private static async Task<IResult> Get(
         IdentifierRequest identifier,
         IProvisioningRecordService service,
         CancellationToken cancellationToken) {
 
-        var provisioningRecord = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        var provisioningRecord = await service.Get(identifier, cancellationToken);
         return provisioningRecord is null ? Results.NotFound() : Results.Ok( provisioningRecord );
     }
 
+
+    private static async Task<IResult> GetAll(
+        IProvisioningRecordService service,
+        CancellationToken cancellationToken) {
+
+        var all = await service.GetAll(cancellationToken);
+        return Results.Ok( all.Select( ProvisioningRecordResponse.FromModel ) );
+        }
 
     private static async Task<IResult> Delete(
         IdentifierRequest identifier,
         IProvisioningRecordService service,
         CancellationToken cancellationToken) {
-        var deleted = await service.DeleteAsync(identifier, cancellationToken);
+        var deleted = await service.Delete(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
@@ -94,49 +95,64 @@ public static class ProvisioningRecordEndpoints
         AssociationRequest request,
         IProvisioningRecordService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AssignDeviceAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var assigned = await service.AssignDevice(request, cancellationToken);
+        return assigned ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignDevice(
+    private static async Task<IResult> UnassignDevice(
     AssociationRequest request,
     IProvisioningRecordService service,
     CancellationToken cancellationToken) {
-        var deleted = await service.AssignDeviceAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var unassigned = await service.UnassignDevice(request, cancellationToken);
+        return unassigned ? Results.NoContent() : Results.NotFound();
     }
 
     private static async Task<IResult> AssignCertificate(
         AssociationRequest request,
         IProvisioningRecordService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AssignCertificateAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var assigned = await service.AssignCertificate(request, cancellationToken);
+        return assigned ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignCertificate(
+    private static async Task<IResult> UnassignCertificate(
     AssociationRequest request,
     IProvisioningRecordService service,
     CancellationToken cancellationToken) {
-        var deleted = await service.AssignCertificateAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var unassigned = await service.UnassignCertificate(request, cancellationToken);
+        return unassigned ? Results.NoContent() : Results.NotFound();
     }
 
     private static async Task<IResult> AssignTenant(
         AssociationRequest request,
         IProvisioningRecordService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AssignTenantAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var assigned = await service.AssignTenant(request, cancellationToken);
+        return assigned ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignTenant(
+    private static async Task<IResult> UnassignTenant(
     AssociationRequest request,
     IProvisioningRecordService service,
     CancellationToken cancellationToken) {
-        var deleted = await service.AssignTenantAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var unassigned = await service.UnassignTenant(request, cancellationToken);
+        return unassigned ? Results.NoContent() : Results.NotFound();
     }
 
+
+    private ProvisioningRecord mapRequestToProvisioningRecord( ProvisioningRecordRequest request ) {
+        var model = new ProvisioningRecord
+        {
+            Id = request.id,
+            EnrolledAt = request.EnrolledAt,
+            ProvisioningService = request.ProvisioningService,
+            Device = request.Device,
+            Certificate = request.Certificate,
+            Tenant = request.Tenant,
+            Method = request.Method,
+            Status = request.Status,
+        }
+        return model;
+    }
 
 }

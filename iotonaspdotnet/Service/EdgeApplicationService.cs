@@ -4,12 +4,18 @@ using iotonaspdotnet.Persistence;
 namespace iotonaspdotnet.Service;
 
 public interface IEdgeApplicationService
-{
-    Task<EdgeApplication?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
-    Task<IReadOnlyList<EdgeApplication>> GetAll(CancellationToken cancellationToken);
+
     Task Create(EdgeApplicationRequest request , CancellationToken cancellationToken);
     Task<bool> Update(EdgeApplicationRequest request, CancellationToken cancellationToken);
+    Task<EdgeApplication?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<EdgeApplication>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+    // ------------------------------
+    // Single Associations
+    // -------------------------------
+    Task<bool> AssignGateway(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignGateway(AssociationRequest request, CancellationToken cancellationToken);
 
 
 }
@@ -59,7 +65,7 @@ public class EdgeApplicationService : IEdgeApplicationService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
+    public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
         var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
@@ -70,6 +76,15 @@ public class EdgeApplicationService : IEdgeApplicationService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+    Task<bool> AssignGateway(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignGateway(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+
 
 
 }

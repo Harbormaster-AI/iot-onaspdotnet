@@ -16,10 +16,10 @@ public static class DeviceCertificateEndpoints
         group.MapPut("/", update);
         group.MapDelete("/", delete);
 
-        group.MapDelete("/", assignDevice);
-        group.MapDelete("/", unassignDevice);
-        group.MapDelete("/", assignGateway);
-        group.MapDelete("/", unassignGateway);
+        group.MapPut("/", assignDevice);
+        group.MapPut("/", unassignDevice);
+        group.MapPut("/", assignGateway);
+        group.MapPut("/", unassignGateway);
 
 
         return app;
@@ -34,7 +34,7 @@ public static class DeviceCertificateEndpoints
 
         try
         {
-            await service.CreateAsync(lowercaseClassName, cancellationToken);
+            await service.Create(lowercaseClassName, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -53,7 +53,7 @@ public static class DeviceCertificateEndpoints
 
         try
         {
-            var updated = await service.UpdateAsync(model, cancellationToken);
+            var updated = await service.Update(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -62,29 +62,30 @@ public static class DeviceCertificateEndpoints
         }
     }
 
-    private static async Task<IResult> GetAll(
-        IDeviceCertificateService service,
-        CancellationToken cancellationToken) {
-
-        var all = await service.GetAllAsync(cancellationToken);
-        return Results.Ok( all.Select( DeviceCertificateResponse.FromModel ) );
-    }
 
     private static async Task<IResult> Get(
         IdentifierRequest identifier,
         IDeviceCertificateService service,
         CancellationToken cancellationToken) {
 
-        var deviceCertificate = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        var deviceCertificate = await service.Get(identifier, cancellationToken);
         return deviceCertificate is null ? Results.NotFound() : Results.Ok( deviceCertificate );
     }
 
+
+    private static async Task<IResult> GetAll(
+        IDeviceCertificateService service,
+        CancellationToken cancellationToken) {
+
+        var all = await service.GetAll(cancellationToken);
+        return Results.Ok( all.Select( DeviceCertificateResponse.FromModel ) );
+        }
 
     private static async Task<IResult> Delete(
         IdentifierRequest identifier,
         IDeviceCertificateService service,
         CancellationToken cancellationToken) {
-        var deleted = await service.DeleteAsync(identifier, cancellationToken);
+        var deleted = await service.Delete(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
@@ -92,33 +93,48 @@ public static class DeviceCertificateEndpoints
         AssociationRequest request,
         IDeviceCertificateService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AssignDeviceAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var assigned = await service.AssignDevice(request, cancellationToken);
+        return assigned ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignDevice(
+    private static async Task<IResult> UnassignDevice(
     AssociationRequest request,
     IDeviceCertificateService service,
     CancellationToken cancellationToken) {
-        var deleted = await service.AssignDeviceAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var unassigned = await service.UnassignDevice(request, cancellationToken);
+        return unassigned ? Results.NoContent() : Results.NotFound();
     }
 
     private static async Task<IResult> AssignGateway(
         AssociationRequest request,
         IDeviceCertificateService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AssignGatewayAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var assigned = await service.AssignGateway(request, cancellationToken);
+        return assigned ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignGateway(
+    private static async Task<IResult> UnassignGateway(
     AssociationRequest request,
     IDeviceCertificateService service,
     CancellationToken cancellationToken) {
-        var deleted = await service.AssignGatewayAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var unassigned = await service.UnassignGateway(request, cancellationToken);
+        return unassigned ? Results.NoContent() : Results.NotFound();
     }
 
+
+    private DeviceCertificate mapRequestToDeviceCertificate( DeviceCertificateRequest request ) {
+        var model = new DeviceCertificate
+        {
+            Id = request.id,
+            SerialNumber = request.SerialNumber,
+            NotBefore = request.NotBefore,
+            NotAfter = request.NotAfter,
+            Fingerprint = request.Fingerprint,
+            Device = request.Device,
+            Gateway = request.Gateway,
+            CertificateType = request.CertificateType,
+        }
+        return model;
+    }
 
 }

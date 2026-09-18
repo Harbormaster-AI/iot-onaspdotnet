@@ -16,11 +16,11 @@ public static class BuildingEndpoints
         group.MapPut("/", update);
         group.MapDelete("/", delete);
 
-        group.MapDelete("/", assignSite);
-        group.MapDelete("/", unassignSite);
+        group.MapPut("/", assignSite);
+        group.MapPut("/", unassignSite);
 
-    group.MapDelete("/", addToFloors);
-    group.MapDelete("/", removeFromFloors);
+    group.MapPut("/", addToFloors);
+    group.MapPut("/", removeFromFloors);
 
 
         return app;
@@ -35,7 +35,7 @@ public static class BuildingEndpoints
 
         try
         {
-            await service.CreateAsync(lowercaseClassName, cancellationToken);
+            await service.Create(lowercaseClassName, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -54,7 +54,7 @@ public static class BuildingEndpoints
 
         try
         {
-            var updated = await service.UpdateAsync(model, cancellationToken);
+            var updated = await service.Update(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -63,29 +63,30 @@ public static class BuildingEndpoints
         }
     }
 
-    private static async Task<IResult> GetAll(
-        IBuildingService service,
-        CancellationToken cancellationToken) {
-
-        var all = await service.GetAllAsync(cancellationToken);
-        return Results.Ok( all.Select( BuildingResponse.FromModel ) );
-    }
 
     private static async Task<IResult> Get(
         IdentifierRequest identifier,
         IBuildingService service,
         CancellationToken cancellationToken) {
 
-        var building = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        var building = await service.Get(identifier, cancellationToken);
         return building is null ? Results.NotFound() : Results.Ok( building );
     }
 
+
+    private static async Task<IResult> GetAll(
+        IBuildingService service,
+        CancellationToken cancellationToken) {
+
+        var all = await service.GetAll(cancellationToken);
+        return Results.Ok( all.Select( BuildingResponse.FromModel ) );
+        }
 
     private static async Task<IResult> Delete(
         IdentifierRequest identifier,
         IBuildingService service,
         CancellationToken cancellationToken) {
-        var deleted = await service.DeleteAsync(identifier, cancellationToken);
+        var deleted = await service.Delete(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
@@ -93,35 +94,34 @@ public static class BuildingEndpoints
         AssociationRequest request,
         IBuildingService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AssignSiteAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var assigned = await service.AssignSite(request, cancellationToken);
+        return assigned ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignSite(
+    private static async Task<IResult> UnassignSite(
     AssociationRequest request,
     IBuildingService service,
     CancellationToken cancellationToken) {
-        var deleted = await service.AssignSiteAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var unassigned = await service.UnassignSite(request, cancellationToken);
+        return unassigned ? Results.NoContent() : Results.NotFound();
     }
 
 
-    private static async Task<IResult> AssignFloors(
-        AssociationRequest request,
+    private static async Task<IResult> AddToFloors(
+        MultipleAssociationRequest request,
         IBuildingService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AddToFloorsAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var addTo = await service.AddToFloors(request, cancellationToken);
+        return addTo ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignFloors(
-        AssociationRequest request,
+    private static async Task<IResult> RemoveFromFloors(
+        MultipleAssociationRequest request,
         IBuildingService service,
         CancellationToken cancellationToken) {
-        var deleted = await service.RemoveFromFloorsAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var removeFrom = await service.RemoveFromFloors(request, cancellationToken);
+        return removeFrom ? Results.NoContent() : Results.NotFound();
     }
-
     private Building mapRequestToBuilding( BuildingRequest request ) {
         var model = new Building
         {
@@ -132,4 +132,5 @@ public static class BuildingEndpoints
         }
         return model;
     }
+
 }

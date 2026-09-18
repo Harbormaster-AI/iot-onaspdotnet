@@ -16,11 +16,11 @@ public static class DataRetentionPolicyEndpoints
         group.MapPut("/", update);
         group.MapDelete("/", delete);
 
-        group.MapDelete("/", assignTenant);
-        group.MapDelete("/", unassignTenant);
+        group.MapPut("/", assignTenant);
+        group.MapPut("/", unassignTenant);
 
-    group.MapDelete("/", addToStreams);
-    group.MapDelete("/", removeFromStreams);
+    group.MapPut("/", addToStreams);
+    group.MapPut("/", removeFromStreams);
 
 
         return app;
@@ -35,7 +35,7 @@ public static class DataRetentionPolicyEndpoints
 
         try
         {
-            await service.CreateAsync(lowercaseClassName, cancellationToken);
+            await service.Create(lowercaseClassName, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -54,7 +54,7 @@ public static class DataRetentionPolicyEndpoints
 
         try
         {
-            var updated = await service.UpdateAsync(model, cancellationToken);
+            var updated = await service.Update(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -63,29 +63,30 @@ public static class DataRetentionPolicyEndpoints
         }
     }
 
-    private static async Task<IResult> GetAll(
-        IDataRetentionPolicyService service,
-        CancellationToken cancellationToken) {
-
-        var all = await service.GetAllAsync(cancellationToken);
-        return Results.Ok( all.Select( DataRetentionPolicyResponse.FromModel ) );
-    }
 
     private static async Task<IResult> Get(
         IdentifierRequest identifier,
         IDataRetentionPolicyService service,
         CancellationToken cancellationToken) {
 
-        var dataRetentionPolicy = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        var dataRetentionPolicy = await service.Get(identifier, cancellationToken);
         return dataRetentionPolicy is null ? Results.NotFound() : Results.Ok( dataRetentionPolicy );
     }
 
+
+    private static async Task<IResult> GetAll(
+        IDataRetentionPolicyService service,
+        CancellationToken cancellationToken) {
+
+        var all = await service.GetAll(cancellationToken);
+        return Results.Ok( all.Select( DataRetentionPolicyResponse.FromModel ) );
+        }
 
     private static async Task<IResult> Delete(
         IdentifierRequest identifier,
         IDataRetentionPolicyService service,
         CancellationToken cancellationToken) {
-        var deleted = await service.DeleteAsync(identifier, cancellationToken);
+        var deleted = await service.Delete(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
@@ -93,35 +94,34 @@ public static class DataRetentionPolicyEndpoints
         AssociationRequest request,
         IDataRetentionPolicyService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AssignTenantAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var assigned = await service.AssignTenant(request, cancellationToken);
+        return assigned ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignTenant(
+    private static async Task<IResult> UnassignTenant(
     AssociationRequest request,
     IDataRetentionPolicyService service,
     CancellationToken cancellationToken) {
-        var deleted = await service.AssignTenantAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var unassigned = await service.UnassignTenant(request, cancellationToken);
+        return unassigned ? Results.NoContent() : Results.NotFound();
     }
 
 
-    private static async Task<IResult> AssignStreams(
-        AssociationRequest request,
+    private static async Task<IResult> AddToStreams(
+        MultipleAssociationRequest request,
         IDataRetentionPolicyService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AddToStreamsAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var addTo = await service.AddToStreams(request, cancellationToken);
+        return addTo ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignStreams(
-        AssociationRequest request,
+    private static async Task<IResult> RemoveFromStreams(
+        MultipleAssociationRequest request,
         IDataRetentionPolicyService service,
         CancellationToken cancellationToken) {
-        var deleted = await service.RemoveFromStreamsAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var removeFrom = await service.RemoveFromStreams(request, cancellationToken);
+        return removeFrom ? Results.NoContent() : Results.NotFound();
     }
-
     private DataRetentionPolicy mapRequestToDataRetentionPolicy( DataRetentionPolicyRequest request ) {
         var model = new DataRetentionPolicy
         {
@@ -133,4 +133,5 @@ public static class DataRetentionPolicyEndpoints
         }
         return model;
     }
+
 }

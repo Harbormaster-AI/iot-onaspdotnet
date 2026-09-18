@@ -17,8 +17,8 @@ public static class TwinTemplateEndpoints
         group.MapDelete("/", delete);
 
 
-    group.MapDelete("/", addToDeviceModels);
-    group.MapDelete("/", removeFromDeviceModels);
+    group.MapPut("/", addToDeviceModels);
+    group.MapPut("/", removeFromDeviceModels);
 
 
         return app;
@@ -33,7 +33,7 @@ public static class TwinTemplateEndpoints
 
         try
         {
-            await service.CreateAsync(lowercaseClassName, cancellationToken);
+            await service.Create(lowercaseClassName, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -52,7 +52,7 @@ public static class TwinTemplateEndpoints
 
         try
         {
-            var updated = await service.UpdateAsync(model, cancellationToken);
+            var updated = await service.Update(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -61,49 +61,49 @@ public static class TwinTemplateEndpoints
         }
     }
 
-    private static async Task<IResult> GetAll(
-        ITwinTemplateService service,
-        CancellationToken cancellationToken) {
-
-        var all = await service.GetAllAsync(cancellationToken);
-        return Results.Ok( all.Select( TwinTemplateResponse.FromModel ) );
-    }
 
     private static async Task<IResult> Get(
         IdentifierRequest identifier,
         ITwinTemplateService service,
         CancellationToken cancellationToken) {
 
-        var twinTemplate = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        var twinTemplate = await service.Get(identifier, cancellationToken);
         return twinTemplate is null ? Results.NotFound() : Results.Ok( twinTemplate );
     }
 
+
+    private static async Task<IResult> GetAll(
+        ITwinTemplateService service,
+        CancellationToken cancellationToken) {
+
+        var all = await service.GetAll(cancellationToken);
+        return Results.Ok( all.Select( TwinTemplateResponse.FromModel ) );
+        }
 
     private static async Task<IResult> Delete(
         IdentifierRequest identifier,
         ITwinTemplateService service,
         CancellationToken cancellationToken) {
-        var deleted = await service.DeleteAsync(identifier, cancellationToken);
+        var deleted = await service.Delete(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
 
-    private static async Task<IResult> AssignDeviceModels(
-        AssociationRequest request,
+    private static async Task<IResult> AddToDeviceModels(
+        MultipleAssociationRequest request,
         ITwinTemplateService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AddToDeviceModelsAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var addTo = await service.AddToDeviceModels(request, cancellationToken);
+        return addTo ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignDeviceModels(
-        AssociationRequest request,
+    private static async Task<IResult> RemoveFromDeviceModels(
+        MultipleAssociationRequest request,
         ITwinTemplateService service,
         CancellationToken cancellationToken) {
-        var deleted = await service.RemoveFromDeviceModelsAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var removeFrom = await service.RemoveFromDeviceModels(request, cancellationToken);
+        return removeFrom ? Results.NoContent() : Results.NotFound();
     }
-
     private TwinTemplate mapRequestToTwinTemplate( TwinTemplateRequest request ) {
         var model = new TwinTemplate
         {
@@ -115,4 +115,5 @@ public static class TwinTemplateEndpoints
         }
         return model;
     }
+
 }

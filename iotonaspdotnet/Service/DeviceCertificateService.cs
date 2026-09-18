@@ -4,12 +4,20 @@ using iotonaspdotnet.Persistence;
 namespace iotonaspdotnet.Service;
 
 public interface IDeviceCertificateService
-{
-    Task<DeviceCertificate?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
-    Task<IReadOnlyList<DeviceCertificate>> GetAll(CancellationToken cancellationToken);
+
     Task Create(DeviceCertificateRequest request , CancellationToken cancellationToken);
     Task<bool> Update(DeviceCertificateRequest request, CancellationToken cancellationToken);
+    Task<DeviceCertificate?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<DeviceCertificate>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+    // ------------------------------
+    // Single Associations
+    // -------------------------------
+    Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignDevice(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> AssignGateway(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignGateway(AssociationRequest request, CancellationToken cancellationToken);
 
 
 }
@@ -68,7 +76,7 @@ public class DeviceCertificateService : IDeviceCertificateService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
+    public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
         var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
@@ -79,6 +87,22 @@ public class DeviceCertificateService : IDeviceCertificateService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+    Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignDevice(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    Task<bool> AssignGateway(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignGateway(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+
 
 
 }

@@ -4,13 +4,21 @@ using iotonaspdotnet.Persistence;
 namespace iotonaspdotnet.Service;
 
 public interface IBuildingService
-{
-    Task<Building?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
-    Task<IReadOnlyList<Building>> GetAll(CancellationToken cancellationToken);
+
     Task Create(BuildingRequest request , CancellationToken cancellationToken);
     Task<bool> Update(BuildingRequest request, CancellationToken cancellationToken);
+    Task<Building?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<Building>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
 
+    // ------------------------------
+    // Single Associations
+    // -------------------------------
+    Task<bool> AssignSite(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignSite(AssociationRequest request, CancellationToken cancellationToken);
+
+    Task<bool> AddToFloors(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> RemoveFromFloors(MultipleAssociationRequest request, CancellationToken cancellationToken);
 
 }
 
@@ -57,7 +65,7 @@ public class BuildingService : IBuildingService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
+    public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
         var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
@@ -68,6 +76,22 @@ public class BuildingService : IBuildingService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+    Task<bool> AssignSite(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignSite(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+
+    Task<bool> AddToFloors(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> RemoveFromFloors(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
 
 
 }

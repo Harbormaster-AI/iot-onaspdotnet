@@ -4,13 +4,21 @@ using iotonaspdotnet.Persistence;
 namespace iotonaspdotnet.Service;
 
 public interface IActuatorInstanceService
-{
-    Task<ActuatorInstance?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
-    Task<IReadOnlyList<ActuatorInstance>> GetAll(CancellationToken cancellationToken);
+
     Task Create(ActuatorInstanceRequest request , CancellationToken cancellationToken);
     Task<bool> Update(ActuatorInstanceRequest request, CancellationToken cancellationToken);
+    Task<ActuatorInstance?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<ActuatorInstance>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
 
+    // ------------------------------
+    // Single Associations
+    // -------------------------------
+    Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignDevice(AssociationRequest request, CancellationToken cancellationToken);
+
+    Task<bool> AddToSupportedCommands(MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> RemoveFromSupportedCommands(MultipleAssociationRequest request, CancellationToken cancellationToken);
 
 }
 
@@ -59,7 +67,7 @@ public class ActuatorInstanceService : IActuatorInstanceService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
+    public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
         var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
@@ -70,6 +78,22 @@ public class ActuatorInstanceService : IActuatorInstanceService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+    Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignDevice(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+
+    Task<bool> AddToSupportedCommands(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> RemoveFromSupportedCommands(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
 
 
 }

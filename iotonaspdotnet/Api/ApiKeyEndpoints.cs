@@ -16,8 +16,8 @@ public static class ApiKeyEndpoints
         group.MapPut("/", update);
         group.MapDelete("/", delete);
 
-        group.MapDelete("/", assignAccessPolicy);
-        group.MapDelete("/", unassignAccessPolicy);
+        group.MapPut("/", assignAccessPolicy);
+        group.MapPut("/", unassignAccessPolicy);
 
 
         return app;
@@ -32,7 +32,7 @@ public static class ApiKeyEndpoints
 
         try
         {
-            await service.CreateAsync(lowercaseClassName, cancellationToken);
+            await service.Create(lowercaseClassName, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -51,7 +51,7 @@ public static class ApiKeyEndpoints
 
         try
         {
-            var updated = await service.UpdateAsync(model, cancellationToken);
+            var updated = await service.Update(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -60,29 +60,30 @@ public static class ApiKeyEndpoints
         }
     }
 
-    private static async Task<IResult> GetAll(
-        IApiKeyService service,
-        CancellationToken cancellationToken) {
-
-        var all = await service.GetAllAsync(cancellationToken);
-        return Results.Ok( all.Select( ApiKeyResponse.FromModel ) );
-    }
 
     private static async Task<IResult> Get(
         IdentifierRequest identifier,
         IApiKeyService service,
         CancellationToken cancellationToken) {
 
-        var apiKey = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        var apiKey = await service.Get(identifier, cancellationToken);
         return apiKey is null ? Results.NotFound() : Results.Ok( apiKey );
     }
 
+
+    private static async Task<IResult> GetAll(
+        IApiKeyService service,
+        CancellationToken cancellationToken) {
+
+        var all = await service.GetAll(cancellationToken);
+        return Results.Ok( all.Select( ApiKeyResponse.FromModel ) );
+        }
 
     private static async Task<IResult> Delete(
         IdentifierRequest identifier,
         IApiKeyService service,
         CancellationToken cancellationToken) {
-        var deleted = await service.DeleteAsync(identifier, cancellationToken);
+        var deleted = await service.Delete(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
@@ -90,17 +91,30 @@ public static class ApiKeyEndpoints
         AssociationRequest request,
         IApiKeyService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AssignAccessPolicyAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var assigned = await service.AssignAccessPolicy(request, cancellationToken);
+        return assigned ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignAccessPolicy(
+    private static async Task<IResult> UnassignAccessPolicy(
     AssociationRequest request,
     IApiKeyService service,
     CancellationToken cancellationToken) {
-        var deleted = await service.AssignAccessPolicyAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var unassigned = await service.UnassignAccessPolicy(request, cancellationToken);
+        return unassigned ? Results.NoContent() : Results.NotFound();
     }
 
+
+    private ApiKey mapRequestToApiKey( ApiKeyRequest request ) {
+        var model = new ApiKey
+        {
+            Id = request.id,
+            KeyId = request.KeyId,
+            HashedSecret = request.HashedSecret,
+            CreatedAt = request.CreatedAt,
+            LastUsedAt = request.LastUsedAt,
+            AccessPolicy = request.AccessPolicy,
+        }
+        return model;
+    }
 
 }

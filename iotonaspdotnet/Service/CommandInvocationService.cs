@@ -4,12 +4,24 @@ using iotonaspdotnet.Persistence;
 namespace iotonaspdotnet.Service;
 
 public interface ICommandInvocationService
-{
-    Task<CommandInvocation?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
-    Task<IReadOnlyList<CommandInvocation>> GetAll(CancellationToken cancellationToken);
+
     Task Create(CommandInvocationRequest request , CancellationToken cancellationToken);
     Task<bool> Update(CommandInvocationRequest request, CancellationToken cancellationToken);
+    Task<CommandInvocation?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<CommandInvocation>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+    // ------------------------------
+    // Single Associations
+    // -------------------------------
+    Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignDevice(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> AssignCommandDefinition(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignCommandDefinition(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> AssignActuator(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignActuator(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> AssignUser(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignUser(AssociationRequest request, CancellationToken cancellationToken);
 
 
 }
@@ -83,7 +95,7 @@ public class CommandInvocationService : ICommandInvocationService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
+    public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
         var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
@@ -94,6 +106,36 @@ public class CommandInvocationService : ICommandInvocationService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+    Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignDevice(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    Task<bool> AssignCommandDefinition(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignCommandDefinition(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    Task<bool> AssignActuator(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignActuator(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    Task<bool> AssignUser(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignUser(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+
 
 
 }

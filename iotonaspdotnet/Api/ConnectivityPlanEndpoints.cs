@@ -16,11 +16,11 @@ public static class ConnectivityPlanEndpoints
         group.MapPut("/", update);
         group.MapDelete("/", delete);
 
-        group.MapDelete("/", assignTenant);
-        group.MapDelete("/", unassignTenant);
+        group.MapPut("/", assignTenant);
+        group.MapPut("/", unassignTenant);
 
-    group.MapDelete("/", addToSimCards);
-    group.MapDelete("/", removeFromSimCards);
+    group.MapPut("/", addToSimCards);
+    group.MapPut("/", removeFromSimCards);
 
 
         return app;
@@ -35,7 +35,7 @@ public static class ConnectivityPlanEndpoints
 
         try
         {
-            await service.CreateAsync(lowercaseClassName, cancellationToken);
+            await service.Create(lowercaseClassName, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -54,7 +54,7 @@ public static class ConnectivityPlanEndpoints
 
         try
         {
-            var updated = await service.UpdateAsync(model, cancellationToken);
+            var updated = await service.Update(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -63,29 +63,30 @@ public static class ConnectivityPlanEndpoints
         }
     }
 
-    private static async Task<IResult> GetAll(
-        IConnectivityPlanService service,
-        CancellationToken cancellationToken) {
-
-        var all = await service.GetAllAsync(cancellationToken);
-        return Results.Ok( all.Select( ConnectivityPlanResponse.FromModel ) );
-    }
 
     private static async Task<IResult> Get(
         IdentifierRequest identifier,
         IConnectivityPlanService service,
         CancellationToken cancellationToken) {
 
-        var connectivityPlan = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        var connectivityPlan = await service.Get(identifier, cancellationToken);
         return connectivityPlan is null ? Results.NotFound() : Results.Ok( connectivityPlan );
     }
 
+
+    private static async Task<IResult> GetAll(
+        IConnectivityPlanService service,
+        CancellationToken cancellationToken) {
+
+        var all = await service.GetAll(cancellationToken);
+        return Results.Ok( all.Select( ConnectivityPlanResponse.FromModel ) );
+        }
 
     private static async Task<IResult> Delete(
         IdentifierRequest identifier,
         IConnectivityPlanService service,
         CancellationToken cancellationToken) {
-        var deleted = await service.DeleteAsync(identifier, cancellationToken);
+        var deleted = await service.Delete(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
@@ -93,35 +94,34 @@ public static class ConnectivityPlanEndpoints
         AssociationRequest request,
         IConnectivityPlanService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AssignTenantAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var assigned = await service.AssignTenant(request, cancellationToken);
+        return assigned ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignTenant(
+    private static async Task<IResult> UnassignTenant(
     AssociationRequest request,
     IConnectivityPlanService service,
     CancellationToken cancellationToken) {
-        var deleted = await service.AssignTenantAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var unassigned = await service.UnassignTenant(request, cancellationToken);
+        return unassigned ? Results.NoContent() : Results.NotFound();
     }
 
 
-    private static async Task<IResult> AssignSimCards(
-        AssociationRequest request,
+    private static async Task<IResult> AddToSimCards(
+        MultipleAssociationRequest request,
         IConnectivityPlanService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AddToSimCardsAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var addTo = await service.AddToSimCards(request, cancellationToken);
+        return addTo ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignSimCards(
-        AssociationRequest request,
+    private static async Task<IResult> RemoveFromSimCards(
+        MultipleAssociationRequest request,
         IConnectivityPlanService service,
         CancellationToken cancellationToken) {
-        var deleted = await service.RemoveFromSimCardsAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var removeFrom = await service.RemoveFromSimCards(request, cancellationToken);
+        return removeFrom ? Results.NoContent() : Results.NotFound();
     }
-
     private ConnectivityPlan mapRequestToConnectivityPlan( ConnectivityPlanRequest request ) {
         var model = new ConnectivityPlan
         {
@@ -134,4 +134,5 @@ public static class ConnectivityPlanEndpoints
         }
         return model;
     }
+
 }

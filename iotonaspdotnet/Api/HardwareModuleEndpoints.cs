@@ -16,8 +16,8 @@ public static class HardwareModuleEndpoints
         group.MapPut("/", update);
         group.MapDelete("/", delete);
 
-        group.MapDelete("/", assignVendor);
-        group.MapDelete("/", unassignVendor);
+        group.MapPut("/", assignVendor);
+        group.MapPut("/", unassignVendor);
 
 
         return app;
@@ -32,7 +32,7 @@ public static class HardwareModuleEndpoints
 
         try
         {
-            await service.CreateAsync(lowercaseClassName, cancellationToken);
+            await service.Create(lowercaseClassName, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -51,7 +51,7 @@ public static class HardwareModuleEndpoints
 
         try
         {
-            var updated = await service.UpdateAsync(model, cancellationToken);
+            var updated = await service.Update(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -60,29 +60,30 @@ public static class HardwareModuleEndpoints
         }
     }
 
-    private static async Task<IResult> GetAll(
-        IHardwareModuleService service,
-        CancellationToken cancellationToken) {
-
-        var all = await service.GetAllAsync(cancellationToken);
-        return Results.Ok( all.Select( HardwareModuleResponse.FromModel ) );
-    }
 
     private static async Task<IResult> Get(
         IdentifierRequest identifier,
         IHardwareModuleService service,
         CancellationToken cancellationToken) {
 
-        var hardwareModule = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        var hardwareModule = await service.Get(identifier, cancellationToken);
         return hardwareModule is null ? Results.NotFound() : Results.Ok( hardwareModule );
     }
 
+
+    private static async Task<IResult> GetAll(
+        IHardwareModuleService service,
+        CancellationToken cancellationToken) {
+
+        var all = await service.GetAll(cancellationToken);
+        return Results.Ok( all.Select( HardwareModuleResponse.FromModel ) );
+        }
 
     private static async Task<IResult> Delete(
         IdentifierRequest identifier,
         IHardwareModuleService service,
         CancellationToken cancellationToken) {
-        var deleted = await service.DeleteAsync(identifier, cancellationToken);
+        var deleted = await service.Delete(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
@@ -90,17 +91,29 @@ public static class HardwareModuleEndpoints
         AssociationRequest request,
         IHardwareModuleService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AssignVendorAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var assigned = await service.AssignVendor(request, cancellationToken);
+        return assigned ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignVendor(
+    private static async Task<IResult> UnassignVendor(
     AssociationRequest request,
     IHardwareModuleService service,
     CancellationToken cancellationToken) {
-        var deleted = await service.AssignVendorAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var unassigned = await service.UnassignVendor(request, cancellationToken);
+        return unassigned ? Results.NoContent() : Results.NotFound();
     }
 
+
+    private HardwareModule mapRequestToHardwareModule( HardwareModuleRequest request ) {
+        var model = new HardwareModule
+        {
+            Id = request.id,
+            ModuleCode = request.ModuleCode,
+            DatasheetUri = request.DatasheetUri,
+            Vendor = request.Vendor,
+            ModuleType = request.ModuleType,
+        }
+        return model;
+    }
 
 }

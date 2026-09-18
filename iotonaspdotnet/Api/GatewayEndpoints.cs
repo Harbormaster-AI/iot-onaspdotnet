@@ -16,24 +16,24 @@ public static class GatewayEndpoints
         group.MapPut("/", update);
         group.MapDelete("/", delete);
 
-        group.MapDelete("/", assignSite);
-        group.MapDelete("/", unassignSite);
-        group.MapDelete("/", assignRoom);
-        group.MapDelete("/", unassignRoom);
-        group.MapDelete("/", assignDigitalTwin);
-        group.MapDelete("/", unassignDigitalTwin);
+        group.MapPut("/", assignSite);
+        group.MapPut("/", unassignSite);
+        group.MapPut("/", assignRoom);
+        group.MapPut("/", unassignRoom);
+        group.MapPut("/", assignDigitalTwin);
+        group.MapPut("/", unassignDigitalTwin);
 
-    group.MapDelete("/", addToDevices);
-    group.MapDelete("/", removeFromDevices);
+    group.MapPut("/", addToDevices);
+    group.MapPut("/", removeFromDevices);
 
-    group.MapDelete("/", addToEdgeApplications);
-    group.MapDelete("/", removeFromEdgeApplications);
+    group.MapPut("/", addToEdgeApplications);
+    group.MapPut("/", removeFromEdgeApplications);
 
-    group.MapDelete("/", addToCertificates);
-    group.MapDelete("/", removeFromCertificates);
+    group.MapPut("/", addToCertificates);
+    group.MapPut("/", removeFromCertificates);
 
-    group.MapDelete("/", addToNetworkProfiles);
-    group.MapDelete("/", removeFromNetworkProfiles);
+    group.MapPut("/", addToNetworkProfiles);
+    group.MapPut("/", removeFromNetworkProfiles);
 
 
         return app;
@@ -48,7 +48,7 @@ public static class GatewayEndpoints
 
         try
         {
-            await service.CreateAsync(lowercaseClassName, cancellationToken);
+            await service.Create(lowercaseClassName, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -67,7 +67,7 @@ public static class GatewayEndpoints
 
         try
         {
-            var updated = await service.UpdateAsync(model, cancellationToken);
+            var updated = await service.Update(model, cancellationToken);
             return updated ? Results.NoContent() : Results.NotFound();
         }
         catch (InvalidOperationException ex)
@@ -76,29 +76,30 @@ public static class GatewayEndpoints
         }
     }
 
-    private static async Task<IResult> GetAll(
-        IGatewayService service,
-        CancellationToken cancellationToken) {
-
-        var all = await service.GetAllAsync(cancellationToken);
-        return Results.Ok( all.Select( GatewayResponse.FromModel ) );
-    }
 
     private static async Task<IResult> Get(
         IdentifierRequest identifier,
         IGatewayService service,
         CancellationToken cancellationToken) {
 
-        var gateway = await service.GetByIdAsync(identifier.Id, cancellationToken);
+        var gateway = await service.Get(identifier, cancellationToken);
         return gateway is null ? Results.NotFound() : Results.Ok( gateway );
     }
 
+
+    private static async Task<IResult> GetAll(
+        IGatewayService service,
+        CancellationToken cancellationToken) {
+
+        var all = await service.GetAll(cancellationToken);
+        return Results.Ok( all.Select( GatewayResponse.FromModel ) );
+        }
 
     private static async Task<IResult> Delete(
         IdentifierRequest identifier,
         IGatewayService service,
         CancellationToken cancellationToken) {
-        var deleted = await service.DeleteAsync(identifier, cancellationToken);
+        var deleted = await service.Delete(identifier, cancellationToken);
         return deleted ? Results.NoContent() : Results.NotFound();
     }
 
@@ -106,67 +107,111 @@ public static class GatewayEndpoints
         AssociationRequest request,
         IGatewayService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AssignSiteAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var assigned = await service.AssignSite(request, cancellationToken);
+        return assigned ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignSite(
+    private static async Task<IResult> UnassignSite(
     AssociationRequest request,
     IGatewayService service,
     CancellationToken cancellationToken) {
-        var deleted = await service.AssignSiteAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var unassigned = await service.UnassignSite(request, cancellationToken);
+        return unassigned ? Results.NoContent() : Results.NotFound();
     }
 
     private static async Task<IResult> AssignRoom(
         AssociationRequest request,
         IGatewayService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AssignRoomAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var assigned = await service.AssignRoom(request, cancellationToken);
+        return assigned ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignRoom(
+    private static async Task<IResult> UnassignRoom(
     AssociationRequest request,
     IGatewayService service,
     CancellationToken cancellationToken) {
-        var deleted = await service.AssignRoomAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var unassigned = await service.UnassignRoom(request, cancellationToken);
+        return unassigned ? Results.NoContent() : Results.NotFound();
     }
 
     private static async Task<IResult> AssignDigitalTwin(
         AssociationRequest request,
         IGatewayService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AssignDigitalTwinAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var assigned = await service.AssignDigitalTwin(request, cancellationToken);
+        return assigned ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignDigitalTwin(
+    private static async Task<IResult> UnassignDigitalTwin(
     AssociationRequest request,
     IGatewayService service,
     CancellationToken cancellationToken) {
-        var deleted = await service.AssignDigitalTwinAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var unassigned = await service.UnassignDigitalTwin(request, cancellationToken);
+        return unassigned ? Results.NoContent() : Results.NotFound();
     }
 
 
-    private static async Task<IResult> AssignDevices(
-        AssociationRequest request,
+    private static async Task<IResult> AddToDevices(
+        MultipleAssociationRequest request,
         IGatewayService service,
         CancellationToken cancellationToken) {
-        var assign = await service.AddToDevicesAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
+        var addTo = await service.AddToDevices(request, cancellationToken);
+        return addTo ? Results.NoContent() : Results.NotFound();
     }
 
-    private static async Task<IResult> AssignDevices(
-        AssociationRequest request,
+    private static async Task<IResult> RemoveFromDevices(
+        MultipleAssociationRequest request,
         IGatewayService service,
         CancellationToken cancellationToken) {
-        var deleted = await service.RemoveFromDevicesAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
+        var removeFrom = await service.RemoveFromDevices(request, cancellationToken);
+        return removeFrom ? Results.NoContent() : Results.NotFound();
+    }
+    private static async Task<IResult> AddToEdgeApplications(
+        MultipleAssociationRequest request,
+        IGatewayService service,
+        CancellationToken cancellationToken) {
+        var addTo = await service.AddToEdgeApplications(request, cancellationToken);
+        return addTo ? Results.NoContent() : Results.NotFound();
     }
 
+    private static async Task<IResult> RemoveFromEdgeApplications(
+        MultipleAssociationRequest request,
+        IGatewayService service,
+        CancellationToken cancellationToken) {
+        var removeFrom = await service.RemoveFromEdgeApplications(request, cancellationToken);
+        return removeFrom ? Results.NoContent() : Results.NotFound();
+    }
+    private static async Task<IResult> AddToCertificates(
+        MultipleAssociationRequest request,
+        IGatewayService service,
+        CancellationToken cancellationToken) {
+        var addTo = await service.AddToCertificates(request, cancellationToken);
+        return addTo ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> RemoveFromCertificates(
+        MultipleAssociationRequest request,
+        IGatewayService service,
+        CancellationToken cancellationToken) {
+        var removeFrom = await service.RemoveFromCertificates(request, cancellationToken);
+        return removeFrom ? Results.NoContent() : Results.NotFound();
+    }
+    private static async Task<IResult> AddToNetworkProfiles(
+        MultipleAssociationRequest request,
+        IGatewayService service,
+        CancellationToken cancellationToken) {
+        var addTo = await service.AddToNetworkProfiles(request, cancellationToken);
+        return addTo ? Results.NoContent() : Results.NotFound();
+    }
+
+    private static async Task<IResult> RemoveFromNetworkProfiles(
+        MultipleAssociationRequest request,
+        IGatewayService service,
+        CancellationToken cancellationToken) {
+        var removeFrom = await service.RemoveFromNetworkProfiles(request, cancellationToken);
+        return removeFrom ? Results.NoContent() : Results.NotFound();
+    }
     private Gateway mapRequestToGateway( GatewayRequest request ) {
         var model = new Gateway
         {
@@ -183,100 +228,5 @@ public static class GatewayEndpoints
         }
         return model;
     }
-    private static async Task<IResult> AssignEdgeApplications(
-        AssociationRequest request,
-        IGatewayService service,
-        CancellationToken cancellationToken) {
-        var assign = await service.AddToEdgeApplicationsAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
-    }
 
-    private static async Task<IResult> AssignEdgeApplications(
-        AssociationRequest request,
-        IGatewayService service,
-        CancellationToken cancellationToken) {
-        var deleted = await service.RemoveFromEdgeApplicationsAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
-    }
-
-    private Gateway mapRequestToGateway( GatewayRequest request ) {
-        var model = new Gateway
-        {
-            Id = request.id,
-            SoftwareVersion = request.SoftwareVersion,
-            Site = request.Site,
-            Room = request.Room,
-            Devices = request.Devices,
-            EdgeApplications = request.EdgeApplications,
-            Certificates = request.Certificates,
-            DigitalTwin = request.DigitalTwin,
-            NetworkProfiles = request.NetworkProfiles,
-            Status = request.Status,
-        }
-        return model;
-    }
-    private static async Task<IResult> AssignCertificates(
-        AssociationRequest request,
-        IGatewayService service,
-        CancellationToken cancellationToken) {
-        var assign = await service.AddToCertificatesAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
-    }
-
-    private static async Task<IResult> AssignCertificates(
-        AssociationRequest request,
-        IGatewayService service,
-        CancellationToken cancellationToken) {
-        var deleted = await service.RemoveFromCertificatesAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
-    }
-
-    private Gateway mapRequestToGateway( GatewayRequest request ) {
-        var model = new Gateway
-        {
-            Id = request.id,
-            SoftwareVersion = request.SoftwareVersion,
-            Site = request.Site,
-            Room = request.Room,
-            Devices = request.Devices,
-            EdgeApplications = request.EdgeApplications,
-            Certificates = request.Certificates,
-            DigitalTwin = request.DigitalTwin,
-            NetworkProfiles = request.NetworkProfiles,
-            Status = request.Status,
-        }
-        return model;
-    }
-    private static async Task<IResult> AssignNetworkProfiles(
-        AssociationRequest request,
-        IGatewayService service,
-        CancellationToken cancellationToken) {
-        var assign = await service.AddToNetworkProfilesAsync(request.Id, cancellationToken);
-        return assign ? Results.NoContent() : Results.NotFound();
-    }
-
-    private static async Task<IResult> AssignNetworkProfiles(
-        AssociationRequest request,
-        IGatewayService service,
-        CancellationToken cancellationToken) {
-        var deleted = await service.RemoveFromNetworkProfilesAsync(request.Id, cancellationToken);
-        return deleted ? Results.NoContent() : Results.NotFound();
-    }
-
-    private Gateway mapRequestToGateway( GatewayRequest request ) {
-        var model = new Gateway
-        {
-            Id = request.id,
-            SoftwareVersion = request.SoftwareVersion,
-            Site = request.Site,
-            Room = request.Room,
-            Devices = request.Devices,
-            EdgeApplications = request.EdgeApplications,
-            Certificates = request.Certificates,
-            DigitalTwin = request.DigitalTwin,
-            NetworkProfiles = request.NetworkProfiles,
-            Status = request.Status,
-        }
-        return model;
-    }
 }

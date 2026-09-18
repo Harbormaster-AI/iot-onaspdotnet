@@ -4,12 +4,22 @@ using iotonaspdotnet.Persistence;
 namespace iotonaspdotnet.Service;
 
 public interface INetworkProfileService
-{
-    Task<NetworkProfile?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
-    Task<IReadOnlyList<NetworkProfile>> GetAll(CancellationToken cancellationToken);
+
     Task Create(NetworkProfileRequest request , CancellationToken cancellationToken);
     Task<bool> Update(NetworkProfileRequest request, CancellationToken cancellationToken);
+    Task<NetworkProfile?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
+    Task<IReadOnlyList<NetworkProfile>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
+
+    // ------------------------------
+    // Single Associations
+    // -------------------------------
+    Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignDevice(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> AssignGateway(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignGateway(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> AssignSimCard(AssociationRequest request, CancellationToken cancellationToken);
+    Task<bool> UnassignSimCard(AssociationRequest request, CancellationToken cancellationToken);
 
 
 }
@@ -75,7 +85,7 @@ public class NetworkProfileService : INetworkProfileService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(IdentifierRequest identifier, CancellationToken cancellationToken)
+    public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {
         var existing = await _repository.GetByIdAsync(identifier.Id, cancellationToken);
         if (existing is null)
@@ -86,6 +96,29 @@ public class NetworkProfileService : INetworkProfileService
         await _repository.DeleteAsync(existing, cancellationToken);
         return true;
     }
+
+    Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignDevice(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    Task<bool> AssignGateway(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignGateway(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+    Task<bool> AssignSimCard(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+    Task<bool> UnassignSimCard(AssociationRequest request, CancellationToken cancellationToken) {
+        return true;
+    }
+
+
 
 
 }
