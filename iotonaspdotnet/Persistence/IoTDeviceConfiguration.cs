@@ -25,26 +25,20 @@ builder.OwnsOne(x => x.FirmwareVersion, FirmwareVersion =>
         builder.Property(x => x.DeviceStatus).HasConversion<string>();
         builder.Property(x => x.PowerSource).HasConversion<string>();
 
+// Exactly one PowerSource per IoTDevice (1:1)
         builder.Property(x => x.DeviceModel).IsRequired();
-        // Exactly one PowerSource per IoTDevice (1:1)
         builder.HasIndex(x => x.DeviceModel.Id).IsUnique();
         builder.Property(x => x.Tenant).IsRequired();
-        // Exactly one PowerSource per IoTDevice (1:1)
         builder.HasIndex(x => x.Tenant.Id).IsUnique();
         builder.Property(x => x.Site).IsRequired();
-        // Exactly one PowerSource per IoTDevice (1:1)
         builder.HasIndex(x => x.Site.Id).IsUnique();
         builder.Property(x => x.Room).IsRequired();
-        // Exactly one PowerSource per IoTDevice (1:1)
         builder.HasIndex(x => x.Room.Id).IsUnique();
         builder.Property(x => x.Gateway).IsRequired();
-        // Exactly one PowerSource per IoTDevice (1:1)
         builder.HasIndex(x => x.Gateway.Id).IsUnique();
         builder.Property(x => x.DigitalTwin).IsRequired();
-        // Exactly one PowerSource per IoTDevice (1:1)
         builder.HasIndex(x => x.DigitalTwin.Id).IsUnique();
         builder.Property(x => x.ProvisioningRecord).IsRequired();
-        // Exactly one PowerSource per IoTDevice (1:1)
         builder.HasIndex(x => x.ProvisioningRecord.Id).IsUnique();
     }
 }

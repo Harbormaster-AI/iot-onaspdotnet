@@ -10,18 +10,18 @@ public static class UsageRecordEndpoints
     {
         var group = app.MapGroup("/api/usageRecord").WithTags("UsageRecords");
 
-        group.MapPost("/", create);
-        group.MapGet("/", get);
-        group.MapGet("/", getAll);
-        group.MapPut("/", update);
-        group.MapDelete("/", delete);
+        group.MapPost("/", Create);
+        group.MapGet("/", Get);
+        group.MapGet("/", GetAll);
+        group.MapPut("/", Update);
+        group.MapDelete("/", Delete);
 
-        group.MapPut("/", assignTenant);
-        group.MapPut("/", unassignTenant);
-        group.MapPut("/", assignDevice);
-        group.MapPut("/", unassignDevice);
-        group.MapPut("/", assignConnectivityPlan);
-        group.MapPut("/", unassignConnectivityPlan);
+        group.MapPut("/", AssignTenant);
+        group.MapPut("/", UnassignTenant);
+        group.MapPut("/", AssignDevice);
+        group.MapPut("/", UnassignDevice);
+        group.MapPut("/", AssignConnectivityPlan);
+        group.MapPut("/", UnassignConnectivityPlan);
 
 
         return app;

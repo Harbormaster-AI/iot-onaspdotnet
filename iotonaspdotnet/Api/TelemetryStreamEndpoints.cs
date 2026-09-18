@@ -10,22 +10,22 @@ public static class TelemetryStreamEndpoints
     {
         var group = app.MapGroup("/api/telemetryStream").WithTags("TelemetryStreams");
 
-        group.MapPost("/", create);
-        group.MapGet("/", get);
-        group.MapGet("/", getAll);
-        group.MapPut("/", update);
-        group.MapDelete("/", delete);
+        group.MapPost("/", Create);
+        group.MapGet("/", Get);
+        group.MapGet("/", GetAll);
+        group.MapPut("/", Update);
+        group.MapDelete("/", Delete);
 
-        group.MapPut("/", assignDevice);
-        group.MapPut("/", unassignDevice);
-        group.MapPut("/", assignSensor);
-        group.MapPut("/", unassignSensor);
-        group.MapPut("/", assignSchema);
-        group.MapPut("/", unassignSchema);
-        group.MapPut("/", assignMessagingEndpoint);
-        group.MapPut("/", unassignMessagingEndpoint);
-        group.MapPut("/", assignRetentionPolicy);
-        group.MapPut("/", unassignRetentionPolicy);
+        group.MapPut("/", AssignDevice);
+        group.MapPut("/", UnassignDevice);
+        group.MapPut("/", AssignSensor);
+        group.MapPut("/", UnassignSensor);
+        group.MapPut("/", AssignSchema);
+        group.MapPut("/", UnassignSchema);
+        group.MapPut("/", AssignMessagingEndpoint);
+        group.MapPut("/", UnassignMessagingEndpoint);
+        group.MapPut("/", AssignRetentionPolicy);
+        group.MapPut("/", UnassignRetentionPolicy);
 
 
         return app;

@@ -16,8 +16,8 @@ public class TwinChangeEventConfiguration : IEntityTypeConfiguration<TwinChangeE
         builder.Property(x => x.OccurredAt);
         builder.Property(x => x.TwinChangeType).HasConversion<string>();
 
+// Exactly one TwinChangeType per TwinChangeEvent (1:1)
         builder.Property(x => x.Twin).IsRequired();
-        // Exactly one TwinChangeType per TwinChangeEvent (1:1)
         builder.HasIndex(x => x.Twin.Id).IsUnique();
     }
 }

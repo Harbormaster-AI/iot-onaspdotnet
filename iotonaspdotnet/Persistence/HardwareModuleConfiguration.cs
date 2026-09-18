@@ -19,8 +19,8 @@ builder.OwnsOne(x => x.Uri_, DatasheetUri =>
 });
         builder.Property(x => x.ModuleType).HasConversion<string>();
 
+// Exactly one ModuleType per HardwareModule (1:1)
         builder.Property(x => x.Vendor).IsRequired();
-        // Exactly one ModuleType per HardwareModule (1:1)
         builder.HasIndex(x => x.Vendor.Id).IsUnique();
     }
 }

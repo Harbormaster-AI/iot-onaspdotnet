@@ -10,21 +10,21 @@ public static class DigitalTwinEndpoints
     {
         var group = app.MapGroup("/api/digitalTwin").WithTags("DigitalTwins");
 
-        group.MapPost("/", create);
-        group.MapGet("/", get);
-        group.MapGet("/", getAll);
-        group.MapPut("/", update);
-        group.MapDelete("/", delete);
+        group.MapPost("/", Create);
+        group.MapGet("/", Get);
+        group.MapGet("/", GetAll);
+        group.MapPut("/", Update);
+        group.MapDelete("/", Delete);
 
-        group.MapPut("/", assignDevice);
-        group.MapPut("/", unassignDevice);
-        group.MapPut("/", assignGateway);
-        group.MapPut("/", unassignGateway);
-        group.MapPut("/", assignTemplate);
-        group.MapPut("/", unassignTemplate);
+        group.MapPut("/", AssignDevice);
+        group.MapPut("/", UnassignDevice);
+        group.MapPut("/", AssignGateway);
+        group.MapPut("/", UnassignGateway);
+        group.MapPut("/", AssignTemplate);
+        group.MapPut("/", UnassignTemplate);
 
-    group.MapPut("/", addToChangeEvents);
-    group.MapPut("/", removeFromChangeEvents);
+    group.MapPut("/", AddToChangeEvents);
+    group.MapPut("/", RemoveFromChangeEvents);
 
 
         return app;

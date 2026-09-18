@@ -17,8 +17,8 @@ public class TenantUserConfiguration : IEntityTypeConfiguration<TenantUser>
         builder.Property(x => x.Email);
         builder.Property(x => x.UserRole).HasConversion<string>();
 
+// Exactly one UserRole per TenantUser (1:1)
         builder.Property(x => x.Tenant).IsRequired();
-        // Exactly one UserRole per TenantUser (1:1)
         builder.HasIndex(x => x.Tenant.Id).IsUnique();
     }
 }

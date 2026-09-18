@@ -19,5 +19,6 @@ builder.OwnsOne(x => x.Uri_, SchemaUri =>
 });
         builder.Property(x => x.Version);
 
+// Exactly one String per TwinTemplate (1:1)
     }
 }

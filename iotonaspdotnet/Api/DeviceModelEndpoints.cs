@@ -10,25 +10,25 @@ public static class DeviceModelEndpoints
     {
         var group = app.MapGroup("/api/deviceModel").WithTags("DeviceModels");
 
-        group.MapPost("/", create);
-        group.MapGet("/", get);
-        group.MapGet("/", getAll);
-        group.MapPut("/", update);
-        group.MapDelete("/", delete);
+        group.MapPost("/", Create);
+        group.MapGet("/", Get);
+        group.MapGet("/", GetAll);
+        group.MapPut("/", Update);
+        group.MapDelete("/", Delete);
 
-        group.MapPut("/", assignVendor);
-        group.MapPut("/", unassignVendor);
-        group.MapPut("/", assignTwinTemplate);
-        group.MapPut("/", unassignTwinTemplate);
+        group.MapPut("/", AssignVendor);
+        group.MapPut("/", UnassignVendor);
+        group.MapPut("/", AssignTwinTemplate);
+        group.MapPut("/", UnassignTwinTemplate);
 
-    group.MapPut("/", addToHardwareModules);
-    group.MapPut("/", removeFromHardwareModules);
+    group.MapPut("/", AddToHardwareModules);
+    group.MapPut("/", RemoveFromHardwareModules);
 
-    group.MapPut("/", addToFirmwareReleases);
-    group.MapPut("/", removeFromFirmwareReleases);
+    group.MapPut("/", AddToFirmwareReleases);
+    group.MapPut("/", RemoveFromFirmwareReleases);
 
-    group.MapPut("/", addToCommandDefinitions);
-    group.MapPut("/", removeFromCommandDefinitions);
+    group.MapPut("/", AddToCommandDefinitions);
+    group.MapPut("/", RemoveFromCommandDefinitions);
 
 
         return app;

@@ -15,5 +15,6 @@ public class TenantConfiguration : IEntityTypeConfiguration<Tenant>
         builder.Property(x => x.Name);
         builder.Property(x => x.TenantType).HasConversion<string>();
 
+// Exactly one TenantType per Tenant (1:1)
     }
 }

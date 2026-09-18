@@ -10,15 +10,15 @@ public static class TelemetrySchemaEndpoints
     {
         var group = app.MapGroup("/api/telemetrySchema").WithTags("TelemetrySchemas");
 
-        group.MapPost("/", create);
-        group.MapGet("/", get);
-        group.MapGet("/", getAll);
-        group.MapPut("/", update);
-        group.MapDelete("/", delete);
+        group.MapPost("/", Create);
+        group.MapGet("/", Get);
+        group.MapGet("/", GetAll);
+        group.MapPut("/", Update);
+        group.MapDelete("/", Delete);
 
 
-    group.MapPut("/", addToStreams);
-    group.MapPut("/", removeFromStreams);
+    group.MapPut("/", AddToStreams);
+    group.MapPut("/", RemoveFromStreams);
 
 
         return app;

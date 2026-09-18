@@ -10,14 +10,14 @@ public static class TwinChangeEventEndpoints
     {
         var group = app.MapGroup("/api/twinChangeEvent").WithTags("TwinChangeEvents");
 
-        group.MapPost("/", create);
-        group.MapGet("/", get);
-        group.MapGet("/", getAll);
-        group.MapPut("/", update);
-        group.MapDelete("/", delete);
+        group.MapPost("/", Create);
+        group.MapGet("/", Get);
+        group.MapGet("/", GetAll);
+        group.MapPut("/", Update);
+        group.MapDelete("/", Delete);
 
-        group.MapPut("/", assignTwin);
-        group.MapPut("/", unassignTwin);
+        group.MapPut("/", AssignTwin);
+        group.MapPut("/", UnassignTwin);
 
 
         return app;

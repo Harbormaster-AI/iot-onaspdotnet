@@ -10,14 +10,14 @@ public static class FirmwareReleaseEndpoints
     {
         var group = app.MapGroup("/api/firmwareRelease").WithTags("FirmwareReleases");
 
-        group.MapPost("/", create);
-        group.MapGet("/", get);
-        group.MapGet("/", getAll);
-        group.MapPut("/", update);
-        group.MapDelete("/", delete);
+        group.MapPost("/", Create);
+        group.MapGet("/", Get);
+        group.MapGet("/", GetAll);
+        group.MapPut("/", Update);
+        group.MapDelete("/", Delete);
 
-        group.MapPut("/", assignDeviceModel);
-        group.MapPut("/", unassignDeviceModel);
+        group.MapPut("/", AssignDeviceModel);
+        group.MapPut("/", UnassignDeviceModel);
 
 
         return app;

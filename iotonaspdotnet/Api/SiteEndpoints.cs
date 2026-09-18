@@ -10,23 +10,23 @@ public static class SiteEndpoints
     {
         var group = app.MapGroup("/api/site").WithTags("Sites");
 
-        group.MapPost("/", create);
-        group.MapGet("/", get);
-        group.MapGet("/", getAll);
-        group.MapPut("/", update);
-        group.MapDelete("/", delete);
+        group.MapPost("/", Create);
+        group.MapGet("/", Get);
+        group.MapGet("/", GetAll);
+        group.MapPut("/", Update);
+        group.MapDelete("/", Delete);
 
-        group.MapPut("/", assignTenant);
-        group.MapPut("/", unassignTenant);
+        group.MapPut("/", AssignTenant);
+        group.MapPut("/", UnassignTenant);
 
-    group.MapPut("/", addToBuildings);
-    group.MapPut("/", removeFromBuildings);
+    group.MapPut("/", AddToBuildings);
+    group.MapPut("/", RemoveFromBuildings);
 
-    group.MapPut("/", addToDevices);
-    group.MapPut("/", removeFromDevices);
+    group.MapPut("/", AddToDevices);
+    group.MapPut("/", RemoveFromDevices);
 
-    group.MapPut("/", addToGateways);
-    group.MapPut("/", removeFromGateways);
+    group.MapPut("/", AddToGateways);
+    group.MapPut("/", RemoveFromGateways);
 
 
         return app;

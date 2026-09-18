@@ -17,5 +17,6 @@ public class DeviceVendorConfiguration : IEntityTypeConfiguration<DeviceVendor>
         builder.Property(x => x.HeadquartersCountry);
         builder.Property(x => x.Website);
 
+// Exactly one String per DeviceVendor (1:1)
     }
 }

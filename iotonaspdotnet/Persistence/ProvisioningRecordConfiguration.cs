@@ -17,14 +17,12 @@ public class ProvisioningRecordConfiguration : IEntityTypeConfiguration<Provisio
         builder.Property(x => x.ProvisioningMethod).HasConversion<string>();
         builder.Property(x => x.ProvisioningStatus).HasConversion<string>();
 
+// Exactly one ProvisioningStatus per ProvisioningRecord (1:1)
         builder.Property(x => x.Device).IsRequired();
-        // Exactly one ProvisioningStatus per ProvisioningRecord (1:1)
         builder.HasIndex(x => x.Device.Id).IsUnique();
         builder.Property(x => x.Certificate).IsRequired();
-        // Exactly one ProvisioningStatus per ProvisioningRecord (1:1)
         builder.HasIndex(x => x.Certificate.Id).IsUnique();
         builder.Property(x => x.Tenant).IsRequired();
-        // Exactly one ProvisioningStatus per ProvisioningRecord (1:1)
         builder.HasIndex(x => x.Tenant.Id).IsUnique();
     }
 }

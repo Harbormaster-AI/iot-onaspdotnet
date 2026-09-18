@@ -10,16 +10,16 @@ public static class DeviceCertificateEndpoints
     {
         var group = app.MapGroup("/api/deviceCertificate").WithTags("DeviceCertificates");
 
-        group.MapPost("/", create);
-        group.MapGet("/", get);
-        group.MapGet("/", getAll);
-        group.MapPut("/", update);
-        group.MapDelete("/", delete);
+        group.MapPost("/", Create);
+        group.MapGet("/", Get);
+        group.MapGet("/", GetAll);
+        group.MapPut("/", Update);
+        group.MapDelete("/", Delete);
 
-        group.MapPut("/", assignDevice);
-        group.MapPut("/", unassignDevice);
-        group.MapPut("/", assignGateway);
-        group.MapPut("/", unassignGateway);
+        group.MapPut("/", AssignDevice);
+        group.MapPut("/", UnassignDevice);
+        group.MapPut("/", AssignGateway);
+        group.MapPut("/", UnassignGateway);
 
 
         return app;

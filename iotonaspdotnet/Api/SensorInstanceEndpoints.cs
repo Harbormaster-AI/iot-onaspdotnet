@@ -10,17 +10,17 @@ public static class SensorInstanceEndpoints
     {
         var group = app.MapGroup("/api/sensorInstance").WithTags("SensorInstances");
 
-        group.MapPost("/", create);
-        group.MapGet("/", get);
-        group.MapGet("/", getAll);
-        group.MapPut("/", update);
-        group.MapDelete("/", delete);
+        group.MapPost("/", Create);
+        group.MapGet("/", Get);
+        group.MapGet("/", GetAll);
+        group.MapPut("/", Update);
+        group.MapDelete("/", Delete);
 
-        group.MapPut("/", assignDevice);
-        group.MapPut("/", unassignDevice);
+        group.MapPut("/", AssignDevice);
+        group.MapPut("/", UnassignDevice);
 
-    group.MapPut("/", addToTelemetryStreams);
-    group.MapPut("/", removeFromTelemetryStreams);
+    group.MapPut("/", AddToTelemetryStreams);
+    group.MapPut("/", RemoveFromTelemetryStreams);
 
 
         return app;

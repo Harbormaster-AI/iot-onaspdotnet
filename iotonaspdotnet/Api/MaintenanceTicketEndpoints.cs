@@ -10,16 +10,16 @@ public static class MaintenanceTicketEndpoints
     {
         var group = app.MapGroup("/api/maintenanceTicket").WithTags("MaintenanceTickets");
 
-        group.MapPost("/", create);
-        group.MapGet("/", get);
-        group.MapGet("/", getAll);
-        group.MapPut("/", update);
-        group.MapDelete("/", delete);
+        group.MapPost("/", Create);
+        group.MapGet("/", Get);
+        group.MapGet("/", GetAll);
+        group.MapPut("/", Update);
+        group.MapDelete("/", Delete);
 
-        group.MapPut("/", assignDevice);
-        group.MapPut("/", unassignDevice);
-        group.MapPut("/", assignTenant);
-        group.MapPut("/", unassignTenant);
+        group.MapPut("/", AssignDevice);
+        group.MapPut("/", UnassignDevice);
+        group.MapPut("/", AssignTenant);
+        group.MapPut("/", UnassignTenant);
 
 
         return app;

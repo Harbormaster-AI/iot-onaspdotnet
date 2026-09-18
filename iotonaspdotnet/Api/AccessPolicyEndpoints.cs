@@ -10,20 +10,20 @@ public static class AccessPolicyEndpoints
     {
         var group = app.MapGroup("/api/accessPolicy").WithTags("AccessPolicys");
 
-        group.MapPost("/", create);
-        group.MapGet("/", get);
-        group.MapGet("/", getAll);
-        group.MapPut("/", update);
-        group.MapDelete("/", delete);
+        group.MapPost("/", Create);
+        group.MapGet("/", Get);
+        group.MapGet("/", GetAll);
+        group.MapPut("/", Update);
+        group.MapDelete("/", Delete);
 
-        group.MapPut("/", assignTenant);
-        group.MapPut("/", unassignTenant);
+        group.MapPut("/", AssignTenant);
+        group.MapPut("/", UnassignTenant);
 
-    group.MapPut("/", addToApiKeys);
-    group.MapPut("/", removeFromApiKeys);
+    group.MapPut("/", AddToApiKeys);
+    group.MapPut("/", RemoveFromApiKeys);
 
-    group.MapPut("/", addToUsers);
-    group.MapPut("/", removeFromUsers);
+    group.MapPut("/", AddToUsers);
+    group.MapPut("/", RemoveFromUsers);
 
 
         return app;

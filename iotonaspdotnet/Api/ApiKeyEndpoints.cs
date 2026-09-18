@@ -10,14 +10,14 @@ public static class ApiKeyEndpoints
     {
         var group = app.MapGroup("/api/apiKey").WithTags("ApiKeys");
 
-        group.MapPost("/", create);
-        group.MapGet("/", get);
-        group.MapGet("/", getAll);
-        group.MapPut("/", update);
-        group.MapDelete("/", delete);
+        group.MapPost("/", Create);
+        group.MapGet("/", Get);
+        group.MapGet("/", GetAll);
+        group.MapPut("/", Update);
+        group.MapDelete("/", Delete);
 
-        group.MapPut("/", assignAccessPolicy);
-        group.MapPut("/", unassignAccessPolicy);
+        group.MapPut("/", AssignAccessPolicy);
+        group.MapPut("/", UnassignAccessPolicy);
 
 
         return app;

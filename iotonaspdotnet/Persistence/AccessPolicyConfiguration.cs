@@ -16,8 +16,8 @@ public class AccessPolicyConfiguration : IEntityTypeConfiguration<AccessPolicy>
         builder.Property(x => x.Scope);
         builder.Property(x => x.ExpiresAt);
 
+// Exactly one DateTime per AccessPolicy (1:1)
         builder.Property(x => x.Tenant).IsRequired();
-        // Exactly one DateTime per AccessPolicy (1:1)
         builder.HasIndex(x => x.Tenant.Id).IsUnique();
     }
 }

@@ -19,8 +19,8 @@ builder.OwnsOne(x => x.TopicName, CommandTopic =>
 });
         builder.Property(x => x.ActuatorType).HasConversion<string>();
 
+// Exactly one ActuatorType per ActuatorInstance (1:1)
         builder.Property(x => x.Device).IsRequired();
-        // Exactly one ActuatorType per ActuatorInstance (1:1)
         builder.HasIndex(x => x.Device.Id).IsUnique();
     }
 }

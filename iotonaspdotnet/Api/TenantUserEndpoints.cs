@@ -10,17 +10,17 @@ public static class TenantUserEndpoints
     {
         var group = app.MapGroup("/api/tenantUser").WithTags("TenantUsers");
 
-        group.MapPost("/", create);
-        group.MapGet("/", get);
-        group.MapGet("/", getAll);
-        group.MapPut("/", update);
-        group.MapDelete("/", delete);
+        group.MapPost("/", Create);
+        group.MapGet("/", Get);
+        group.MapGet("/", GetAll);
+        group.MapPut("/", Update);
+        group.MapDelete("/", Delete);
 
-        group.MapPut("/", assignTenant);
-        group.MapPut("/", unassignTenant);
+        group.MapPut("/", AssignTenant);
+        group.MapPut("/", UnassignTenant);
 
-    group.MapPut("/", addToCommandInvocations);
-    group.MapPut("/", removeFromCommandInvocations);
+    group.MapPut("/", AddToCommandInvocations);
+    group.MapPut("/", RemoveFromCommandInvocations);
 
 
         return app;

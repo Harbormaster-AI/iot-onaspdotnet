@@ -10,30 +10,30 @@ public static class GatewayEndpoints
     {
         var group = app.MapGroup("/api/gateway").WithTags("Gateways");
 
-        group.MapPost("/", create);
-        group.MapGet("/", get);
-        group.MapGet("/", getAll);
-        group.MapPut("/", update);
-        group.MapDelete("/", delete);
+        group.MapPost("/", Create);
+        group.MapGet("/", Get);
+        group.MapGet("/", GetAll);
+        group.MapPut("/", Update);
+        group.MapDelete("/", Delete);
 
-        group.MapPut("/", assignSite);
-        group.MapPut("/", unassignSite);
-        group.MapPut("/", assignRoom);
-        group.MapPut("/", unassignRoom);
-        group.MapPut("/", assignDigitalTwin);
-        group.MapPut("/", unassignDigitalTwin);
+        group.MapPut("/", AssignSite);
+        group.MapPut("/", UnassignSite);
+        group.MapPut("/", AssignRoom);
+        group.MapPut("/", UnassignRoom);
+        group.MapPut("/", AssignDigitalTwin);
+        group.MapPut("/", UnassignDigitalTwin);
 
-    group.MapPut("/", addToDevices);
-    group.MapPut("/", removeFromDevices);
+    group.MapPut("/", AddToDevices);
+    group.MapPut("/", RemoveFromDevices);
 
-    group.MapPut("/", addToEdgeApplications);
-    group.MapPut("/", removeFromEdgeApplications);
+    group.MapPut("/", AddToEdgeApplications);
+    group.MapPut("/", RemoveFromEdgeApplications);
 
-    group.MapPut("/", addToCertificates);
-    group.MapPut("/", removeFromCertificates);
+    group.MapPut("/", AddToCertificates);
+    group.MapPut("/", RemoveFromCertificates);
 
-    group.MapPut("/", addToNetworkProfiles);
-    group.MapPut("/", removeFromNetworkProfiles);
+    group.MapPut("/", AddToNetworkProfiles);
+    group.MapPut("/", RemoveFromNetworkProfiles);
 
 
         return app;

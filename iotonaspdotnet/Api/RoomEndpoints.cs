@@ -10,20 +10,20 @@ public static class RoomEndpoints
     {
         var group = app.MapGroup("/api/room").WithTags("Rooms");
 
-        group.MapPost("/", create);
-        group.MapGet("/", get);
-        group.MapGet("/", getAll);
-        group.MapPut("/", update);
-        group.MapDelete("/", delete);
+        group.MapPost("/", Create);
+        group.MapGet("/", Get);
+        group.MapGet("/", GetAll);
+        group.MapPut("/", Update);
+        group.MapDelete("/", Delete);
 
-        group.MapPut("/", assignFloor);
-        group.MapPut("/", unassignFloor);
+        group.MapPut("/", AssignFloor);
+        group.MapPut("/", UnassignFloor);
 
-    group.MapPut("/", addToDevices);
-    group.MapPut("/", removeFromDevices);
+    group.MapPut("/", AddToDevices);
+    group.MapPut("/", RemoveFromDevices);
 
-    group.MapPut("/", addToGateways);
-    group.MapPut("/", removeFromGateways);
+    group.MapPut("/", AddToGateways);
+    group.MapPut("/", RemoveFromGateways);
 
 
         return app;

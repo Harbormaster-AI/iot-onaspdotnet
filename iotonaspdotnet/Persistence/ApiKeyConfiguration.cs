@@ -17,8 +17,8 @@ public class ApiKeyConfiguration : IEntityTypeConfiguration<ApiKey>
         builder.Property(x => x.CreatedAt);
         builder.Property(x => x.LastUsedAt);
 
+// Exactly one DateTime per ApiKey (1:1)
         builder.Property(x => x.AccessPolicy).IsRequired();
-        // Exactly one DateTime per ApiKey (1:1)
         builder.HasIndex(x => x.AccessPolicy.Id).IsUnique();
     }
 }

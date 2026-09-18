@@ -17,14 +17,12 @@ public class DigitalTwinConfiguration : IEntityTypeConfiguration<DigitalTwin>
         builder.Property(x => x.ReportedStateVersion);
         builder.Property(x => x.LastSyncAt);
 
+// Exactly one DateTime per DigitalTwin (1:1)
         builder.Property(x => x.Device).IsRequired();
-        // Exactly one DateTime per DigitalTwin (1:1)
         builder.HasIndex(x => x.Device.Id).IsUnique();
         builder.Property(x => x.Gateway).IsRequired();
-        // Exactly one DateTime per DigitalTwin (1:1)
         builder.HasIndex(x => x.Gateway.Id).IsUnique();
         builder.Property(x => x.Template).IsRequired();
-        // Exactly one DateTime per DigitalTwin (1:1)
         builder.HasIndex(x => x.Template.Id).IsUnique();
     }
 }

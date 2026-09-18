@@ -17,11 +17,10 @@ public class SoftwareUpdateCampaignConfiguration : IEntityTypeConfiguration<Soft
         builder.Property(x => x.ScheduledEnd);
         builder.Property(x => x.UpdateCampaignStatus).HasConversion<string>();
 
+// Exactly one UpdateCampaignStatus per SoftwareUpdateCampaign (1:1)
         builder.Property(x => x.FirmwareRelease).IsRequired();
-        // Exactly one UpdateCampaignStatus per SoftwareUpdateCampaign (1:1)
         builder.HasIndex(x => x.FirmwareRelease.Id).IsUnique();
         builder.Property(x => x.DeviceGroup).IsRequired();
-        // Exactly one UpdateCampaignStatus per SoftwareUpdateCampaign (1:1)
         builder.HasIndex(x => x.DeviceGroup.Id).IsUnique();
     }
 }

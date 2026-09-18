@@ -10,18 +10,18 @@ public static class ProvisioningRecordEndpoints
     {
         var group = app.MapGroup("/api/provisioningRecord").WithTags("ProvisioningRecords");
 
-        group.MapPost("/", create);
-        group.MapGet("/", get);
-        group.MapGet("/", getAll);
-        group.MapPut("/", update);
-        group.MapDelete("/", delete);
+        group.MapPost("/", Create);
+        group.MapGet("/", Get);
+        group.MapGet("/", GetAll);
+        group.MapPut("/", Update);
+        group.MapDelete("/", Delete);
 
-        group.MapPut("/", assignDevice);
-        group.MapPut("/", unassignDevice);
-        group.MapPut("/", assignCertificate);
-        group.MapPut("/", unassignCertificate);
-        group.MapPut("/", assignTenant);
-        group.MapPut("/", unassignTenant);
+        group.MapPut("/", AssignDevice);
+        group.MapPut("/", UnassignDevice);
+        group.MapPut("/", AssignCertificate);
+        group.MapPut("/", UnassignCertificate);
+        group.MapPut("/", AssignTenant);
+        group.MapPut("/", UnassignTenant);
 
 
         return app;

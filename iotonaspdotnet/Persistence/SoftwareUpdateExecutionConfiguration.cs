@@ -16,11 +16,10 @@ public class SoftwareUpdateExecutionConfiguration : IEntityTypeConfiguration<Sof
         builder.Property(x => x.CompletedAt);
         builder.Property(x => x.UpdateStatus).HasConversion<string>();
 
+// Exactly one UpdateStatus per SoftwareUpdateExecution (1:1)
         builder.Property(x => x.Campaign).IsRequired();
-        // Exactly one UpdateStatus per SoftwareUpdateExecution (1:1)
         builder.HasIndex(x => x.Campaign.Id).IsUnique();
         builder.Property(x => x.Device).IsRequired();
-        // Exactly one UpdateStatus per SoftwareUpdateExecution (1:1)
         builder.HasIndex(x => x.Device.Id).IsUnique();
     }
 }

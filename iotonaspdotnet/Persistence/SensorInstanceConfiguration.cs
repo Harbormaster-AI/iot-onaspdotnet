@@ -17,8 +17,8 @@ public class SensorInstanceConfiguration : IEntityTypeConfiguration<SensorInstan
         builder.Property(x => x.SamplingIntervalMs);
         builder.Property(x => x.SensorType).HasConversion<string>();
 
+// Exactly one SensorType per SensorInstance (1:1)
         builder.Property(x => x.Device).IsRequired();
-        // Exactly one SensorType per SensorInstance (1:1)
         builder.HasIndex(x => x.Device.Id).IsUnique();
     }
 }

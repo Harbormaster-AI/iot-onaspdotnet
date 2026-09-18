@@ -10,15 +10,15 @@ public static class TwinTemplateEndpoints
     {
         var group = app.MapGroup("/api/twinTemplate").WithTags("TwinTemplates");
 
-        group.MapPost("/", create);
-        group.MapGet("/", get);
-        group.MapGet("/", getAll);
-        group.MapPut("/", update);
-        group.MapDelete("/", delete);
+        group.MapPost("/", Create);
+        group.MapGet("/", Get);
+        group.MapGet("/", GetAll);
+        group.MapPut("/", Update);
+        group.MapDelete("/", Delete);
 
 
-    group.MapPut("/", addToDeviceModels);
-    group.MapPut("/", removeFromDeviceModels);
+    group.MapPut("/", AddToDeviceModels);
+    group.MapPut("/", RemoveFromDeviceModels);
 
 
         return app;

@@ -16,20 +16,16 @@ public class TelemetryStreamConfiguration : IEntityTypeConfiguration<TelemetrySt
         builder.Property(x => x.RetentionDays);
         builder.Property(x => x.MessageQoS).HasConversion<string>();
 
+// Exactly one MessageQoS per TelemetryStream (1:1)
         builder.Property(x => x.Device).IsRequired();
-        // Exactly one MessageQoS per TelemetryStream (1:1)
         builder.HasIndex(x => x.Device.Id).IsUnique();
         builder.Property(x => x.Sensor).IsRequired();
-        // Exactly one MessageQoS per TelemetryStream (1:1)
         builder.HasIndex(x => x.Sensor.Id).IsUnique();
         builder.Property(x => x.Schema).IsRequired();
-        // Exactly one MessageQoS per TelemetryStream (1:1)
         builder.HasIndex(x => x.Schema.Id).IsUnique();
         builder.Property(x => x.MessagingEndpoint).IsRequired();
-        // Exactly one MessageQoS per TelemetryStream (1:1)
         builder.HasIndex(x => x.MessagingEndpoint.Id).IsUnique();
         builder.Property(x => x.RetentionPolicy).IsRequired();
-        // Exactly one MessageQoS per TelemetryStream (1:1)
         builder.HasIndex(x => x.RetentionPolicy.Id).IsUnique();
     }
 }

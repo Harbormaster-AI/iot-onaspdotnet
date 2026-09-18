@@ -17,14 +17,12 @@ public class UsageRecordConfiguration : IEntityTypeConfiguration<UsageRecord>
         builder.Property(x => x.MessagesSent);
         builder.Property(x => x.DataVolumeMB);
 
+// Exactly one Integer per UsageRecord (1:1)
         builder.Property(x => x.Tenant).IsRequired();
-        // Exactly one Integer per UsageRecord (1:1)
         builder.HasIndex(x => x.Tenant.Id).IsUnique();
         builder.Property(x => x.Device).IsRequired();
-        // Exactly one Integer per UsageRecord (1:1)
         builder.HasIndex(x => x.Device.Id).IsUnique();
         builder.Property(x => x.ConnectivityPlan).IsRequired();
-        // Exactly one Integer per UsageRecord (1:1)
         builder.HasIndex(x => x.ConnectivityPlan.Id).IsUnique();
     }
 }

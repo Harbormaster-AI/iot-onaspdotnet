@@ -10,16 +10,16 @@ public static class AlertEndpoints
     {
         var group = app.MapGroup("/api/alert").WithTags("Alerts");
 
-        group.MapPost("/", create);
-        group.MapGet("/", get);
-        group.MapGet("/", getAll);
-        group.MapPut("/", update);
-        group.MapDelete("/", delete);
+        group.MapPost("/", Create);
+        group.MapGet("/", Get);
+        group.MapGet("/", GetAll);
+        group.MapPut("/", Update);
+        group.MapDelete("/", Delete);
 
-        group.MapPut("/", assignDevice);
-        group.MapPut("/", unassignDevice);
-        group.MapPut("/", assignAlertRule);
-        group.MapPut("/", unassignAlertRule);
+        group.MapPut("/", AssignDevice);
+        group.MapPut("/", UnassignDevice);
+        group.MapPut("/", AssignAlertRule);
+        group.MapPut("/", UnassignAlertRule);
 
 
         return app;

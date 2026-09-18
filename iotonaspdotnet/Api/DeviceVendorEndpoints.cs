@@ -10,21 +10,21 @@ public static class DeviceVendorEndpoints
     {
         var group = app.MapGroup("/api/deviceVendor").WithTags("DeviceVendors");
 
-        group.MapPost("/", create);
-        group.MapGet("/", get);
-        group.MapGet("/", getAll);
-        group.MapPut("/", update);
-        group.MapDelete("/", delete);
+        group.MapPost("/", Create);
+        group.MapGet("/", Get);
+        group.MapGet("/", GetAll);
+        group.MapPut("/", Update);
+        group.MapDelete("/", Delete);
 
 
-    group.MapPut("/", addToDeviceModels);
-    group.MapPut("/", removeFromDeviceModels);
+    group.MapPut("/", AddToDeviceModels);
+    group.MapPut("/", RemoveFromDeviceModels);
 
-    group.MapPut("/", addToFirmwareReleases);
-    group.MapPut("/", removeFromFirmwareReleases);
+    group.MapPut("/", AddToFirmwareReleases);
+    group.MapPut("/", RemoveFromFirmwareReleases);
 
-    group.MapPut("/", addToHardwareModules);
-    group.MapPut("/", removeFromHardwareModules);
+    group.MapPut("/", AddToHardwareModules);
+    group.MapPut("/", RemoveFromHardwareModules);
 
 
         return app;

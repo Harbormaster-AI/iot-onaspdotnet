@@ -10,17 +10,17 @@ public static class ConnectivityPlanEndpoints
     {
         var group = app.MapGroup("/api/connectivityPlan").WithTags("ConnectivityPlans");
 
-        group.MapPost("/", create);
-        group.MapGet("/", get);
-        group.MapGet("/", getAll);
-        group.MapPut("/", update);
-        group.MapDelete("/", delete);
+        group.MapPost("/", Create);
+        group.MapGet("/", Get);
+        group.MapGet("/", GetAll);
+        group.MapPut("/", Update);
+        group.MapDelete("/", Delete);
 
-        group.MapPut("/", assignTenant);
-        group.MapPut("/", unassignTenant);
+        group.MapPut("/", AssignTenant);
+        group.MapPut("/", UnassignTenant);
 
-    group.MapPut("/", addToSimCards);
-    group.MapPut("/", removeFromSimCards);
+    group.MapPut("/", AddToSimCards);
+    group.MapPut("/", RemoveFromSimCards);
 
 
         return app;

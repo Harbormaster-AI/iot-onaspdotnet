@@ -17,11 +17,10 @@ public class SimCardConfiguration : IEntityTypeConfiguration<SimCard>
         builder.Property(x => x.Carrier);
         builder.Property(x => x.SimStatus).HasConversion<string>();
 
+// Exactly one SimStatus per SimCard (1:1)
         builder.Property(x => x.Tenant).IsRequired();
-        // Exactly one SimStatus per SimCard (1:1)
         builder.HasIndex(x => x.Tenant.Id).IsUnique();
         builder.Property(x => x.ConnectivityPlan).IsRequired();
-        // Exactly one SimStatus per SimCard (1:1)
         builder.HasIndex(x => x.ConnectivityPlan.Id).IsUnique();
     }
 }

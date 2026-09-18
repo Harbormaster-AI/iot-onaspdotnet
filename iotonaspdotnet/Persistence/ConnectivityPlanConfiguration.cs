@@ -16,8 +16,8 @@ public class ConnectivityPlanConfiguration : IEntityTypeConfiguration<Connectivi
         builder.Property(x => x.DataCapMB);
         builder.Property(x => x.BillingCycleDays);
 
+// Exactly one Integer per ConnectivityPlan (1:1)
         builder.Property(x => x.Tenant).IsRequired();
-        // Exactly one Integer per ConnectivityPlan (1:1)
         builder.HasIndex(x => x.Tenant.Id).IsUnique();
     }
 }

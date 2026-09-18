@@ -18,11 +18,10 @@ public class MaintenanceTicketConfiguration : IEntityTypeConfiguration<Maintenan
         builder.Property(x => x.MaintenancePriority).HasConversion<string>();
         builder.Property(x => x.MaintenanceStatus).HasConversion<string>();
 
+// Exactly one MaintenanceStatus per MaintenanceTicket (1:1)
         builder.Property(x => x.Device).IsRequired();
-        // Exactly one MaintenanceStatus per MaintenanceTicket (1:1)
         builder.HasIndex(x => x.Device.Id).IsUnique();
         builder.Property(x => x.Tenant).IsRequired();
-        // Exactly one MaintenanceStatus per MaintenanceTicket (1:1)
         builder.HasIndex(x => x.Tenant.Id).IsUnique();
     }
 }

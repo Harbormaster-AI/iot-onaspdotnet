@@ -10,20 +10,20 @@ public static class CommandInvocationEndpoints
     {
         var group = app.MapGroup("/api/commandInvocation").WithTags("CommandInvocations");
 
-        group.MapPost("/", create);
-        group.MapGet("/", get);
-        group.MapGet("/", getAll);
-        group.MapPut("/", update);
-        group.MapDelete("/", delete);
+        group.MapPost("/", Create);
+        group.MapGet("/", Get);
+        group.MapGet("/", GetAll);
+        group.MapPut("/", Update);
+        group.MapDelete("/", Delete);
 
-        group.MapPut("/", assignDevice);
-        group.MapPut("/", unassignDevice);
-        group.MapPut("/", assignCommandDefinition);
-        group.MapPut("/", unassignCommandDefinition);
-        group.MapPut("/", assignActuator);
-        group.MapPut("/", unassignActuator);
-        group.MapPut("/", assignUser);
-        group.MapPut("/", unassignUser);
+        group.MapPut("/", AssignDevice);
+        group.MapPut("/", UnassignDevice);
+        group.MapPut("/", AssignCommandDefinition);
+        group.MapPut("/", UnassignCommandDefinition);
+        group.MapPut("/", AssignActuator);
+        group.MapPut("/", UnassignActuator);
+        group.MapPut("/", AssignUser);
+        group.MapPut("/", UnassignUser);
 
 
         return app;

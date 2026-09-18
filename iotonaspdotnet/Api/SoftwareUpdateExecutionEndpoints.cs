@@ -10,16 +10,16 @@ public static class SoftwareUpdateExecutionEndpoints
     {
         var group = app.MapGroup("/api/softwareUpdateExecution").WithTags("SoftwareUpdateExecutions");
 
-        group.MapPost("/", create);
-        group.MapGet("/", get);
-        group.MapGet("/", getAll);
-        group.MapPut("/", update);
-        group.MapDelete("/", delete);
+        group.MapPost("/", Create);
+        group.MapGet("/", Get);
+        group.MapGet("/", GetAll);
+        group.MapPut("/", Update);
+        group.MapDelete("/", Delete);
 
-        group.MapPut("/", assignCampaign);
-        group.MapPut("/", unassignCampaign);
-        group.MapPut("/", assignDevice);
-        group.MapPut("/", unassignDevice);
+        group.MapPut("/", AssignCampaign);
+        group.MapPut("/", UnassignCampaign);
+        group.MapPut("/", AssignDevice);
+        group.MapPut("/", UnassignDevice);
 
 
         return app;

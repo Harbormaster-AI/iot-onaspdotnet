@@ -10,20 +10,20 @@ public static class CommandDefinitionEndpoints
     {
         var group = app.MapGroup("/api/commandDefinition").WithTags("CommandDefinitions");
 
-        group.MapPost("/", create);
-        group.MapGet("/", get);
-        group.MapGet("/", getAll);
-        group.MapPut("/", update);
-        group.MapDelete("/", delete);
+        group.MapPost("/", Create);
+        group.MapGet("/", Get);
+        group.MapGet("/", GetAll);
+        group.MapPut("/", Update);
+        group.MapDelete("/", Delete);
 
-        group.MapPut("/", assignDeviceModel);
-        group.MapPut("/", unassignDeviceModel);
+        group.MapPut("/", AssignDeviceModel);
+        group.MapPut("/", UnassignDeviceModel);
 
-    group.MapPut("/", addToActuators);
-    group.MapPut("/", removeFromActuators);
+    group.MapPut("/", AddToActuators);
+    group.MapPut("/", RemoveFromActuators);
 
-    group.MapPut("/", addToCommandInvocations);
-    group.MapPut("/", removeFromCommandInvocations);
+    group.MapPut("/", AddToCommandInvocations);
+    group.MapPut("/", RemoveFromCommandInvocations);
 
 
         return app;

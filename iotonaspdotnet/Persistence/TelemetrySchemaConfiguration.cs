@@ -19,5 +19,6 @@ builder.OwnsOne(x => x.Uri_, SchemaUri =>
 });
         builder.Property(x => x.TelemetryEncoding).HasConversion<string>();
 
+// Exactly one TelemetryEncoding per TelemetrySchema (1:1)
     }
 }

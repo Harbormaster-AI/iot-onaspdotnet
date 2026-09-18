@@ -15,14 +15,12 @@ public class GatewayConfiguration : IEntityTypeConfiguration<Gateway>
         builder.Property(x => x.SoftwareVersion);
         builder.Property(x => x.DeviceStatus).HasConversion<string>();
 
+// Exactly one DeviceStatus per Gateway (1:1)
         builder.Property(x => x.Site).IsRequired();
-        // Exactly one DeviceStatus per Gateway (1:1)
         builder.HasIndex(x => x.Site.Id).IsUnique();
         builder.Property(x => x.Room).IsRequired();
-        // Exactly one DeviceStatus per Gateway (1:1)
         builder.HasIndex(x => x.Room.Id).IsUnique();
         builder.Property(x => x.DigitalTwin).IsRequired();
-        // Exactly one DeviceStatus per Gateway (1:1)
         builder.HasIndex(x => x.DigitalTwin.Id).IsUnique();
     }
 }
