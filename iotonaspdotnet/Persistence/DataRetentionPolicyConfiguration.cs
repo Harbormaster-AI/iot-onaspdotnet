@@ -15,8 +15,8 @@ public class DataRetentionPolicyConfiguration : IEntityTypeConfiguration<DataRet
         builder.Property(x => x.Name);
         builder.Property(x => x.RetentionDays);
 
-        builder.Property(x => x.TenantId).IsRequired();
-        // Exactly one Tenant per DataRetentionPolicy (1:1)
-        builder.HasIndex(x => x.TenantId).IsUnique();
+        builder.Property(x => x.Tenant).IsRequired();
+        // Exactly one Integer per DataRetentionPolicy (1:1)
+        builder.HasIndex(x => x.Tenant.Id).IsUnique();
     }
 }

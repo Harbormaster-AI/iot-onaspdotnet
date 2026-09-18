@@ -17,11 +17,11 @@ public class AlertConfiguration : IEntityTypeConfiguration<Alert>
         builder.Property(x => x.Message);
         builder.Property(x => x.AlertStatus).HasConversion<string>();
 
-        builder.Property(x => x.IoTDeviceId).IsRequired();
-        // Exactly one IoTDevice per Alert (1:1)
-        builder.HasIndex(x => x.IoTDeviceId).IsUnique();
-        builder.Property(x => x.AlertRuleId).IsRequired();
-        // Exactly one AlertRule per Alert (1:1)
-        builder.HasIndex(x => x.AlertRuleId).IsUnique();
+        builder.Property(x => x.Device).IsRequired();
+        // Exactly one AlertStatus per Alert (1:1)
+        builder.HasIndex(x => x.Device.Id).IsUnique();
+        builder.Property(x => x.AlertRule).IsRequired();
+        // Exactly one AlertStatus per Alert (1:1)
+        builder.HasIndex(x => x.AlertRule.Id).IsUnique();
     }
 }

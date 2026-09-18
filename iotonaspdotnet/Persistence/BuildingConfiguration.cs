@@ -14,8 +14,8 @@ public class BuildingConfiguration : IEntityTypeConfiguration<Building>
 
         builder.Property(x => x.Name);
 
-        builder.Property(x => x.SiteId).IsRequired();
-        // Exactly one Site per Building (1:1)
-        builder.HasIndex(x => x.SiteId).IsUnique();
+        builder.Property(x => x.Site).IsRequired();
+        // Exactly one String per Building (1:1)
+        builder.HasIndex(x => x.Site.Id).IsUnique();
     }
 }

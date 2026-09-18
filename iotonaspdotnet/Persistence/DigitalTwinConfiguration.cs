@@ -17,14 +17,14 @@ public class DigitalTwinConfiguration : IEntityTypeConfiguration<DigitalTwin>
         builder.Property(x => x.ReportedStateVersion);
         builder.Property(x => x.LastSyncAt);
 
-        builder.Property(x => x.IoTDeviceId).IsRequired();
-        // Exactly one IoTDevice per DigitalTwin (1:1)
-        builder.HasIndex(x => x.IoTDeviceId).IsUnique();
-        builder.Property(x => x.GatewayId).IsRequired();
-        // Exactly one Gateway per DigitalTwin (1:1)
-        builder.HasIndex(x => x.GatewayId).IsUnique();
-        builder.Property(x => x.TwinTemplateId).IsRequired();
-        // Exactly one TwinTemplate per DigitalTwin (1:1)
-        builder.HasIndex(x => x.TwinTemplateId).IsUnique();
+        builder.Property(x => x.Device).IsRequired();
+        // Exactly one DateTime per DigitalTwin (1:1)
+        builder.HasIndex(x => x.Device.Id).IsUnique();
+        builder.Property(x => x.Gateway).IsRequired();
+        // Exactly one DateTime per DigitalTwin (1:1)
+        builder.HasIndex(x => x.Gateway.Id).IsUnique();
+        builder.Property(x => x.Template).IsRequired();
+        // Exactly one DateTime per DigitalTwin (1:1)
+        builder.HasIndex(x => x.Template.Id).IsUnique();
     }
 }

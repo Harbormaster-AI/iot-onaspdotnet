@@ -16,8 +16,8 @@ public class AlertRuleConfiguration : IEntityTypeConfiguration<AlertRule>
         builder.Property(x => x.Expression);
         builder.Property(x => x.AlertSeverity).HasConversion<string>();
 
-        builder.Property(x => x.TenantId).IsRequired();
-        // Exactly one Tenant per AlertRule (1:1)
-        builder.HasIndex(x => x.TenantId).IsUnique();
+        builder.Property(x => x.Tenant).IsRequired();
+        // Exactly one AlertSeverity per AlertRule (1:1)
+        builder.HasIndex(x => x.Tenant.Id).IsUnique();
     }
 }

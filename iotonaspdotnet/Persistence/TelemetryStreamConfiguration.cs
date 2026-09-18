@@ -16,20 +16,20 @@ public class TelemetryStreamConfiguration : IEntityTypeConfiguration<TelemetrySt
         builder.Property(x => x.RetentionDays);
         builder.Property(x => x.MessageQoS).HasConversion<string>();
 
-        builder.Property(x => x.IoTDeviceId).IsRequired();
-        // Exactly one IoTDevice per TelemetryStream (1:1)
-        builder.HasIndex(x => x.IoTDeviceId).IsUnique();
-        builder.Property(x => x.SensorInstanceId).IsRequired();
-        // Exactly one SensorInstance per TelemetryStream (1:1)
-        builder.HasIndex(x => x.SensorInstanceId).IsUnique();
-        builder.Property(x => x.TelemetrySchemaId).IsRequired();
-        // Exactly one TelemetrySchema per TelemetryStream (1:1)
-        builder.HasIndex(x => x.TelemetrySchemaId).IsUnique();
-        builder.Property(x => x.MessagingEndpointId).IsRequired();
-        // Exactly one MessagingEndpoint per TelemetryStream (1:1)
-        builder.HasIndex(x => x.MessagingEndpointId).IsUnique();
-        builder.Property(x => x.DataRetentionPolicyId).IsRequired();
-        // Exactly one DataRetentionPolicy per TelemetryStream (1:1)
-        builder.HasIndex(x => x.DataRetentionPolicyId).IsUnique();
+        builder.Property(x => x.Device).IsRequired();
+        // Exactly one MessageQoS per TelemetryStream (1:1)
+        builder.HasIndex(x => x.Device.Id).IsUnique();
+        builder.Property(x => x.Sensor).IsRequired();
+        // Exactly one MessageQoS per TelemetryStream (1:1)
+        builder.HasIndex(x => x.Sensor.Id).IsUnique();
+        builder.Property(x => x.Schema).IsRequired();
+        // Exactly one MessageQoS per TelemetryStream (1:1)
+        builder.HasIndex(x => x.Schema.Id).IsUnique();
+        builder.Property(x => x.MessagingEndpoint).IsRequired();
+        // Exactly one MessageQoS per TelemetryStream (1:1)
+        builder.HasIndex(x => x.MessagingEndpoint.Id).IsUnique();
+        builder.Property(x => x.RetentionPolicy).IsRequired();
+        // Exactly one MessageQoS per TelemetryStream (1:1)
+        builder.HasIndex(x => x.RetentionPolicy.Id).IsUnique();
     }
 }

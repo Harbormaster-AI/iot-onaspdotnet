@@ -17,14 +17,14 @@ public class ProvisioningRecordConfiguration : IEntityTypeConfiguration<Provisio
         builder.Property(x => x.ProvisioningMethod).HasConversion<string>();
         builder.Property(x => x.ProvisioningStatus).HasConversion<string>();
 
-        builder.Property(x => x.IoTDeviceId).IsRequired();
-        // Exactly one IoTDevice per ProvisioningRecord (1:1)
-        builder.HasIndex(x => x.IoTDeviceId).IsUnique();
-        builder.Property(x => x.DeviceCertificateId).IsRequired();
-        // Exactly one DeviceCertificate per ProvisioningRecord (1:1)
-        builder.HasIndex(x => x.DeviceCertificateId).IsUnique();
-        builder.Property(x => x.TenantId).IsRequired();
-        // Exactly one Tenant per ProvisioningRecord (1:1)
-        builder.HasIndex(x => x.TenantId).IsUnique();
+        builder.Property(x => x.Device).IsRequired();
+        // Exactly one ProvisioningStatus per ProvisioningRecord (1:1)
+        builder.HasIndex(x => x.Device.Id).IsUnique();
+        builder.Property(x => x.Certificate).IsRequired();
+        // Exactly one ProvisioningStatus per ProvisioningRecord (1:1)
+        builder.HasIndex(x => x.Certificate.Id).IsUnique();
+        builder.Property(x => x.Tenant).IsRequired();
+        // Exactly one ProvisioningStatus per ProvisioningRecord (1:1)
+        builder.HasIndex(x => x.Tenant.Id).IsUnique();
     }
 }

@@ -17,14 +17,14 @@ public class NetworkProfileConfiguration : IEntityTypeConfiguration<NetworkProfi
         builder.Property(x => x.Apn);
         builder.Property(x => x.ConnectivityType).HasConversion<string>();
 
-        builder.Property(x => x.IoTDeviceId).IsRequired();
-        // Exactly one IoTDevice per NetworkProfile (1:1)
-        builder.HasIndex(x => x.IoTDeviceId).IsUnique();
-        builder.Property(x => x.GatewayId).IsRequired();
-        // Exactly one Gateway per NetworkProfile (1:1)
-        builder.HasIndex(x => x.GatewayId).IsUnique();
-        builder.Property(x => x.SimCardId).IsRequired();
-        // Exactly one SimCard per NetworkProfile (1:1)
-        builder.HasIndex(x => x.SimCardId).IsUnique();
+        builder.Property(x => x.Device).IsRequired();
+        // Exactly one ConnectivityType per NetworkProfile (1:1)
+        builder.HasIndex(x => x.Device.Id).IsUnique();
+        builder.Property(x => x.Gateway).IsRequired();
+        // Exactly one ConnectivityType per NetworkProfile (1:1)
+        builder.HasIndex(x => x.Gateway.Id).IsUnique();
+        builder.Property(x => x.SimCard).IsRequired();
+        // Exactly one ConnectivityType per NetworkProfile (1:1)
+        builder.HasIndex(x => x.SimCard.Id).IsUnique();
     }
 }

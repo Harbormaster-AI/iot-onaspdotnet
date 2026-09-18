@@ -17,8 +17,8 @@ public class EdgeApplicationConfiguration : IEntityTypeConfiguration<EdgeApplica
         builder.Property(x => x.Image);
         builder.Property(x => x.DeploymentStatus).HasConversion<string>();
 
-        builder.Property(x => x.GatewayId).IsRequired();
-        // Exactly one Gateway per EdgeApplication (1:1)
-        builder.HasIndex(x => x.GatewayId).IsUnique();
+        builder.Property(x => x.Gateway).IsRequired();
+        // Exactly one DeploymentStatus per EdgeApplication (1:1)
+        builder.HasIndex(x => x.Gateway.Id).IsUnique();
     }
 }

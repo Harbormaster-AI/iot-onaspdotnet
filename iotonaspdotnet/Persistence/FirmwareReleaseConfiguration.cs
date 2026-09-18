@@ -24,8 +24,8 @@ builder.OwnsOne(x => x.Checksum, Checksum =>
     Checksum.Property(x => x.Value).HasColumnName("Checksum_value");
 });
 
-        builder.Property(x => x.DeviceModelId).IsRequired();
-        // Exactly one DeviceModel per FirmwareRelease (1:1)
-        builder.HasIndex(x => x.DeviceModelId).IsUnique();
+        builder.Property(x => x.DeviceModel).IsRequired();
+        // Exactly one Checksum per FirmwareRelease (1:1)
+        builder.HasIndex(x => x.DeviceModel.Id).IsUnique();
     }
 }

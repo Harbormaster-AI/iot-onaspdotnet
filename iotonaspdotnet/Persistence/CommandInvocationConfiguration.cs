@@ -17,17 +17,17 @@ public class CommandInvocationConfiguration : IEntityTypeConfiguration<CommandIn
         builder.Property(x => x.CompletedAt);
         builder.Property(x => x.CommandStatus).HasConversion<string>();
 
-        builder.Property(x => x.IoTDeviceId).IsRequired();
-        // Exactly one IoTDevice per CommandInvocation (1:1)
-        builder.HasIndex(x => x.IoTDeviceId).IsUnique();
-        builder.Property(x => x.CommandDefinitionId).IsRequired();
-        // Exactly one CommandDefinition per CommandInvocation (1:1)
-        builder.HasIndex(x => x.CommandDefinitionId).IsUnique();
-        builder.Property(x => x.ActuatorInstanceId).IsRequired();
-        // Exactly one ActuatorInstance per CommandInvocation (1:1)
-        builder.HasIndex(x => x.ActuatorInstanceId).IsUnique();
-        builder.Property(x => x.TenantUserId).IsRequired();
-        // Exactly one TenantUser per CommandInvocation (1:1)
-        builder.HasIndex(x => x.TenantUserId).IsUnique();
+        builder.Property(x => x.Device).IsRequired();
+        // Exactly one CommandStatus per CommandInvocation (1:1)
+        builder.HasIndex(x => x.Device.Id).IsUnique();
+        builder.Property(x => x.CommandDefinition).IsRequired();
+        // Exactly one CommandStatus per CommandInvocation (1:1)
+        builder.HasIndex(x => x.CommandDefinition.Id).IsUnique();
+        builder.Property(x => x.Actuator).IsRequired();
+        // Exactly one CommandStatus per CommandInvocation (1:1)
+        builder.HasIndex(x => x.Actuator.Id).IsUnique();
+        builder.Property(x => x.User).IsRequired();
+        // Exactly one CommandStatus per CommandInvocation (1:1)
+        builder.HasIndex(x => x.User.Id).IsUnique();
     }
 }

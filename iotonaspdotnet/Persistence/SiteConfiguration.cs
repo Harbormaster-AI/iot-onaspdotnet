@@ -25,8 +25,8 @@ builder.OwnsOne(x => x.Address, Address =>
         builder.Property(x => x.Latitude);
         builder.Property(x => x.Longitude);
 
-        builder.Property(x => x.TenantId).IsRequired();
-        // Exactly one Tenant per Site (1:1)
-        builder.HasIndex(x => x.TenantId).IsUnique();
+        builder.Property(x => x.Tenant).IsRequired();
+        // Exactly one Decimal per Site (1:1)
+        builder.HasIndex(x => x.Tenant.Id).IsUnique();
     }
 }

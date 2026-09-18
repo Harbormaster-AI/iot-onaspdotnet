@@ -18,11 +18,11 @@ public class DeviceModelConfiguration : IEntityTypeConfiguration<DeviceModel>
         builder.Property(x => x.ConnectivityType).HasConversion<string>();
         builder.Property(x => x.TelemetryEncoding).HasConversion<string>();
 
-        builder.Property(x => x.DeviceVendorId).IsRequired();
-        // Exactly one DeviceVendor per DeviceModel (1:1)
-        builder.HasIndex(x => x.DeviceVendorId).IsUnique();
-        builder.Property(x => x.TwinTemplateId).IsRequired();
-        // Exactly one TwinTemplate per DeviceModel (1:1)
-        builder.HasIndex(x => x.TwinTemplateId).IsUnique();
+        builder.Property(x => x.Vendor).IsRequired();
+        // Exactly one TelemetryEncoding per DeviceModel (1:1)
+        builder.HasIndex(x => x.Vendor.Id).IsUnique();
+        builder.Property(x => x.TwinTemplate).IsRequired();
+        // Exactly one TelemetryEncoding per DeviceModel (1:1)
+        builder.HasIndex(x => x.TwinTemplate.Id).IsUnique();
     }
 }

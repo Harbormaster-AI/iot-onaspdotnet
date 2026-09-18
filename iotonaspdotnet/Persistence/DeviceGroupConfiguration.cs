@@ -15,8 +15,8 @@ public class DeviceGroupConfiguration : IEntityTypeConfiguration<DeviceGroup>
         builder.Property(x => x.Name);
         builder.Property(x => x.Criteria);
 
-        builder.Property(x => x.TenantId).IsRequired();
-        // Exactly one Tenant per DeviceGroup (1:1)
-        builder.HasIndex(x => x.TenantId).IsUnique();
+        builder.Property(x => x.Tenant).IsRequired();
+        // Exactly one String per DeviceGroup (1:1)
+        builder.HasIndex(x => x.Tenant.Id).IsUnique();
     }
 }

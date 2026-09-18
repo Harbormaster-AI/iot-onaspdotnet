@@ -23,8 +23,8 @@ builder.OwnsOne(x => x.Uri_, ResponseSchemaUri =>
 });
         builder.Property(x => x.TimeoutSeconds);
 
-        builder.Property(x => x.DeviceModelId).IsRequired();
-        // Exactly one DeviceModel per CommandDefinition (1:1)
-        builder.HasIndex(x => x.DeviceModelId).IsUnique();
+        builder.Property(x => x.DeviceModel).IsRequired();
+        // Exactly one Integer per CommandDefinition (1:1)
+        builder.HasIndex(x => x.DeviceModel.Id).IsUnique();
     }
 }

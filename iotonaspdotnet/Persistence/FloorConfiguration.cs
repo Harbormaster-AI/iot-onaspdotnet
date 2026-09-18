@@ -15,8 +15,8 @@ public class FloorConfiguration : IEntityTypeConfiguration<Floor>
         builder.Property(x => x.Name);
         builder.Property(x => x.Level);
 
-        builder.Property(x => x.BuildingId).IsRequired();
-        // Exactly one Building per Floor (1:1)
-        builder.HasIndex(x => x.BuildingId).IsUnique();
+        builder.Property(x => x.Building).IsRequired();
+        // Exactly one Integer per Floor (1:1)
+        builder.HasIndex(x => x.Building.Id).IsUnique();
     }
 }
