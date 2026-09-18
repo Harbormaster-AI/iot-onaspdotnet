@@ -54,10 +54,6 @@ public class TwinChangeEventService : ITwinChangeEventService
         existing.Twin = request.Twin;
         existing.ChangeType = request.ChangeType;
 
-        existing.EventId = twinChangeEvent.EventId;
-        existing.OccurredAt = twinChangeEvent.OccurredAt;
-        existing.ChangeType = twinChangeEvent.ChangeType;
-
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

@@ -86,10 +86,6 @@ public class TelemetryStreamService : ITelemetryStreamService
         existing.RetentionPolicy = request.RetentionPolicy;
         existing.Qos = request.Qos;
 
-        existing.StreamName = telemetryStream.StreamName;
-        existing.RetentionDays = telemetryStream.RetentionDays;
-        existing.Qos = telemetryStream.Qos;
-
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

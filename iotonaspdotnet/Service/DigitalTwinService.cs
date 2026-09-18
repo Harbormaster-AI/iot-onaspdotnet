@@ -72,11 +72,6 @@ public class DigitalTwinService : IDigitalTwinService
         existing.Template = request.Template;
         existing.ChangeEvents = request.ChangeEvents;
 
-        existing.TwinId = digitalTwin.TwinId;
-        existing.DesiredStateVersion = digitalTwin.DesiredStateVersion;
-        existing.ReportedStateVersion = digitalTwin.ReportedStateVersion;
-        existing.LastSyncAt = digitalTwin.LastSyncAt;
-
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

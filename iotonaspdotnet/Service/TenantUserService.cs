@@ -56,11 +56,6 @@ public class TenantUserService : ITenantUserService
         existing.CommandInvocations = request.CommandInvocations;
         existing.Role = request.Role;
 
-        existing.FirstName = tenantUser.FirstName;
-        existing.LastName = tenantUser.LastName;
-        existing.Email = tenantUser.Email;
-        existing.Role = tenantUser.Role;
-
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

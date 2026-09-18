@@ -64,11 +64,6 @@ public class SoftwareUpdateCampaignService : ISoftwareUpdateCampaignService
         existing.Executions = request.Executions;
         existing.Status = request.Status;
 
-        existing.CampaignCode = softwareUpdateCampaign.CampaignCode;
-        existing.ScheduledStart = softwareUpdateCampaign.ScheduledStart;
-        existing.ScheduledEnd = softwareUpdateCampaign.ScheduledEnd;
-        existing.Status = softwareUpdateCampaign.Status;
-
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

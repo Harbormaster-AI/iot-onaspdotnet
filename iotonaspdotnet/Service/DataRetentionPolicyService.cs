@@ -54,9 +54,6 @@ public class DataRetentionPolicyService : IDataRetentionPolicyService
         existing.Tenant = request.Tenant;
         existing.Streams = request.Streams;
 
-        existing.Name = dataRetentionPolicy.Name;
-        existing.RetentionDays = dataRetentionPolicy.RetentionDays;
-
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

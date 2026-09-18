@@ -71,11 +71,6 @@ public class ProvisioningRecordService : IProvisioningRecordService
         existing.Method = request.Method;
         existing.Status = request.Status;
 
-        existing.EnrolledAt = provisioningRecord.EnrolledAt;
-        existing.ProvisioningService = provisioningRecord.ProvisioningService;
-        existing.Method = provisioningRecord.Method;
-        existing.Status = provisioningRecord.Status;
-
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

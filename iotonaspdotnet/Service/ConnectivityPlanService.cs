@@ -55,10 +55,6 @@ public class ConnectivityPlanService : IConnectivityPlanService
         existing.SimCards = request.SimCards;
         existing.Tenant = request.Tenant;
 
-        existing.Name = connectivityPlan.Name;
-        existing.DataCapMB = connectivityPlan.DataCapMB;
-        existing.BillingCycleDays = connectivityPlan.BillingCycleDays;
-
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

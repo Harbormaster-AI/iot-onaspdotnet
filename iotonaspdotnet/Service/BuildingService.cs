@@ -53,8 +53,6 @@ public class BuildingService : IBuildingService
         existing.Site = request.Site;
         existing.Floors = request.Floors;
 
-        existing.Name = building.Name;
-
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

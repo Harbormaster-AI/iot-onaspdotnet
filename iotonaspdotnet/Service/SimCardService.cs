@@ -64,11 +64,6 @@ public class SimCardService : ISimCardService
         existing.ConnectivityPlan = request.ConnectivityPlan;
         existing.Status = request.Status;
 
-        existing.Iccid = simCard.Iccid;
-        existing.Imsi = simCard.Imsi;
-        existing.Carrier = simCard.Carrier;
-        existing.Status = simCard.Status;
-
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

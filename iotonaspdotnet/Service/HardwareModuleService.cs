@@ -54,10 +54,6 @@ public class HardwareModuleService : IHardwareModuleService
         existing.Vendor = request.Vendor;
         existing.ModuleType = request.ModuleType;
 
-        existing.ModuleCode = hardwareModule.ModuleCode;
-        existing.DatasheetUri = hardwareModule.DatasheetUri;
-        existing.ModuleType = hardwareModule.ModuleType;
-
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

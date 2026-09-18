@@ -55,10 +55,6 @@ public class ActuatorInstanceService : IActuatorInstanceService
         existing.SupportedCommands = request.SupportedCommands;
         existing.ActuatorType = request.ActuatorType;
 
-        existing.Name = actuatorInstance.Name;
-        existing.CommandTopic = actuatorInstance.CommandTopic;
-        existing.ActuatorType = actuatorInstance.ActuatorType;
-
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

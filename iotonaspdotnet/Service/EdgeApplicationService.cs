@@ -55,11 +55,6 @@ public class EdgeApplicationService : IEdgeApplicationService
         existing.Gateway = request.Gateway;
         existing.Status = request.Status;
 
-        existing.Name = edgeApplication.Name;
-        existing.Version = edgeApplication.Version;
-        existing.Image = edgeApplication.Image;
-        existing.Status = edgeApplication.Status;
-
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

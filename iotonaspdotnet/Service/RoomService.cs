@@ -54,8 +54,6 @@ public class RoomService : IRoomService
         existing.Devices = request.Devices;
         existing.Gateways = request.Gateways;
 
-        existing.Name = room.Name;
-
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

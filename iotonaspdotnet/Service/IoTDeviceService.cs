@@ -113,13 +113,6 @@ public class IoTDeviceService : IIoTDeviceService
         existing.Status = request.Status;
         existing.PowerSource = request.PowerSource;
 
-        existing.DeviceId = ioTDevice.DeviceId;
-        existing.SerialNumber = ioTDevice.SerialNumber;
-        existing.LastSeen = ioTDevice.LastSeen;
-        existing.FirmwareVersion = ioTDevice.FirmwareVersion;
-        existing.Status = ioTDevice.Status;
-        existing.PowerSource = ioTDevice.PowerSource;
-
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

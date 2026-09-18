@@ -71,11 +71,6 @@ public class NetworkProfileService : INetworkProfileService
         existing.SimCard = request.SimCard;
         existing.ConnectivityType = request.ConnectivityType;
 
-        existing.ProfileName = networkProfile.ProfileName;
-        existing.Ssid = networkProfile.Ssid;
-        existing.Apn = networkProfile.Apn;
-        existing.ConnectivityType = networkProfile.ConnectivityType;
-
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

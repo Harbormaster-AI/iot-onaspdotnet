@@ -64,12 +64,6 @@ public class DeviceCertificateService : IDeviceCertificateService
         existing.Gateway = request.Gateway;
         existing.CertificateType = request.CertificateType;
 
-        existing.SerialNumber = deviceCertificate.SerialNumber;
-        existing.NotBefore = deviceCertificate.NotBefore;
-        existing.NotAfter = deviceCertificate.NotAfter;
-        existing.Fingerprint = deviceCertificate.Fingerprint;
-        existing.CertificateType = deviceCertificate.CertificateType;
-
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

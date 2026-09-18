@@ -56,10 +56,6 @@ public class AccessPolicyService : IAccessPolicyService
         existing.ApiKeys = request.ApiKeys;
         existing.Users = request.Users;
 
-        existing.Name = accessPolicy.Name;
-        existing.Scope = accessPolicy.Scope;
-        existing.ExpiresAt = accessPolicy.ExpiresAt;
-
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

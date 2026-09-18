@@ -73,9 +73,6 @@ public class GatewayService : IGatewayService
         existing.NetworkProfiles = request.NetworkProfiles;
         existing.Status = request.Status;
 
-        existing.SoftwareVersion = gateway.SoftwareVersion;
-        existing.Status = gateway.Status;
-
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

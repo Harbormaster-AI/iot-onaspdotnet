@@ -59,12 +59,6 @@ public class SiteService : ISiteService
         existing.Devices = request.Devices;
         existing.Gateways = request.Gateways;
 
-        existing.Name = site.Name;
-        existing.Address = site.Address;
-        existing.Timezone = site.Timezone;
-        existing.Latitude = site.Latitude;
-        existing.Longitude = site.Longitude;
-
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

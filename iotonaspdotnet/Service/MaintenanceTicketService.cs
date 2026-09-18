@@ -64,12 +64,6 @@ public class MaintenanceTicketService : IMaintenanceTicketService
         existing.Priority = request.Priority;
         existing.Status = request.Status;
 
-        existing.TicketNumber = maintenanceTicket.TicketNumber;
-        existing.OpenedAt = maintenanceTicket.OpenedAt;
-        existing.ClosedAt = maintenanceTicket.ClosedAt;
-        existing.Priority = maintenanceTicket.Priority;
-        existing.Status = maintenanceTicket.Status;
-
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

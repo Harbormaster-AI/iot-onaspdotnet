@@ -47,10 +47,6 @@ public class TwinTemplateService : ITwinTemplateService
         existing.Version = request.Version;
         existing.DeviceModels = request.DeviceModels;
 
-        existing.Name = twinTemplate.Name;
-        existing.SchemaUri = twinTemplate.SchemaUri;
-        existing.Version = twinTemplate.Version;
-
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

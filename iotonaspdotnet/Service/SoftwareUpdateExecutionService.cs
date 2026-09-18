@@ -62,10 +62,6 @@ public class SoftwareUpdateExecutionService : ISoftwareUpdateExecutionService
         existing.Device = request.Device;
         existing.Status = request.Status;
 
-        existing.StartedAt = softwareUpdateExecution.StartedAt;
-        existing.CompletedAt = softwareUpdateExecution.CompletedAt;
-        existing.Status = softwareUpdateExecution.Status;
-
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

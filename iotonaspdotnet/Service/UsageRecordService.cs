@@ -71,11 +71,6 @@ public class UsageRecordService : IUsageRecordService
         existing.Device = request.Device;
         existing.ConnectivityPlan = request.ConnectivityPlan;
 
-        existing.PeriodStart = usageRecord.PeriodStart;
-        existing.PeriodEnd = usageRecord.PeriodEnd;
-        existing.MessagesSent = usageRecord.MessagesSent;
-        existing.DataVolumeMB = usageRecord.DataVolumeMB;
-
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

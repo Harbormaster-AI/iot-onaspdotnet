@@ -56,11 +56,6 @@ public class MessagingEndpointService : IMessagingEndpointService
         existing.Streams = request.Streams;
         existing.Protocol = request.Protocol;
 
-        existing.Host = messagingEndpoint.Host;
-        existing.Port = messagingEndpoint.Port;
-        existing.Secure = messagingEndpoint.Secure;
-        existing.Protocol = messagingEndpoint.Protocol;
-
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
