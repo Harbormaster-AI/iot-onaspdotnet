@@ -140,7 +140,7 @@ public static class SimCardEndpoints
         var removeFrom = await service.RemoveFromNetworkProfiles(request, cancellationToken);
         return removeFrom ? Results.NoContent() : Results.NotFound();
     }
-    private SimCard mapRequestToSimCard( SimCardRequest request ) {
+    private static SimCard mapRequestToSimCard( SimCardRequest request ) {
         var model = new SimCard
         {
             Id = request.id,

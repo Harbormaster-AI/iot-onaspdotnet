@@ -33,8 +33,7 @@ public class MessagingEndpointRepository : IMessagingEndpointRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task
-    (MessagingEndpoint messagingEndpoint, CancellationToken cancellationToken)
+    public async Task UpdateAsync(MessagingEndpoint messagingEndpoint, CancellationToken cancellationToken)
     {
         _db.MessagingEndpoints.Update(messagingEndpoint);
         await _db.SaveChangesAsync(cancellationToken);

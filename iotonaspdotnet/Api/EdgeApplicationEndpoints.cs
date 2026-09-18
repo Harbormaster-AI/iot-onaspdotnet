@@ -104,7 +104,7 @@ public static class EdgeApplicationEndpoints
     }
 
 
-    private EdgeApplication mapRequestToEdgeApplication( EdgeApplicationRequest request ) {
+    private static EdgeApplication mapRequestToEdgeApplication( EdgeApplicationRequest request ) {
         var model = new EdgeApplication
         {
             Id = request.id,

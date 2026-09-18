@@ -122,7 +122,7 @@ public static class SensorInstanceEndpoints
         var removeFrom = await service.RemoveFromTelemetryStreams(request, cancellationToken);
         return removeFrom ? Results.NoContent() : Results.NotFound();
     }
-    private SensorInstance mapRequestToSensorInstance( SensorInstanceRequest request ) {
+    private static SensorInstance mapRequestToSensorInstance( SensorInstanceRequest request ) {
         var model = new SensorInstance
         {
             Id = request.id,

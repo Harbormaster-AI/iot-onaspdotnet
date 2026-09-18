@@ -33,8 +33,7 @@ public class RoomRepository : IRoomRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task
-    (Room room, CancellationToken cancellationToken)
+    public async Task UpdateAsync(Room room, CancellationToken cancellationToken)
     {
         _db.Rooms.Update(room);
         await _db.SaveChangesAsync(cancellationToken);

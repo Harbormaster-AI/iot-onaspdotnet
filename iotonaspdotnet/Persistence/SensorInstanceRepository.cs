@@ -33,8 +33,7 @@ public class SensorInstanceRepository : ISensorInstanceRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task
-    (SensorInstance sensorInstance, CancellationToken cancellationToken)
+    public async Task UpdateAsync(SensorInstance sensorInstance, CancellationToken cancellationToken)
     {
         _db.SensorInstances.Update(sensorInstance);
         await _db.SaveChangesAsync(cancellationToken);

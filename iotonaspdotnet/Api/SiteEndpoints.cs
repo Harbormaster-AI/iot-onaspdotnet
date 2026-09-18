@@ -158,7 +158,7 @@ public static class SiteEndpoints
         var removeFrom = await service.RemoveFromGateways(request, cancellationToken);
         return removeFrom ? Results.NoContent() : Results.NotFound();
     }
-    private Site mapRequestToSite( SiteRequest request ) {
+    private static Site mapRequestToSite( SiteRequest request ) {
         var model = new Site
         {
             Id = request.id,

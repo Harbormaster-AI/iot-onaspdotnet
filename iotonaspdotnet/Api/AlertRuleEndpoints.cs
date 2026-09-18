@@ -140,7 +140,7 @@ public static class AlertRuleEndpoints
         var removeFrom = await service.RemoveFromAlerts(request, cancellationToken);
         return removeFrom ? Results.NoContent() : Results.NotFound();
     }
-    private AlertRule mapRequestToAlertRule( AlertRuleRequest request ) {
+    private static AlertRule mapRequestToAlertRule( AlertRuleRequest request ) {
         var model = new AlertRule
         {
             Id = request.id,

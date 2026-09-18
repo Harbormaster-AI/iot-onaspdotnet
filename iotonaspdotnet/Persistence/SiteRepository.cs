@@ -33,8 +33,7 @@ public class SiteRepository : ISiteRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task
-    (Site site, CancellationToken cancellationToken)
+    public async Task UpdateAsync(Site site, CancellationToken cancellationToken)
     {
         _db.Sites.Update(site);
         await _db.SaveChangesAsync(cancellationToken);

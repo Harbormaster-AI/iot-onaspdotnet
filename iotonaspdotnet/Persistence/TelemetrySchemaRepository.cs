@@ -31,8 +31,7 @@ public class TelemetrySchemaRepository : ITelemetrySchemaRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task
-    (TelemetrySchema telemetrySchema, CancellationToken cancellationToken)
+    public async Task UpdateAsync(TelemetrySchema telemetrySchema, CancellationToken cancellationToken)
     {
         _db.TelemetrySchemas.Update(telemetrySchema);
         await _db.SaveChangesAsync(cancellationToken);

@@ -140,7 +140,7 @@ public static class ProvisioningRecordEndpoints
     }
 
 
-    private ProvisioningRecord mapRequestToProvisioningRecord( ProvisioningRecordRequest request ) {
+    private static ProvisioningRecord mapRequestToProvisioningRecord( ProvisioningRecordRequest request ) {
         var model = new ProvisioningRecord
         {
             Id = request.id,

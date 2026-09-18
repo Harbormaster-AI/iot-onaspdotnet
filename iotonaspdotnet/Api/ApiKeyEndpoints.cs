@@ -104,7 +104,7 @@ public static class ApiKeyEndpoints
     }
 
 
-    private ApiKey mapRequestToApiKey( ApiKeyRequest request ) {
+    private static ApiKey mapRequestToApiKey( ApiKeyRequest request ) {
         var model = new ApiKey
         {
             Id = request.id,

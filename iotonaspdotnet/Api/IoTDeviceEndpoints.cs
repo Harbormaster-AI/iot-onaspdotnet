@@ -356,7 +356,7 @@ public static class IoTDeviceEndpoints
         var removeFrom = await service.RemoveFromNetworkProfiles(request, cancellationToken);
         return removeFrom ? Results.NoContent() : Results.NotFound();
     }
-    private IoTDevice mapRequestToIoTDevice( IoTDeviceRequest request ) {
+    private static IoTDevice mapRequestToIoTDevice( IoTDeviceRequest request ) {
         var model = new IoTDevice
         {
             Id = request.id,

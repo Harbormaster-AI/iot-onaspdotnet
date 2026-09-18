@@ -140,7 +140,7 @@ public static class RoomEndpoints
         var removeFrom = await service.RemoveFromGateways(request, cancellationToken);
         return removeFrom ? Results.NoContent() : Results.NotFound();
     }
-    private Room mapRequestToRoom( RoomRequest request ) {
+    private static Room mapRequestToRoom( RoomRequest request ) {
         var model = new Room
         {
             Id = request.id,

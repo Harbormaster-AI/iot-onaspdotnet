@@ -104,7 +104,7 @@ public static class TelemetrySchemaEndpoints
         var removeFrom = await service.RemoveFromStreams(request, cancellationToken);
         return removeFrom ? Results.NoContent() : Results.NotFound();
     }
-    private TelemetrySchema mapRequestToTelemetrySchema( TelemetrySchemaRequest request ) {
+    private static TelemetrySchema mapRequestToTelemetrySchema( TelemetrySchemaRequest request ) {
         var model = new TelemetrySchema
         {
             Id = request.id,

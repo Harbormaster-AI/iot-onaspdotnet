@@ -104,7 +104,7 @@ public static class FirmwareReleaseEndpoints
     }
 
 
-    private FirmwareRelease mapRequestToFirmwareRelease( FirmwareReleaseRequest request ) {
+    private static FirmwareRelease mapRequestToFirmwareRelease( FirmwareReleaseRequest request ) {
         var model = new FirmwareRelease
         {
             Id = request.id,

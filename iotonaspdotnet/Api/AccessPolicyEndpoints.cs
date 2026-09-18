@@ -140,7 +140,7 @@ public static class AccessPolicyEndpoints
         var removeFrom = await service.RemoveFromUsers(request, cancellationToken);
         return removeFrom ? Results.NoContent() : Results.NotFound();
     }
-    private AccessPolicy mapRequestToAccessPolicy( AccessPolicyRequest request ) {
+    private static AccessPolicy mapRequestToAccessPolicy( AccessPolicyRequest request ) {
         var model = new AccessPolicy
         {
             Id = request.id,

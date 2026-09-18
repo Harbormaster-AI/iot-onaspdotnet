@@ -140,7 +140,7 @@ public static class SoftwareUpdateCampaignEndpoints
         var removeFrom = await service.RemoveFromExecutions(request, cancellationToken);
         return removeFrom ? Results.NoContent() : Results.NotFound();
     }
-    private SoftwareUpdateCampaign mapRequestToSoftwareUpdateCampaign( SoftwareUpdateCampaignRequest request ) {
+    private static SoftwareUpdateCampaign mapRequestToSoftwareUpdateCampaign( SoftwareUpdateCampaignRequest request ) {
         var model = new SoftwareUpdateCampaign
         {
             Id = request.id,

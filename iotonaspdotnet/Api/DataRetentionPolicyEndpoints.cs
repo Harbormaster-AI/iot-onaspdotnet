@@ -122,7 +122,7 @@ public static class DataRetentionPolicyEndpoints
         var removeFrom = await service.RemoveFromStreams(request, cancellationToken);
         return removeFrom ? Results.NoContent() : Results.NotFound();
     }
-    private DataRetentionPolicy mapRequestToDataRetentionPolicy( DataRetentionPolicyRequest request ) {
+    private static DataRetentionPolicy mapRequestToDataRetentionPolicy( DataRetentionPolicyRequest request ) {
         var model = new DataRetentionPolicy
         {
             Id = request.id,

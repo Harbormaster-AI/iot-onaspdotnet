@@ -37,8 +37,7 @@ public class DigitalTwinRepository : IDigitalTwinRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task
-    (DigitalTwin digitalTwin, CancellationToken cancellationToken)
+    public async Task UpdateAsync(DigitalTwin digitalTwin, CancellationToken cancellationToken)
     {
         _db.DigitalTwins.Update(digitalTwin);
         await _db.SaveChangesAsync(cancellationToken);

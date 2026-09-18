@@ -122,7 +122,7 @@ public static class DeviceGroupEndpoints
         var removeFrom = await service.RemoveFromDevices(request, cancellationToken);
         return removeFrom ? Results.NoContent() : Results.NotFound();
     }
-    private DeviceGroup mapRequestToDeviceGroup( DeviceGroupRequest request ) {
+    private static DeviceGroup mapRequestToDeviceGroup( DeviceGroupRequest request ) {
         var model = new DeviceGroup
         {
             Id = request.id,

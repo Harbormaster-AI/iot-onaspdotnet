@@ -122,7 +122,7 @@ public static class ConnectivityPlanEndpoints
         var removeFrom = await service.RemoveFromSimCards(request, cancellationToken);
         return removeFrom ? Results.NoContent() : Results.NotFound();
     }
-    private ConnectivityPlan mapRequestToConnectivityPlan( ConnectivityPlanRequest request ) {
+    private static ConnectivityPlan mapRequestToConnectivityPlan( ConnectivityPlanRequest request ) {
         var model = new ConnectivityPlan
         {
             Id = request.id,

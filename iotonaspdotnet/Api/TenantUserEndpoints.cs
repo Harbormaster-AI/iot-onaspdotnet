@@ -122,7 +122,7 @@ public static class TenantUserEndpoints
         var removeFrom = await service.RemoveFromCommandInvocations(request, cancellationToken);
         return removeFrom ? Results.NoContent() : Results.NotFound();
     }
-    private TenantUser mapRequestToTenantUser( TenantUserRequest request ) {
+    private static TenantUser mapRequestToTenantUser( TenantUserRequest request ) {
         var model = new TenantUser
         {
             Id = request.id,

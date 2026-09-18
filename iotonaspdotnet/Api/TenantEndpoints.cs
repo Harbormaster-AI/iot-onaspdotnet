@@ -302,7 +302,7 @@ public static class TenantEndpoints
         var removeFrom = await service.RemoveFromUsageRecords(request, cancellationToken);
         return removeFrom ? Results.NoContent() : Results.NotFound();
     }
-    private Tenant mapRequestToTenant( TenantRequest request ) {
+    private static Tenant mapRequestToTenant( TenantRequest request ) {
         var model = new Tenant
         {
             Id = request.id,

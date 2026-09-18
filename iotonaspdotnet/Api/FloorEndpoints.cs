@@ -122,7 +122,7 @@ public static class FloorEndpoints
         var removeFrom = await service.RemoveFromRooms(request, cancellationToken);
         return removeFrom ? Results.NoContent() : Results.NotFound();
     }
-    private Floor mapRequestToFloor( FloorRequest request ) {
+    private static Floor mapRequestToFloor( FloorRequest request ) {
         var model = new Floor
         {
             Id = request.id,

@@ -35,8 +35,7 @@ public class DeviceModelRepository : IDeviceModelRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task
-    (DeviceModel deviceModel, CancellationToken cancellationToken)
+    public async Task UpdateAsync(DeviceModel deviceModel, CancellationToken cancellationToken)
     {
         _db.DeviceModels.Update(deviceModel);
         await _db.SaveChangesAsync(cancellationToken);

@@ -35,8 +35,7 @@ public class SoftwareUpdateCampaignRepository : ISoftwareUpdateCampaignRepositor
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task
-    (SoftwareUpdateCampaign softwareUpdateCampaign, CancellationToken cancellationToken)
+    public async Task UpdateAsync(SoftwareUpdateCampaign softwareUpdateCampaign, CancellationToken cancellationToken)
     {
         _db.SoftwareUpdateCampaigns.Update(softwareUpdateCampaign);
         await _db.SaveChangesAsync(cancellationToken);

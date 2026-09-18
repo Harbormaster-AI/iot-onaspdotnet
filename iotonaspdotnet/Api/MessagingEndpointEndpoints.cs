@@ -122,7 +122,7 @@ public static class MessagingEndpointEndpoints
         var removeFrom = await service.RemoveFromStreams(request, cancellationToken);
         return removeFrom ? Results.NoContent() : Results.NotFound();
     }
-    private MessagingEndpoint mapRequestToMessagingEndpoint( MessagingEndpointRequest request ) {
+    private static MessagingEndpoint mapRequestToMessagingEndpoint( MessagingEndpointRequest request ) {
         var model = new MessagingEndpoint
         {
             Id = request.id,

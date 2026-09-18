@@ -37,8 +37,7 @@ public class NetworkProfileRepository : INetworkProfileRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task
-    (NetworkProfile networkProfile, CancellationToken cancellationToken)
+    public async Task UpdateAsync(NetworkProfile networkProfile, CancellationToken cancellationToken)
     {
         _db.NetworkProfiles.Update(networkProfile);
         await _db.SaveChangesAsync(cancellationToken);

@@ -122,7 +122,7 @@ public static class DeviceCertificateEndpoints
     }
 
 
-    private DeviceCertificate mapRequestToDeviceCertificate( DeviceCertificateRequest request ) {
+    private static DeviceCertificate mapRequestToDeviceCertificate( DeviceCertificateRequest request ) {
         var model = new DeviceCertificate
         {
             Id = request.id,

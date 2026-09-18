@@ -176,7 +176,7 @@ public static class DeviceModelEndpoints
         var removeFrom = await service.RemoveFromCommandDefinitions(request, cancellationToken);
         return removeFrom ? Results.NoContent() : Results.NotFound();
     }
-    private DeviceModel mapRequestToDeviceModel( DeviceModelRequest request ) {
+    private static DeviceModel mapRequestToDeviceModel( DeviceModelRequest request ) {
         var model = new DeviceModel
         {
             Id = request.id,

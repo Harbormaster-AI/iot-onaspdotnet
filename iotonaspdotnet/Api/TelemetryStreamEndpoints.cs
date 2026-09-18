@@ -176,7 +176,7 @@ public static class TelemetryStreamEndpoints
     }
 
 
-    private TelemetryStream mapRequestToTelemetryStream( TelemetryStreamRequest request ) {
+    private static TelemetryStream mapRequestToTelemetryStream( TelemetryStreamRequest request ) {
         var model = new TelemetryStream
         {
             Id = request.id,

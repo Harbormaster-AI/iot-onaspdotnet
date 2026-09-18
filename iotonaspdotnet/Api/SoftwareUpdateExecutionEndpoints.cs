@@ -122,7 +122,7 @@ public static class SoftwareUpdateExecutionEndpoints
     }
 
 
-    private SoftwareUpdateExecution mapRequestToSoftwareUpdateExecution( SoftwareUpdateExecutionRequest request ) {
+    private static SoftwareUpdateExecution mapRequestToSoftwareUpdateExecution( SoftwareUpdateExecutionRequest request ) {
         var model = new SoftwareUpdateExecution
         {
             Id = request.id,

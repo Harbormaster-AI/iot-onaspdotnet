@@ -140,7 +140,7 @@ public static class DeviceVendorEndpoints
         var removeFrom = await service.RemoveFromHardwareModules(request, cancellationToken);
         return removeFrom ? Results.NoContent() : Results.NotFound();
     }
-    private DeviceVendor mapRequestToDeviceVendor( DeviceVendorRequest request ) {
+    private static DeviceVendor mapRequestToDeviceVendor( DeviceVendorRequest request ) {
         var model = new DeviceVendor
         {
             Id = request.id,

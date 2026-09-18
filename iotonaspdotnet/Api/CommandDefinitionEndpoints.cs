@@ -140,7 +140,7 @@ public static class CommandDefinitionEndpoints
         var removeFrom = await service.RemoveFromCommandInvocations(request, cancellationToken);
         return removeFrom ? Results.NoContent() : Results.NotFound();
     }
-    private CommandDefinition mapRequestToCommandDefinition( CommandDefinitionRequest request ) {
+    private static CommandDefinition mapRequestToCommandDefinition( CommandDefinitionRequest request ) {
         var model = new CommandDefinition
         {
             Id = request.id,

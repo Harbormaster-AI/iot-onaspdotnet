@@ -33,8 +33,7 @@ public class ApiKeyRepository : IApiKeyRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task
-    (ApiKey apiKey, CancellationToken cancellationToken)
+    public async Task UpdateAsync(ApiKey apiKey, CancellationToken cancellationToken)
     {
         _db.ApiKeys.Update(apiKey);
         await _db.SaveChangesAsync(cancellationToken);

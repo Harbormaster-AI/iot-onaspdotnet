@@ -158,7 +158,7 @@ public static class DigitalTwinEndpoints
         var removeFrom = await service.RemoveFromChangeEvents(request, cancellationToken);
         return removeFrom ? Results.NoContent() : Results.NotFound();
     }
-    private DigitalTwin mapRequestToDigitalTwin( DigitalTwinRequest request ) {
+    private static DigitalTwin mapRequestToDigitalTwin( DigitalTwinRequest request ) {
         var model = new DigitalTwin
         {
             Id = request.id,

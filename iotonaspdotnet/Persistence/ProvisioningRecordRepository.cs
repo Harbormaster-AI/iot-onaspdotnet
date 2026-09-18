@@ -37,8 +37,7 @@ public class ProvisioningRecordRepository : IProvisioningRecordRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task
-    (ProvisioningRecord provisioningRecord, CancellationToken cancellationToken)
+    public async Task UpdateAsync(ProvisioningRecord provisioningRecord, CancellationToken cancellationToken)
     {
         _db.ProvisioningRecords.Update(provisioningRecord);
         await _db.SaveChangesAsync(cancellationToken);

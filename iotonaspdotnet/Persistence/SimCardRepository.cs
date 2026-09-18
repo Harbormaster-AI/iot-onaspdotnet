@@ -35,8 +35,7 @@ public class SimCardRepository : ISimCardRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task
-    (SimCard simCard, CancellationToken cancellationToken)
+    public async Task UpdateAsync(SimCard simCard, CancellationToken cancellationToken)
     {
         _db.SimCards.Update(simCard);
         await _db.SaveChangesAsync(cancellationToken);

@@ -140,7 +140,7 @@ public static class NetworkProfileEndpoints
     }
 
 
-    private NetworkProfile mapRequestToNetworkProfile( NetworkProfileRequest request ) {
+    private static NetworkProfile mapRequestToNetworkProfile( NetworkProfileRequest request ) {
         var model = new NetworkProfile
         {
             Id = request.id,

@@ -104,7 +104,7 @@ public static class TwinChangeEventEndpoints
     }
 
 
-    private TwinChangeEvent mapRequestToTwinChangeEvent( TwinChangeEventRequest request ) {
+    private static TwinChangeEvent mapRequestToTwinChangeEvent( TwinChangeEventRequest request ) {
         var model = new TwinChangeEvent
         {
             Id = request.id,

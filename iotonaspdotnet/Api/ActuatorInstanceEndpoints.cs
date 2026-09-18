@@ -122,7 +122,7 @@ public static class ActuatorInstanceEndpoints
         var removeFrom = await service.RemoveFromSupportedCommands(request, cancellationToken);
         return removeFrom ? Results.NoContent() : Results.NotFound();
     }
-    private ActuatorInstance mapRequestToActuatorInstance( ActuatorInstanceRequest request ) {
+    private static ActuatorInstance mapRequestToActuatorInstance( ActuatorInstanceRequest request ) {
         var model = new ActuatorInstance
         {
             Id = request.id,

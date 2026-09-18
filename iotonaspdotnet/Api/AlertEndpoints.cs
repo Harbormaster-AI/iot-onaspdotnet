@@ -122,7 +122,7 @@ public static class AlertEndpoints
     }
 
 
-    private Alert mapRequestToAlert( AlertRequest request ) {
+    private static Alert mapRequestToAlert( AlertRequest request ) {
         var model = new Alert
         {
             Id = request.id,

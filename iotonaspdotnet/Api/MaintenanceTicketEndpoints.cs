@@ -122,7 +122,7 @@ public static class MaintenanceTicketEndpoints
     }
 
 
-    private MaintenanceTicket mapRequestToMaintenanceTicket( MaintenanceTicketRequest request ) {
+    private static MaintenanceTicket mapRequestToMaintenanceTicket( MaintenanceTicketRequest request ) {
         var model = new MaintenanceTicket
         {
             Id = request.id,

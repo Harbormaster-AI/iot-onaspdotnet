@@ -158,7 +158,7 @@ public static class CommandInvocationEndpoints
     }
 
 
-    private CommandInvocation mapRequestToCommandInvocation( CommandInvocationRequest request ) {
+    private static CommandInvocation mapRequestToCommandInvocation( CommandInvocationRequest request ) {
         var model = new CommandInvocation
         {
             Id = request.id,

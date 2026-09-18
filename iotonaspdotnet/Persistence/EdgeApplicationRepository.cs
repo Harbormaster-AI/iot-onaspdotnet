@@ -33,8 +33,7 @@ public class EdgeApplicationRepository : IEdgeApplicationRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task
-    (EdgeApplication edgeApplication, CancellationToken cancellationToken)
+    public async Task UpdateAsync(EdgeApplication edgeApplication, CancellationToken cancellationToken)
     {
         _db.EdgeApplications.Update(edgeApplication);
         await _db.SaveChangesAsync(cancellationToken);

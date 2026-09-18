@@ -33,8 +33,7 @@ public class ActuatorInstanceRepository : IActuatorInstanceRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task
-    (ActuatorInstance actuatorInstance, CancellationToken cancellationToken)
+    public async Task UpdateAsync(ActuatorInstance actuatorInstance, CancellationToken cancellationToken)
     {
         _db.ActuatorInstances.Update(actuatorInstance);
         await _db.SaveChangesAsync(cancellationToken);

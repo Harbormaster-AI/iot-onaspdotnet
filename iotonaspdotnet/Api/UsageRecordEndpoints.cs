@@ -140,7 +140,7 @@ public static class UsageRecordEndpoints
     }
 
 
-    private UsageRecord mapRequestToUsageRecord( UsageRecordRequest request ) {
+    private static UsageRecord mapRequestToUsageRecord( UsageRecordRequest request ) {
         var model = new UsageRecord
         {
             Id = request.id,

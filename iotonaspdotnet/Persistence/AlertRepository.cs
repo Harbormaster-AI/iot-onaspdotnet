@@ -35,8 +35,7 @@ public class AlertRepository : IAlertRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task
-    (Alert alert, CancellationToken cancellationToken)
+    public async Task UpdateAsync(Alert alert, CancellationToken cancellationToken)
     {
         _db.Alerts.Update(alert);
         await _db.SaveChangesAsync(cancellationToken);

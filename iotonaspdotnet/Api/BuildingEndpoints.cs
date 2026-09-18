@@ -122,7 +122,7 @@ public static class BuildingEndpoints
         var removeFrom = await service.RemoveFromFloors(request, cancellationToken);
         return removeFrom ? Results.NoContent() : Results.NotFound();
     }
-    private Building mapRequestToBuilding( BuildingRequest request ) {
+    private static Building mapRequestToBuilding( BuildingRequest request ) {
         var model = new Building
         {
             Id = request.id,

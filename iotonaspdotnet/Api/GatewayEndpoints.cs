@@ -212,7 +212,7 @@ public static class GatewayEndpoints
         var removeFrom = await service.RemoveFromNetworkProfiles(request, cancellationToken);
         return removeFrom ? Results.NoContent() : Results.NotFound();
     }
-    private Gateway mapRequestToGateway( GatewayRequest request ) {
+    private static Gateway mapRequestToGateway( GatewayRequest request ) {
         var model = new Gateway
         {
             Id = request.id,

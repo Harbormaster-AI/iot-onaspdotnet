@@ -45,8 +45,7 @@ public class IoTDeviceRepository : IIoTDeviceRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task
-    (IoTDevice ioTDevice, CancellationToken cancellationToken)
+    public async Task UpdateAsync(IoTDevice ioTDevice, CancellationToken cancellationToken)
     {
         _db.IoTDevices.Update(ioTDevice);
         await _db.SaveChangesAsync(cancellationToken);

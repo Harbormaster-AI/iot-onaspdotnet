@@ -104,7 +104,7 @@ public static class TwinTemplateEndpoints
         var removeFrom = await service.RemoveFromDeviceModels(request, cancellationToken);
         return removeFrom ? Results.NoContent() : Results.NotFound();
     }
-    private TwinTemplate mapRequestToTwinTemplate( TwinTemplateRequest request ) {
+    private static TwinTemplate mapRequestToTwinTemplate( TwinTemplateRequest request ) {
         var model = new TwinTemplate
         {
             Id = request.id,
