@@ -18,10 +18,11 @@ public virtual TwinChangeEvent ChangeEvents { get; set; }
 
     public static DigitalTwin FromRequest(DigitalTwinRequest request) {
         return new DigitalTwin {
-            Id = model.Id,
+            Id = request.Id,
             TwinId = request.TwinId,
             DesiredStateVersion = request.DesiredStateVersion,
             ReportedStateVersion = request.ReportedStateVersion,
             LastSyncAt = request.LastSyncAt,
         };
+    }
 }

@@ -14,7 +14,8 @@ public virtual Gateway Gateways { get; set; }
 
     public static Room FromRequest(RoomRequest request) {
         return new Room {
-            Id = model.Id,
+            Id = request.Id,
             Name = request.Name,
         };
+    }
 }

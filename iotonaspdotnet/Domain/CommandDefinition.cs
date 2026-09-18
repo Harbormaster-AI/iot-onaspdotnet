@@ -17,10 +17,11 @@ public virtual CommandInvocation CommandInvocations { get; set; }
 
     public static CommandDefinition FromRequest(CommandDefinitionRequest request) {
         return new CommandDefinition {
-            Id = model.Id,
+            Id = request.Id,
             Name = request.Name,
             RequestSchemaUri = request.RequestSchemaUri,
             ResponseSchemaUri = request.ResponseSchemaUri,
             TimeoutSeconds = request.TimeoutSeconds,
         };
+    }
 }

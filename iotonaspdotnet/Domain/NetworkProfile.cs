@@ -17,10 +17,11 @@ public virtual SimCard SimCard { get; set; }
 
     public static NetworkProfile FromRequest(NetworkProfileRequest request) {
         return new NetworkProfile {
-            Id = model.Id,
+            Id = request.Id,
             ProfileName = request.ProfileName,
             Ssid = request.Ssid,
             Apn = request.Apn,
             ConnectivityType = request.ConnectivityType,
         };
+    }
 }

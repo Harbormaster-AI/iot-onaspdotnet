@@ -16,10 +16,11 @@ public virtual TelemetryStream Streams { get; set; }
 
     public static MessagingEndpoint FromRequest(MessagingEndpointRequest request) {
         return new MessagingEndpoint {
-            Id = model.Id,
+            Id = request.Id,
             Host = request.Host,
             Port = request.Port,
             Secure = request.Secure,
             Protocol = request.Protocol,
         };
+    }
 }

@@ -14,8 +14,9 @@ public virtual Room Rooms { get; set; }
 
     public static Floor FromRequest(FloorRequest request) {
         return new Floor {
-            Id = model.Id,
+            Id = request.Id,
             Name = request.Name,
             Level = request.Level,
         };
+    }
 }

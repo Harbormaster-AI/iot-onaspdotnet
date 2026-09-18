@@ -14,9 +14,10 @@ public virtual DigitalTwin Twin { get; set; }
 
     public static TwinChangeEvent FromRequest(TwinChangeEventRequest request) {
         return new TwinChangeEvent {
-            Id = model.Id,
+            Id = request.Id,
             EventId = request.EventId,
             OccurredAt = request.OccurredAt,
             ChangeType = request.ChangeType,
         };
+    }
 }

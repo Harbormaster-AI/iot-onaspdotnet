@@ -17,11 +17,12 @@ public virtual Gateway Gateway { get; set; }
 
     public static DeviceCertificate FromRequest(DeviceCertificateRequest request) {
         return new DeviceCertificate {
-            Id = model.Id,
+            Id = request.Id,
             SerialNumber = request.SerialNumber,
             NotBefore = request.NotBefore,
             NotAfter = request.NotAfter,
             Fingerprint = request.Fingerprint,
             CertificateType = request.CertificateType,
         };
+    }
 }

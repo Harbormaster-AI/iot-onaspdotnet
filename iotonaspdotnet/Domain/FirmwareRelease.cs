@@ -15,10 +15,11 @@ public virtual DeviceModel DeviceModel { get; set; }
 
     public static FirmwareRelease FromRequest(FirmwareReleaseRequest request) {
         return new FirmwareRelease {
-            Id = model.Id,
+            Id = request.Id,
             Version = request.Version,
             ReleaseDate = request.ReleaseDate,
             ReleaseNotes = request.ReleaseNotes,
             Checksum = request.Checksum,
         };
+    }
 }

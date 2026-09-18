@@ -16,10 +16,11 @@ public virtual AlertRule AlertRule { get; set; }
 
     public static Alert FromRequest(AlertRequest request) {
         return new Alert {
-            Id = model.Id,
+            Id = request.Id,
             RaisedAt = request.RaisedAt,
             ClearedAt = request.ClearedAt,
             Message = request.Message,
             Status = request.Status,
         };
+    }
 }

@@ -18,10 +18,11 @@ public virtual TenantUser User { get; set; }
 
     public static CommandInvocation FromRequest(CommandInvocationRequest request) {
         return new CommandInvocation {
-            Id = model.Id,
+            Id = request.Id,
             InvocationId = request.InvocationId,
             RequestedAt = request.RequestedAt,
             CompletedAt = request.CompletedAt,
             Status = request.Status,
         };
+    }
 }

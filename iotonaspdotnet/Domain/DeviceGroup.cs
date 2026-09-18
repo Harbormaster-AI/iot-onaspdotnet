@@ -14,8 +14,9 @@ public virtual IoTDevice Devices { get; set; }
 
     public static DeviceGroup FromRequest(DeviceGroupRequest request) {
         return new DeviceGroup {
-            Id = model.Id,
+            Id = request.Id,
             Name = request.Name,
             Criteria = request.Criteria,
         };
+    }
 }

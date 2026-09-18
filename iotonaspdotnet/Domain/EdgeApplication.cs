@@ -15,10 +15,11 @@ public virtual Gateway Gateway { get; set; }
 
     public static EdgeApplication FromRequest(EdgeApplicationRequest request) {
         return new EdgeApplication {
-            Id = model.Id,
+            Id = request.Id,
             Name = request.Name,
             Version = request.Version,
             Image = request.Image,
             Status = request.Status,
         };
+    }
 }

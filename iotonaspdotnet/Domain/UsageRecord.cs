@@ -17,10 +17,11 @@ public virtual ConnectivityPlan ConnectivityPlan { get; set; }
 
     public static UsageRecord FromRequest(UsageRecordRequest request) {
         return new UsageRecord {
-            Id = model.Id,
+            Id = request.Id,
             PeriodStart = request.PeriodStart,
             PeriodEnd = request.PeriodEnd,
             MessagesSent = request.MessagesSent,
             DataVolumeMB = request.DataVolumeMB,
         };
+    }
 }

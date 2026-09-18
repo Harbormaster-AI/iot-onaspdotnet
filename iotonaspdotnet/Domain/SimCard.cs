@@ -17,10 +17,11 @@ public virtual ConnectivityPlan ConnectivityPlan { get; set; }
 
     public static SimCard FromRequest(SimCardRequest request) {
         return new SimCard {
-            Id = model.Id,
+            Id = request.Id,
             Iccid = request.Iccid,
             Imsi = request.Imsi,
             Carrier = request.Carrier,
             Status = request.Status,
         };
+    }
 }

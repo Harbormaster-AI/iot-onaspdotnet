@@ -17,10 +17,11 @@ public virtual HardwareModule HardwareModules { get; set; }
 
     public static DeviceVendor FromRequest(DeviceVendorRequest request) {
         return new DeviceVendor {
-            Id = model.Id,
+            Id = request.Id,
             Name = request.Name,
             LegalName = request.LegalName,
             HeadquartersCountry = request.HeadquartersCountry,
             Website = request.Website,
         };
+    }
 }

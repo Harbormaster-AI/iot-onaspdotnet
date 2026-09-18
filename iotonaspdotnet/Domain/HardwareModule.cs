@@ -14,9 +14,10 @@ public virtual DeviceVendor Vendor { get; set; }
 
     public static HardwareModule FromRequest(HardwareModuleRequest request) {
         return new HardwareModule {
-            Id = model.Id,
+            Id = request.Id,
             ModuleCode = request.ModuleCode,
             DatasheetUri = request.DatasheetUri,
             ModuleType = request.ModuleType,
         };
+    }
 }

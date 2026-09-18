@@ -15,9 +15,10 @@ public virtual IoTDevice Device { get; set; }
 
     public static SoftwareUpdateExecution FromRequest(SoftwareUpdateExecutionRequest request) {
         return new SoftwareUpdateExecution {
-            Id = model.Id,
+            Id = request.Id,
             StartedAt = request.StartedAt,
             CompletedAt = request.CompletedAt,
             Status = request.Status,
         };
+    }
 }

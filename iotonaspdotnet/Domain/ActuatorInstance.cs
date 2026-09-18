@@ -15,9 +15,10 @@ public virtual CommandDefinition SupportedCommands { get; set; }
 
     public static ActuatorInstance FromRequest(ActuatorInstanceRequest request) {
         return new ActuatorInstance {
-            Id = model.Id,
+            Id = request.Id,
             Name = request.Name,
             CommandTopic = request.CommandTopic,
             ActuatorType = request.ActuatorType,
         };
+    }
 }

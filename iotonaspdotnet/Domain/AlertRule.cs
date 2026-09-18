@@ -16,9 +16,10 @@ public virtual Alert Alerts { get; set; }
 
     public static AlertRule FromRequest(AlertRuleRequest request) {
         return new AlertRule {
-            Id = model.Id,
+            Id = request.Id,
             Name = request.Name,
             Expression = request.Expression,
             Severity = request.Severity,
         };
+    }
 }

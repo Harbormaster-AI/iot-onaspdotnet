@@ -14,8 +14,9 @@ public virtual TelemetryStream Streams { get; set; }
 
     public static DataRetentionPolicy FromRequest(DataRetentionPolicyRequest request) {
         return new DataRetentionPolicy {
-            Id = model.Id,
+            Id = request.Id,
             Name = request.Name,
             RetentionDays = request.RetentionDays,
         };
+    }
 }

@@ -13,7 +13,8 @@ public virtual Floor Floors { get; set; }
 
     public static Building FromRequest(BuildingRequest request) {
         return new Building {
-            Id = model.Id,
+            Id = request.Id,
             Name = request.Name,
         };
+    }
 }

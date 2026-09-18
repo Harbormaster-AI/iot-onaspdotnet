@@ -17,10 +17,11 @@ public virtual SoftwareUpdateExecution Executions { get; set; }
 
     public static SoftwareUpdateCampaign FromRequest(SoftwareUpdateCampaignRequest request) {
         return new SoftwareUpdateCampaign {
-            Id = model.Id,
+            Id = request.Id,
             CampaignCode = request.CampaignCode,
             ScheduledStart = request.ScheduledStart,
             ScheduledEnd = request.ScheduledEnd,
             Status = request.Status,
         };
+    }
 }

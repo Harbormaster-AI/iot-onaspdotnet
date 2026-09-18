@@ -19,8 +19,9 @@ public virtual NetworkProfile NetworkProfiles { get; set; }
 
     public static Gateway FromRequest(GatewayRequest request) {
         return new Gateway {
-            Id = model.Id,
+            Id = request.Id,
             SoftwareVersion = request.SoftwareVersion,
             Status = request.Status,
         };
+    }
 }

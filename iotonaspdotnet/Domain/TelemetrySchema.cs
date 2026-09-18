@@ -14,9 +14,10 @@ public virtual TelemetryStream Streams { get; set; }
 
     public static TelemetrySchema FromRequest(TelemetrySchemaRequest request) {
         return new TelemetrySchema {
-            Id = model.Id,
+            Id = request.Id,
             SchemaId = request.SchemaId,
             SchemaUri = request.SchemaUri,
             Encoding = request.Encoding,
         };
+    }
 }

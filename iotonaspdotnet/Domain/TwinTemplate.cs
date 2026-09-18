@@ -14,9 +14,10 @@ public virtual DeviceModel DeviceModels { get; set; }
 
     public static TwinTemplate FromRequest(TwinTemplateRequest request) {
         return new TwinTemplate {
-            Id = model.Id,
+            Id = request.Id,
             Name = request.Name,
             SchemaUri = request.SchemaUri,
             Version = request.Version,
         };
+    }
 }

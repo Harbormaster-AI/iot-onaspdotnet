@@ -16,10 +16,11 @@ public virtual TelemetryStream TelemetryStreams { get; set; }
 
     public static SensorInstance FromRequest(SensorInstanceRequest request) {
         return new SensorInstance {
-            Id = model.Id,
+            Id = request.Id,
             Name = request.Name,
             Unit = request.Unit,
             SamplingIntervalMs = request.SamplingIntervalMs,
             SensorType = request.SensorType,
         };
+    }
 }

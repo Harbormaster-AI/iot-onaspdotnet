@@ -16,9 +16,10 @@ public virtual TenantUser Users { get; set; }
 
     public static AccessPolicy FromRequest(AccessPolicyRequest request) {
         return new AccessPolicy {
-            Id = model.Id,
+            Id = request.Id,
             Name = request.Name,
             Scope = request.Scope,
             ExpiresAt = request.ExpiresAt,
         };
+    }
 }

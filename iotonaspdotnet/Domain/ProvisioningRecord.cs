@@ -17,10 +17,11 @@ public virtual Tenant Tenant { get; set; }
 
     public static ProvisioningRecord FromRequest(ProvisioningRecordRequest request) {
         return new ProvisioningRecord {
-            Id = model.Id,
+            Id = request.Id,
             EnrolledAt = request.EnrolledAt,
             ProvisioningService = request.ProvisioningService,
             Method = request.Method,
             Status = request.Status,
         };
+    }
 }

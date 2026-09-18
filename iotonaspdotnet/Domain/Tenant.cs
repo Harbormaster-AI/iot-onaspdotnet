@@ -24,8 +24,9 @@ public virtual UsageRecord UsageRecords { get; set; }
 
     public static Tenant FromRequest(TenantRequest request) {
         return new Tenant {
-            Id = model.Id,
+            Id = request.Id,
             Name = request.Name,
             TenantType = request.TenantType,
         };
+    }
 }

@@ -31,7 +31,7 @@ public virtual NetworkProfile NetworkProfiles { get; set; }
 
     public static IoTDevice FromRequest(IoTDeviceRequest request) {
         return new IoTDevice {
-            Id = model.Id,
+            Id = request.Id,
             DeviceId = request.DeviceId,
             SerialNumber = request.SerialNumber,
             LastSeen = request.LastSeen,
@@ -39,4 +39,5 @@ public virtual NetworkProfile NetworkProfiles { get; set; }
             Status = request.Status,
             PowerSource = request.PowerSource,
         };
+    }
 }

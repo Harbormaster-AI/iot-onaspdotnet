@@ -15,10 +15,11 @@ public virtual AccessPolicy AccessPolicy { get; set; }
 
     public static ApiKey FromRequest(ApiKeyRequest request) {
         return new ApiKey {
-            Id = model.Id,
+            Id = request.Id,
             KeyId = request.KeyId,
             HashedSecret = request.HashedSecret,
             CreatedAt = request.CreatedAt,
             LastUsedAt = request.LastUsedAt,
         };
+    }
 }

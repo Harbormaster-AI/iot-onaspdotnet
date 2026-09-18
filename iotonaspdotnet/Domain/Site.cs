@@ -19,11 +19,12 @@ public virtual Gateway Gateways { get; set; }
 
     public static Site FromRequest(SiteRequest request) {
         return new Site {
-            Id = model.Id,
+            Id = request.Id,
             Name = request.Name,
             Address = request.Address,
             Timezone = request.Timezone,
             Latitude = request.Latitude,
             Longitude = request.Longitude,
         };
+    }
 }

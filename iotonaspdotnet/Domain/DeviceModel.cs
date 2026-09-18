@@ -20,11 +20,12 @@ public virtual CommandDefinition CommandDefinitions { get; set; }
 
     public static DeviceModel FromRequest(DeviceModelRequest request) {
         return new DeviceModel {
-            Id = model.Id,
+            Id = request.Id,
             Name = request.Name,
             ModelNumber = request.ModelNumber,
             HardwareRevision = request.HardwareRevision,
             SupportedConnectivity = request.SupportedConnectivity,
             DefaultTelemetryEncoding = request.DefaultTelemetryEncoding,
         };
+    }
 }

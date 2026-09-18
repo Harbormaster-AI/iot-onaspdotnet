@@ -17,11 +17,12 @@ public virtual Tenant Tenant { get; set; }
 
     public static MaintenanceTicket FromRequest(MaintenanceTicketRequest request) {
         return new MaintenanceTicket {
-            Id = model.Id,
+            Id = request.Id,
             TicketNumber = request.TicketNumber,
             OpenedAt = request.OpenedAt,
             ClosedAt = request.ClosedAt,
             Priority = request.Priority,
             Status = request.Status,
         };
+    }
 }

@@ -15,9 +15,10 @@ public virtual Tenant Tenant { get; set; }
 
     public static ConnectivityPlan FromRequest(ConnectivityPlanRequest request) {
         return new ConnectivityPlan {
-            Id = model.Id,
+            Id = request.Id,
             Name = request.Name,
             DataCapMB = request.DataCapMB,
             BillingCycleDays = request.BillingCycleDays,
         };
+    }
 }
