@@ -31,7 +31,7 @@ public static class DeviceGroupEndpoints
         IDeviceGroupService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToDeviceGroup( request );
 
         try
         {
@@ -50,7 +50,7 @@ public static class DeviceGroupEndpoints
         IDeviceGroupService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToDeviceGroup( request );
 
         try
         {

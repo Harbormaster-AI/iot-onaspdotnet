@@ -28,7 +28,7 @@ public static class HardwareModuleEndpoints
         IHardwareModuleService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToHardwareModule( request );
 
         try
         {
@@ -47,7 +47,7 @@ public static class HardwareModuleEndpoints
         IHardwareModuleService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToHardwareModule( request );
 
         try
         {

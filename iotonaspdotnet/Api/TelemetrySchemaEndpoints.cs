@@ -29,7 +29,7 @@ public static class TelemetrySchemaEndpoints
         ITelemetrySchemaService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToTelemetrySchema( request );
 
         try
         {
@@ -48,7 +48,7 @@ public static class TelemetrySchemaEndpoints
         ITelemetrySchemaService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToTelemetrySchema( request );
 
         try
         {

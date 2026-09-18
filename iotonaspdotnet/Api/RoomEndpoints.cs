@@ -34,7 +34,7 @@ public static class RoomEndpoints
         IRoomService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToRoom( request );
 
         try
         {
@@ -53,7 +53,7 @@ public static class RoomEndpoints
         IRoomService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToRoom( request );
 
         try
         {

@@ -33,7 +33,7 @@ public static class SoftwareUpdateCampaignEndpoints
         ISoftwareUpdateCampaignService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToSoftwareUpdateCampaign( request );
 
         try
         {
@@ -52,7 +52,7 @@ public static class SoftwareUpdateCampaignEndpoints
         ISoftwareUpdateCampaignService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToSoftwareUpdateCampaign( request );
 
         try
         {

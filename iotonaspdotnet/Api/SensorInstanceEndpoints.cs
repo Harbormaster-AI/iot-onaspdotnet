@@ -31,7 +31,7 @@ public static class SensorInstanceEndpoints
         ISensorInstanceService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToSensorInstance( request );
 
         try
         {
@@ -50,7 +50,7 @@ public static class SensorInstanceEndpoints
         ISensorInstanceService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToSensorInstance( request );
 
         try
         {

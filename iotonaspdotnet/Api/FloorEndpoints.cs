@@ -31,7 +31,7 @@ public static class FloorEndpoints
         IFloorService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToFloor( request );
 
         try
         {
@@ -50,7 +50,7 @@ public static class FloorEndpoints
         IFloorService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToFloor( request );
 
         try
         {

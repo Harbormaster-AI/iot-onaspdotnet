@@ -32,7 +32,7 @@ public static class NetworkProfileEndpoints
         INetworkProfileService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToNetworkProfile( request );
 
         try
         {
@@ -51,7 +51,7 @@ public static class NetworkProfileEndpoints
         INetworkProfileService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToNetworkProfile( request );
 
         try
         {

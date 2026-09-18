@@ -39,7 +39,7 @@ public static class DeviceModelEndpoints
         IDeviceModelService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToDeviceModel( request );
 
         try
         {
@@ -58,7 +58,7 @@ public static class DeviceModelEndpoints
         IDeviceModelService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToDeviceModel( request );
 
         try
         {

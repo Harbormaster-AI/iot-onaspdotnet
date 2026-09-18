@@ -31,7 +31,7 @@ public static class MessagingEndpointEndpoints
         IMessagingEndpointService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToMessagingEndpoint( request );
 
         try
         {
@@ -50,7 +50,7 @@ public static class MessagingEndpointEndpoints
         IMessagingEndpointService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToMessagingEndpoint( request );
 
         try
         {

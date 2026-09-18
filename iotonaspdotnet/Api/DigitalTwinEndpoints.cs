@@ -35,7 +35,7 @@ public static class DigitalTwinEndpoints
         IDigitalTwinService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToDigitalTwin( request );
 
         try
         {
@@ -54,7 +54,7 @@ public static class DigitalTwinEndpoints
         IDigitalTwinService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToDigitalTwin( request );
 
         try
         {

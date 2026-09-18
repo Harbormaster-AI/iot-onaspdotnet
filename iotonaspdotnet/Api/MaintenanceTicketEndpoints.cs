@@ -30,7 +30,7 @@ public static class MaintenanceTicketEndpoints
         IMaintenanceTicketService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToMaintenanceTicket( request );
 
         try
         {
@@ -49,7 +49,7 @@ public static class MaintenanceTicketEndpoints
         IMaintenanceTicketService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToMaintenanceTicket( request );
 
         try
         {

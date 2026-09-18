@@ -28,7 +28,7 @@ public static class ApiKeyEndpoints
         IApiKeyService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToApiKey( request );
 
         try
         {
@@ -47,7 +47,7 @@ public static class ApiKeyEndpoints
         IApiKeyService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToApiKey( request );
 
         try
         {

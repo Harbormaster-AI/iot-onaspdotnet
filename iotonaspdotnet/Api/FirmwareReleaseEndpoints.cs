@@ -28,7 +28,7 @@ public static class FirmwareReleaseEndpoints
         IFirmwareReleaseService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToFirmwareRelease( request );
 
         try
         {
@@ -47,7 +47,7 @@ public static class FirmwareReleaseEndpoints
         IFirmwareReleaseService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToFirmwareRelease( request );
 
         try
         {

@@ -32,7 +32,7 @@ public static class UsageRecordEndpoints
         IUsageRecordService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToUsageRecord( request );
 
         try
         {
@@ -51,7 +51,7 @@ public static class UsageRecordEndpoints
         IUsageRecordService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToUsageRecord( request );
 
         try
         {

@@ -30,7 +30,7 @@ public static class DeviceCertificateEndpoints
         IDeviceCertificateService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToDeviceCertificate( request );
 
         try
         {
@@ -49,7 +49,7 @@ public static class DeviceCertificateEndpoints
         IDeviceCertificateService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToDeviceCertificate( request );
 
         try
         {

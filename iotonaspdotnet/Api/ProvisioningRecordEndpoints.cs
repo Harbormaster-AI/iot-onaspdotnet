@@ -32,7 +32,7 @@ public static class ProvisioningRecordEndpoints
         IProvisioningRecordService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToProvisioningRecord( request );
 
         try
         {
@@ -51,7 +51,7 @@ public static class ProvisioningRecordEndpoints
         IProvisioningRecordService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToProvisioningRecord( request );
 
         try
         {

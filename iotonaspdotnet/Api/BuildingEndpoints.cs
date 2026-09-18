@@ -31,7 +31,7 @@ public static class BuildingEndpoints
         IBuildingService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToBuilding( request );
 
         try
         {
@@ -50,7 +50,7 @@ public static class BuildingEndpoints
         IBuildingService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToBuilding( request );
 
         try
         {

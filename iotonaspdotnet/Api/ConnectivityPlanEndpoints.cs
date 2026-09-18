@@ -31,7 +31,7 @@ public static class ConnectivityPlanEndpoints
         IConnectivityPlanService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToConnectivityPlan( request );
 
         try
         {
@@ -50,7 +50,7 @@ public static class ConnectivityPlanEndpoints
         IConnectivityPlanService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToConnectivityPlan( request );
 
         try
         {

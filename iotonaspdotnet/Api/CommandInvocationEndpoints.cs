@@ -34,7 +34,7 @@ public static class CommandInvocationEndpoints
         ICommandInvocationService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToCommandInvocation( request );
 
         try
         {
@@ -53,7 +53,7 @@ public static class CommandInvocationEndpoints
         ICommandInvocationService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToCommandInvocation( request );
 
         try
         {

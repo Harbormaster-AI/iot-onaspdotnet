@@ -29,7 +29,7 @@ public static class TwinTemplateEndpoints
         ITwinTemplateService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToTwinTemplate( request );
 
         try
         {
@@ -48,7 +48,7 @@ public static class TwinTemplateEndpoints
         ITwinTemplateService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToTwinTemplate( request );
 
         try
         {

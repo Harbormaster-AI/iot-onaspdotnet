@@ -30,7 +30,7 @@ public static class SoftwareUpdateExecutionEndpoints
         ISoftwareUpdateExecutionService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToSoftwareUpdateExecution( request );
 
         try
         {
@@ -49,7 +49,7 @@ public static class SoftwareUpdateExecutionEndpoints
         ISoftwareUpdateExecutionService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToSoftwareUpdateExecution( request );
 
         try
         {

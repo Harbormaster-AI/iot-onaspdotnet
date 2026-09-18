@@ -62,7 +62,7 @@ public static class TenantEndpoints
         ITenantService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToTenant( request );
 
         try
         {
@@ -81,7 +81,7 @@ public static class TenantEndpoints
         ITenantService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToTenant( request );
 
         try
         {

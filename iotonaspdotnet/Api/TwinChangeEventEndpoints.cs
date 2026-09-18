@@ -28,7 +28,7 @@ public static class TwinChangeEventEndpoints
         ITwinChangeEventService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToTwinChangeEvent( request );
 
         try
         {
@@ -47,7 +47,7 @@ public static class TwinChangeEventEndpoints
         ITwinChangeEventService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToTwinChangeEvent( request );
 
         try
         {

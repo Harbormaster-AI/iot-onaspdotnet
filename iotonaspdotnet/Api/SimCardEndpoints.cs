@@ -33,7 +33,7 @@ public static class SimCardEndpoints
         ISimCardService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToSimCard( request );
 
         try
         {
@@ -52,7 +52,7 @@ public static class SimCardEndpoints
         ISimCardService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToSimCard( request );
 
         try
         {

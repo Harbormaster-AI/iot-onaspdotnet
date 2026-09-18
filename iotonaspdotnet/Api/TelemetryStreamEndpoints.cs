@@ -36,7 +36,7 @@ public static class TelemetryStreamEndpoints
         ITelemetryStreamService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToTelemetryStream( request );
 
         try
         {
@@ -55,7 +55,7 @@ public static class TelemetryStreamEndpoints
         ITelemetryStreamService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToTelemetryStream( request );
 
         try
         {

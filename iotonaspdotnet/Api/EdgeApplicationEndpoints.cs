@@ -28,7 +28,7 @@ public static class EdgeApplicationEndpoints
         IEdgeApplicationService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToEdgeApplication( request );
 
         try
         {
@@ -47,7 +47,7 @@ public static class EdgeApplicationEndpoints
         IEdgeApplicationService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToEdgeApplication( request );
 
         try
         {

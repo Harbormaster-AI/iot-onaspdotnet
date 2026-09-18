@@ -31,7 +31,7 @@ public static class DataRetentionPolicyEndpoints
         IDataRetentionPolicyService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToDataRetentionPolicy( request );
 
         try
         {
@@ -50,7 +50,7 @@ public static class DataRetentionPolicyEndpoints
         IDataRetentionPolicyService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToDataRetentionPolicy( request );
 
         try
         {

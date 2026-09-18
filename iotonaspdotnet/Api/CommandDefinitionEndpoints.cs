@@ -34,7 +34,7 @@ public static class CommandDefinitionEndpoints
         ICommandDefinitionService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToCommandDefinition( request );
 
         try
         {
@@ -53,7 +53,7 @@ public static class CommandDefinitionEndpoints
         ICommandDefinitionService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToCommandDefinition( request );
 
         try
         {

@@ -64,7 +64,7 @@ public static class IoTDeviceEndpoints
         IIoTDeviceService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToIoTDevice( request );
 
         try
         {
@@ -83,7 +83,7 @@ public static class IoTDeviceEndpoints
         IIoTDeviceService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToIoTDevice( request );
 
         try
         {

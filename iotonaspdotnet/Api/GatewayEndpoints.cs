@@ -44,7 +44,7 @@ public static class GatewayEndpoints
         IGatewayService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToGateway( request );
 
         try
         {
@@ -63,7 +63,7 @@ public static class GatewayEndpoints
         IGatewayService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToGateway( request );
 
         try
         {

@@ -34,7 +34,7 @@ public static class AccessPolicyEndpoints
         IAccessPolicyService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToAccessPolicy( request );
 
         try
         {
@@ -53,7 +53,7 @@ public static class AccessPolicyEndpoints
         IAccessPolicyService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToAccessPolicy( request );
 
         try
         {

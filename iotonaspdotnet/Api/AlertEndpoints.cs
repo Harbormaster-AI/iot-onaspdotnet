@@ -30,7 +30,7 @@ public static class AlertEndpoints
         IAlertService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToAlert( request );
 
         try
         {
@@ -49,7 +49,7 @@ public static class AlertEndpoints
         IAlertService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToAlert( request );
 
         try
         {

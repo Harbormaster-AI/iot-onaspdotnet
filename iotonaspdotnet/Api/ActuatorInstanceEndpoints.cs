@@ -31,7 +31,7 @@ public static class ActuatorInstanceEndpoints
         IActuatorInstanceService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToActuatorInstance( request );
 
         try
         {
@@ -50,7 +50,7 @@ public static class ActuatorInstanceEndpoints
         IActuatorInstanceService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToActuatorInstance( request );
 
         try
         {

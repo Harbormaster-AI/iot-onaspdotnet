@@ -37,7 +37,7 @@ public static class SiteEndpoints
         ISiteService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToSite( request );
 
         try
         {
@@ -56,7 +56,7 @@ public static class SiteEndpoints
         ISiteService service,
         CancellationToken cancellationToken) {
 
-        var model = mapRequestTo( request );
+        var model = mapRequestToSite( request );
 
         try
         {
