@@ -1,5 +1,7 @@
 using iotonaspdotnet.Api;
 using iotonaspdotnet.Persistence;
+using iotonaspdotnet.Service;
+
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
