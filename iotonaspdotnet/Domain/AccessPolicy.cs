@@ -1,4 +1,4 @@
-using iotonaspdotnet.Domain.Contracts;
+using iotonaspdotnet.Contracts;
 
 namespace iotonaspdotnet.Domain;
 
