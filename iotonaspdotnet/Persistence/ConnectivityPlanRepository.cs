@@ -23,7 +23,7 @@ public class ConnectivityPlanRepository : IConnectivityPlanRepository
     {
         return await _db.ConnectivityPlans
             .AsNoTracking()
-            .Include(x => x.Tenant)
+            .Include(x => x.${$roleName})
             .ToListAsync(cancellationToken);
     }
 

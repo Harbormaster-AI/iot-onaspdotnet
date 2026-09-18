@@ -23,7 +23,7 @@ public class CommandDefinitionRepository : ICommandDefinitionRepository
     {
         return await _db.CommandDefinitions
             .AsNoTracking()
-            .Include(x => x.DeviceModel)
+            .Include(x => x.${$roleName})
             .ToListAsync(cancellationToken);
     }
 

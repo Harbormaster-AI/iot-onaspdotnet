@@ -23,7 +23,7 @@ public class EdgeApplicationRepository : IEdgeApplicationRepository
     {
         return await _db.EdgeApplications
             .AsNoTracking()
-            .Include(x => x.Gateway)
+            .Include(x => x.${$roleName})
             .ToListAsync(cancellationToken);
     }
 

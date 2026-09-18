@@ -23,7 +23,7 @@ public class BuildingRepository : IBuildingRepository
     {
         return await _db.Buildings
             .AsNoTracking()
-            .Include(x => x.Site)
+            .Include(x => x.${$roleName})
             .ToListAsync(cancellationToken);
     }
 

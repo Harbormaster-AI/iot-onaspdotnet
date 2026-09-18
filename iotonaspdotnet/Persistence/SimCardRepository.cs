@@ -24,8 +24,8 @@ public class SimCardRepository : ISimCardRepository
     {
         return await _db.SimCards
             .AsNoTracking()
-            .Include(x => x.Tenant)
-            .Include(x => x.ConnectivityPlan)
+            .Include(x => x.${$roleName})
+            .Include(x => x.${$roleName})
             .ToListAsync(cancellationToken);
     }
 

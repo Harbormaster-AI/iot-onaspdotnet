@@ -23,7 +23,7 @@ public class ApiKeyRepository : IApiKeyRepository
     {
         return await _db.ApiKeys
             .AsNoTracking()
-            .Include(x => x.AccessPolicy)
+            .Include(x => x.${$roleName})
             .ToListAsync(cancellationToken);
     }
 

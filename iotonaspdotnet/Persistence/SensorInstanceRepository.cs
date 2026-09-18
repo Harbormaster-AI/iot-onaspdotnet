@@ -23,7 +23,7 @@ public class SensorInstanceRepository : ISensorInstanceRepository
     {
         return await _db.SensorInstances
             .AsNoTracking()
-            .Include(x => x.IoTDevice)
+            .Include(x => x.${$roleName})
             .ToListAsync(cancellationToken);
     }
 

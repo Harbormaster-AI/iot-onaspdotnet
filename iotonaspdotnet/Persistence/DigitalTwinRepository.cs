@@ -25,9 +25,9 @@ public class DigitalTwinRepository : IDigitalTwinRepository
     {
         return await _db.DigitalTwins
             .AsNoTracking()
-            .Include(x => x.IoTDevice)
-            .Include(x => x.Gateway)
-            .Include(x => x.TwinTemplate)
+            .Include(x => x.${$roleName})
+            .Include(x => x.${$roleName})
+            .Include(x => x.${$roleName})
             .ToListAsync(cancellationToken);
     }
 

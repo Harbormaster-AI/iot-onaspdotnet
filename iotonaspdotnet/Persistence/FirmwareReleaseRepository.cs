@@ -23,7 +23,7 @@ public class FirmwareReleaseRepository : IFirmwareReleaseRepository
     {
         return await _db.FirmwareReleases
             .AsNoTracking()
-            .Include(x => x.DeviceModel)
+            .Include(x => x.${$roleName})
             .ToListAsync(cancellationToken);
     }
 

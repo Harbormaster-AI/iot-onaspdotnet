@@ -26,10 +26,10 @@ public class CommandInvocationRepository : ICommandInvocationRepository
     {
         return await _db.CommandInvocations
             .AsNoTracking()
-            .Include(x => x.IoTDevice)
-            .Include(x => x.CommandDefinition)
-            .Include(x => x.ActuatorInstance)
-            .Include(x => x.TenantUser)
+            .Include(x => x.${$roleName})
+            .Include(x => x.${$roleName})
+            .Include(x => x.${$roleName})
+            .Include(x => x.${$roleName})
             .ToListAsync(cancellationToken);
     }
 

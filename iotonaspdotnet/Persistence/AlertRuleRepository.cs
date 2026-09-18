@@ -23,7 +23,7 @@ public class AlertRuleRepository : IAlertRuleRepository
     {
         return await _db.AlertRules
             .AsNoTracking()
-            .Include(x => x.Tenant)
+            .Include(x => x.${$roleName})
             .ToListAsync(cancellationToken);
     }
 

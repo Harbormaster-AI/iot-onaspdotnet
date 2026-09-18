@@ -25,9 +25,9 @@ public class GatewayRepository : IGatewayRepository
     {
         return await _db.Gateways
             .AsNoTracking()
-            .Include(x => x.Site)
-            .Include(x => x.Room)
-            .Include(x => x.DigitalTwin)
+            .Include(x => x.${$roleName})
+            .Include(x => x.${$roleName})
+            .Include(x => x.${$roleName})
             .ToListAsync(cancellationToken);
     }
 

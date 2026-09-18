@@ -25,9 +25,9 @@ public class UsageRecordRepository : IUsageRecordRepository
     {
         return await _db.UsageRecords
             .AsNoTracking()
-            .Include(x => x.Tenant)
-            .Include(x => x.IoTDevice)
-            .Include(x => x.ConnectivityPlan)
+            .Include(x => x.${$roleName})
+            .Include(x => x.${$roleName})
+            .Include(x => x.${$roleName})
             .ToListAsync(cancellationToken);
     }
 

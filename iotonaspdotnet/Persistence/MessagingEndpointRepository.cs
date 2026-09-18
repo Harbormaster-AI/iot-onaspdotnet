@@ -23,7 +23,7 @@ public class MessagingEndpointRepository : IMessagingEndpointRepository
     {
         return await _db.MessagingEndpoints
             .AsNoTracking()
-            .Include(x => x.Tenant)
+            .Include(x => x.${$roleName})
             .ToListAsync(cancellationToken);
     }
 

@@ -23,7 +23,7 @@ public class ActuatorInstanceRepository : IActuatorInstanceRepository
     {
         return await _db.ActuatorInstances
             .AsNoTracking()
-            .Include(x => x.IoTDevice)
+            .Include(x => x.${$roleName})
             .ToListAsync(cancellationToken);
     }
 

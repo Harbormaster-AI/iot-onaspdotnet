@@ -23,7 +23,7 @@ public class DeviceGroupRepository : IDeviceGroupRepository
     {
         return await _db.DeviceGroups
             .AsNoTracking()
-            .Include(x => x.Tenant)
+            .Include(x => x.${$roleName})
             .ToListAsync(cancellationToken);
     }
 

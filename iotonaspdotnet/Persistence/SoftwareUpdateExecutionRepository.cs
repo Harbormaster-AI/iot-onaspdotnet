@@ -24,8 +24,8 @@ public class SoftwareUpdateExecutionRepository : ISoftwareUpdateExecutionReposit
     {
         return await _db.SoftwareUpdateExecutions
             .AsNoTracking()
-            .Include(x => x.SoftwareUpdateCampaign)
-            .Include(x => x.IoTDevice)
+            .Include(x => x.${$roleName})
+            .Include(x => x.${$roleName})
             .ToListAsync(cancellationToken);
     }
 

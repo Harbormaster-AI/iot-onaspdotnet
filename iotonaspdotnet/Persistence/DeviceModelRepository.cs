@@ -24,8 +24,8 @@ public class DeviceModelRepository : IDeviceModelRepository
     {
         return await _db.DeviceModels
             .AsNoTracking()
-            .Include(x => x.DeviceVendor)
-            .Include(x => x.TwinTemplate)
+            .Include(x => x.${$roleName})
+            .Include(x => x.${$roleName})
             .ToListAsync(cancellationToken);
     }
 
