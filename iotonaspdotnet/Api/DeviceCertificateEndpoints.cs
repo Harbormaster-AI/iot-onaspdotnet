@@ -16,10 +16,10 @@ public static class DeviceCertificateEndpoints
         group.MapPost("/update", Update);
         group.MapPost("/delete", Delete);
 
-        group.MapPut("/", AssignDevice);
-        group.MapPut("/", UnassignDevice);
-        group.MapPut("/", AssignGateway);
-        group.MapPut("/", UnassignGateway);
+        group.MapPut("/assignDevice", AssignDevice);
+        group.MapPut("/unassignDevice", UnassignDevice);
+        group.MapPut("/assignGateway", AssignGateway);
+        group.MapPut("/unassignGateway", UnassignGateway);
 
 
         return app;

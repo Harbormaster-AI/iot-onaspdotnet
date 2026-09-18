@@ -16,10 +16,10 @@ public static class AlertEndpoints
         group.MapPost("/update", Update);
         group.MapPost("/delete", Delete);
 
-        group.MapPut("/", AssignDevice);
-        group.MapPut("/", UnassignDevice);
-        group.MapPut("/", AssignAlertRule);
-        group.MapPut("/", UnassignAlertRule);
+        group.MapPut("/assignDevice", AssignDevice);
+        group.MapPut("/unassignDevice", UnassignDevice);
+        group.MapPut("/assignAlertRule", AssignAlertRule);
+        group.MapPut("/unassignAlertRule", UnassignAlertRule);
 
 
         return app;

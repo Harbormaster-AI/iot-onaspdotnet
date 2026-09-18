@@ -16,11 +16,11 @@ public static class TenantUserEndpoints
         group.MapPost("/update", Update);
         group.MapPost("/delete", Delete);
 
-        group.MapPut("/", AssignTenant);
-        group.MapPut("/", UnassignTenant);
+        group.MapPut("/assignTenant", AssignTenant);
+        group.MapPut("/unassignTenant", UnassignTenant);
 
-    group.MapPut("/", AddToCommandInvocations);
-    group.MapPut("/", RemoveFromCommandInvocations);
+    group.MapPut("/addToCommandInvocations", AddToCommandInvocations);
+    group.MapPut("/removeFromCommandInvocations", RemoveFromCommandInvocations);
 
 
         return app;

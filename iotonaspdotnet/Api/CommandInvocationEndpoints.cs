@@ -16,14 +16,14 @@ public static class CommandInvocationEndpoints
         group.MapPost("/update", Update);
         group.MapPost("/delete", Delete);
 
-        group.MapPut("/", AssignDevice);
-        group.MapPut("/", UnassignDevice);
-        group.MapPut("/", AssignCommandDefinition);
-        group.MapPut("/", UnassignCommandDefinition);
-        group.MapPut("/", AssignActuator);
-        group.MapPut("/", UnassignActuator);
-        group.MapPut("/", AssignUser);
-        group.MapPut("/", UnassignUser);
+        group.MapPut("/assignDevice", AssignDevice);
+        group.MapPut("/unassignDevice", UnassignDevice);
+        group.MapPut("/assignCommandDefinition", AssignCommandDefinition);
+        group.MapPut("/unassignCommandDefinition", UnassignCommandDefinition);
+        group.MapPut("/assignActuator", AssignActuator);
+        group.MapPut("/unassignActuator", UnassignActuator);
+        group.MapPut("/assignUser", AssignUser);
+        group.MapPut("/unassignUser", UnassignUser);
 
 
         return app;

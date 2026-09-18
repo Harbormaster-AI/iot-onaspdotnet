@@ -16,24 +16,24 @@ public static class GatewayEndpoints
         group.MapPost("/update", Update);
         group.MapPost("/delete", Delete);
 
-        group.MapPut("/", AssignSite);
-        group.MapPut("/", UnassignSite);
-        group.MapPut("/", AssignRoom);
-        group.MapPut("/", UnassignRoom);
-        group.MapPut("/", AssignDigitalTwin);
-        group.MapPut("/", UnassignDigitalTwin);
+        group.MapPut("/assignSite", AssignSite);
+        group.MapPut("/unassignSite", UnassignSite);
+        group.MapPut("/assignRoom", AssignRoom);
+        group.MapPut("/unassignRoom", UnassignRoom);
+        group.MapPut("/assignDigitalTwin", AssignDigitalTwin);
+        group.MapPut("/unassignDigitalTwin", UnassignDigitalTwin);
 
-    group.MapPut("/", AddToDevices);
-    group.MapPut("/", RemoveFromDevices);
+    group.MapPut("/addToDevices", AddToDevices);
+    group.MapPut("/removeFromDevices", RemoveFromDevices);
 
-    group.MapPut("/", AddToEdgeApplications);
-    group.MapPut("/", RemoveFromEdgeApplications);
+    group.MapPut("/addToEdgeApplications", AddToEdgeApplications);
+    group.MapPut("/removeFromEdgeApplications", RemoveFromEdgeApplications);
 
-    group.MapPut("/", AddToCertificates);
-    group.MapPut("/", RemoveFromCertificates);
+    group.MapPut("/addToCertificates", AddToCertificates);
+    group.MapPut("/removeFromCertificates", RemoveFromCertificates);
 
-    group.MapPut("/", AddToNetworkProfiles);
-    group.MapPut("/", RemoveFromNetworkProfiles);
+    group.MapPut("/addToNetworkProfiles", AddToNetworkProfiles);
+    group.MapPut("/removeFromNetworkProfiles", RemoveFromNetworkProfiles);
 
 
         return app;

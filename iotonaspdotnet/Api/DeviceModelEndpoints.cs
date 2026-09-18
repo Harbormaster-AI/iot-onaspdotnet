@@ -16,19 +16,19 @@ public static class DeviceModelEndpoints
         group.MapPost("/update", Update);
         group.MapPost("/delete", Delete);
 
-        group.MapPut("/", AssignVendor);
-        group.MapPut("/", UnassignVendor);
-        group.MapPut("/", AssignTwinTemplate);
-        group.MapPut("/", UnassignTwinTemplate);
+        group.MapPut("/assignVendor", AssignVendor);
+        group.MapPut("/unassignVendor", UnassignVendor);
+        group.MapPut("/assignTwinTemplate", AssignTwinTemplate);
+        group.MapPut("/unassignTwinTemplate", UnassignTwinTemplate);
 
-    group.MapPut("/", AddToHardwareModules);
-    group.MapPut("/", RemoveFromHardwareModules);
+    group.MapPut("/addToHardwareModules", AddToHardwareModules);
+    group.MapPut("/removeFromHardwareModules", RemoveFromHardwareModules);
 
-    group.MapPut("/", AddToFirmwareReleases);
-    group.MapPut("/", RemoveFromFirmwareReleases);
+    group.MapPut("/addToFirmwareReleases", AddToFirmwareReleases);
+    group.MapPut("/removeFromFirmwareReleases", RemoveFromFirmwareReleases);
 
-    group.MapPut("/", AddToCommandDefinitions);
-    group.MapPut("/", RemoveFromCommandDefinitions);
+    group.MapPut("/addToCommandDefinitions", AddToCommandDefinitions);
+    group.MapPut("/removeFromCommandDefinitions", RemoveFromCommandDefinitions);
 
 
         return app;

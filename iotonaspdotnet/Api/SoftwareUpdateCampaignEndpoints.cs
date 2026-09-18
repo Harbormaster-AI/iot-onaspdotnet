@@ -16,13 +16,13 @@ public static class SoftwareUpdateCampaignEndpoints
         group.MapPost("/update", Update);
         group.MapPost("/delete", Delete);
 
-        group.MapPut("/", AssignFirmwareRelease);
-        group.MapPut("/", UnassignFirmwareRelease);
-        group.MapPut("/", AssignDeviceGroup);
-        group.MapPut("/", UnassignDeviceGroup);
+        group.MapPut("/assignFirmwareRelease", AssignFirmwareRelease);
+        group.MapPut("/unassignFirmwareRelease", UnassignFirmwareRelease);
+        group.MapPut("/assignDeviceGroup", AssignDeviceGroup);
+        group.MapPut("/unassignDeviceGroup", UnassignDeviceGroup);
 
-    group.MapPut("/", AddToExecutions);
-    group.MapPut("/", RemoveFromExecutions);
+    group.MapPut("/addToExecutions", AddToExecutions);
+    group.MapPut("/removeFromExecutions", RemoveFromExecutions);
 
 
         return app;

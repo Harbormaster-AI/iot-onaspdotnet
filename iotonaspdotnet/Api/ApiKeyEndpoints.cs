@@ -16,8 +16,8 @@ public static class ApiKeyEndpoints
         group.MapPost("/update", Update);
         group.MapPost("/delete", Delete);
 
-        group.MapPut("/", AssignAccessPolicy);
-        group.MapPut("/", UnassignAccessPolicy);
+        group.MapPut("/assignAccessPolicy", AssignAccessPolicy);
+        group.MapPut("/unassignAccessPolicy", UnassignAccessPolicy);
 
 
         return app;

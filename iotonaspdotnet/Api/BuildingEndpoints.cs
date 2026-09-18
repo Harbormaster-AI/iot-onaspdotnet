@@ -16,11 +16,11 @@ public static class BuildingEndpoints
         group.MapPost("/update", Update);
         group.MapPost("/delete", Delete);
 
-        group.MapPut("/", AssignSite);
-        group.MapPut("/", UnassignSite);
+        group.MapPut("/assignSite", AssignSite);
+        group.MapPut("/unassignSite", UnassignSite);
 
-    group.MapPut("/", AddToFloors);
-    group.MapPut("/", RemoveFromFloors);
+    group.MapPut("/addToFloors", AddToFloors);
+    group.MapPut("/removeFromFloors", RemoveFromFloors);
 
 
         return app;

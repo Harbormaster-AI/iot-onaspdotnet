@@ -16,14 +16,14 @@ public static class AccessPolicyEndpoints
         group.MapPost("/update", Update);
         group.MapPost("/delete", Delete);
 
-        group.MapPut("/", AssignTenant);
-        group.MapPut("/", UnassignTenant);
+        group.MapPut("/assignTenant", AssignTenant);
+        group.MapPut("/unassignTenant", UnassignTenant);
 
-    group.MapPut("/", AddToApiKeys);
-    group.MapPut("/", RemoveFromApiKeys);
+    group.MapPut("/addToApiKeys", AddToApiKeys);
+    group.MapPut("/removeFromApiKeys", RemoveFromApiKeys);
 
-    group.MapPut("/", AddToUsers);
-    group.MapPut("/", RemoveFromUsers);
+    group.MapPut("/addToUsers", AddToUsers);
+    group.MapPut("/removeFromUsers", RemoveFromUsers);
 
 
         return app;

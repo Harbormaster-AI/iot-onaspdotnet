@@ -16,44 +16,44 @@ public static class IoTDeviceEndpoints
         group.MapPost("/update", Update);
         group.MapPost("/delete", Delete);
 
-        group.MapPut("/", AssignDeviceModel);
-        group.MapPut("/", UnassignDeviceModel);
-        group.MapPut("/", AssignTenant);
-        group.MapPut("/", UnassignTenant);
-        group.MapPut("/", AssignSite);
-        group.MapPut("/", UnassignSite);
-        group.MapPut("/", AssignRoom);
-        group.MapPut("/", UnassignRoom);
-        group.MapPut("/", AssignGateway);
-        group.MapPut("/", UnassignGateway);
-        group.MapPut("/", AssignDigitalTwin);
-        group.MapPut("/", UnassignDigitalTwin);
-        group.MapPut("/", AssignProvisioningRecord);
-        group.MapPut("/", UnassignProvisioningRecord);
+        group.MapPut("/assignDeviceModel", AssignDeviceModel);
+        group.MapPut("/unassignDeviceModel", UnassignDeviceModel);
+        group.MapPut("/assignTenant", AssignTenant);
+        group.MapPut("/unassignTenant", UnassignTenant);
+        group.MapPut("/assignSite", AssignSite);
+        group.MapPut("/unassignSite", UnassignSite);
+        group.MapPut("/assignRoom", AssignRoom);
+        group.MapPut("/unassignRoom", UnassignRoom);
+        group.MapPut("/assignGateway", AssignGateway);
+        group.MapPut("/unassignGateway", UnassignGateway);
+        group.MapPut("/assignDigitalTwin", AssignDigitalTwin);
+        group.MapPut("/unassignDigitalTwin", UnassignDigitalTwin);
+        group.MapPut("/assignProvisioningRecord", AssignProvisioningRecord);
+        group.MapPut("/unassignProvisioningRecord", UnassignProvisioningRecord);
 
-    group.MapPut("/", AddToSensors);
-    group.MapPut("/", RemoveFromSensors);
+    group.MapPut("/addToSensors", AddToSensors);
+    group.MapPut("/removeFromSensors", RemoveFromSensors);
 
-    group.MapPut("/", AddToActuators);
-    group.MapPut("/", RemoveFromActuators);
+    group.MapPut("/addToActuators", AddToActuators);
+    group.MapPut("/removeFromActuators", RemoveFromActuators);
 
-    group.MapPut("/", AddToCertificates);
-    group.MapPut("/", RemoveFromCertificates);
+    group.MapPut("/addToCertificates", AddToCertificates);
+    group.MapPut("/removeFromCertificates", RemoveFromCertificates);
 
-    group.MapPut("/", AddToTelemetryStreams);
-    group.MapPut("/", RemoveFromTelemetryStreams);
+    group.MapPut("/addToTelemetryStreams", AddToTelemetryStreams);
+    group.MapPut("/removeFromTelemetryStreams", RemoveFromTelemetryStreams);
 
-    group.MapPut("/", AddToCommandInvocations);
-    group.MapPut("/", RemoveFromCommandInvocations);
+    group.MapPut("/addToCommandInvocations", AddToCommandInvocations);
+    group.MapPut("/removeFromCommandInvocations", RemoveFromCommandInvocations);
 
-    group.MapPut("/", AddToAlerts);
-    group.MapPut("/", RemoveFromAlerts);
+    group.MapPut("/addToAlerts", AddToAlerts);
+    group.MapPut("/removeFromAlerts", RemoveFromAlerts);
 
-    group.MapPut("/", AddToDeviceGroups);
-    group.MapPut("/", RemoveFromDeviceGroups);
+    group.MapPut("/addToDeviceGroups", AddToDeviceGroups);
+    group.MapPut("/removeFromDeviceGroups", RemoveFromDeviceGroups);
 
-    group.MapPut("/", AddToNetworkProfiles);
-    group.MapPut("/", RemoveFromNetworkProfiles);
+    group.MapPut("/addToNetworkProfiles", AddToNetworkProfiles);
+    group.MapPut("/removeFromNetworkProfiles", RemoveFromNetworkProfiles);
 
 
         return app;

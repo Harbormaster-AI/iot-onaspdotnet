@@ -16,13 +16,13 @@ public static class SimCardEndpoints
         group.MapPost("/update", Update);
         group.MapPost("/delete", Delete);
 
-        group.MapPut("/", AssignTenant);
-        group.MapPut("/", UnassignTenant);
-        group.MapPut("/", AssignConnectivityPlan);
-        group.MapPut("/", UnassignConnectivityPlan);
+        group.MapPut("/assignTenant", AssignTenant);
+        group.MapPut("/unassignTenant", UnassignTenant);
+        group.MapPut("/assignConnectivityPlan", AssignConnectivityPlan);
+        group.MapPut("/unassignConnectivityPlan", UnassignConnectivityPlan);
 
-    group.MapPut("/", AddToNetworkProfiles);
-    group.MapPut("/", RemoveFromNetworkProfiles);
+    group.MapPut("/addToNetworkProfiles", AddToNetworkProfiles);
+    group.MapPut("/removeFromNetworkProfiles", RemoveFromNetworkProfiles);
 
 
         return app;

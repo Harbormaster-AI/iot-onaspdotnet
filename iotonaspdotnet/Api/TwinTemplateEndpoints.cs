@@ -17,8 +17,8 @@ public static class TwinTemplateEndpoints
         group.MapPost("/delete", Delete);
 
 
-    group.MapPut("/", AddToDeviceModels);
-    group.MapPut("/", RemoveFromDeviceModels);
+    group.MapPut("/addToDeviceModels", AddToDeviceModels);
+    group.MapPut("/removeFromDeviceModels", RemoveFromDeviceModels);
 
 
         return app;

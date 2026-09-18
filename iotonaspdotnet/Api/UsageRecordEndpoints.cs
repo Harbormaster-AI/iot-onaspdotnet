@@ -16,12 +16,12 @@ public static class UsageRecordEndpoints
         group.MapPost("/update", Update);
         group.MapPost("/delete", Delete);
 
-        group.MapPut("/", AssignTenant);
-        group.MapPut("/", UnassignTenant);
-        group.MapPut("/", AssignDevice);
-        group.MapPut("/", UnassignDevice);
-        group.MapPut("/", AssignConnectivityPlan);
-        group.MapPut("/", UnassignConnectivityPlan);
+        group.MapPut("/assignTenant", AssignTenant);
+        group.MapPut("/unassignTenant", UnassignTenant);
+        group.MapPut("/assignDevice", AssignDevice);
+        group.MapPut("/unassignDevice", UnassignDevice);
+        group.MapPut("/assignConnectivityPlan", AssignConnectivityPlan);
+        group.MapPut("/unassignConnectivityPlan", UnassignConnectivityPlan);
 
 
         return app;

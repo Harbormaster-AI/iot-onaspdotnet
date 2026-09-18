@@ -16,15 +16,15 @@ public static class DigitalTwinEndpoints
         group.MapPost("/update", Update);
         group.MapPost("/delete", Delete);
 
-        group.MapPut("/", AssignDevice);
-        group.MapPut("/", UnassignDevice);
-        group.MapPut("/", AssignGateway);
-        group.MapPut("/", UnassignGateway);
-        group.MapPut("/", AssignTemplate);
-        group.MapPut("/", UnassignTemplate);
+        group.MapPut("/assignDevice", AssignDevice);
+        group.MapPut("/unassignDevice", UnassignDevice);
+        group.MapPut("/assignGateway", AssignGateway);
+        group.MapPut("/unassignGateway", UnassignGateway);
+        group.MapPut("/assignTemplate", AssignTemplate);
+        group.MapPut("/unassignTemplate", UnassignTemplate);
 
-    group.MapPut("/", AddToChangeEvents);
-    group.MapPut("/", RemoveFromChangeEvents);
+    group.MapPut("/addToChangeEvents", AddToChangeEvents);
+    group.MapPut("/removeFromChangeEvents", RemoveFromChangeEvents);
 
 
         return app;

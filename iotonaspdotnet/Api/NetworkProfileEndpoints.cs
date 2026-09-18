@@ -16,12 +16,12 @@ public static class NetworkProfileEndpoints
         group.MapPost("/update", Update);
         group.MapPost("/delete", Delete);
 
-        group.MapPut("/", AssignDevice);
-        group.MapPut("/", UnassignDevice);
-        group.MapPut("/", AssignGateway);
-        group.MapPut("/", UnassignGateway);
-        group.MapPut("/", AssignSimCard);
-        group.MapPut("/", UnassignSimCard);
+        group.MapPut("/assignDevice", AssignDevice);
+        group.MapPut("/unassignDevice", UnassignDevice);
+        group.MapPut("/assignGateway", AssignGateway);
+        group.MapPut("/unassignGateway", UnassignGateway);
+        group.MapPut("/assignSimCard", AssignSimCard);
+        group.MapPut("/unassignSimCard", UnassignSimCard);
 
 
         return app;

@@ -16,11 +16,11 @@ public static class SensorInstanceEndpoints
         group.MapPost("/update", Update);
         group.MapPost("/delete", Delete);
 
-        group.MapPut("/", AssignDevice);
-        group.MapPut("/", UnassignDevice);
+        group.MapPut("/assignDevice", AssignDevice);
+        group.MapPut("/unassignDevice", UnassignDevice);
 
-    group.MapPut("/", AddToTelemetryStreams);
-    group.MapPut("/", RemoveFromTelemetryStreams);
+    group.MapPut("/addToTelemetryStreams", AddToTelemetryStreams);
+    group.MapPut("/removeFromTelemetryStreams", RemoveFromTelemetryStreams);
 
 
         return app;

@@ -16,14 +16,14 @@ public static class RoomEndpoints
         group.MapPost("/update", Update);
         group.MapPost("/delete", Delete);
 
-        group.MapPut("/", AssignFloor);
-        group.MapPut("/", UnassignFloor);
+        group.MapPut("/assignFloor", AssignFloor);
+        group.MapPut("/unassignFloor", UnassignFloor);
 
-    group.MapPut("/", AddToDevices);
-    group.MapPut("/", RemoveFromDevices);
+    group.MapPut("/addToDevices", AddToDevices);
+    group.MapPut("/removeFromDevices", RemoveFromDevices);
 
-    group.MapPut("/", AddToGateways);
-    group.MapPut("/", RemoveFromGateways);
+    group.MapPut("/addToGateways", AddToGateways);
+    group.MapPut("/removeFromGateways", RemoveFromGateways);
 
 
         return app;

@@ -16,11 +16,11 @@ public static class ConnectivityPlanEndpoints
         group.MapPost("/update", Update);
         group.MapPost("/delete", Delete);
 
-        group.MapPut("/", AssignTenant);
-        group.MapPut("/", UnassignTenant);
+        group.MapPut("/assignTenant", AssignTenant);
+        group.MapPut("/unassignTenant", UnassignTenant);
 
-    group.MapPut("/", AddToSimCards);
-    group.MapPut("/", RemoveFromSimCards);
+    group.MapPut("/addToSimCards", AddToSimCards);
+    group.MapPut("/removeFromSimCards", RemoveFromSimCards);
 
 
         return app;

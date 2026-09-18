@@ -16,11 +16,11 @@ public static class DeviceGroupEndpoints
         group.MapPost("/update", Update);
         group.MapPost("/delete", Delete);
 
-        group.MapPut("/", AssignTenant);
-        group.MapPut("/", UnassignTenant);
+        group.MapPut("/assignTenant", AssignTenant);
+        group.MapPut("/unassignTenant", UnassignTenant);
 
-    group.MapPut("/", AddToDevices);
-    group.MapPut("/", RemoveFromDevices);
+    group.MapPut("/addToDevices", AddToDevices);
+    group.MapPut("/removeFromDevices", RemoveFromDevices);
 
 
         return app;

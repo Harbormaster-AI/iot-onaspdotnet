@@ -16,16 +16,16 @@ public static class TelemetryStreamEndpoints
         group.MapPost("/update", Update);
         group.MapPost("/delete", Delete);
 
-        group.MapPut("/", AssignDevice);
-        group.MapPut("/", UnassignDevice);
-        group.MapPut("/", AssignSensor);
-        group.MapPut("/", UnassignSensor);
-        group.MapPut("/", AssignSchema);
-        group.MapPut("/", UnassignSchema);
-        group.MapPut("/", AssignMessagingEndpoint);
-        group.MapPut("/", UnassignMessagingEndpoint);
-        group.MapPut("/", AssignRetentionPolicy);
-        group.MapPut("/", UnassignRetentionPolicy);
+        group.MapPut("/assignDevice", AssignDevice);
+        group.MapPut("/unassignDevice", UnassignDevice);
+        group.MapPut("/assignSensor", AssignSensor);
+        group.MapPut("/unassignSensor", UnassignSensor);
+        group.MapPut("/assignSchema", AssignSchema);
+        group.MapPut("/unassignSchema", UnassignSchema);
+        group.MapPut("/assignMessagingEndpoint", AssignMessagingEndpoint);
+        group.MapPut("/unassignMessagingEndpoint", UnassignMessagingEndpoint);
+        group.MapPut("/assignRetentionPolicy", AssignRetentionPolicy);
+        group.MapPut("/unassignRetentionPolicy", UnassignRetentionPolicy);
 
 
         return app;

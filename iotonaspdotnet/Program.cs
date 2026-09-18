@@ -11,21 +11,15 @@ builder.Services.AddOpenApi();
 builder.Services.AddHealthChecks()
     .AddDbContextCheck<ApplicationDbContext>();
 
-// MySQL for local/runtime; SQLite is used automatically when environment is Testing.
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    // Tests set environment "Testing" and use SQLite so `dotnet test` needs no MySQL.
-    if (builder.Environment.IsEnvironment("Testing"))
-    {
-        var sqlitePath = Path.Combine(Path.GetTempPath(), "iotonaspdotnet-testing.db");
-        options.UseSqlite($"Data Source={sqlitePath}");
-    }
-    else
-    {
-        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-            ?? throw new InvalidOperationException("Connection string 'DefaultConnection' is missing.");
-        options.UseMySql(connectionString, ServerVersion.Parse("8.4.0-mysql"));
-    }
+    var connectionString =
+        builder.Configuration.GetConnectionString("DefaultConnection")
+        ?? throw new InvalidOperationException(
+            "Connection string 'DefaultConnection' is missing.");
+
+    options.UseNpgsql(connectionString);
 });
 
                         builder.Services.AddScoped<IDeviceVendorRepository, DeviceVendorRepository>();

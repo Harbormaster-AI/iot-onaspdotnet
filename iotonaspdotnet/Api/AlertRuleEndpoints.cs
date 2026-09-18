@@ -16,14 +16,14 @@ public static class AlertRuleEndpoints
         group.MapPost("/update", Update);
         group.MapPost("/delete", Delete);
 
-        group.MapPut("/", AssignTenant);
-        group.MapPut("/", UnassignTenant);
+        group.MapPut("/assignTenant", AssignTenant);
+        group.MapPut("/unassignTenant", UnassignTenant);
 
-    group.MapPut("/", AddToStreams);
-    group.MapPut("/", RemoveFromStreams);
+    group.MapPut("/addToStreams", AddToStreams);
+    group.MapPut("/removeFromStreams", RemoveFromStreams);
 
-    group.MapPut("/", AddToAlerts);
-    group.MapPut("/", RemoveFromAlerts);
+    group.MapPut("/addToAlerts", AddToAlerts);
+    group.MapPut("/removeFromAlerts", RemoveFromAlerts);
 
 
         return app;

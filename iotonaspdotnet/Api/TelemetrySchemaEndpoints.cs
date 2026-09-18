@@ -17,8 +17,8 @@ public static class TelemetrySchemaEndpoints
         group.MapPost("/delete", Delete);
 
 
-    group.MapPut("/", AddToStreams);
-    group.MapPut("/", RemoveFromStreams);
+    group.MapPut("/addToStreams", AddToStreams);
+    group.MapPut("/removeFromStreams", RemoveFromStreams);
 
 
         return app;

@@ -16,17 +16,17 @@ public static class SiteEndpoints
         group.MapPost("/update", Update);
         group.MapPost("/delete", Delete);
 
-        group.MapPut("/", AssignTenant);
-        group.MapPut("/", UnassignTenant);
+        group.MapPut("/assignTenant", AssignTenant);
+        group.MapPut("/unassignTenant", UnassignTenant);
 
-    group.MapPut("/", AddToBuildings);
-    group.MapPut("/", RemoveFromBuildings);
+    group.MapPut("/addToBuildings", AddToBuildings);
+    group.MapPut("/removeFromBuildings", RemoveFromBuildings);
 
-    group.MapPut("/", AddToDevices);
-    group.MapPut("/", RemoveFromDevices);
+    group.MapPut("/addToDevices", AddToDevices);
+    group.MapPut("/removeFromDevices", RemoveFromDevices);
 
-    group.MapPut("/", AddToGateways);
-    group.MapPut("/", RemoveFromGateways);
+    group.MapPut("/addToGateways", AddToGateways);
+    group.MapPut("/removeFromGateways", RemoveFromGateways);
 
 
         return app;

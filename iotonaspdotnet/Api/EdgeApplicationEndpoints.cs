@@ -16,8 +16,8 @@ public static class EdgeApplicationEndpoints
         group.MapPost("/update", Update);
         group.MapPost("/delete", Delete);
 
-        group.MapPut("/", AssignGateway);
-        group.MapPut("/", UnassignGateway);
+        group.MapPut("/assignGateway", AssignGateway);
+        group.MapPut("/unassignGateway", UnassignGateway);
 
 
         return app;

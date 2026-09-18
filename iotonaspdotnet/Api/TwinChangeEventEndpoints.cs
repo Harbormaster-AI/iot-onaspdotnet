@@ -16,8 +16,8 @@ public static class TwinChangeEventEndpoints
         group.MapPost("/update", Update);
         group.MapPost("/delete", Delete);
 
-        group.MapPut("/", AssignTwin);
-        group.MapPut("/", UnassignTwin);
+        group.MapPut("/assignTwin", AssignTwin);
+        group.MapPut("/unassignTwin", UnassignTwin);
 
 
         return app;

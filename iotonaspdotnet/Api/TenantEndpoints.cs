@@ -17,41 +17,41 @@ public static class TenantEndpoints
         group.MapPost("/delete", Delete);
 
 
-    group.MapPut("/", AddToSites);
-    group.MapPut("/", RemoveFromSites);
+    group.MapPut("/addToSites", AddToSites);
+    group.MapPut("/removeFromSites", RemoveFromSites);
 
-    group.MapPut("/", AddToUsers);
-    group.MapPut("/", RemoveFromUsers);
+    group.MapPut("/addToUsers", AddToUsers);
+    group.MapPut("/removeFromUsers", RemoveFromUsers);
 
-    group.MapPut("/", AddToDevices);
-    group.MapPut("/", RemoveFromDevices);
+    group.MapPut("/addToDevices", AddToDevices);
+    group.MapPut("/removeFromDevices", RemoveFromDevices);
 
-    group.MapPut("/", AddToDataRetentionPolicies);
-    group.MapPut("/", RemoveFromDataRetentionPolicies);
+    group.MapPut("/addToDataRetentionPolicies", AddToDataRetentionPolicies);
+    group.MapPut("/removeFromDataRetentionPolicies", RemoveFromDataRetentionPolicies);
 
-    group.MapPut("/", AddToConnectivityPlans);
-    group.MapPut("/", RemoveFromConnectivityPlans);
+    group.MapPut("/addToConnectivityPlans", AddToConnectivityPlans);
+    group.MapPut("/removeFromConnectivityPlans", RemoveFromConnectivityPlans);
 
-    group.MapPut("/", AddToSimCards);
-    group.MapPut("/", RemoveFromSimCards);
+    group.MapPut("/addToSimCards", AddToSimCards);
+    group.MapPut("/removeFromSimCards", RemoveFromSimCards);
 
-    group.MapPut("/", AddToMessagingEndpoints);
-    group.MapPut("/", RemoveFromMessagingEndpoints);
+    group.MapPut("/addToMessagingEndpoints", AddToMessagingEndpoints);
+    group.MapPut("/removeFromMessagingEndpoints", RemoveFromMessagingEndpoints);
 
-    group.MapPut("/", AddToAccessPolicies);
-    group.MapPut("/", RemoveFromAccessPolicies);
+    group.MapPut("/addToAccessPolicies", AddToAccessPolicies);
+    group.MapPut("/removeFromAccessPolicies", RemoveFromAccessPolicies);
 
-    group.MapPut("/", AddToDeviceGroups);
-    group.MapPut("/", RemoveFromDeviceGroups);
+    group.MapPut("/addToDeviceGroups", AddToDeviceGroups);
+    group.MapPut("/removeFromDeviceGroups", RemoveFromDeviceGroups);
 
-    group.MapPut("/", AddToAlertRules);
-    group.MapPut("/", RemoveFromAlertRules);
+    group.MapPut("/addToAlertRules", AddToAlertRules);
+    group.MapPut("/removeFromAlertRules", RemoveFromAlertRules);
 
-    group.MapPut("/", AddToMaintenanceTickets);
-    group.MapPut("/", RemoveFromMaintenanceTickets);
+    group.MapPut("/addToMaintenanceTickets", AddToMaintenanceTickets);
+    group.MapPut("/removeFromMaintenanceTickets", RemoveFromMaintenanceTickets);
 
-    group.MapPut("/", AddToUsageRecords);
-    group.MapPut("/", RemoveFromUsageRecords);
+    group.MapPut("/addToUsageRecords", AddToUsageRecords);
+    group.MapPut("/removeFromUsageRecords", RemoveFromUsageRecords);
 
 
         return app;

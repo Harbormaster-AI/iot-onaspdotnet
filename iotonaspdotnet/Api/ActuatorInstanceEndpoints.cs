@@ -16,11 +16,11 @@ public static class ActuatorInstanceEndpoints
         group.MapPost("/update", Update);
         group.MapPost("/delete", Delete);
 
-        group.MapPut("/", AssignDevice);
-        group.MapPut("/", UnassignDevice);
+        group.MapPut("/assignDevice", AssignDevice);
+        group.MapPut("/unassignDevice", UnassignDevice);
 
-    group.MapPut("/", AddToSupportedCommands);
-    group.MapPut("/", RemoveFromSupportedCommands);
+    group.MapPut("/addToSupportedCommands", AddToSupportedCommands);
+    group.MapPut("/removeFromSupportedCommands", RemoveFromSupportedCommands);
 
 
         return app;

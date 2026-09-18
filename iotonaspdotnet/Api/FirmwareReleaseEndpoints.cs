@@ -16,8 +16,8 @@ public static class FirmwareReleaseEndpoints
         group.MapPost("/update", Update);
         group.MapPost("/delete", Delete);
 
-        group.MapPut("/", AssignDeviceModel);
-        group.MapPut("/", UnassignDeviceModel);
+        group.MapPut("/assignDeviceModel", AssignDeviceModel);
+        group.MapPut("/unassignDeviceModel", UnassignDeviceModel);
 
 
         return app;

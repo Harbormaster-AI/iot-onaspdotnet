@@ -16,8 +16,8 @@ public static class HardwareModuleEndpoints
         group.MapPost("/update", Update);
         group.MapPost("/delete", Delete);
 
-        group.MapPut("/", AssignVendor);
-        group.MapPut("/", UnassignVendor);
+        group.MapPut("/assignVendor", AssignVendor);
+        group.MapPut("/unassignVendor", UnassignVendor);
 
 
         return app;

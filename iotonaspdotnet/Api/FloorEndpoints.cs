@@ -16,11 +16,11 @@ public static class FloorEndpoints
         group.MapPost("/update", Update);
         group.MapPost("/delete", Delete);
 
-        group.MapPut("/", AssignBuilding);
-        group.MapPut("/", UnassignBuilding);
+        group.MapPut("/assignBuilding", AssignBuilding);
+        group.MapPut("/unassignBuilding", UnassignBuilding);
 
-    group.MapPut("/", AddToRooms);
-    group.MapPut("/", RemoveFromRooms);
+    group.MapPut("/addToRooms", AddToRooms);
+    group.MapPut("/removeFromRooms", RemoveFromRooms);
 
 
         return app;

@@ -17,14 +17,14 @@ public static class DeviceVendorEndpoints
         group.MapPost("/delete", Delete);
 
 
-    group.MapPut("/", AddToDeviceModels);
-    group.MapPut("/", RemoveFromDeviceModels);
+    group.MapPut("/addToDeviceModels", AddToDeviceModels);
+    group.MapPut("/removeFromDeviceModels", RemoveFromDeviceModels);
 
-    group.MapPut("/", AddToFirmwareReleases);
-    group.MapPut("/", RemoveFromFirmwareReleases);
+    group.MapPut("/addToFirmwareReleases", AddToFirmwareReleases);
+    group.MapPut("/removeFromFirmwareReleases", RemoveFromFirmwareReleases);
 
-    group.MapPut("/", AddToHardwareModules);
-    group.MapPut("/", RemoveFromHardwareModules);
+    group.MapPut("/addToHardwareModules", AddToHardwareModules);
+    group.MapPut("/removeFromHardwareModules", RemoveFromHardwareModules);
 
 
         return app;
