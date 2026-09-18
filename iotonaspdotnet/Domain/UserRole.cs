@@ -32,6 +32,7 @@ namespace iotonaspdotnet.Domain;
 /// UserRole enumerator class
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
+
 public enum UserRole
 {
     Admin=1,Operator=2,Viewer=3,Integrator=4

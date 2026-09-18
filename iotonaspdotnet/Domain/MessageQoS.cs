@@ -32,6 +32,7 @@ namespace iotonaspdotnet.Domain;
 /// MessageQoS enumerator class
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
+
 public enum MessageQoS
 {
     AtMostOnce=1,AtLeastOnce=2,ExactlyOnce=3

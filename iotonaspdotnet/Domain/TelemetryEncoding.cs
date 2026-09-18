@@ -32,6 +32,7 @@ namespace iotonaspdotnet.Domain;
 /// TelemetryEncoding enumerator class
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
+
 public enum TelemetryEncoding
 {
     JSON=1,CBOR=2,Protobuf=3,Avro=4,Binary=5

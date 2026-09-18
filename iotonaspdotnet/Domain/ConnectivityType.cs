@@ -32,6 +32,7 @@ namespace iotonaspdotnet.Domain;
 /// ConnectivityType enumerator class
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
+
 public enum ConnectivityType
 {
     WiFi=1,Ethernet=2,LTE=3,FiveG=4,NBIoT=5,LoRaWAN=6,Zigbee=7,BLE=8,Satellite=9

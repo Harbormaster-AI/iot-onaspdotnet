@@ -32,6 +32,7 @@ namespace iotonaspdotnet.Domain;
 /// UpdateStatus enumerator class
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
+
 public enum UpdateStatus
 {
     Downloading=1,Installing=2,Rebooting=3,Success=4,Failure=5,Deferred=6

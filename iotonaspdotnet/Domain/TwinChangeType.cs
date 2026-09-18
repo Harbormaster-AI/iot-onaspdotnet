@@ -32,6 +32,7 @@ namespace iotonaspdotnet.Domain;
 /// TwinChangeType enumerator class
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
+
 public enum TwinChangeType
 {
     DesiredUpdated=1,ReportedUpdated=2,TagUpdated=3

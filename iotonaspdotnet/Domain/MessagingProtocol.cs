@@ -32,6 +32,7 @@ namespace iotonaspdotnet.Domain;
 /// MessagingProtocol enumerator class
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
+
 public enum MessagingProtocol
 {
     MQTT=1,AMQP=2,HTTP=3,CoAP=4,WebSocket=5

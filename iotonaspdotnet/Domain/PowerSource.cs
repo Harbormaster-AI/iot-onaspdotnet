@@ -32,6 +32,7 @@ namespace iotonaspdotnet.Domain;
 /// PowerSource enumerator class
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
+
 public enum PowerSource
 {
     Battery=1,Mains=2,PoE=3,EnergyHarvesting=4,Solar=5

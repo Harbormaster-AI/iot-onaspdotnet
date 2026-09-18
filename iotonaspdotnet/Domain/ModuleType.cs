@@ -32,6 +32,7 @@ namespace iotonaspdotnet.Domain;
 /// ModuleType enumerator class
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
+
 public enum ModuleType
 {
     RFModule=1,MCU=2,SensorChipset=3,PowerManagement=4,Storage=5,Other=6

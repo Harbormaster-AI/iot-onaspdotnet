@@ -32,6 +32,7 @@ namespace iotonaspdotnet.Domain;
 /// CertificateType enumerator class
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
+
 public enum CertificateType
 {
     X509=1,X509_CA=2,X509_SelfSigned=3

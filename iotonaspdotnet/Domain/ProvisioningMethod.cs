@@ -32,6 +32,7 @@ namespace iotonaspdotnet.Domain;
 /// ProvisioningMethod enumerator class
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
+
 public enum ProvisioningMethod
 {
     Manual=1,JITP=2,JITR=3,Bulk=4,ZeroTouch=5

@@ -32,6 +32,7 @@ namespace iotonaspdotnet.Domain;
 /// SimStatus enumerator class
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
+
 public enum SimStatus
 {
     Active=1,Suspended=2,Retired=3

@@ -32,6 +32,7 @@ namespace iotonaspdotnet.Domain;
 /// AlertSeverity enumerator class
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
+
 public enum AlertSeverity
 {
     Info=1,Warning=2,Critical=3

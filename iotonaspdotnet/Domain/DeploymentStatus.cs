@@ -32,6 +32,7 @@ namespace iotonaspdotnet.Domain;
 /// DeploymentStatus enumerator class
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
+
 public enum DeploymentStatus
 {
     Pending=1,Deploying=2,Running=3,Failed=4,Stopped=5

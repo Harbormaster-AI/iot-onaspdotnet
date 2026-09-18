@@ -32,6 +32,7 @@ namespace iotonaspdotnet.Domain;
 /// ProvisioningStatus enumerator class
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
+
 public enum ProvisioningStatus
 {
     Pending=1,Enrolled=2,Failed=3,Revoked=4

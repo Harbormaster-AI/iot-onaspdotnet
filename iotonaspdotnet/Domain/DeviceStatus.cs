@@ -32,6 +32,7 @@ namespace iotonaspdotnet.Domain;
 /// DeviceStatus enumerator class
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
+
 public enum DeviceStatus
 {
     Provisioning=1,Active=2,Suspended=3,Offline=4,Decommissioned=5

@@ -32,6 +32,7 @@ namespace iotonaspdotnet.Domain;
 /// UpdateCampaignStatus enumerator class
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
+
 public enum UpdateCampaignStatus
 {
     Planned=1,InProgress=2,Paused=3,Completed=4,Cancelled=5

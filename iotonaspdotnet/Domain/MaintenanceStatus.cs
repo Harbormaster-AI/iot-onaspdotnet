@@ -32,6 +32,7 @@ namespace iotonaspdotnet.Domain;
 /// MaintenanceStatus enumerator class
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
+
 public enum MaintenanceStatus
 {
     Open=1,InProgress=2,WaitingOnParts=3,Closed=4

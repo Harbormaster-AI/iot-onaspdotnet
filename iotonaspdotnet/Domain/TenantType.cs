@@ -32,6 +32,7 @@ namespace iotonaspdotnet.Domain;
 /// TenantType enumerator class
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
+
 public enum TenantType
 {
     Enterprise=1,SMB=2,ISV=3,SystemIntegrator=4,Government=5

@@ -32,6 +32,7 @@ namespace iotonaspdotnet.Domain;
 /// CommandStatus enumerator class
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
+
 public enum CommandStatus
 {
     Queued=1,Sent=2,Succeeded=3,Failed=4,TimedOut=5,Cancelled=6
