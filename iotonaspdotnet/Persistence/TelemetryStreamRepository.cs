@@ -27,11 +27,11 @@ public class TelemetryStreamRepository : ITelemetryStreamRepository
     {
         return await _db.TelemetryStreams
             .AsNoTracking()
-            .Include(x => x.Device)
-            .Include(x => x.Sensor)
-            .Include(x => x.Schema)
+            .Include(x => x.IoTDevice)
+            .Include(x => x.SensorInstance)
+            .Include(x => x.TelemetrySchema)
             .Include(x => x.MessagingEndpoint)
-            .Include(x => x.RetentionPolicy)
+            .Include(x => x.DataRetentionPolicy)
             .ToListAsync(cancellationToken);
     }
 

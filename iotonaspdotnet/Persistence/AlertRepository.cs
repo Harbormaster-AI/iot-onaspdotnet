@@ -24,7 +24,7 @@ public class AlertRepository : IAlertRepository
     {
         return await _db.Alerts
             .AsNoTracking()
-            .Include(x => x.Device)
+            .Include(x => x.IoTDevice)
             .Include(x => x.AlertRule)
             .ToListAsync(cancellationToken);
     }

@@ -23,7 +23,7 @@ public class TwinChangeEventRepository : ITwinChangeEventRepository
     {
         return await _db.TwinChangeEvents
             .AsNoTracking()
-            .Include(x => x.Twin)
+            .Include(x => x.DigitalTwin)
             .ToListAsync(cancellationToken);
     }
 

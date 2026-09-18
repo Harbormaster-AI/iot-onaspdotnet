@@ -24,7 +24,7 @@ public class MaintenanceTicketRepository : IMaintenanceTicketRepository
     {
         return await _db.MaintenanceTickets
             .AsNoTracking()
-            .Include(x => x.Device)
+            .Include(x => x.IoTDevice)
             .Include(x => x.Tenant)
             .ToListAsync(cancellationToken);
     }
