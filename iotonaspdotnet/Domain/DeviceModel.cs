@@ -11,10 +11,10 @@ public class DeviceModel
  public virtual string? ModelNumber { get; set; } 
  public virtual string? HardwareRevision { get; set; } 
 public virtual DeviceVendor? Vendor { get; set; } 
-public virtual HardwareModule? HardwareModules { get; set; } 
+public virtual ICollection<HardwareModule>? HardwareModules { get; set; } = new List<HardwareModule>()
 public virtual TwinTemplate? TwinTemplate { get; set; } 
-public virtual FirmwareRelease? FirmwareReleases { get; set; } 
-public virtual CommandDefinition? CommandDefinitions { get; set; } 
+public virtual ICollection<FirmwareRelease>? FirmwareReleases { get; set; } = new List<FirmwareRelease>()
+public virtual ICollection<CommandDefinition>? CommandDefinitions { get; set; } = new List<CommandDefinition>()
  public virtual ConnectivityType? SupportedConnectivity { get; set; } 
  public virtual TelemetryEncoding? DefaultTelemetryEncoding { get; set; } 
 

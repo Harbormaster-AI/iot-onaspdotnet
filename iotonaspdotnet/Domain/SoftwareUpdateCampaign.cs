@@ -12,7 +12,7 @@ public class SoftwareUpdateCampaign
  public virtual DateTime? ScheduledEnd { get; set; } 
 public virtual FirmwareRelease? FirmwareRelease { get; set; } 
 public virtual DeviceGroup? DeviceGroup { get; set; } 
-public virtual SoftwareUpdateExecution? Executions { get; set; } 
+public virtual ICollection<SoftwareUpdateExecution>? Executions { get; set; } = new List<SoftwareUpdateExecution>()
  public virtual UpdateCampaignStatus? Status { get; set; } 
 
     public static SoftwareUpdateCampaign FromRequest(SoftwareUpdateCampaignRequest request) {

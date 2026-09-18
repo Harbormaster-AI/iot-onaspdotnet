@@ -12,8 +12,8 @@ public class CommandDefinition
  public virtual Uri_? ResponseSchemaUri { get; set; } 
  public virtual int? TimeoutSeconds { get; set; } 
 public virtual DeviceModel? DeviceModel { get; set; } 
-public virtual ActuatorInstance? Actuators { get; set; } 
-public virtual CommandInvocation? CommandInvocations { get; set; } 
+public virtual ICollection<ActuatorInstance>? Actuators { get; set; } = new List<ActuatorInstance>()
+public virtual ICollection<CommandInvocation>? CommandInvocations { get; set; } = new List<CommandInvocation>()
 
     public static CommandDefinition FromRequest(CommandDefinitionRequest request) {
         return new CommandDefinition {

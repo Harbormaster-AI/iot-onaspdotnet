@@ -14,7 +14,7 @@ public class DigitalTwin
 public virtual IoTDevice? Device { get; set; } 
 public virtual Gateway? Gateway { get; set; } 
 public virtual TwinTemplate? Template { get; set; } 
-public virtual TwinChangeEvent? ChangeEvents { get; set; } 
+public virtual ICollection<TwinChangeEvent>? ChangeEvents { get; set; } = new List<TwinChangeEvent>()
 
     public static DigitalTwin FromRequest(DigitalTwinRequest request) {
         return new DigitalTwin {

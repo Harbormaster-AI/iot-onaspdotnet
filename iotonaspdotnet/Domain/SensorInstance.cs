@@ -11,7 +11,7 @@ public class SensorInstance
  public virtual string? Unit { get; set; } 
  public virtual int? SamplingIntervalMs { get; set; } 
 public virtual IoTDevice? Device { get; set; } 
-public virtual TelemetryStream? TelemetryStreams { get; set; } 
+public virtual ICollection<TelemetryStream>? TelemetryStreams { get; set; } = new List<TelemetryStream>()
  public virtual SensorType? SensorType { get; set; } 
 
     public static SensorInstance FromRequest(SensorInstanceRequest request) {
