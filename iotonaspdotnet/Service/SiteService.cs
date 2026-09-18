@@ -58,8 +58,6 @@ public class SiteService : ISiteService
         existing.Buildings = request.Buildings;
         existing.Devices = request.Devices;
         existing.Gateways = request.Gateways;
-        await _repository.UpdateAsync(existing, cancellationToken);
-    }
 
         existing.Name = site.Name;
         existing.Address = site.Address;
@@ -67,7 +65,6 @@ public class SiteService : ISiteService
         existing.Latitude = site.Latitude;
         existing.Longitude = site.Longitude;
 
-        existing.Id = site.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

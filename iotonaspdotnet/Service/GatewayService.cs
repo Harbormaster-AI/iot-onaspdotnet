@@ -72,15 +72,10 @@ public class GatewayService : IGatewayService
         existing.DigitalTwin = request.DigitalTwin;
         existing.NetworkProfiles = request.NetworkProfiles;
         existing.Status = request.Status;
-        await _repository.UpdateAsync(existing, cancellationToken);
-    }
 
         existing.SoftwareVersion = gateway.SoftwareVersion;
         existing.Status = gateway.Status;
 
-        existing.Id = gateway.Id;
-        existing.Id = gateway.Id;
-        existing.Id = gateway.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

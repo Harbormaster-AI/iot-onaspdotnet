@@ -54,15 +54,12 @@ public class ApiKeyService : IApiKeyService
         existing.CreatedAt = request.CreatedAt;
         existing.LastUsedAt = request.LastUsedAt;
         existing.AccessPolicy = request.AccessPolicy;
-        await _repository.UpdateAsync(existing, cancellationToken);
-    }
 
         existing.KeyId = apiKey.KeyId;
         existing.HashedSecret = apiKey.HashedSecret;
         existing.CreatedAt = apiKey.CreatedAt;
         existing.LastUsedAt = apiKey.LastUsedAt;
 
-        existing.Id = apiKey.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

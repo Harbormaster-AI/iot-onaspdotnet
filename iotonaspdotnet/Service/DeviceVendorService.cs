@@ -49,8 +49,6 @@ public class DeviceVendorService : IDeviceVendorService
         existing.DeviceModels = request.DeviceModels;
         existing.FirmwareReleases = request.FirmwareReleases;
         existing.HardwareModules = request.HardwareModules;
-        await _repository.UpdateAsync(existing, cancellationToken);
-    }
 
         existing.Name = deviceVendor.Name;
         existing.LegalName = deviceVendor.LegalName;

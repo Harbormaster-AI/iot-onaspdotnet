@@ -78,18 +78,12 @@ public class CommandInvocationService : ICommandInvocationService
         existing.Actuator = request.Actuator;
         existing.User = request.User;
         existing.Status = request.Status;
-        await _repository.UpdateAsync(existing, cancellationToken);
-    }
 
         existing.InvocationId = commandInvocation.InvocationId;
         existing.RequestedAt = commandInvocation.RequestedAt;
         existing.CompletedAt = commandInvocation.CompletedAt;
         existing.Status = commandInvocation.Status;
 
-        existing.Id = commandInvocation.Id;
-        existing.Id = commandInvocation.Id;
-        existing.Id = commandInvocation.Id;
-        existing.Id = commandInvocation.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

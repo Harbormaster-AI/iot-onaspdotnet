@@ -70,17 +70,12 @@ public class NetworkProfileService : INetworkProfileService
         existing.Gateway = request.Gateway;
         existing.SimCard = request.SimCard;
         existing.ConnectivityType = request.ConnectivityType;
-        await _repository.UpdateAsync(existing, cancellationToken);
-    }
 
         existing.ProfileName = networkProfile.ProfileName;
         existing.Ssid = networkProfile.Ssid;
         existing.Apn = networkProfile.Apn;
         existing.ConnectivityType = networkProfile.ConnectivityType;
 
-        existing.Id = networkProfile.Id;
-        existing.Id = networkProfile.Id;
-        existing.Id = networkProfile.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

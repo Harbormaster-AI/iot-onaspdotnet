@@ -55,14 +55,11 @@ public class AccessPolicyService : IAccessPolicyService
         existing.Tenant = request.Tenant;
         existing.ApiKeys = request.ApiKeys;
         existing.Users = request.Users;
-        await _repository.UpdateAsync(existing, cancellationToken);
-    }
 
         existing.Name = accessPolicy.Name;
         existing.Scope = accessPolicy.Scope;
         existing.ExpiresAt = accessPolicy.ExpiresAt;
 
-        existing.Id = accessPolicy.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

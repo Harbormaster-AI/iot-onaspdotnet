@@ -85,18 +85,11 @@ public class TelemetryStreamService : ITelemetryStreamService
         existing.MessagingEndpoint = request.MessagingEndpoint;
         existing.RetentionPolicy = request.RetentionPolicy;
         existing.Qos = request.Qos;
-        await _repository.UpdateAsync(existing, cancellationToken);
-    }
 
         existing.StreamName = telemetryStream.StreamName;
         existing.RetentionDays = telemetryStream.RetentionDays;
         existing.Qos = telemetryStream.Qos;
 
-        existing.Id = telemetryStream.Id;
-        existing.Id = telemetryStream.Id;
-        existing.Id = telemetryStream.Id;
-        existing.Id = telemetryStream.Id;
-        existing.Id = telemetryStream.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

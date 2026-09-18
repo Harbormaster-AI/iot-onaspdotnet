@@ -112,8 +112,6 @@ public class IoTDeviceService : IIoTDeviceService
         existing.NetworkProfiles = request.NetworkProfiles;
         existing.Status = request.Status;
         existing.PowerSource = request.PowerSource;
-        await _repository.UpdateAsync(existing, cancellationToken);
-    }
 
         existing.DeviceId = ioTDevice.DeviceId;
         existing.SerialNumber = ioTDevice.SerialNumber;
@@ -122,13 +120,6 @@ public class IoTDeviceService : IIoTDeviceService
         existing.Status = ioTDevice.Status;
         existing.PowerSource = ioTDevice.PowerSource;
 
-        existing.Id = ioTDevice.Id;
-        existing.Id = ioTDevice.Id;
-        existing.Id = ioTDevice.Id;
-        existing.Id = ioTDevice.Id;
-        existing.Id = ioTDevice.Id;
-        existing.Id = ioTDevice.Id;
-        existing.Id = ioTDevice.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

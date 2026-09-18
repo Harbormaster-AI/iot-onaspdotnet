@@ -54,14 +54,11 @@ public class ConnectivityPlanService : IConnectivityPlanService
         existing.BillingCycleDays = request.BillingCycleDays;
         existing.SimCards = request.SimCards;
         existing.Tenant = request.Tenant;
-        await _repository.UpdateAsync(existing, cancellationToken);
-    }
 
         existing.Name = connectivityPlan.Name;
         existing.DataCapMB = connectivityPlan.DataCapMB;
         existing.BillingCycleDays = connectivityPlan.BillingCycleDays;
 
-        existing.Id = connectivityPlan.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

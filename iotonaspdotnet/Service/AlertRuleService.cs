@@ -55,14 +55,11 @@ public class AlertRuleService : IAlertRuleService
         existing.Streams = request.Streams;
         existing.Alerts = request.Alerts;
         existing.Severity = request.Severity;
-        await _repository.UpdateAsync(existing, cancellationToken);
-    }
 
         existing.Name = alertRule.Name;
         existing.Expression = alertRule.Expression;
         existing.Severity = alertRule.Severity;
 
-        existing.Id = alertRule.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

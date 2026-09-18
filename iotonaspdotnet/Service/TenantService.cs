@@ -56,8 +56,6 @@ public class TenantService : ITenantService
         existing.MaintenanceTickets = request.MaintenanceTickets;
         existing.UsageRecords = request.UsageRecords;
         existing.TenantType = request.TenantType;
-        await _repository.UpdateAsync(existing, cancellationToken);
-    }
 
         existing.Name = tenant.Name;
         existing.TenantType = tenant.TenantType;

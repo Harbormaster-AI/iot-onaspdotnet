@@ -55,15 +55,12 @@ public class TenantUserService : ITenantUserService
         existing.Tenant = request.Tenant;
         existing.CommandInvocations = request.CommandInvocations;
         existing.Role = request.Role;
-        await _repository.UpdateAsync(existing, cancellationToken);
-    }
 
         existing.FirstName = tenantUser.FirstName;
         existing.LastName = tenantUser.LastName;
         existing.Email = tenantUser.Email;
         existing.Role = tenantUser.Role;
 
-        existing.Id = tenantUser.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

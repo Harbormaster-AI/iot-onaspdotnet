@@ -55,15 +55,12 @@ public class SensorInstanceService : ISensorInstanceService
         existing.Device = request.Device;
         existing.TelemetryStreams = request.TelemetryStreams;
         existing.SensorType = request.SensorType;
-        await _repository.UpdateAsync(existing, cancellationToken);
-    }
 
         existing.Name = sensorInstance.Name;
         existing.Unit = sensorInstance.Unit;
         existing.SamplingIntervalMs = sensorInstance.SamplingIntervalMs;
         existing.SensorType = sensorInstance.SensorType;
 
-        existing.Id = sensorInstance.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

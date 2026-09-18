@@ -56,15 +56,12 @@ public class CommandDefinitionService : ICommandDefinitionService
         existing.DeviceModel = request.DeviceModel;
         existing.Actuators = request.Actuators;
         existing.CommandInvocations = request.CommandInvocations;
-        await _repository.UpdateAsync(existing, cancellationToken);
-    }
 
         existing.Name = commandDefinition.Name;
         existing.RequestSchemaUri = commandDefinition.RequestSchemaUri;
         existing.ResponseSchemaUri = commandDefinition.ResponseSchemaUri;
         existing.TimeoutSeconds = commandDefinition.TimeoutSeconds;
 
-        existing.Id = commandDefinition.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

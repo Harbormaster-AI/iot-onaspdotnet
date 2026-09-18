@@ -63,16 +63,12 @@ public class SimCardService : ISimCardService
         existing.Tenant = request.Tenant;
         existing.ConnectivityPlan = request.ConnectivityPlan;
         existing.Status = request.Status;
-        await _repository.UpdateAsync(existing, cancellationToken);
-    }
 
         existing.Iccid = simCard.Iccid;
         existing.Imsi = simCard.Imsi;
         existing.Carrier = simCard.Carrier;
         existing.Status = simCard.Status;
 
-        existing.Id = simCard.Id;
-        existing.Id = simCard.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

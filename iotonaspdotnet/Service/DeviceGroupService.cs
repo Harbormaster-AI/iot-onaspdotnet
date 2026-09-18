@@ -53,13 +53,10 @@ public class DeviceGroupService : IDeviceGroupService
         existing.Criteria = request.Criteria;
         existing.Tenant = request.Tenant;
         existing.Devices = request.Devices;
-        await _repository.UpdateAsync(existing, cancellationToken);
-    }
 
         existing.Name = deviceGroup.Name;
         existing.Criteria = deviceGroup.Criteria;
 
-        existing.Id = deviceGroup.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

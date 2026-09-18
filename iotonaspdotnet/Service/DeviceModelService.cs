@@ -66,8 +66,6 @@ public class DeviceModelService : IDeviceModelService
         existing.CommandDefinitions = request.CommandDefinitions;
         existing.SupportedConnectivity = request.SupportedConnectivity;
         existing.DefaultTelemetryEncoding = request.DefaultTelemetryEncoding;
-        await _repository.UpdateAsync(existing, cancellationToken);
-    }
 
         existing.Name = deviceModel.Name;
         existing.ModelNumber = deviceModel.ModelNumber;
@@ -75,8 +73,6 @@ public class DeviceModelService : IDeviceModelService
         existing.SupportedConnectivity = deviceModel.SupportedConnectivity;
         existing.DefaultTelemetryEncoding = deviceModel.DefaultTelemetryEncoding;
 
-        existing.Id = deviceModel.Id;
-        existing.Id = deviceModel.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

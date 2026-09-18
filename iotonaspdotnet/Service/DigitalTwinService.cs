@@ -71,17 +71,12 @@ public class DigitalTwinService : IDigitalTwinService
         existing.Gateway = request.Gateway;
         existing.Template = request.Template;
         existing.ChangeEvents = request.ChangeEvents;
-        await _repository.UpdateAsync(existing, cancellationToken);
-    }
 
         existing.TwinId = digitalTwin.TwinId;
         existing.DesiredStateVersion = digitalTwin.DesiredStateVersion;
         existing.ReportedStateVersion = digitalTwin.ReportedStateVersion;
         existing.LastSyncAt = digitalTwin.LastSyncAt;
 
-        existing.Id = digitalTwin.Id;
-        existing.Id = digitalTwin.Id;
-        existing.Id = digitalTwin.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

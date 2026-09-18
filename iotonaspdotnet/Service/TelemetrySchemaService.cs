@@ -46,8 +46,6 @@ public class TelemetrySchemaService : ITelemetrySchemaService
         existing.SchemaUri = request.SchemaUri;
         existing.Streams = request.Streams;
         existing.Encoding = request.Encoding;
-        await _repository.UpdateAsync(existing, cancellationToken);
-    }
 
         existing.SchemaId = telemetrySchema.SchemaId;
         existing.SchemaUri = telemetrySchema.SchemaUri;

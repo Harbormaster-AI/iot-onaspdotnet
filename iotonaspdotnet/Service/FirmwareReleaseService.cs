@@ -54,15 +54,12 @@ public class FirmwareReleaseService : IFirmwareReleaseService
         existing.ReleaseNotes = request.ReleaseNotes;
         existing.Checksum = request.Checksum;
         existing.DeviceModel = request.DeviceModel;
-        await _repository.UpdateAsync(existing, cancellationToken);
-    }
 
         existing.Version = firmwareRelease.Version;
         existing.ReleaseDate = firmwareRelease.ReleaseDate;
         existing.ReleaseNotes = firmwareRelease.ReleaseNotes;
         existing.Checksum = firmwareRelease.Checksum;
 
-        existing.Id = firmwareRelease.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

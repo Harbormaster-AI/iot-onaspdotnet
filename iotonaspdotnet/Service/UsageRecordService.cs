@@ -70,17 +70,12 @@ public class UsageRecordService : IUsageRecordService
         existing.Tenant = request.Tenant;
         existing.Device = request.Device;
         existing.ConnectivityPlan = request.ConnectivityPlan;
-        await _repository.UpdateAsync(existing, cancellationToken);
-    }
 
         existing.PeriodStart = usageRecord.PeriodStart;
         existing.PeriodEnd = usageRecord.PeriodEnd;
         existing.MessagesSent = usageRecord.MessagesSent;
         existing.DataVolumeMB = usageRecord.DataVolumeMB;
 
-        existing.Id = usageRecord.Id;
-        existing.Id = usageRecord.Id;
-        existing.Id = usageRecord.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

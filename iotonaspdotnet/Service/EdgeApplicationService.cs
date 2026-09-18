@@ -54,15 +54,12 @@ public class EdgeApplicationService : IEdgeApplicationService
         existing.Image = request.Image;
         existing.Gateway = request.Gateway;
         existing.Status = request.Status;
-        await _repository.UpdateAsync(existing, cancellationToken);
-    }
 
         existing.Name = edgeApplication.Name;
         existing.Version = edgeApplication.Version;
         existing.Image = edgeApplication.Image;
         existing.Status = edgeApplication.Status;
 
-        existing.Id = edgeApplication.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

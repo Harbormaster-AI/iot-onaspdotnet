@@ -53,13 +53,10 @@ public class FloorService : IFloorService
         existing.Level = request.Level;
         existing.Building = request.Building;
         existing.Rooms = request.Rooms;
-        await _repository.UpdateAsync(existing, cancellationToken);
-    }
 
         existing.Name = floor.Name;
         existing.Level = floor.Level;
 
-        existing.Id = floor.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }

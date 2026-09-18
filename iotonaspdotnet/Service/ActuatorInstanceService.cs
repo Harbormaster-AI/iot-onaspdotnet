@@ -54,14 +54,11 @@ public class ActuatorInstanceService : IActuatorInstanceService
         existing.Device = request.Device;
         existing.SupportedCommands = request.SupportedCommands;
         existing.ActuatorType = request.ActuatorType;
-        await _repository.UpdateAsync(existing, cancellationToken);
-    }
 
         existing.Name = actuatorInstance.Name;
         existing.CommandTopic = actuatorInstance.CommandTopic;
         existing.ActuatorType = actuatorInstance.ActuatorType;
 
-        existing.Id = actuatorInstance.Id;
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
