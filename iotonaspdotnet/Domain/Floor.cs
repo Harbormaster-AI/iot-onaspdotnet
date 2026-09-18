@@ -9,7 +9,7 @@ public class Floor
  public virtual long? FloorId { get; set; } 
  public virtual string? Name { get; set; } 
  public virtual int? Level { get; set; } 
-public virtual Building Building { get; set; } 
+public virtual Building? Building { get; set; } 
 public virtual ICollection<Room> Rooms { get; set; } = new List<Room>();
 
     public static Floor FromRequest(FloorRequest request) {

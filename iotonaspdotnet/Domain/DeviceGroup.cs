@@ -9,7 +9,7 @@ public class DeviceGroup
  public virtual long? DevicegroupId { get; set; } 
  public virtual string? Name { get; set; } 
  public virtual string? Criteria { get; set; } 
-public virtual Tenant Tenant { get; set; } 
+public virtual Tenant? Tenant { get; set; } 
 public virtual ICollection<IoTDevice> Devices { get; set; } = new List<IoTDevice>();
 
     public static DeviceGroup FromRequest(DeviceGroupRequest request) {

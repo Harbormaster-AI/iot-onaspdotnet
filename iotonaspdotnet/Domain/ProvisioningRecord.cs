@@ -9,9 +9,9 @@ public class ProvisioningRecord
  public virtual long? ProvisioningrecordId { get; set; } 
  public virtual DateTime? EnrolledAt { get; set; } 
  public virtual string? ProvisioningService { get; set; } 
-public virtual IoTDevice Device { get; set; } 
-public virtual DeviceCertificate Certificate { get; set; } 
-public virtual Tenant Tenant { get; set; } 
+public virtual IoTDevice? Device { get; set; } 
+public virtual DeviceCertificate? Certificate { get; set; } 
+public virtual Tenant? Tenant { get; set; } 
  public virtual ProvisioningMethod? Method { get; set; } 
  public virtual ProvisioningStatus? Status { get; set; } 
 

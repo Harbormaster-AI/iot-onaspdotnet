@@ -10,7 +10,7 @@ public class TenantUser
  public virtual string? FirstName { get; set; } 
  public virtual string? LastName { get; set; } 
  public virtual string? Email { get; set; } 
-public virtual Tenant Tenant { get; set; } 
+public virtual Tenant? Tenant { get; set; } 
 public virtual ICollection<CommandInvocation> CommandInvocations { get; set; } = new List<CommandInvocation>();
  public virtual UserRole? Role { get; set; } 
 
