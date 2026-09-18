@@ -36,7 +36,7 @@ public static class NetworkProfileEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -147,9 +147,6 @@ public static class NetworkProfileEndpoints
             ProfileName = request.ProfileName,
             Ssid = request.Ssid,
             Apn = request.Apn,
-            Device = request.Device,
-            Gateway = request.Gateway,
-            SimCard = request.SimCard,
             ConnectivityType = request.ConnectivityType,
         };
         return model;

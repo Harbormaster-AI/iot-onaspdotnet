@@ -40,7 +40,7 @@ public static class TelemetryStreamEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -182,11 +182,6 @@ public static class TelemetryStreamEndpoints
             Id = request.id,
             StreamName = request.StreamName,
             RetentionDays = request.RetentionDays,
-            Device = request.Device,
-            Sensor = request.Sensor,
-            Schema = request.Schema,
-            MessagingEndpoint = request.MessagingEndpoint,
-            RetentionPolicy = request.RetentionPolicy,
             Qos = request.Qos,
         };
         return model;

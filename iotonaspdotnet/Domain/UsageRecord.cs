@@ -1,3 +1,5 @@
+using iotonaspdotnet.Domain.Contracts;
+
 namespace iotonaspdotnet.Domain;
 
 public class UsageRecord
@@ -12,4 +14,13 @@ public class UsageRecord
 public virtual Tenant Tenant { get; set; }
 public virtual IoTDevice Device { get; set; }
 public virtual ConnectivityPlan ConnectivityPlan { get; set; }
+
+    public static UsageRecord FromRequest(UsageRecordRequest request) {
+        return new UsageRecord {
+            Id = model.Id,
+            PeriodStart = request.PeriodStart,
+            PeriodEnd = request.PeriodEnd,
+            MessagesSent = request.MessagesSent,
+            DataVolumeMB = request.DataVolumeMB,
+        };
 }

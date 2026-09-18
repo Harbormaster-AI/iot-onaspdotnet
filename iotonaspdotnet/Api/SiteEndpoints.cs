@@ -41,7 +41,7 @@ public static class SiteEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -167,10 +167,6 @@ public static class SiteEndpoints
             Timezone = request.Timezone,
             Latitude = request.Latitude,
             Longitude = request.Longitude,
-            Tenant = request.Tenant,
-            Buildings = request.Buildings,
-            Devices = request.Devices,
-            Gateways = request.Gateways,
         };
         return model;
     }

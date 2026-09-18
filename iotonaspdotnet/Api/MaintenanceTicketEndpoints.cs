@@ -34,7 +34,7 @@ public static class MaintenanceTicketEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -129,8 +129,6 @@ public static class MaintenanceTicketEndpoints
             TicketNumber = request.TicketNumber,
             OpenedAt = request.OpenedAt,
             ClosedAt = request.ClosedAt,
-            Device = request.Device,
-            Tenant = request.Tenant,
             Priority = request.Priority,
             Status = request.Status,
         };

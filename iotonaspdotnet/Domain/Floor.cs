@@ -1,3 +1,5 @@
+using iotonaspdotnet.Domain.Contracts;
+
 namespace iotonaspdotnet.Domain;
 
 public class Floor
@@ -9,4 +11,11 @@ public class Floor
  public virtual int Level { get; set; }
 public virtual Building Building { get; set; }
 public virtual Room Rooms { get; set; }
+
+    public static Floor FromRequest(FloorRequest request) {
+        return new Floor {
+            Id = model.Id,
+            Name = request.Name,
+            Level = request.Level,
+        };
 }

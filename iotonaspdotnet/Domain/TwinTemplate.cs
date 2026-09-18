@@ -1,3 +1,5 @@
+using iotonaspdotnet.Domain.Contracts;
+
 namespace iotonaspdotnet.Domain;
 
 public class TwinTemplate
@@ -9,4 +11,12 @@ public class TwinTemplate
  public virtual Uri_ SchemaUri { get; set; }
  public virtual string Version { get; set; }
 public virtual DeviceModel DeviceModels { get; set; }
+
+    public static TwinTemplate FromRequest(TwinTemplateRequest request) {
+        return new TwinTemplate {
+            Id = model.Id,
+            Name = request.Name,
+            SchemaUri = request.SchemaUri,
+            Version = request.Version,
+        };
 }

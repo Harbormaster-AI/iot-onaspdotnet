@@ -35,7 +35,7 @@ public static class MessagingEndpointEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -129,8 +129,6 @@ public static class MessagingEndpointEndpoints
             Host = request.Host,
             Port = request.Port,
             Secure = request.Secure,
-            Tenant = request.Tenant,
-            Streams = request.Streams,
             Protocol = request.Protocol,
         };
         return model;

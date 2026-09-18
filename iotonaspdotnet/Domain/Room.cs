@@ -1,3 +1,5 @@
+using iotonaspdotnet.Domain.Contracts;
+
 namespace iotonaspdotnet.Domain;
 
 public class Room
@@ -9,4 +11,10 @@ public class Room
 public virtual Floor Floor { get; set; }
 public virtual IoTDevice Devices { get; set; }
 public virtual Gateway Gateways { get; set; }
+
+    public static Room FromRequest(RoomRequest request) {
+        return new Room {
+            Id = model.Id,
+            Name = request.Name,
+        };
 }

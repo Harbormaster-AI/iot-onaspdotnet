@@ -1,3 +1,5 @@
+using iotonaspdotnet.Domain.Contracts;
+
 namespace iotonaspdotnet.Domain;
 
 public class DeviceModel
@@ -15,4 +17,14 @@ public virtual FirmwareRelease FirmwareReleases { get; set; }
 public virtual CommandDefinition CommandDefinitions { get; set; }
  public virtual ConnectivityType SupportedConnectivity { get; set; }
  public virtual TelemetryEncoding DefaultTelemetryEncoding { get; set; }
+
+    public static DeviceModel FromRequest(DeviceModelRequest request) {
+        return new DeviceModel {
+            Id = model.Id,
+            Name = request.Name,
+            ModelNumber = request.ModelNumber,
+            HardwareRevision = request.HardwareRevision,
+            SupportedConnectivity = request.SupportedConnectivity,
+            DefaultTelemetryEncoding = request.DefaultTelemetryEncoding,
+        };
 }

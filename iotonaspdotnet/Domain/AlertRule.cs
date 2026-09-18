@@ -1,3 +1,5 @@
+using iotonaspdotnet.Domain.Contracts;
+
 namespace iotonaspdotnet.Domain;
 
 public class AlertRule
@@ -11,4 +13,12 @@ public virtual Tenant Tenant { get; set; }
 public virtual TelemetryStream Streams { get; set; }
 public virtual Alert Alerts { get; set; }
  public virtual AlertSeverity Severity { get; set; }
+
+    public static AlertRule FromRequest(AlertRuleRequest request) {
+        return new AlertRule {
+            Id = model.Id,
+            Name = request.Name,
+            Expression = request.Expression,
+            Severity = request.Severity,
+        };
 }

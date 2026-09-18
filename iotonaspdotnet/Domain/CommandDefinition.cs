@@ -1,3 +1,5 @@
+using iotonaspdotnet.Domain.Contracts;
+
 namespace iotonaspdotnet.Domain;
 
 public class CommandDefinition
@@ -12,4 +14,13 @@ public class CommandDefinition
 public virtual DeviceModel DeviceModel { get; set; }
 public virtual ActuatorInstance Actuators { get; set; }
 public virtual CommandInvocation CommandInvocations { get; set; }
+
+    public static CommandDefinition FromRequest(CommandDefinitionRequest request) {
+        return new CommandDefinition {
+            Id = model.Id,
+            Name = request.Name,
+            RequestSchemaUri = request.RequestSchemaUri,
+            ResponseSchemaUri = request.ResponseSchemaUri,
+            TimeoutSeconds = request.TimeoutSeconds,
+        };
 }

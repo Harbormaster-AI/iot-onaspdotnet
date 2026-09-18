@@ -6,8 +6,8 @@ namespace iotonaspdotnet.Service;
 
 public interface ISiteService {
 
-    Task Create(SiteRequest request , CancellationToken cancellationToken);
-    Task<bool> Update(SiteRequest request, CancellationToken cancellationToken);
+    Task Create(Site model , CancellationToken cancellationToken);
+    Task<bool> Update(Site model, CancellationToken cancellationToken);
     Task<Site?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
     Task<IReadOnlyList<Site>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
@@ -37,44 +37,35 @@ public class SiteService : ISiteService
         _repository = repository;
     }
 
-    public Task<Site?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<Site>> GetAll(CancellationToken cancellationToken)
-        => _repository.GetAllAsync(cancellationToken);
-
-    public async Task Create(SiteRequest request, CancellationToken cancellationToken)
+    public async Task Create(Site model, CancellationToken cancellationToken)
     {
-        var tenant = await _tenants.Get(request.Id, cancellationToken)
-            ?? throw new InvalidOperationException("Tenant not found.");
 
-        if (tenant.Tenant is not null)
-        {
-            throw new InvalidOperationException("Tenant:Tenant already has a(n) Site (1:1 relationship).");
-        }
-        await _repository.AddAsync(request, cancellationToken);
+         await _repository.AddAsync(model, cancellationToken);
     }
 
-    public async Task<bool> Update(SiteRequest request, CancellationToken cancellationToken)
+    public async Task<bool> Update(Site model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-        existing.Name = request.Name;
-        existing.Address = request.Address;
-        existing.Timezone = request.Timezone;
-        existing.Latitude = request.Latitude;
-        existing.Longitude = request.Longitude;
-        existing.Tenant = request.Tenant;
-        existing.Buildings = request.Buildings;
-        existing.Devices = request.Devices;
-        existing.Gateways = request.Gateways;
+        existing.Name = model.Name;
+        existing.Address = model.Address;
+        existing.Timezone = model.Timezone;
+        existing.Latitude = model.Latitude;
+        existing.Longitude = model.Longitude;
 
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
+
+    public Task<Site?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+    => _repository.GetByIdAsync(identifier.Id, cancellationToken);
+
+    public Task<IReadOnlyList<Site>> GetAll(CancellationToken cancellationToken)
+    => _repository.GetAllAsync(cancellationToken);
 
     public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {

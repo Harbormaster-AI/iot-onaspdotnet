@@ -39,7 +39,7 @@ public static class DigitalTwinEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -166,10 +166,6 @@ public static class DigitalTwinEndpoints
             DesiredStateVersion = request.DesiredStateVersion,
             ReportedStateVersion = request.ReportedStateVersion,
             LastSyncAt = request.LastSyncAt,
-            Device = request.Device,
-            Gateway = request.Gateway,
-            Template = request.Template,
-            ChangeEvents = request.ChangeEvents,
         };
         return model;
     }

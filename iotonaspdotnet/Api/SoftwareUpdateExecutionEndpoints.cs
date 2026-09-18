@@ -34,7 +34,7 @@ public static class SoftwareUpdateExecutionEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -128,8 +128,6 @@ public static class SoftwareUpdateExecutionEndpoints
             Id = request.id,
             StartedAt = request.StartedAt,
             CompletedAt = request.CompletedAt,
-            Campaign = request.Campaign,
-            Device = request.Device,
             Status = request.Status,
         };
         return model;

@@ -6,8 +6,8 @@ namespace iotonaspdotnet.Service;
 
 public interface IDigitalTwinService {
 
-    Task Create(DigitalTwinRequest request , CancellationToken cancellationToken);
-    Task<bool> Update(DigitalTwinRequest request, CancellationToken cancellationToken);
+    Task Create(DigitalTwin model , CancellationToken cancellationToken);
+    Task<bool> Update(DigitalTwin model, CancellationToken cancellationToken);
     Task<DigitalTwin?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
     Task<IReadOnlyList<DigitalTwin>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
@@ -37,57 +37,36 @@ public class DigitalTwinService : IDigitalTwinService
         _repository = repository;
     }
 
-    public Task<DigitalTwin?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<DigitalTwin>> GetAll(CancellationToken cancellationToken)
-        => _repository.GetAllAsync(cancellationToken);
-
-    public async Task Create(DigitalTwinRequest request, CancellationToken cancellationToken)
+    public async Task Create(DigitalTwin model, CancellationToken cancellationToken)
     {
-        var ioTDevice = await _ioTDevices.Get(request.Id, cancellationToken)
-            ?? throw new InvalidOperationException("IoTDevice not found.");
 
-        if (ioTDevice.Device is not null)
-        {
-            throw new InvalidOperationException("IoTDevice:Device already has a(n) DigitalTwin (1:1 relationship).");
-        }
-        var gateway = await _gateways.Get(request.Id, cancellationToken)
-            ?? throw new InvalidOperationException("Gateway not found.");
-
-        if (gateway.Gateway is not null)
-        {
-            throw new InvalidOperationException("Gateway:Gateway already has a(n) DigitalTwin (1:1 relationship).");
-        }
-        var twinTemplate = await _twinTemplates.Get(request.Id, cancellationToken)
-            ?? throw new InvalidOperationException("TwinTemplate not found.");
-
-        if (twinTemplate.Template is not null)
-        {
-            throw new InvalidOperationException("TwinTemplate:Template already has a(n) DigitalTwin (1:1 relationship).");
-        }
-        await _repository.AddAsync(request, cancellationToken);
+ 
+ 
+         await _repository.AddAsync(model, cancellationToken);
     }
 
-    public async Task<bool> Update(DigitalTwinRequest request, CancellationToken cancellationToken)
+    public async Task<bool> Update(DigitalTwin model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-        existing.TwinId = request.TwinId;
-        existing.DesiredStateVersion = request.DesiredStateVersion;
-        existing.ReportedStateVersion = request.ReportedStateVersion;
-        existing.LastSyncAt = request.LastSyncAt;
-        existing.Device = request.Device;
-        existing.Gateway = request.Gateway;
-        existing.Template = request.Template;
-        existing.ChangeEvents = request.ChangeEvents;
+        existing.TwinId = model.TwinId;
+        existing.DesiredStateVersion = model.DesiredStateVersion;
+        existing.ReportedStateVersion = model.ReportedStateVersion;
+        existing.LastSyncAt = model.LastSyncAt;
 
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
+
+    public Task<DigitalTwin?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+    => _repository.GetByIdAsync(identifier.Id, cancellationToken);
+
+    public Task<IReadOnlyList<DigitalTwin>> GetAll(CancellationToken cancellationToken)
+    => _repository.GetAllAsync(cancellationToken);
 
     public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {

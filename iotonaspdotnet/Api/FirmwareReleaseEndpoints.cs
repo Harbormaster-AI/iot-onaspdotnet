@@ -32,7 +32,7 @@ public static class FirmwareReleaseEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -112,7 +112,6 @@ public static class FirmwareReleaseEndpoints
             ReleaseDate = request.ReleaseDate,
             ReleaseNotes = request.ReleaseNotes,
             Checksum = request.Checksum,
-            DeviceModel = request.DeviceModel,
         };
         return model;
     }

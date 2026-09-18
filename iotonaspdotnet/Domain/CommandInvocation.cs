@@ -1,3 +1,5 @@
+using iotonaspdotnet.Domain.Contracts;
+
 namespace iotonaspdotnet.Domain;
 
 public class CommandInvocation
@@ -13,4 +15,13 @@ public virtual CommandDefinition CommandDefinition { get; set; }
 public virtual ActuatorInstance Actuator { get; set; }
 public virtual TenantUser User { get; set; }
  public virtual CommandStatus Status { get; set; }
+
+    public static CommandInvocation FromRequest(CommandInvocationRequest request) {
+        return new CommandInvocation {
+            Id = model.Id,
+            InvocationId = request.InvocationId,
+            RequestedAt = request.RequestedAt,
+            CompletedAt = request.CompletedAt,
+            Status = request.Status,
+        };
 }

@@ -36,7 +36,7 @@ public static class UsageRecordEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -148,9 +148,6 @@ public static class UsageRecordEndpoints
             PeriodEnd = request.PeriodEnd,
             MessagesSent = request.MessagesSent,
             DataVolumeMB = request.DataVolumeMB,
-            Tenant = request.Tenant,
-            Device = request.Device,
-            ConnectivityPlan = request.ConnectivityPlan,
         };
         return model;
     }

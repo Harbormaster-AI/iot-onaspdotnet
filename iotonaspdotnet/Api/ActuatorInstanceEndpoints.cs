@@ -35,7 +35,7 @@ public static class ActuatorInstanceEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -128,8 +128,6 @@ public static class ActuatorInstanceEndpoints
             Id = request.id,
             Name = request.Name,
             CommandTopic = request.CommandTopic,
-            Device = request.Device,
-            SupportedCommands = request.SupportedCommands,
             ActuatorType = request.ActuatorType,
         };
         return model;

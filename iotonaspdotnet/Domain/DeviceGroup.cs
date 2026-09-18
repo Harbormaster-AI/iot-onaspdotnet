@@ -1,3 +1,5 @@
+using iotonaspdotnet.Domain.Contracts;
+
 namespace iotonaspdotnet.Domain;
 
 public class DeviceGroup
@@ -9,4 +11,11 @@ public class DeviceGroup
  public virtual string Criteria { get; set; }
 public virtual Tenant Tenant { get; set; }
 public virtual IoTDevice Devices { get; set; }
+
+    public static DeviceGroup FromRequest(DeviceGroupRequest request) {
+        return new DeviceGroup {
+            Id = model.Id,
+            Name = request.Name,
+            Criteria = request.Criteria,
+        };
 }

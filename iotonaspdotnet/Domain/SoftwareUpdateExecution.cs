@@ -1,3 +1,5 @@
+using iotonaspdotnet.Domain.Contracts;
+
 namespace iotonaspdotnet.Domain;
 
 public class SoftwareUpdateExecution
@@ -10,4 +12,12 @@ public class SoftwareUpdateExecution
 public virtual SoftwareUpdateCampaign Campaign { get; set; }
 public virtual IoTDevice Device { get; set; }
  public virtual UpdateStatus Status { get; set; }
+
+    public static SoftwareUpdateExecution FromRequest(SoftwareUpdateExecutionRequest request) {
+        return new SoftwareUpdateExecution {
+            Id = model.Id,
+            StartedAt = request.StartedAt,
+            CompletedAt = request.CompletedAt,
+            Status = request.Status,
+        };
 }

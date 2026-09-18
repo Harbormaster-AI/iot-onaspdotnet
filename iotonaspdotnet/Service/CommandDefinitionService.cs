@@ -6,8 +6,8 @@ namespace iotonaspdotnet.Service;
 
 public interface ICommandDefinitionService {
 
-    Task Create(CommandDefinitionRequest request , CancellationToken cancellationToken);
-    Task<bool> Update(CommandDefinitionRequest request, CancellationToken cancellationToken);
+    Task Create(CommandDefinition model , CancellationToken cancellationToken);
+    Task<bool> Update(CommandDefinition model, CancellationToken cancellationToken);
     Task<CommandDefinition?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
     Task<IReadOnlyList<CommandDefinition>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
@@ -35,42 +35,34 @@ public class CommandDefinitionService : ICommandDefinitionService
         _repository = repository;
     }
 
-    public Task<CommandDefinition?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<CommandDefinition>> GetAll(CancellationToken cancellationToken)
-        => _repository.GetAllAsync(cancellationToken);
-
-    public async Task Create(CommandDefinitionRequest request, CancellationToken cancellationToken)
+    public async Task Create(CommandDefinition model, CancellationToken cancellationToken)
     {
-        var deviceModel = await _deviceModels.Get(request.Id, cancellationToken)
-            ?? throw new InvalidOperationException("DeviceModel not found.");
 
-        if (deviceModel.DeviceModel is not null)
-        {
-            throw new InvalidOperationException("DeviceModel:DeviceModel already has a(n) CommandDefinition (1:1 relationship).");
-        }
-        await _repository.AddAsync(request, cancellationToken);
+         await _repository.AddAsync(model, cancellationToken);
     }
 
-    public async Task<bool> Update(CommandDefinitionRequest request, CancellationToken cancellationToken)
+    public async Task<bool> Update(CommandDefinition model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-        existing.Name = request.Name;
-        existing.RequestSchemaUri = request.RequestSchemaUri;
-        existing.ResponseSchemaUri = request.ResponseSchemaUri;
-        existing.TimeoutSeconds = request.TimeoutSeconds;
-        existing.DeviceModel = request.DeviceModel;
-        existing.Actuators = request.Actuators;
-        existing.CommandInvocations = request.CommandInvocations;
+        existing.Name = model.Name;
+        existing.RequestSchemaUri = model.RequestSchemaUri;
+        existing.ResponseSchemaUri = model.ResponseSchemaUri;
+        existing.TimeoutSeconds = model.TimeoutSeconds;
 
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
+
+    public Task<CommandDefinition?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+    => _repository.GetByIdAsync(identifier.Id, cancellationToken);
+
+    public Task<IReadOnlyList<CommandDefinition>> GetAll(CancellationToken cancellationToken)
+    => _repository.GetAllAsync(cancellationToken);
 
     public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {

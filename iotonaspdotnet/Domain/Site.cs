@@ -1,3 +1,5 @@
+using iotonaspdotnet.Domain.Contracts;
+
 namespace iotonaspdotnet.Domain;
 
 public class Site
@@ -14,4 +16,14 @@ public virtual Tenant Tenant { get; set; }
 public virtual Building Buildings { get; set; }
 public virtual IoTDevice Devices { get; set; }
 public virtual Gateway Gateways { get; set; }
+
+    public static Site FromRequest(SiteRequest request) {
+        return new Site {
+            Id = model.Id,
+            Name = request.Name,
+            Address = request.Address,
+            Timezone = request.Timezone,
+            Latitude = request.Latitude,
+            Longitude = request.Longitude,
+        };
 }

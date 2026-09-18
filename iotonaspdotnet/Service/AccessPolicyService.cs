@@ -6,8 +6,8 @@ namespace iotonaspdotnet.Service;
 
 public interface IAccessPolicyService {
 
-    Task Create(AccessPolicyRequest request , CancellationToken cancellationToken);
-    Task<bool> Update(AccessPolicyRequest request, CancellationToken cancellationToken);
+    Task Create(AccessPolicy model , CancellationToken cancellationToken);
+    Task<bool> Update(AccessPolicy model, CancellationToken cancellationToken);
     Task<AccessPolicy?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
     Task<IReadOnlyList<AccessPolicy>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
@@ -35,41 +35,33 @@ public class AccessPolicyService : IAccessPolicyService
         _repository = repository;
     }
 
-    public Task<AccessPolicy?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<AccessPolicy>> GetAll(CancellationToken cancellationToken)
-        => _repository.GetAllAsync(cancellationToken);
-
-    public async Task Create(AccessPolicyRequest request, CancellationToken cancellationToken)
+    public async Task Create(AccessPolicy model, CancellationToken cancellationToken)
     {
-        var tenant = await _tenants.Get(request.Id, cancellationToken)
-            ?? throw new InvalidOperationException("Tenant not found.");
 
-        if (tenant.Tenant is not null)
-        {
-            throw new InvalidOperationException("Tenant:Tenant already has a(n) AccessPolicy (1:1 relationship).");
-        }
-        await _repository.AddAsync(request, cancellationToken);
+         await _repository.AddAsync(model, cancellationToken);
     }
 
-    public async Task<bool> Update(AccessPolicyRequest request, CancellationToken cancellationToken)
+    public async Task<bool> Update(AccessPolicy model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-        existing.Name = request.Name;
-        existing.Scope = request.Scope;
-        existing.ExpiresAt = request.ExpiresAt;
-        existing.Tenant = request.Tenant;
-        existing.ApiKeys = request.ApiKeys;
-        existing.Users = request.Users;
+        existing.Name = model.Name;
+        existing.Scope = model.Scope;
+        existing.ExpiresAt = model.ExpiresAt;
 
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
+
+    public Task<AccessPolicy?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+    => _repository.GetByIdAsync(identifier.Id, cancellationToken);
+
+    public Task<IReadOnlyList<AccessPolicy>> GetAll(CancellationToken cancellationToken)
+    => _repository.GetAllAsync(cancellationToken);
 
     public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {

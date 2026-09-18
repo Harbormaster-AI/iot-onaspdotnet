@@ -1,3 +1,5 @@
+using iotonaspdotnet.Domain.Contracts;
+
 namespace iotonaspdotnet.Domain;
 
 public class HardwareModule
@@ -9,4 +11,12 @@ public class HardwareModule
  public virtual Uri_ DatasheetUri { get; set; }
 public virtual DeviceVendor Vendor { get; set; }
  public virtual ModuleType ModuleType { get; set; }
+
+    public static HardwareModule FromRequest(HardwareModuleRequest request) {
+        return new HardwareModule {
+            Id = model.Id,
+            ModuleCode = request.ModuleCode,
+            DatasheetUri = request.DatasheetUri,
+            ModuleType = request.ModuleType,
+        };
 }

@@ -1,3 +1,5 @@
+using iotonaspdotnet.Domain.Contracts;
+
 namespace iotonaspdotnet.Domain;
 
 public class Tenant
@@ -19,4 +21,11 @@ public virtual AlertRule AlertRules { get; set; }
 public virtual MaintenanceTicket MaintenanceTickets { get; set; }
 public virtual UsageRecord UsageRecords { get; set; }
  public virtual TenantType TenantType { get; set; }
+
+    public static Tenant FromRequest(TenantRequest request) {
+        return new Tenant {
+            Id = model.Id,
+            Name = request.Name,
+            TenantType = request.TenantType,
+        };
 }

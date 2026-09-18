@@ -33,7 +33,7 @@ public static class TwinTemplateEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -111,7 +111,6 @@ public static class TwinTemplateEndpoints
             Name = request.Name,
             SchemaUri = request.SchemaUri,
             Version = request.Version,
-            DeviceModels = request.DeviceModels,
         };
         return model;
     }

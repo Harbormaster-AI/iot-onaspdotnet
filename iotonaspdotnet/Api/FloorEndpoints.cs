@@ -35,7 +35,7 @@ public static class FloorEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -128,8 +128,6 @@ public static class FloorEndpoints
             Id = request.id,
             Name = request.Name,
             Level = request.Level,
-            Building = request.Building,
-            Rooms = request.Rooms,
         };
         return model;
     }

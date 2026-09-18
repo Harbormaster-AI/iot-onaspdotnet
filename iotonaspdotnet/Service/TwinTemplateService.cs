@@ -6,8 +6,8 @@ namespace iotonaspdotnet.Service;
 
 public interface ITwinTemplateService {
 
-    Task Create(TwinTemplateRequest request , CancellationToken cancellationToken);
-    Task<bool> Update(TwinTemplateRequest request, CancellationToken cancellationToken);
+    Task Create(TwinTemplate model , CancellationToken cancellationToken);
+    Task<bool> Update(TwinTemplate model, CancellationToken cancellationToken);
     Task<TwinTemplate?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
     Task<IReadOnlyList<TwinTemplate>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
@@ -31,32 +31,32 @@ public class TwinTemplateService : ITwinTemplateService
         _repository = repository;
     }
 
-    public Task<TwinTemplate?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<TwinTemplate>> GetAll(CancellationToken cancellationToken)
-        => _repository.GetAllAsync(cancellationToken);
-
-    public async Task Create(TwinTemplateRequest request, CancellationToken cancellationToken)
+    public async Task Create(TwinTemplate model, CancellationToken cancellationToken)
     {
-        await _repository.AddAsync(request, cancellationToken);
+        await _repository.AddAsync(model, cancellationToken);
     }
 
-    public async Task<bool> Update(TwinTemplateRequest request, CancellationToken cancellationToken)
+    public async Task<bool> Update(TwinTemplate model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-        existing.Name = request.Name;
-        existing.SchemaUri = request.SchemaUri;
-        existing.Version = request.Version;
-        existing.DeviceModels = request.DeviceModels;
+        existing.Name = model.Name;
+        existing.SchemaUri = model.SchemaUri;
+        existing.Version = model.Version;
 
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
+
+    public Task<TwinTemplate?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+    => _repository.GetByIdAsync(identifier.Id, cancellationToken);
+
+    public Task<IReadOnlyList<TwinTemplate>> GetAll(CancellationToken cancellationToken)
+    => _repository.GetAllAsync(cancellationToken);
 
     public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {

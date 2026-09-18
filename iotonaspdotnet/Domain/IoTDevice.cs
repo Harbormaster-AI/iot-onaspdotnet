@@ -1,3 +1,5 @@
+using iotonaspdotnet.Domain.Contracts;
+
 namespace iotonaspdotnet.Domain;
 
 public class IoTDevice
@@ -26,4 +28,15 @@ public virtual DeviceGroup DeviceGroups { get; set; }
 public virtual NetworkProfile NetworkProfiles { get; set; }
  public virtual DeviceStatus Status { get; set; }
  public virtual PowerSource PowerSource { get; set; }
+
+    public static IoTDevice FromRequest(IoTDeviceRequest request) {
+        return new IoTDevice {
+            Id = model.Id,
+            DeviceId = request.DeviceId,
+            SerialNumber = request.SerialNumber,
+            LastSeen = request.LastSeen,
+            FirmwareVersion = request.FirmwareVersion,
+            Status = request.Status,
+            PowerSource = request.PowerSource,
+        };
 }

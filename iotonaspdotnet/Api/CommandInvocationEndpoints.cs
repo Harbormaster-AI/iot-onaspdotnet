@@ -38,7 +38,7 @@ public static class CommandInvocationEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -165,10 +165,6 @@ public static class CommandInvocationEndpoints
             InvocationId = request.InvocationId,
             RequestedAt = request.RequestedAt,
             CompletedAt = request.CompletedAt,
-            Device = request.Device,
-            CommandDefinition = request.CommandDefinition,
-            Actuator = request.Actuator,
-            User = request.User,
             Status = request.Status,
         };
         return model;

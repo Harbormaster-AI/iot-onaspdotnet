@@ -1,3 +1,5 @@
+using iotonaspdotnet.Domain.Contracts;
+
 namespace iotonaspdotnet.Domain;
 
 public class DeviceCertificate
@@ -12,4 +14,14 @@ public class DeviceCertificate
 public virtual IoTDevice Device { get; set; }
 public virtual Gateway Gateway { get; set; }
  public virtual CertificateType CertificateType { get; set; }
+
+    public static DeviceCertificate FromRequest(DeviceCertificateRequest request) {
+        return new DeviceCertificate {
+            Id = model.Id,
+            SerialNumber = request.SerialNumber,
+            NotBefore = request.NotBefore,
+            NotAfter = request.NotAfter,
+            Fingerprint = request.Fingerprint,
+            CertificateType = request.CertificateType,
+        };
 }

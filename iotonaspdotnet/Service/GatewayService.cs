@@ -6,8 +6,8 @@ namespace iotonaspdotnet.Service;
 
 public interface IGatewayService {
 
-    Task Create(GatewayRequest request , CancellationToken cancellationToken);
-    Task<bool> Update(GatewayRequest request, CancellationToken cancellationToken);
+    Task Create(Gateway model , CancellationToken cancellationToken);
+    Task<bool> Update(Gateway model, CancellationToken cancellationToken);
     Task<Gateway?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
     Task<IReadOnlyList<Gateway>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
@@ -43,58 +43,34 @@ public class GatewayService : IGatewayService
         _repository = repository;
     }
 
-    public Task<Gateway?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<Gateway>> GetAll(CancellationToken cancellationToken)
-        => _repository.GetAllAsync(cancellationToken);
-
-    public async Task Create(GatewayRequest request, CancellationToken cancellationToken)
+    public async Task Create(Gateway model, CancellationToken cancellationToken)
     {
-        var site = await _sites.Get(request.Id, cancellationToken)
-            ?? throw new InvalidOperationException("Site not found.");
 
-        if (site.Site is not null)
-        {
-            throw new InvalidOperationException("Site:Site already has a(n) Gateway (1:1 relationship).");
-        }
-        var room = await _rooms.Get(request.Id, cancellationToken)
-            ?? throw new InvalidOperationException("Room not found.");
-
-        if (room.Room is not null)
-        {
-            throw new InvalidOperationException("Room:Room already has a(n) Gateway (1:1 relationship).");
-        }
-        var digitalTwin = await _digitalTwins.Get(request.Id, cancellationToken)
-            ?? throw new InvalidOperationException("DigitalTwin not found.");
-
-        if (digitalTwin.DigitalTwin is not null)
-        {
-            throw new InvalidOperationException("DigitalTwin:DigitalTwin already has a(n) Gateway (1:1 relationship).");
-        }
-        await _repository.AddAsync(request, cancellationToken);
+ 
+ 
+         await _repository.AddAsync(model, cancellationToken);
     }
 
-    public async Task<bool> Update(GatewayRequest request, CancellationToken cancellationToken)
+    public async Task<bool> Update(Gateway model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-        existing.SoftwareVersion = request.SoftwareVersion;
-        existing.Site = request.Site;
-        existing.Room = request.Room;
-        existing.Devices = request.Devices;
-        existing.EdgeApplications = request.EdgeApplications;
-        existing.Certificates = request.Certificates;
-        existing.DigitalTwin = request.DigitalTwin;
-        existing.NetworkProfiles = request.NetworkProfiles;
-        existing.Status = request.Status;
+        existing.SoftwareVersion = model.SoftwareVersion;
+        existing.Status = model.Status;
 
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
+
+    public Task<Gateway?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+    => _repository.GetByIdAsync(identifier.Id, cancellationToken);
+
+    public Task<IReadOnlyList<Gateway>> GetAll(CancellationToken cancellationToken)
+    => _repository.GetAllAsync(cancellationToken);
 
     public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {

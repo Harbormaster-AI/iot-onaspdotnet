@@ -1,3 +1,5 @@
+using iotonaspdotnet.Domain.Contracts;
+
 namespace iotonaspdotnet.Domain;
 
 public class SimCard
@@ -12,4 +14,13 @@ public virtual NetworkProfile NetworkProfiles { get; set; }
 public virtual Tenant Tenant { get; set; }
 public virtual ConnectivityPlan ConnectivityPlan { get; set; }
  public virtual SimStatus Status { get; set; }
+
+    public static SimCard FromRequest(SimCardRequest request) {
+        return new SimCard {
+            Id = model.Id,
+            Iccid = request.Iccid,
+            Imsi = request.Imsi,
+            Carrier = request.Carrier,
+            Status = request.Status,
+        };
 }

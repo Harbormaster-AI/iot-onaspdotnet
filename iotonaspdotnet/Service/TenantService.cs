@@ -6,8 +6,8 @@ namespace iotonaspdotnet.Service;
 
 public interface ITenantService {
 
-    Task Create(TenantRequest request , CancellationToken cancellationToken);
-    Task<bool> Update(TenantRequest request, CancellationToken cancellationToken);
+    Task Create(Tenant model , CancellationToken cancellationToken);
+    Task<bool> Update(Tenant model, CancellationToken cancellationToken);
     Task<Tenant?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
     Task<IReadOnlyList<Tenant>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
@@ -53,42 +53,31 @@ public class TenantService : ITenantService
         _repository = repository;
     }
 
-    public Task<Tenant?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<Tenant>> GetAll(CancellationToken cancellationToken)
-        => _repository.GetAllAsync(cancellationToken);
-
-    public async Task Create(TenantRequest request, CancellationToken cancellationToken)
+    public async Task Create(Tenant model, CancellationToken cancellationToken)
     {
-        await _repository.AddAsync(request, cancellationToken);
+        await _repository.AddAsync(model, cancellationToken);
     }
 
-    public async Task<bool> Update(TenantRequest request, CancellationToken cancellationToken)
+    public async Task<bool> Update(Tenant model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-        existing.Name = request.Name;
-        existing.Sites = request.Sites;
-        existing.Users = request.Users;
-        existing.Devices = request.Devices;
-        existing.DataRetentionPolicies = request.DataRetentionPolicies;
-        existing.ConnectivityPlans = request.ConnectivityPlans;
-        existing.SimCards = request.SimCards;
-        existing.MessagingEndpoints = request.MessagingEndpoints;
-        existing.AccessPolicies = request.AccessPolicies;
-        existing.DeviceGroups = request.DeviceGroups;
-        existing.AlertRules = request.AlertRules;
-        existing.MaintenanceTickets = request.MaintenanceTickets;
-        existing.UsageRecords = request.UsageRecords;
-        existing.TenantType = request.TenantType;
+        existing.Name = model.Name;
+        existing.TenantType = model.TenantType;
 
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
+
+    public Task<Tenant?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+    => _repository.GetByIdAsync(identifier.Id, cancellationToken);
+
+    public Task<IReadOnlyList<Tenant>> GetAll(CancellationToken cancellationToken)
+    => _repository.GetAllAsync(cancellationToken);
 
     public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {

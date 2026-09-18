@@ -38,7 +38,7 @@ public static class AlertRuleEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -146,9 +146,6 @@ public static class AlertRuleEndpoints
             Id = request.id,
             Name = request.Name,
             Expression = request.Expression,
-            Tenant = request.Tenant,
-            Streams = request.Streams,
-            Alerts = request.Alerts,
             Severity = request.Severity,
         };
         return model;

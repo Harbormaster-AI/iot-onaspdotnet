@@ -33,7 +33,7 @@ public static class TelemetrySchemaEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -110,7 +110,6 @@ public static class TelemetrySchemaEndpoints
             Id = request.id,
             SchemaId = request.SchemaId,
             SchemaUri = request.SchemaUri,
-            Streams = request.Streams,
             Encoding = request.Encoding,
         };
         return model;

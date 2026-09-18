@@ -34,7 +34,7 @@ public static class AlertEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -129,8 +129,6 @@ public static class AlertEndpoints
             RaisedAt = request.RaisedAt,
             ClearedAt = request.ClearedAt,
             Message = request.Message,
-            Device = request.Device,
-            AlertRule = request.AlertRule,
             Status = request.Status,
         };
         return model;

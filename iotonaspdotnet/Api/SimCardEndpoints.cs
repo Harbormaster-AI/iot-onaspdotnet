@@ -37,7 +37,7 @@ public static class SimCardEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -147,9 +147,6 @@ public static class SimCardEndpoints
             Iccid = request.Iccid,
             Imsi = request.Imsi,
             Carrier = request.Carrier,
-            NetworkProfiles = request.NetworkProfiles,
-            Tenant = request.Tenant,
-            ConnectivityPlan = request.ConnectivityPlan,
             Status = request.Status,
         };
         return model;

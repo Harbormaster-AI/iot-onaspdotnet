@@ -38,7 +38,7 @@ public static class AccessPolicyEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -147,9 +147,6 @@ public static class AccessPolicyEndpoints
             Name = request.Name,
             Scope = request.Scope,
             ExpiresAt = request.ExpiresAt,
-            Tenant = request.Tenant,
-            ApiKeys = request.ApiKeys,
-            Users = request.Users,
         };
         return model;
     }

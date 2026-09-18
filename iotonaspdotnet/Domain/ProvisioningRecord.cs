@@ -1,3 +1,5 @@
+using iotonaspdotnet.Domain.Contracts;
+
 namespace iotonaspdotnet.Domain;
 
 public class ProvisioningRecord
@@ -12,4 +14,13 @@ public virtual DeviceCertificate Certificate { get; set; }
 public virtual Tenant Tenant { get; set; }
  public virtual ProvisioningMethod Method { get; set; }
  public virtual ProvisioningStatus Status { get; set; }
+
+    public static ProvisioningRecord FromRequest(ProvisioningRecordRequest request) {
+        return new ProvisioningRecord {
+            Id = model.Id,
+            EnrolledAt = request.EnrolledAt,
+            ProvisioningService = request.ProvisioningService,
+            Method = request.Method,
+            Status = request.Status,
+        };
 }

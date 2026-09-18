@@ -32,7 +32,7 @@ public static class EdgeApplicationEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -111,7 +111,6 @@ public static class EdgeApplicationEndpoints
             Name = request.Name,
             Version = request.Version,
             Image = request.Image,
-            Gateway = request.Gateway,
             Status = request.Status,
         };
         return model;

@@ -37,7 +37,7 @@ public static class SoftwareUpdateCampaignEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -147,9 +147,6 @@ public static class SoftwareUpdateCampaignEndpoints
             CampaignCode = request.CampaignCode,
             ScheduledStart = request.ScheduledStart,
             ScheduledEnd = request.ScheduledEnd,
-            FirmwareRelease = request.FirmwareRelease,
-            DeviceGroup = request.DeviceGroup,
-            Executions = request.Executions,
             Status = request.Status,
         };
         return model;

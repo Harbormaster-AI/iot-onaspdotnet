@@ -35,7 +35,7 @@ public static class ConnectivityPlanEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -129,8 +129,6 @@ public static class ConnectivityPlanEndpoints
             Name = request.Name,
             DataCapMB = request.DataCapMB,
             BillingCycleDays = request.BillingCycleDays,
-            SimCards = request.SimCards,
-            Tenant = request.Tenant,
         };
         return model;
     }

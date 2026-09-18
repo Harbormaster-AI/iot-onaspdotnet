@@ -6,8 +6,8 @@ namespace iotonaspdotnet.Service;
 
 public interface IHardwareModuleService {
 
-    Task Create(HardwareModuleRequest request , CancellationToken cancellationToken);
-    Task<bool> Update(HardwareModuleRequest request, CancellationToken cancellationToken);
+    Task Create(HardwareModule model , CancellationToken cancellationToken);
+    Task<bool> Update(HardwareModule model, CancellationToken cancellationToken);
     Task<HardwareModule?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
     Task<IReadOnlyList<HardwareModule>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
@@ -31,39 +31,33 @@ public class HardwareModuleService : IHardwareModuleService
         _repository = repository;
     }
 
-    public Task<HardwareModule?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<HardwareModule>> GetAll(CancellationToken cancellationToken)
-        => _repository.GetAllAsync(cancellationToken);
-
-    public async Task Create(HardwareModuleRequest request, CancellationToken cancellationToken)
+    public async Task Create(HardwareModule model, CancellationToken cancellationToken)
     {
-        var deviceVendor = await _deviceVendors.Get(request.Id, cancellationToken)
-            ?? throw new InvalidOperationException("DeviceVendor not found.");
 
-        if (deviceVendor.Vendor is not null)
-        {
-            throw new InvalidOperationException("DeviceVendor:Vendor already has a(n) HardwareModule (1:1 relationship).");
-        }
-        await _repository.AddAsync(request, cancellationToken);
+         await _repository.AddAsync(model, cancellationToken);
     }
 
-    public async Task<bool> Update(HardwareModuleRequest request, CancellationToken cancellationToken)
+    public async Task<bool> Update(HardwareModule model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-        existing.ModuleCode = request.ModuleCode;
-        existing.DatasheetUri = request.DatasheetUri;
-        existing.Vendor = request.Vendor;
-        existing.ModuleType = request.ModuleType;
+        existing.ModuleCode = model.ModuleCode;
+        existing.DatasheetUri = model.DatasheetUri;
+        existing.ModuleType = model.ModuleType;
 
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
+
+    public Task<HardwareModule?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+    => _repository.GetByIdAsync(identifier.Id, cancellationToken);
+
+    public Task<IReadOnlyList<HardwareModule>> GetAll(CancellationToken cancellationToken)
+    => _repository.GetAllAsync(cancellationToken);
 
     public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {

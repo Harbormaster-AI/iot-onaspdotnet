@@ -66,7 +66,7 @@ public static class TenantEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -307,18 +307,6 @@ public static class TenantEndpoints
         {
             Id = request.id,
             Name = request.Name,
-            Sites = request.Sites,
-            Users = request.Users,
-            Devices = request.Devices,
-            DataRetentionPolicies = request.DataRetentionPolicies,
-            ConnectivityPlans = request.ConnectivityPlans,
-            SimCards = request.SimCards,
-            MessagingEndpoints = request.MessagingEndpoints,
-            AccessPolicies = request.AccessPolicies,
-            DeviceGroups = request.DeviceGroups,
-            AlertRules = request.AlertRules,
-            MaintenanceTickets = request.MaintenanceTickets,
-            UsageRecords = request.UsageRecords,
             TenantType = request.TenantType,
         };
         return model;

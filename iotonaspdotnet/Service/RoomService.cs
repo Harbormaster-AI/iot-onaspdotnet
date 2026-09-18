@@ -6,8 +6,8 @@ namespace iotonaspdotnet.Service;
 
 public interface IRoomService {
 
-    Task Create(RoomRequest request , CancellationToken cancellationToken);
-    Task<bool> Update(RoomRequest request, CancellationToken cancellationToken);
+    Task Create(Room model , CancellationToken cancellationToken);
+    Task<bool> Update(Room model, CancellationToken cancellationToken);
     Task<Room?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
     Task<IReadOnlyList<Room>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
@@ -35,39 +35,31 @@ public class RoomService : IRoomService
         _repository = repository;
     }
 
-    public Task<Room?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<Room>> GetAll(CancellationToken cancellationToken)
-        => _repository.GetAllAsync(cancellationToken);
-
-    public async Task Create(RoomRequest request, CancellationToken cancellationToken)
+    public async Task Create(Room model, CancellationToken cancellationToken)
     {
-        var floor = await _floors.Get(request.Id, cancellationToken)
-            ?? throw new InvalidOperationException("Floor not found.");
 
-        if (floor.Floor is not null)
-        {
-            throw new InvalidOperationException("Floor:Floor already has a(n) Room (1:1 relationship).");
-        }
-        await _repository.AddAsync(request, cancellationToken);
+         await _repository.AddAsync(model, cancellationToken);
     }
 
-    public async Task<bool> Update(RoomRequest request, CancellationToken cancellationToken)
+    public async Task<bool> Update(Room model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-        existing.Name = request.Name;
-        existing.Floor = request.Floor;
-        existing.Devices = request.Devices;
-        existing.Gateways = request.Gateways;
+        existing.Name = model.Name;
 
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
+
+    public Task<Room?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+    => _repository.GetByIdAsync(identifier.Id, cancellationToken);
+
+    public Task<IReadOnlyList<Room>> GetAll(CancellationToken cancellationToken)
+    => _repository.GetAllAsync(cancellationToken);
 
     public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {

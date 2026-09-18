@@ -1,3 +1,5 @@
+using iotonaspdotnet.Domain.Contracts;
+
 namespace iotonaspdotnet.Domain;
 
 public class DigitalTwin
@@ -13,4 +15,13 @@ public virtual IoTDevice Device { get; set; }
 public virtual Gateway Gateway { get; set; }
 public virtual TwinTemplate Template { get; set; }
 public virtual TwinChangeEvent ChangeEvents { get; set; }
+
+    public static DigitalTwin FromRequest(DigitalTwinRequest request) {
+        return new DigitalTwin {
+            Id = model.Id,
+            TwinId = request.TwinId,
+            DesiredStateVersion = request.DesiredStateVersion,
+            ReportedStateVersion = request.ReportedStateVersion,
+            LastSyncAt = request.LastSyncAt,
+        };
 }

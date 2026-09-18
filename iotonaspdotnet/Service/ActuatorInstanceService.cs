@@ -6,8 +6,8 @@ namespace iotonaspdotnet.Service;
 
 public interface IActuatorInstanceService {
 
-    Task Create(ActuatorInstanceRequest request , CancellationToken cancellationToken);
-    Task<bool> Update(ActuatorInstanceRequest request, CancellationToken cancellationToken);
+    Task Create(ActuatorInstance model , CancellationToken cancellationToken);
+    Task<bool> Update(ActuatorInstance model, CancellationToken cancellationToken);
     Task<ActuatorInstance?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
     Task<IReadOnlyList<ActuatorInstance>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
@@ -33,40 +33,33 @@ public class ActuatorInstanceService : IActuatorInstanceService
         _repository = repository;
     }
 
-    public Task<ActuatorInstance?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<ActuatorInstance>> GetAll(CancellationToken cancellationToken)
-        => _repository.GetAllAsync(cancellationToken);
-
-    public async Task Create(ActuatorInstanceRequest request, CancellationToken cancellationToken)
+    public async Task Create(ActuatorInstance model, CancellationToken cancellationToken)
     {
-        var ioTDevice = await _ioTDevices.Get(request.Id, cancellationToken)
-            ?? throw new InvalidOperationException("IoTDevice not found.");
 
-        if (ioTDevice.Device is not null)
-        {
-            throw new InvalidOperationException("IoTDevice:Device already has a(n) ActuatorInstance (1:1 relationship).");
-        }
-        await _repository.AddAsync(request, cancellationToken);
+         await _repository.AddAsync(model, cancellationToken);
     }
 
-    public async Task<bool> Update(ActuatorInstanceRequest request, CancellationToken cancellationToken)
+    public async Task<bool> Update(ActuatorInstance model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-        existing.Name = request.Name;
-        existing.CommandTopic = request.CommandTopic;
-        existing.Device = request.Device;
-        existing.SupportedCommands = request.SupportedCommands;
-        existing.ActuatorType = request.ActuatorType;
+        existing.Name = model.Name;
+        existing.CommandTopic = model.CommandTopic;
+        existing.ActuatorType = model.ActuatorType;
 
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
+
+    public Task<ActuatorInstance?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+    => _repository.GetByIdAsync(identifier.Id, cancellationToken);
+
+    public Task<IReadOnlyList<ActuatorInstance>> GetAll(CancellationToken cancellationToken)
+    => _repository.GetAllAsync(cancellationToken);
 
     public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {

@@ -35,7 +35,7 @@ public static class SensorInstanceEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -129,8 +129,6 @@ public static class SensorInstanceEndpoints
             Name = request.Name,
             Unit = request.Unit,
             SamplingIntervalMs = request.SamplingIntervalMs,
-            Device = request.Device,
-            TelemetryStreams = request.TelemetryStreams,
             SensorType = request.SensorType,
         };
         return model;

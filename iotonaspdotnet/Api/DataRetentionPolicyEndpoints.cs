@@ -35,7 +35,7 @@ public static class DataRetentionPolicyEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -128,8 +128,6 @@ public static class DataRetentionPolicyEndpoints
             Id = request.id,
             Name = request.Name,
             RetentionDays = request.RetentionDays,
-            Tenant = request.Tenant,
-            Streams = request.Streams,
         };
         return model;
     }

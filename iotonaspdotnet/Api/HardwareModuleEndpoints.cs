@@ -32,7 +32,7 @@ public static class HardwareModuleEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -110,7 +110,6 @@ public static class HardwareModuleEndpoints
             Id = request.id,
             ModuleCode = request.ModuleCode,
             DatasheetUri = request.DatasheetUri,
-            Vendor = request.Vendor,
             ModuleType = request.ModuleType,
         };
         return model;

@@ -1,3 +1,5 @@
+using iotonaspdotnet.Domain.Contracts;
+
 namespace iotonaspdotnet.Domain;
 
 public class Gateway
@@ -14,4 +16,11 @@ public virtual DeviceCertificate Certificates { get; set; }
 public virtual DigitalTwin DigitalTwin { get; set; }
 public virtual NetworkProfile NetworkProfiles { get; set; }
  public virtual DeviceStatus Status { get; set; }
+
+    public static Gateway FromRequest(GatewayRequest request) {
+        return new Gateway {
+            Id = model.Id,
+            SoftwareVersion = request.SoftwareVersion,
+            Status = request.Status,
+        };
 }

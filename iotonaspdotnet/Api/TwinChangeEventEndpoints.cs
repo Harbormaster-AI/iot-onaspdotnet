@@ -32,7 +32,7 @@ public static class TwinChangeEventEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -110,7 +110,6 @@ public static class TwinChangeEventEndpoints
             Id = request.id,
             EventId = request.EventId,
             OccurredAt = request.OccurredAt,
-            Twin = request.Twin,
             ChangeType = request.ChangeType,
         };
         return model;

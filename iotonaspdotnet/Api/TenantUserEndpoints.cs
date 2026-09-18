@@ -35,7 +35,7 @@ public static class TenantUserEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -129,8 +129,6 @@ public static class TenantUserEndpoints
             FirstName = request.FirstName,
             LastName = request.LastName,
             Email = request.Email,
-            Tenant = request.Tenant,
-            CommandInvocations = request.CommandInvocations,
             Role = request.Role,
         };
         return model;

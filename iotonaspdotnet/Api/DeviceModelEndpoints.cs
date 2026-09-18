@@ -43,7 +43,7 @@ public static class DeviceModelEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -183,11 +183,6 @@ public static class DeviceModelEndpoints
             Name = request.Name,
             ModelNumber = request.ModelNumber,
             HardwareRevision = request.HardwareRevision,
-            Vendor = request.Vendor,
-            HardwareModules = request.HardwareModules,
-            TwinTemplate = request.TwinTemplate,
-            FirmwareReleases = request.FirmwareReleases,
-            CommandDefinitions = request.CommandDefinitions,
             SupportedConnectivity = request.SupportedConnectivity,
             DefaultTelemetryEncoding = request.DefaultTelemetryEncoding,
         };

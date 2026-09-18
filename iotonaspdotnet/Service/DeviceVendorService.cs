@@ -6,8 +6,8 @@ namespace iotonaspdotnet.Service;
 
 public interface IDeviceVendorService {
 
-    Task Create(DeviceVendorRequest request , CancellationToken cancellationToken);
-    Task<bool> Update(DeviceVendorRequest request, CancellationToken cancellationToken);
+    Task Create(DeviceVendor model , CancellationToken cancellationToken);
+    Task<bool> Update(DeviceVendor model, CancellationToken cancellationToken);
     Task<DeviceVendor?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
     Task<IReadOnlyList<DeviceVendor>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
@@ -35,35 +35,33 @@ public class DeviceVendorService : IDeviceVendorService
         _repository = repository;
     }
 
-    public Task<DeviceVendor?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<DeviceVendor>> GetAll(CancellationToken cancellationToken)
-        => _repository.GetAllAsync(cancellationToken);
-
-    public async Task Create(DeviceVendorRequest request, CancellationToken cancellationToken)
+    public async Task Create(DeviceVendor model, CancellationToken cancellationToken)
     {
-        await _repository.AddAsync(request, cancellationToken);
+        await _repository.AddAsync(model, cancellationToken);
     }
 
-    public async Task<bool> Update(DeviceVendorRequest request, CancellationToken cancellationToken)
+    public async Task<bool> Update(DeviceVendor model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-        existing.Name = request.Name;
-        existing.LegalName = request.LegalName;
-        existing.HeadquartersCountry = request.HeadquartersCountry;
-        existing.Website = request.Website;
-        existing.DeviceModels = request.DeviceModels;
-        existing.FirmwareReleases = request.FirmwareReleases;
-        existing.HardwareModules = request.HardwareModules;
+        existing.Name = model.Name;
+        existing.LegalName = model.LegalName;
+        existing.HeadquartersCountry = model.HeadquartersCountry;
+        existing.Website = model.Website;
 
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
+
+    public Task<DeviceVendor?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+    => _repository.GetByIdAsync(identifier.Id, cancellationToken);
+
+    public Task<IReadOnlyList<DeviceVendor>> GetAll(CancellationToken cancellationToken)
+    => _repository.GetAllAsync(cancellationToken);
 
     public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {

@@ -1,3 +1,5 @@
+using iotonaspdotnet.Domain.Contracts;
+
 namespace iotonaspdotnet.Domain;
 
 public class NetworkProfile
@@ -12,4 +14,13 @@ public virtual IoTDevice Device { get; set; }
 public virtual Gateway Gateway { get; set; }
 public virtual SimCard SimCard { get; set; }
  public virtual ConnectivityType ConnectivityType { get; set; }
+
+    public static NetworkProfile FromRequest(NetworkProfileRequest request) {
+        return new NetworkProfile {
+            Id = model.Id,
+            ProfileName = request.ProfileName,
+            Ssid = request.Ssid,
+            Apn = request.Apn,
+            ConnectivityType = request.ConnectivityType,
+        };
 }

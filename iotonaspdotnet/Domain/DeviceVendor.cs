@@ -1,3 +1,5 @@
+using iotonaspdotnet.Domain.Contracts;
+
 namespace iotonaspdotnet.Domain;
 
 public class DeviceVendor
@@ -12,4 +14,13 @@ public class DeviceVendor
 public virtual DeviceModel DeviceModels { get; set; }
 public virtual FirmwareRelease FirmwareReleases { get; set; }
 public virtual HardwareModule HardwareModules { get; set; }
+
+    public static DeviceVendor FromRequest(DeviceVendorRequest request) {
+        return new DeviceVendor {
+            Id = model.Id,
+            Name = request.Name,
+            LegalName = request.LegalName,
+            HeadquartersCountry = request.HeadquartersCountry,
+            Website = request.Website,
+        };
 }

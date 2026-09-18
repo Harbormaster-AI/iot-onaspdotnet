@@ -1,3 +1,5 @@
+using iotonaspdotnet.Domain.Contracts;
+
 namespace iotonaspdotnet.Domain;
 
 public class TelemetryStream
@@ -13,4 +15,12 @@ public virtual TelemetrySchema Schema { get; set; }
 public virtual MessagingEndpoint MessagingEndpoint { get; set; }
 public virtual DataRetentionPolicy RetentionPolicy { get; set; }
  public virtual MessageQoS Qos { get; set; }
+
+    public static TelemetryStream FromRequest(TelemetryStreamRequest request) {
+        return new TelemetryStream {
+            Id = model.Id,
+            StreamName = request.StreamName,
+            RetentionDays = request.RetentionDays,
+            Qos = request.Qos,
+        };
 }

@@ -1,3 +1,5 @@
+using iotonaspdotnet.Domain.Contracts;
+
 namespace iotonaspdotnet.Domain;
 
 public class MessagingEndpoint
@@ -11,4 +13,13 @@ public class MessagingEndpoint
 public virtual Tenant Tenant { get; set; }
 public virtual TelemetryStream Streams { get; set; }
  public virtual MessagingProtocol Protocol { get; set; }
+
+    public static MessagingEndpoint FromRequest(MessagingEndpointRequest request) {
+        return new MessagingEndpoint {
+            Id = model.Id,
+            Host = request.Host,
+            Port = request.Port,
+            Secure = request.Secure,
+            Protocol = request.Protocol,
+        };
 }

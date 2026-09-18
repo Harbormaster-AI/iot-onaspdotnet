@@ -6,8 +6,8 @@ namespace iotonaspdotnet.Service;
 
 public interface IApiKeyService {
 
-    Task Create(ApiKeyRequest request , CancellationToken cancellationToken);
-    Task<bool> Update(ApiKeyRequest request, CancellationToken cancellationToken);
+    Task Create(ApiKey model , CancellationToken cancellationToken);
+    Task<bool> Update(ApiKey model, CancellationToken cancellationToken);
     Task<ApiKey?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
     Task<IReadOnlyList<ApiKey>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
@@ -31,40 +31,34 @@ public class ApiKeyService : IApiKeyService
         _repository = repository;
     }
 
-    public Task<ApiKey?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<ApiKey>> GetAll(CancellationToken cancellationToken)
-        => _repository.GetAllAsync(cancellationToken);
-
-    public async Task Create(ApiKeyRequest request, CancellationToken cancellationToken)
+    public async Task Create(ApiKey model, CancellationToken cancellationToken)
     {
-        var accessPolicy = await _accessPolicys.Get(request.Id, cancellationToken)
-            ?? throw new InvalidOperationException("AccessPolicy not found.");
 
-        if (accessPolicy.AccessPolicy is not null)
-        {
-            throw new InvalidOperationException("AccessPolicy:AccessPolicy already has a(n) ApiKey (1:1 relationship).");
-        }
-        await _repository.AddAsync(request, cancellationToken);
+         await _repository.AddAsync(model, cancellationToken);
     }
 
-    public async Task<bool> Update(ApiKeyRequest request, CancellationToken cancellationToken)
+    public async Task<bool> Update(ApiKey model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-        existing.KeyId = request.KeyId;
-        existing.HashedSecret = request.HashedSecret;
-        existing.CreatedAt = request.CreatedAt;
-        existing.LastUsedAt = request.LastUsedAt;
-        existing.AccessPolicy = request.AccessPolicy;
+        existing.KeyId = model.KeyId;
+        existing.HashedSecret = model.HashedSecret;
+        existing.CreatedAt = model.CreatedAt;
+        existing.LastUsedAt = model.LastUsedAt;
 
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
+
+    public Task<ApiKey?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+    => _repository.GetByIdAsync(identifier.Id, cancellationToken);
+
+    public Task<IReadOnlyList<ApiKey>> GetAll(CancellationToken cancellationToken)
+    => _repository.GetAllAsync(cancellationToken);
 
     public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {

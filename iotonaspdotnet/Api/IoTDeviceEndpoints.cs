@@ -68,7 +68,7 @@ public static class IoTDeviceEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -364,21 +364,6 @@ public static class IoTDeviceEndpoints
             SerialNumber = request.SerialNumber,
             LastSeen = request.LastSeen,
             FirmwareVersion = request.FirmwareVersion,
-            DeviceModel = request.DeviceModel,
-            Tenant = request.Tenant,
-            Site = request.Site,
-            Room = request.Room,
-            Gateway = request.Gateway,
-            Sensors = request.Sensors,
-            Actuators = request.Actuators,
-            Certificates = request.Certificates,
-            DigitalTwin = request.DigitalTwin,
-            TelemetryStreams = request.TelemetryStreams,
-            CommandInvocations = request.CommandInvocations,
-            Alerts = request.Alerts,
-            ProvisioningRecord = request.ProvisioningRecord,
-            DeviceGroups = request.DeviceGroups,
-            NetworkProfiles = request.NetworkProfiles,
             Status = request.Status,
             PowerSource = request.PowerSource,
         };

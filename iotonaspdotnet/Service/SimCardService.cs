@@ -6,8 +6,8 @@ namespace iotonaspdotnet.Service;
 
 public interface ISimCardService {
 
-    Task Create(SimCardRequest request , CancellationToken cancellationToken);
-    Task<bool> Update(SimCardRequest request, CancellationToken cancellationToken);
+    Task Create(SimCard model , CancellationToken cancellationToken);
+    Task<bool> Update(SimCard model, CancellationToken cancellationToken);
     Task<SimCard?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
     Task<IReadOnlyList<SimCard>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
@@ -35,49 +35,35 @@ public class SimCardService : ISimCardService
         _repository = repository;
     }
 
-    public Task<SimCard?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<SimCard>> GetAll(CancellationToken cancellationToken)
-        => _repository.GetAllAsync(cancellationToken);
-
-    public async Task Create(SimCardRequest request, CancellationToken cancellationToken)
+    public async Task Create(SimCard model, CancellationToken cancellationToken)
     {
-        var tenant = await _tenants.Get(request.Id, cancellationToken)
-            ?? throw new InvalidOperationException("Tenant not found.");
 
-        if (tenant.Tenant is not null)
-        {
-            throw new InvalidOperationException("Tenant:Tenant already has a(n) SimCard (1:1 relationship).");
-        }
-        var connectivityPlan = await _connectivityPlans.Get(request.Id, cancellationToken)
-            ?? throw new InvalidOperationException("ConnectivityPlan not found.");
-
-        if (connectivityPlan.ConnectivityPlan is not null)
-        {
-            throw new InvalidOperationException("ConnectivityPlan:ConnectivityPlan already has a(n) SimCard (1:1 relationship).");
-        }
-        await _repository.AddAsync(request, cancellationToken);
+ 
+         await _repository.AddAsync(model, cancellationToken);
     }
 
-    public async Task<bool> Update(SimCardRequest request, CancellationToken cancellationToken)
+    public async Task<bool> Update(SimCard model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-        existing.Iccid = request.Iccid;
-        existing.Imsi = request.Imsi;
-        existing.Carrier = request.Carrier;
-        existing.NetworkProfiles = request.NetworkProfiles;
-        existing.Tenant = request.Tenant;
-        existing.ConnectivityPlan = request.ConnectivityPlan;
-        existing.Status = request.Status;
+        existing.Iccid = model.Iccid;
+        existing.Imsi = model.Imsi;
+        existing.Carrier = model.Carrier;
+        existing.Status = model.Status;
 
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
+
+    public Task<SimCard?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+    => _repository.GetByIdAsync(identifier.Id, cancellationToken);
+
+    public Task<IReadOnlyList<SimCard>> GetAll(CancellationToken cancellationToken)
+    => _repository.GetAllAsync(cancellationToken);
 
     public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {

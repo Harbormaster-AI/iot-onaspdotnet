@@ -39,7 +39,7 @@ public static class DeviceVendorEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -148,9 +148,6 @@ public static class DeviceVendorEndpoints
             LegalName = request.LegalName,
             HeadquartersCountry = request.HeadquartersCountry,
             Website = request.Website,
-            DeviceModels = request.DeviceModels,
-            FirmwareReleases = request.FirmwareReleases,
-            HardwareModules = request.HardwareModules,
         };
         return model;
     }

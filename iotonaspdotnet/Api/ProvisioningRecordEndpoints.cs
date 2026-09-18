@@ -36,7 +36,7 @@ public static class ProvisioningRecordEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -146,9 +146,6 @@ public static class ProvisioningRecordEndpoints
             Id = request.id,
             EnrolledAt = request.EnrolledAt,
             ProvisioningService = request.ProvisioningService,
-            Device = request.Device,
-            Certificate = request.Certificate,
-            Tenant = request.Tenant,
             Method = request.Method,
             Status = request.Status,
         };

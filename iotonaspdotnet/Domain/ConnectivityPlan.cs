@@ -1,3 +1,5 @@
+using iotonaspdotnet.Domain.Contracts;
+
 namespace iotonaspdotnet.Domain;
 
 public class ConnectivityPlan
@@ -10,4 +12,12 @@ public class ConnectivityPlan
  public virtual int BillingCycleDays { get; set; }
 public virtual SimCard SimCards { get; set; }
 public virtual Tenant Tenant { get; set; }
+
+    public static ConnectivityPlan FromRequest(ConnectivityPlanRequest request) {
+        return new ConnectivityPlan {
+            Id = model.Id,
+            Name = request.Name,
+            DataCapMB = request.DataCapMB,
+            BillingCycleDays = request.BillingCycleDays,
+        };
 }

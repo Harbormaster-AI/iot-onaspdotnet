@@ -6,8 +6,8 @@ namespace iotonaspdotnet.Service;
 
 public interface ISoftwareUpdateCampaignService {
 
-    Task Create(SoftwareUpdateCampaignRequest request , CancellationToken cancellationToken);
-    Task<bool> Update(SoftwareUpdateCampaignRequest request, CancellationToken cancellationToken);
+    Task Create(SoftwareUpdateCampaign model , CancellationToken cancellationToken);
+    Task<bool> Update(SoftwareUpdateCampaign model, CancellationToken cancellationToken);
     Task<SoftwareUpdateCampaign?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
     Task<IReadOnlyList<SoftwareUpdateCampaign>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
@@ -35,49 +35,35 @@ public class SoftwareUpdateCampaignService : ISoftwareUpdateCampaignService
         _repository = repository;
     }
 
-    public Task<SoftwareUpdateCampaign?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<SoftwareUpdateCampaign>> GetAll(CancellationToken cancellationToken)
-        => _repository.GetAllAsync(cancellationToken);
-
-    public async Task Create(SoftwareUpdateCampaignRequest request, CancellationToken cancellationToken)
+    public async Task Create(SoftwareUpdateCampaign model, CancellationToken cancellationToken)
     {
-        var firmwareRelease = await _firmwareReleases.Get(request.Id, cancellationToken)
-            ?? throw new InvalidOperationException("FirmwareRelease not found.");
 
-        if (firmwareRelease.FirmwareRelease is not null)
-        {
-            throw new InvalidOperationException("FirmwareRelease:FirmwareRelease already has a(n) SoftwareUpdateCampaign (1:1 relationship).");
-        }
-        var deviceGroup = await _deviceGroups.Get(request.Id, cancellationToken)
-            ?? throw new InvalidOperationException("DeviceGroup not found.");
-
-        if (deviceGroup.DeviceGroup is not null)
-        {
-            throw new InvalidOperationException("DeviceGroup:DeviceGroup already has a(n) SoftwareUpdateCampaign (1:1 relationship).");
-        }
-        await _repository.AddAsync(request, cancellationToken);
+ 
+         await _repository.AddAsync(model, cancellationToken);
     }
 
-    public async Task<bool> Update(SoftwareUpdateCampaignRequest request, CancellationToken cancellationToken)
+    public async Task<bool> Update(SoftwareUpdateCampaign model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-        existing.CampaignCode = request.CampaignCode;
-        existing.ScheduledStart = request.ScheduledStart;
-        existing.ScheduledEnd = request.ScheduledEnd;
-        existing.FirmwareRelease = request.FirmwareRelease;
-        existing.DeviceGroup = request.DeviceGroup;
-        existing.Executions = request.Executions;
-        existing.Status = request.Status;
+        existing.CampaignCode = model.CampaignCode;
+        existing.ScheduledStart = model.ScheduledStart;
+        existing.ScheduledEnd = model.ScheduledEnd;
+        existing.Status = model.Status;
 
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
+
+    public Task<SoftwareUpdateCampaign?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+    => _repository.GetByIdAsync(identifier.Id, cancellationToken);
+
+    public Task<IReadOnlyList<SoftwareUpdateCampaign>> GetAll(CancellationToken cancellationToken)
+    => _repository.GetAllAsync(cancellationToken);
 
     public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {

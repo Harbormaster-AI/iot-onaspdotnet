@@ -48,7 +48,7 @@ public static class GatewayEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -217,13 +217,6 @@ public static class GatewayEndpoints
         {
             Id = request.id,
             SoftwareVersion = request.SoftwareVersion,
-            Site = request.Site,
-            Room = request.Room,
-            Devices = request.Devices,
-            EdgeApplications = request.EdgeApplications,
-            Certificates = request.Certificates,
-            DigitalTwin = request.DigitalTwin,
-            NetworkProfiles = request.NetworkProfiles,
             Status = request.Status,
         };
         return model;

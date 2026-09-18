@@ -6,8 +6,8 @@ namespace iotonaspdotnet.Service;
 
 public interface INetworkProfileService {
 
-    Task Create(NetworkProfileRequest request , CancellationToken cancellationToken);
-    Task<bool> Update(NetworkProfileRequest request, CancellationToken cancellationToken);
+    Task Create(NetworkProfile model , CancellationToken cancellationToken);
+    Task<bool> Update(NetworkProfile model, CancellationToken cancellationToken);
     Task<NetworkProfile?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
     Task<IReadOnlyList<NetworkProfile>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
@@ -35,56 +35,36 @@ public class NetworkProfileService : INetworkProfileService
         _repository = repository;
     }
 
-    public Task<NetworkProfile?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<NetworkProfile>> GetAll(CancellationToken cancellationToken)
-        => _repository.GetAllAsync(cancellationToken);
-
-    public async Task Create(NetworkProfileRequest request, CancellationToken cancellationToken)
+    public async Task Create(NetworkProfile model, CancellationToken cancellationToken)
     {
-        var ioTDevice = await _ioTDevices.Get(request.Id, cancellationToken)
-            ?? throw new InvalidOperationException("IoTDevice not found.");
 
-        if (ioTDevice.Device is not null)
-        {
-            throw new InvalidOperationException("IoTDevice:Device already has a(n) NetworkProfile (1:1 relationship).");
-        }
-        var gateway = await _gateways.Get(request.Id, cancellationToken)
-            ?? throw new InvalidOperationException("Gateway not found.");
-
-        if (gateway.Gateway is not null)
-        {
-            throw new InvalidOperationException("Gateway:Gateway already has a(n) NetworkProfile (1:1 relationship).");
-        }
-        var simCard = await _simCards.Get(request.Id, cancellationToken)
-            ?? throw new InvalidOperationException("SimCard not found.");
-
-        if (simCard.SimCard is not null)
-        {
-            throw new InvalidOperationException("SimCard:SimCard already has a(n) NetworkProfile (1:1 relationship).");
-        }
-        await _repository.AddAsync(request, cancellationToken);
+ 
+ 
+         await _repository.AddAsync(model, cancellationToken);
     }
 
-    public async Task<bool> Update(NetworkProfileRequest request, CancellationToken cancellationToken)
+    public async Task<bool> Update(NetworkProfile model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-        existing.ProfileName = request.ProfileName;
-        existing.Ssid = request.Ssid;
-        existing.Apn = request.Apn;
-        existing.Device = request.Device;
-        existing.Gateway = request.Gateway;
-        existing.SimCard = request.SimCard;
-        existing.ConnectivityType = request.ConnectivityType;
+        existing.ProfileName = model.ProfileName;
+        existing.Ssid = model.Ssid;
+        existing.Apn = model.Apn;
+        existing.ConnectivityType = model.ConnectivityType;
 
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
+
+    public Task<NetworkProfile?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+    => _repository.GetByIdAsync(identifier.Id, cancellationToken);
+
+    public Task<IReadOnlyList<NetworkProfile>> GetAll(CancellationToken cancellationToken)
+    => _repository.GetAllAsync(cancellationToken);
 
     public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {

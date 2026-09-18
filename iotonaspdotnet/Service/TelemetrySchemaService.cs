@@ -6,8 +6,8 @@ namespace iotonaspdotnet.Service;
 
 public interface ITelemetrySchemaService {
 
-    Task Create(TelemetrySchemaRequest request , CancellationToken cancellationToken);
-    Task<bool> Update(TelemetrySchemaRequest request, CancellationToken cancellationToken);
+    Task Create(TelemetrySchema model , CancellationToken cancellationToken);
+    Task<bool> Update(TelemetrySchema model, CancellationToken cancellationToken);
     Task<TelemetrySchema?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
     Task<IReadOnlyList<TelemetrySchema>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
@@ -31,32 +31,32 @@ public class TelemetrySchemaService : ITelemetrySchemaService
         _repository = repository;
     }
 
-    public Task<TelemetrySchema?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<TelemetrySchema>> GetAll(CancellationToken cancellationToken)
-        => _repository.GetAllAsync(cancellationToken);
-
-    public async Task Create(TelemetrySchemaRequest request, CancellationToken cancellationToken)
+    public async Task Create(TelemetrySchema model, CancellationToken cancellationToken)
     {
-        await _repository.AddAsync(request, cancellationToken);
+        await _repository.AddAsync(model, cancellationToken);
     }
 
-    public async Task<bool> Update(TelemetrySchemaRequest request, CancellationToken cancellationToken)
+    public async Task<bool> Update(TelemetrySchema model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-        existing.SchemaId = request.SchemaId;
-        existing.SchemaUri = request.SchemaUri;
-        existing.Streams = request.Streams;
-        existing.Encoding = request.Encoding;
+        existing.SchemaId = model.SchemaId;
+        existing.SchemaUri = model.SchemaUri;
+        existing.Encoding = model.Encoding;
 
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
+
+    public Task<TelemetrySchema?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+    => _repository.GetByIdAsync(identifier.Id, cancellationToken);
+
+    public Task<IReadOnlyList<TelemetrySchema>> GetAll(CancellationToken cancellationToken)
+    => _repository.GetAllAsync(cancellationToken);
 
     public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {

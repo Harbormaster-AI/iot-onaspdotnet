@@ -34,7 +34,7 @@ public static class DeviceCertificateEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -130,8 +130,6 @@ public static class DeviceCertificateEndpoints
             NotBefore = request.NotBefore,
             NotAfter = request.NotAfter,
             Fingerprint = request.Fingerprint,
-            Device = request.Device,
-            Gateway = request.Gateway,
             CertificateType = request.CertificateType,
         };
         return model;

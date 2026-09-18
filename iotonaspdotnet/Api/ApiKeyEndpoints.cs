@@ -32,7 +32,7 @@ public static class ApiKeyEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -112,7 +112,6 @@ public static class ApiKeyEndpoints
             HashedSecret = request.HashedSecret,
             CreatedAt = request.CreatedAt,
             LastUsedAt = request.LastUsedAt,
-            AccessPolicy = request.AccessPolicy,
         };
         return model;
     }

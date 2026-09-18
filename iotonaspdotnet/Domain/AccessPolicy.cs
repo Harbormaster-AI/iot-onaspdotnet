@@ -1,3 +1,5 @@
+using iotonaspdotnet.Domain.Contracts;
+
 namespace iotonaspdotnet.Domain;
 
 public class AccessPolicy
@@ -11,4 +13,12 @@ public class AccessPolicy
 public virtual Tenant Tenant { get; set; }
 public virtual ApiKey ApiKeys { get; set; }
 public virtual TenantUser Users { get; set; }
+
+    public static AccessPolicy FromRequest(AccessPolicyRequest request) {
+        return new AccessPolicy {
+            Id = model.Id,
+            Name = request.Name,
+            Scope = request.Scope,
+            ExpiresAt = request.ExpiresAt,
+        };
 }

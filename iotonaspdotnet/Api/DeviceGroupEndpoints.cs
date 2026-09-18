@@ -35,7 +35,7 @@ public static class DeviceGroupEndpoints
 
         try
         {
-            await service.Create(lowercaseClassName, cancellationToken);
+            await service.Create(model, cancellationToken);
         }
         catch (InvalidOperationException ex)
         {
@@ -128,8 +128,6 @@ public static class DeviceGroupEndpoints
             Id = request.id,
             Name = request.Name,
             Criteria = request.Criteria,
-            Tenant = request.Tenant,
-            Devices = request.Devices,
         };
         return model;
     }

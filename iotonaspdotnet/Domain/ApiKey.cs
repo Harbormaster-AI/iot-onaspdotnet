@@ -1,3 +1,5 @@
+using iotonaspdotnet.Domain.Contracts;
+
 namespace iotonaspdotnet.Domain;
 
 public class ApiKey
@@ -10,4 +12,13 @@ public class ApiKey
  public virtual DateTime CreatedAt { get; set; }
  public virtual DateTime LastUsedAt { get; set; }
 public virtual AccessPolicy AccessPolicy { get; set; }
+
+    public static ApiKey FromRequest(ApiKeyRequest request) {
+        return new ApiKey {
+            Id = model.Id,
+            KeyId = request.KeyId,
+            HashedSecret = request.HashedSecret,
+            CreatedAt = request.CreatedAt,
+            LastUsedAt = request.LastUsedAt,
+        };
 }

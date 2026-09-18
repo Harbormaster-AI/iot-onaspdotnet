@@ -6,8 +6,8 @@ namespace iotonaspdotnet.Service;
 
 public interface IAlertRuleService {
 
-    Task Create(AlertRuleRequest request , CancellationToken cancellationToken);
-    Task<bool> Update(AlertRuleRequest request, CancellationToken cancellationToken);
+    Task Create(AlertRule model , CancellationToken cancellationToken);
+    Task<bool> Update(AlertRule model, CancellationToken cancellationToken);
     Task<AlertRule?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
     Task<IReadOnlyList<AlertRule>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
@@ -35,41 +35,33 @@ public class AlertRuleService : IAlertRuleService
         _repository = repository;
     }
 
-    public Task<AlertRule?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
-        => _repository.GetByIdAsync(identifier.getId(), cancellationToken);
 
-    public Task<IReadOnlyList<AlertRule>> GetAll(CancellationToken cancellationToken)
-        => _repository.GetAllAsync(cancellationToken);
-
-    public async Task Create(AlertRuleRequest request, CancellationToken cancellationToken)
+    public async Task Create(AlertRule model, CancellationToken cancellationToken)
     {
-        var tenant = await _tenants.Get(request.Id, cancellationToken)
-            ?? throw new InvalidOperationException("Tenant not found.");
 
-        if (tenant.Tenant is not null)
-        {
-            throw new InvalidOperationException("Tenant:Tenant already has a(n) AlertRule (1:1 relationship).");
-        }
-        await _repository.AddAsync(request, cancellationToken);
+         await _repository.AddAsync(model, cancellationToken);
     }
 
-    public async Task<bool> Update(AlertRuleRequest request, CancellationToken cancellationToken)
+    public async Task<bool> Update(AlertRule model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(request.Id, cancellationToken);
+        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
         if (existing is null)
         {
             return false;
         }
-        existing.Name = request.Name;
-        existing.Expression = request.Expression;
-        existing.Tenant = request.Tenant;
-        existing.Streams = request.Streams;
-        existing.Alerts = request.Alerts;
-        existing.Severity = request.Severity;
+        existing.Name = model.Name;
+        existing.Expression = model.Expression;
+        existing.Severity = model.Severity;
 
         await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
+
+    public Task<AlertRule?> Get(IdentifierRequest identifier, CancellationToken cancellationToken)
+    => _repository.GetByIdAsync(identifier.Id, cancellationToken);
+
+    public Task<IReadOnlyList<AlertRule>> GetAll(CancellationToken cancellationToken)
+    => _repository.GetAllAsync(cancellationToken);
 
     public async Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken)
     {

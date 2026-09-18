@@ -1,3 +1,5 @@
+using iotonaspdotnet.Domain.Contracts;
+
 namespace iotonaspdotnet.Domain;
 
 public class SensorInstance
@@ -11,4 +13,13 @@ public class SensorInstance
 public virtual IoTDevice Device { get; set; }
 public virtual TelemetryStream TelemetryStreams { get; set; }
  public virtual SensorType SensorType { get; set; }
+
+    public static SensorInstance FromRequest(SensorInstanceRequest request) {
+        return new SensorInstance {
+            Id = model.Id,
+            Name = request.Name,
+            Unit = request.Unit,
+            SamplingIntervalMs = request.SamplingIntervalMs,
+            SensorType = request.SensorType,
+        };
 }
