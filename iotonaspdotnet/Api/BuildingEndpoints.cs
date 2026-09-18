@@ -126,9 +126,9 @@ public static class BuildingEndpoints
         var model = new Building
         {
             Id = request.id,
-            Name = request.Name;
-            Site = request.Site;
-            Floors = request.Floors;
+            Name = request.Name,
+            Site = request.Site,
+            Floors = request.Floors,
         }
         return model;
     }

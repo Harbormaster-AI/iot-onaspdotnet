@@ -162,14 +162,14 @@ public static class DigitalTwinEndpoints
         var model = new DigitalTwin
         {
             Id = request.id,
-            TwinId = request.TwinId;
-            DesiredStateVersion = request.DesiredStateVersion;
-            ReportedStateVersion = request.ReportedStateVersion;
-            LastSyncAt = request.LastSyncAt;
-            Device = request.Device;
-            Gateway = request.Gateway;
-            Template = request.Template;
-            ChangeEvents = request.ChangeEvents;
+            TwinId = request.TwinId,
+            DesiredStateVersion = request.DesiredStateVersion,
+            ReportedStateVersion = request.ReportedStateVersion,
+            LastSyncAt = request.LastSyncAt,
+            Device = request.Device,
+            Gateway = request.Gateway,
+            Template = request.Template,
+            ChangeEvents = request.ChangeEvents,
         }
         return model;
     }

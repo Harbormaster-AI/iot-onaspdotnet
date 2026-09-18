@@ -126,12 +126,12 @@ public static class MessagingEndpointEndpoints
         var model = new MessagingEndpoint
         {
             Id = request.id,
-            Host = request.Host;
-            Port = request.Port;
-            Secure = request.Secure;
-            Tenant = request.Tenant;
-            Streams = request.Streams;
-            Protocol = request.Protocol;
+            Host = request.Host,
+            Port = request.Port,
+            Secure = request.Secure,
+            Tenant = request.Tenant,
+            Streams = request.Streams,
+            Protocol = request.Protocol,
         }
         return model;
     }

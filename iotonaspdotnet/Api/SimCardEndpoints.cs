@@ -144,13 +144,13 @@ public static class SimCardEndpoints
         var model = new SimCard
         {
             Id = request.id,
-            Iccid = request.Iccid;
-            Imsi = request.Imsi;
-            Carrier = request.Carrier;
-            NetworkProfiles = request.NetworkProfiles;
-            Tenant = request.Tenant;
-            ConnectivityPlan = request.ConnectivityPlan;
-            Status = request.Status;
+            Iccid = request.Iccid,
+            Imsi = request.Imsi,
+            Carrier = request.Carrier,
+            NetworkProfiles = request.NetworkProfiles,
+            Tenant = request.Tenant,
+            ConnectivityPlan = request.ConnectivityPlan,
+            Status = request.Status,
         }
         return model;
     }

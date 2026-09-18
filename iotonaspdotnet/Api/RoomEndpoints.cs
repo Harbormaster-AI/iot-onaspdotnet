@@ -129,10 +129,10 @@ public static class RoomEndpoints
         var model = new Room
         {
             Id = request.id,
-            Name = request.Name;
-            Floor = request.Floor;
-            Devices = request.Devices;
-            Gateways = request.Gateways;
+            Name = request.Name,
+            Floor = request.Floor,
+            Devices = request.Devices,
+            Gateways = request.Gateways,
         }
         return model;
     }
@@ -156,10 +156,10 @@ public static class RoomEndpoints
         var model = new Room
         {
             Id = request.id,
-            Name = request.Name;
-            Floor = request.Floor;
-            Devices = request.Devices;
-            Gateways = request.Gateways;
+            Name = request.Name,
+            Floor = request.Floor,
+            Devices = request.Devices,
+            Gateways = request.Gateways,
         }
         return model;
     }

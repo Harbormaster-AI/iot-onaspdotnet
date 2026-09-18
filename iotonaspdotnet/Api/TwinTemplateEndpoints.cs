@@ -108,10 +108,10 @@ public static class TwinTemplateEndpoints
         var model = new TwinTemplate
         {
             Id = request.id,
-            Name = request.Name;
-            SchemaUri = request.SchemaUri;
-            Version = request.Version;
-            DeviceModels = request.DeviceModels;
+            Name = request.Name,
+            SchemaUri = request.SchemaUri,
+            Version = request.Version,
+            DeviceModels = request.DeviceModels,
         }
         return model;
     }

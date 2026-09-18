@@ -141,20 +141,20 @@ public static class TenantEndpoints
         var model = new Tenant
         {
             Id = request.id,
-            Name = request.Name;
-            Sites = request.Sites;
-            Users = request.Users;
-            Devices = request.Devices;
-            DataRetentionPolicies = request.DataRetentionPolicies;
-            ConnectivityPlans = request.ConnectivityPlans;
-            SimCards = request.SimCards;
-            MessagingEndpoints = request.MessagingEndpoints;
-            AccessPolicies = request.AccessPolicies;
-            DeviceGroups = request.DeviceGroups;
-            AlertRules = request.AlertRules;
-            MaintenanceTickets = request.MaintenanceTickets;
-            UsageRecords = request.UsageRecords;
-            TenantType = request.TenantType;
+            Name = request.Name,
+            Sites = request.Sites,
+            Users = request.Users,
+            Devices = request.Devices,
+            DataRetentionPolicies = request.DataRetentionPolicies,
+            ConnectivityPlans = request.ConnectivityPlans,
+            SimCards = request.SimCards,
+            MessagingEndpoints = request.MessagingEndpoints,
+            AccessPolicies = request.AccessPolicies,
+            DeviceGroups = request.DeviceGroups,
+            AlertRules = request.AlertRules,
+            MaintenanceTickets = request.MaintenanceTickets,
+            UsageRecords = request.UsageRecords,
+            TenantType = request.TenantType,
         }
         return model;
     }
@@ -178,20 +178,20 @@ public static class TenantEndpoints
         var model = new Tenant
         {
             Id = request.id,
-            Name = request.Name;
-            Sites = request.Sites;
-            Users = request.Users;
-            Devices = request.Devices;
-            DataRetentionPolicies = request.DataRetentionPolicies;
-            ConnectivityPlans = request.ConnectivityPlans;
-            SimCards = request.SimCards;
-            MessagingEndpoints = request.MessagingEndpoints;
-            AccessPolicies = request.AccessPolicies;
-            DeviceGroups = request.DeviceGroups;
-            AlertRules = request.AlertRules;
-            MaintenanceTickets = request.MaintenanceTickets;
-            UsageRecords = request.UsageRecords;
-            TenantType = request.TenantType;
+            Name = request.Name,
+            Sites = request.Sites,
+            Users = request.Users,
+            Devices = request.Devices,
+            DataRetentionPolicies = request.DataRetentionPolicies,
+            ConnectivityPlans = request.ConnectivityPlans,
+            SimCards = request.SimCards,
+            MessagingEndpoints = request.MessagingEndpoints,
+            AccessPolicies = request.AccessPolicies,
+            DeviceGroups = request.DeviceGroups,
+            AlertRules = request.AlertRules,
+            MaintenanceTickets = request.MaintenanceTickets,
+            UsageRecords = request.UsageRecords,
+            TenantType = request.TenantType,
         }
         return model;
     }
@@ -215,20 +215,20 @@ public static class TenantEndpoints
         var model = new Tenant
         {
             Id = request.id,
-            Name = request.Name;
-            Sites = request.Sites;
-            Users = request.Users;
-            Devices = request.Devices;
-            DataRetentionPolicies = request.DataRetentionPolicies;
-            ConnectivityPlans = request.ConnectivityPlans;
-            SimCards = request.SimCards;
-            MessagingEndpoints = request.MessagingEndpoints;
-            AccessPolicies = request.AccessPolicies;
-            DeviceGroups = request.DeviceGroups;
-            AlertRules = request.AlertRules;
-            MaintenanceTickets = request.MaintenanceTickets;
-            UsageRecords = request.UsageRecords;
-            TenantType = request.TenantType;
+            Name = request.Name,
+            Sites = request.Sites,
+            Users = request.Users,
+            Devices = request.Devices,
+            DataRetentionPolicies = request.DataRetentionPolicies,
+            ConnectivityPlans = request.ConnectivityPlans,
+            SimCards = request.SimCards,
+            MessagingEndpoints = request.MessagingEndpoints,
+            AccessPolicies = request.AccessPolicies,
+            DeviceGroups = request.DeviceGroups,
+            AlertRules = request.AlertRules,
+            MaintenanceTickets = request.MaintenanceTickets,
+            UsageRecords = request.UsageRecords,
+            TenantType = request.TenantType,
         }
         return model;
     }
@@ -252,20 +252,20 @@ public static class TenantEndpoints
         var model = new Tenant
         {
             Id = request.id,
-            Name = request.Name;
-            Sites = request.Sites;
-            Users = request.Users;
-            Devices = request.Devices;
-            DataRetentionPolicies = request.DataRetentionPolicies;
-            ConnectivityPlans = request.ConnectivityPlans;
-            SimCards = request.SimCards;
-            MessagingEndpoints = request.MessagingEndpoints;
-            AccessPolicies = request.AccessPolicies;
-            DeviceGroups = request.DeviceGroups;
-            AlertRules = request.AlertRules;
-            MaintenanceTickets = request.MaintenanceTickets;
-            UsageRecords = request.UsageRecords;
-            TenantType = request.TenantType;
+            Name = request.Name,
+            Sites = request.Sites,
+            Users = request.Users,
+            Devices = request.Devices,
+            DataRetentionPolicies = request.DataRetentionPolicies,
+            ConnectivityPlans = request.ConnectivityPlans,
+            SimCards = request.SimCards,
+            MessagingEndpoints = request.MessagingEndpoints,
+            AccessPolicies = request.AccessPolicies,
+            DeviceGroups = request.DeviceGroups,
+            AlertRules = request.AlertRules,
+            MaintenanceTickets = request.MaintenanceTickets,
+            UsageRecords = request.UsageRecords,
+            TenantType = request.TenantType,
         }
         return model;
     }
@@ -289,20 +289,20 @@ public static class TenantEndpoints
         var model = new Tenant
         {
             Id = request.id,
-            Name = request.Name;
-            Sites = request.Sites;
-            Users = request.Users;
-            Devices = request.Devices;
-            DataRetentionPolicies = request.DataRetentionPolicies;
-            ConnectivityPlans = request.ConnectivityPlans;
-            SimCards = request.SimCards;
-            MessagingEndpoints = request.MessagingEndpoints;
-            AccessPolicies = request.AccessPolicies;
-            DeviceGroups = request.DeviceGroups;
-            AlertRules = request.AlertRules;
-            MaintenanceTickets = request.MaintenanceTickets;
-            UsageRecords = request.UsageRecords;
-            TenantType = request.TenantType;
+            Name = request.Name,
+            Sites = request.Sites,
+            Users = request.Users,
+            Devices = request.Devices,
+            DataRetentionPolicies = request.DataRetentionPolicies,
+            ConnectivityPlans = request.ConnectivityPlans,
+            SimCards = request.SimCards,
+            MessagingEndpoints = request.MessagingEndpoints,
+            AccessPolicies = request.AccessPolicies,
+            DeviceGroups = request.DeviceGroups,
+            AlertRules = request.AlertRules,
+            MaintenanceTickets = request.MaintenanceTickets,
+            UsageRecords = request.UsageRecords,
+            TenantType = request.TenantType,
         }
         return model;
     }
@@ -326,20 +326,20 @@ public static class TenantEndpoints
         var model = new Tenant
         {
             Id = request.id,
-            Name = request.Name;
-            Sites = request.Sites;
-            Users = request.Users;
-            Devices = request.Devices;
-            DataRetentionPolicies = request.DataRetentionPolicies;
-            ConnectivityPlans = request.ConnectivityPlans;
-            SimCards = request.SimCards;
-            MessagingEndpoints = request.MessagingEndpoints;
-            AccessPolicies = request.AccessPolicies;
-            DeviceGroups = request.DeviceGroups;
-            AlertRules = request.AlertRules;
-            MaintenanceTickets = request.MaintenanceTickets;
-            UsageRecords = request.UsageRecords;
-            TenantType = request.TenantType;
+            Name = request.Name,
+            Sites = request.Sites,
+            Users = request.Users,
+            Devices = request.Devices,
+            DataRetentionPolicies = request.DataRetentionPolicies,
+            ConnectivityPlans = request.ConnectivityPlans,
+            SimCards = request.SimCards,
+            MessagingEndpoints = request.MessagingEndpoints,
+            AccessPolicies = request.AccessPolicies,
+            DeviceGroups = request.DeviceGroups,
+            AlertRules = request.AlertRules,
+            MaintenanceTickets = request.MaintenanceTickets,
+            UsageRecords = request.UsageRecords,
+            TenantType = request.TenantType,
         }
         return model;
     }
@@ -363,20 +363,20 @@ public static class TenantEndpoints
         var model = new Tenant
         {
             Id = request.id,
-            Name = request.Name;
-            Sites = request.Sites;
-            Users = request.Users;
-            Devices = request.Devices;
-            DataRetentionPolicies = request.DataRetentionPolicies;
-            ConnectivityPlans = request.ConnectivityPlans;
-            SimCards = request.SimCards;
-            MessagingEndpoints = request.MessagingEndpoints;
-            AccessPolicies = request.AccessPolicies;
-            DeviceGroups = request.DeviceGroups;
-            AlertRules = request.AlertRules;
-            MaintenanceTickets = request.MaintenanceTickets;
-            UsageRecords = request.UsageRecords;
-            TenantType = request.TenantType;
+            Name = request.Name,
+            Sites = request.Sites,
+            Users = request.Users,
+            Devices = request.Devices,
+            DataRetentionPolicies = request.DataRetentionPolicies,
+            ConnectivityPlans = request.ConnectivityPlans,
+            SimCards = request.SimCards,
+            MessagingEndpoints = request.MessagingEndpoints,
+            AccessPolicies = request.AccessPolicies,
+            DeviceGroups = request.DeviceGroups,
+            AlertRules = request.AlertRules,
+            MaintenanceTickets = request.MaintenanceTickets,
+            UsageRecords = request.UsageRecords,
+            TenantType = request.TenantType,
         }
         return model;
     }
@@ -400,20 +400,20 @@ public static class TenantEndpoints
         var model = new Tenant
         {
             Id = request.id,
-            Name = request.Name;
-            Sites = request.Sites;
-            Users = request.Users;
-            Devices = request.Devices;
-            DataRetentionPolicies = request.DataRetentionPolicies;
-            ConnectivityPlans = request.ConnectivityPlans;
-            SimCards = request.SimCards;
-            MessagingEndpoints = request.MessagingEndpoints;
-            AccessPolicies = request.AccessPolicies;
-            DeviceGroups = request.DeviceGroups;
-            AlertRules = request.AlertRules;
-            MaintenanceTickets = request.MaintenanceTickets;
-            UsageRecords = request.UsageRecords;
-            TenantType = request.TenantType;
+            Name = request.Name,
+            Sites = request.Sites,
+            Users = request.Users,
+            Devices = request.Devices,
+            DataRetentionPolicies = request.DataRetentionPolicies,
+            ConnectivityPlans = request.ConnectivityPlans,
+            SimCards = request.SimCards,
+            MessagingEndpoints = request.MessagingEndpoints,
+            AccessPolicies = request.AccessPolicies,
+            DeviceGroups = request.DeviceGroups,
+            AlertRules = request.AlertRules,
+            MaintenanceTickets = request.MaintenanceTickets,
+            UsageRecords = request.UsageRecords,
+            TenantType = request.TenantType,
         }
         return model;
     }
@@ -437,20 +437,20 @@ public static class TenantEndpoints
         var model = new Tenant
         {
             Id = request.id,
-            Name = request.Name;
-            Sites = request.Sites;
-            Users = request.Users;
-            Devices = request.Devices;
-            DataRetentionPolicies = request.DataRetentionPolicies;
-            ConnectivityPlans = request.ConnectivityPlans;
-            SimCards = request.SimCards;
-            MessagingEndpoints = request.MessagingEndpoints;
-            AccessPolicies = request.AccessPolicies;
-            DeviceGroups = request.DeviceGroups;
-            AlertRules = request.AlertRules;
-            MaintenanceTickets = request.MaintenanceTickets;
-            UsageRecords = request.UsageRecords;
-            TenantType = request.TenantType;
+            Name = request.Name,
+            Sites = request.Sites,
+            Users = request.Users,
+            Devices = request.Devices,
+            DataRetentionPolicies = request.DataRetentionPolicies,
+            ConnectivityPlans = request.ConnectivityPlans,
+            SimCards = request.SimCards,
+            MessagingEndpoints = request.MessagingEndpoints,
+            AccessPolicies = request.AccessPolicies,
+            DeviceGroups = request.DeviceGroups,
+            AlertRules = request.AlertRules,
+            MaintenanceTickets = request.MaintenanceTickets,
+            UsageRecords = request.UsageRecords,
+            TenantType = request.TenantType,
         }
         return model;
     }
@@ -474,20 +474,20 @@ public static class TenantEndpoints
         var model = new Tenant
         {
             Id = request.id,
-            Name = request.Name;
-            Sites = request.Sites;
-            Users = request.Users;
-            Devices = request.Devices;
-            DataRetentionPolicies = request.DataRetentionPolicies;
-            ConnectivityPlans = request.ConnectivityPlans;
-            SimCards = request.SimCards;
-            MessagingEndpoints = request.MessagingEndpoints;
-            AccessPolicies = request.AccessPolicies;
-            DeviceGroups = request.DeviceGroups;
-            AlertRules = request.AlertRules;
-            MaintenanceTickets = request.MaintenanceTickets;
-            UsageRecords = request.UsageRecords;
-            TenantType = request.TenantType;
+            Name = request.Name,
+            Sites = request.Sites,
+            Users = request.Users,
+            Devices = request.Devices,
+            DataRetentionPolicies = request.DataRetentionPolicies,
+            ConnectivityPlans = request.ConnectivityPlans,
+            SimCards = request.SimCards,
+            MessagingEndpoints = request.MessagingEndpoints,
+            AccessPolicies = request.AccessPolicies,
+            DeviceGroups = request.DeviceGroups,
+            AlertRules = request.AlertRules,
+            MaintenanceTickets = request.MaintenanceTickets,
+            UsageRecords = request.UsageRecords,
+            TenantType = request.TenantType,
         }
         return model;
     }
@@ -511,20 +511,20 @@ public static class TenantEndpoints
         var model = new Tenant
         {
             Id = request.id,
-            Name = request.Name;
-            Sites = request.Sites;
-            Users = request.Users;
-            Devices = request.Devices;
-            DataRetentionPolicies = request.DataRetentionPolicies;
-            ConnectivityPlans = request.ConnectivityPlans;
-            SimCards = request.SimCards;
-            MessagingEndpoints = request.MessagingEndpoints;
-            AccessPolicies = request.AccessPolicies;
-            DeviceGroups = request.DeviceGroups;
-            AlertRules = request.AlertRules;
-            MaintenanceTickets = request.MaintenanceTickets;
-            UsageRecords = request.UsageRecords;
-            TenantType = request.TenantType;
+            Name = request.Name,
+            Sites = request.Sites,
+            Users = request.Users,
+            Devices = request.Devices,
+            DataRetentionPolicies = request.DataRetentionPolicies,
+            ConnectivityPlans = request.ConnectivityPlans,
+            SimCards = request.SimCards,
+            MessagingEndpoints = request.MessagingEndpoints,
+            AccessPolicies = request.AccessPolicies,
+            DeviceGroups = request.DeviceGroups,
+            AlertRules = request.AlertRules,
+            MaintenanceTickets = request.MaintenanceTickets,
+            UsageRecords = request.UsageRecords,
+            TenantType = request.TenantType,
         }
         return model;
     }
@@ -548,20 +548,20 @@ public static class TenantEndpoints
         var model = new Tenant
         {
             Id = request.id,
-            Name = request.Name;
-            Sites = request.Sites;
-            Users = request.Users;
-            Devices = request.Devices;
-            DataRetentionPolicies = request.DataRetentionPolicies;
-            ConnectivityPlans = request.ConnectivityPlans;
-            SimCards = request.SimCards;
-            MessagingEndpoints = request.MessagingEndpoints;
-            AccessPolicies = request.AccessPolicies;
-            DeviceGroups = request.DeviceGroups;
-            AlertRules = request.AlertRules;
-            MaintenanceTickets = request.MaintenanceTickets;
-            UsageRecords = request.UsageRecords;
-            TenantType = request.TenantType;
+            Name = request.Name,
+            Sites = request.Sites,
+            Users = request.Users,
+            Devices = request.Devices,
+            DataRetentionPolicies = request.DataRetentionPolicies,
+            ConnectivityPlans = request.ConnectivityPlans,
+            SimCards = request.SimCards,
+            MessagingEndpoints = request.MessagingEndpoints,
+            AccessPolicies = request.AccessPolicies,
+            DeviceGroups = request.DeviceGroups,
+            AlertRules = request.AlertRules,
+            MaintenanceTickets = request.MaintenanceTickets,
+            UsageRecords = request.UsageRecords,
+            TenantType = request.TenantType,
         }
         return model;
     }

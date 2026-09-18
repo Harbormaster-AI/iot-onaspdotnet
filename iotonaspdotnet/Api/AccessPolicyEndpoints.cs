@@ -129,12 +129,12 @@ public static class AccessPolicyEndpoints
         var model = new AccessPolicy
         {
             Id = request.id,
-            Name = request.Name;
-            Scope = request.Scope;
-            ExpiresAt = request.ExpiresAt;
-            Tenant = request.Tenant;
-            ApiKeys = request.ApiKeys;
-            Users = request.Users;
+            Name = request.Name,
+            Scope = request.Scope,
+            ExpiresAt = request.ExpiresAt,
+            Tenant = request.Tenant,
+            ApiKeys = request.ApiKeys,
+            Users = request.Users,
         }
         return model;
     }
@@ -158,12 +158,12 @@ public static class AccessPolicyEndpoints
         var model = new AccessPolicy
         {
             Id = request.id,
-            Name = request.Name;
-            Scope = request.Scope;
-            ExpiresAt = request.ExpiresAt;
-            Tenant = request.Tenant;
-            ApiKeys = request.ApiKeys;
-            Users = request.Users;
+            Name = request.Name,
+            Scope = request.Scope,
+            ExpiresAt = request.ExpiresAt,
+            Tenant = request.Tenant,
+            ApiKeys = request.ApiKeys,
+            Users = request.Users,
         }
         return model;
     }

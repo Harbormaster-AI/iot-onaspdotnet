@@ -126,10 +126,10 @@ public static class DeviceGroupEndpoints
         var model = new DeviceGroup
         {
             Id = request.id,
-            Name = request.Name;
-            Criteria = request.Criteria;
-            Tenant = request.Tenant;
-            Devices = request.Devices;
+            Name = request.Name,
+            Criteria = request.Criteria,
+            Tenant = request.Tenant,
+            Devices = request.Devices,
         }
         return model;
     }

@@ -126,11 +126,11 @@ public static class ConnectivityPlanEndpoints
         var model = new ConnectivityPlan
         {
             Id = request.id,
-            Name = request.Name;
-            DataCapMB = request.DataCapMB;
-            BillingCycleDays = request.BillingCycleDays;
-            SimCards = request.SimCards;
-            Tenant = request.Tenant;
+            Name = request.Name,
+            DataCapMB = request.DataCapMB,
+            BillingCycleDays = request.BillingCycleDays,
+            SimCards = request.SimCards,
+            Tenant = request.Tenant,
         }
         return model;
     }

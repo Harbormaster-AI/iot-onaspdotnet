@@ -129,13 +129,13 @@ public static class CommandDefinitionEndpoints
         var model = new CommandDefinition
         {
             Id = request.id,
-            Name = request.Name;
-            RequestSchemaUri = request.RequestSchemaUri;
-            ResponseSchemaUri = request.ResponseSchemaUri;
-            TimeoutSeconds = request.TimeoutSeconds;
-            DeviceModel = request.DeviceModel;
-            Actuators = request.Actuators;
-            CommandInvocations = request.CommandInvocations;
+            Name = request.Name,
+            RequestSchemaUri = request.RequestSchemaUri,
+            ResponseSchemaUri = request.ResponseSchemaUri,
+            TimeoutSeconds = request.TimeoutSeconds,
+            DeviceModel = request.DeviceModel,
+            Actuators = request.Actuators,
+            CommandInvocations = request.CommandInvocations,
         }
         return model;
     }
@@ -159,13 +159,13 @@ public static class CommandDefinitionEndpoints
         var model = new CommandDefinition
         {
             Id = request.id,
-            Name = request.Name;
-            RequestSchemaUri = request.RequestSchemaUri;
-            ResponseSchemaUri = request.ResponseSchemaUri;
-            TimeoutSeconds = request.TimeoutSeconds;
-            DeviceModel = request.DeviceModel;
-            Actuators = request.Actuators;
-            CommandInvocations = request.CommandInvocations;
+            Name = request.Name,
+            RequestSchemaUri = request.RequestSchemaUri,
+            ResponseSchemaUri = request.ResponseSchemaUri,
+            TimeoutSeconds = request.TimeoutSeconds,
+            DeviceModel = request.DeviceModel,
+            Actuators = request.Actuators,
+            CommandInvocations = request.CommandInvocations,
         }
         return model;
     }

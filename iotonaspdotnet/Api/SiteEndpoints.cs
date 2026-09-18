@@ -132,15 +132,15 @@ public static class SiteEndpoints
         var model = new Site
         {
             Id = request.id,
-            Name = request.Name;
-            Address = request.Address;
-            Timezone = request.Timezone;
-            Latitude = request.Latitude;
-            Longitude = request.Longitude;
-            Tenant = request.Tenant;
-            Buildings = request.Buildings;
-            Devices = request.Devices;
-            Gateways = request.Gateways;
+            Name = request.Name,
+            Address = request.Address,
+            Timezone = request.Timezone,
+            Latitude = request.Latitude,
+            Longitude = request.Longitude,
+            Tenant = request.Tenant,
+            Buildings = request.Buildings,
+            Devices = request.Devices,
+            Gateways = request.Gateways,
         }
         return model;
     }
@@ -164,15 +164,15 @@ public static class SiteEndpoints
         var model = new Site
         {
             Id = request.id,
-            Name = request.Name;
-            Address = request.Address;
-            Timezone = request.Timezone;
-            Latitude = request.Latitude;
-            Longitude = request.Longitude;
-            Tenant = request.Tenant;
-            Buildings = request.Buildings;
-            Devices = request.Devices;
-            Gateways = request.Gateways;
+            Name = request.Name,
+            Address = request.Address,
+            Timezone = request.Timezone,
+            Latitude = request.Latitude,
+            Longitude = request.Longitude,
+            Tenant = request.Tenant,
+            Buildings = request.Buildings,
+            Devices = request.Devices,
+            Gateways = request.Gateways,
         }
         return model;
     }
@@ -196,15 +196,15 @@ public static class SiteEndpoints
         var model = new Site
         {
             Id = request.id,
-            Name = request.Name;
-            Address = request.Address;
-            Timezone = request.Timezone;
-            Latitude = request.Latitude;
-            Longitude = request.Longitude;
-            Tenant = request.Tenant;
-            Buildings = request.Buildings;
-            Devices = request.Devices;
-            Gateways = request.Gateways;
+            Name = request.Name,
+            Address = request.Address,
+            Timezone = request.Timezone,
+            Latitude = request.Latitude,
+            Longitude = request.Longitude,
+            Tenant = request.Tenant,
+            Buildings = request.Buildings,
+            Devices = request.Devices,
+            Gateways = request.Gateways,
         }
         return model;
     }

@@ -144,13 +144,13 @@ public static class SoftwareUpdateCampaignEndpoints
         var model = new SoftwareUpdateCampaign
         {
             Id = request.id,
-            CampaignCode = request.CampaignCode;
-            ScheduledStart = request.ScheduledStart;
-            ScheduledEnd = request.ScheduledEnd;
-            FirmwareRelease = request.FirmwareRelease;
-            DeviceGroup = request.DeviceGroup;
-            Executions = request.Executions;
-            Status = request.Status;
+            CampaignCode = request.CampaignCode,
+            ScheduledStart = request.ScheduledStart,
+            ScheduledEnd = request.ScheduledEnd,
+            FirmwareRelease = request.FirmwareRelease,
+            DeviceGroup = request.DeviceGroup,
+            Executions = request.Executions,
+            Status = request.Status,
         }
         return model;
     }

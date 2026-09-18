@@ -34,16 +34,16 @@ public virtual HardwareModule HardwareModules { get; set; }
 
 public class DeviceVendorResponse : DeviceVendorRequest {
     public static DeviceVendorResponse FromModel(DeviceVendor model) {
-        return new CustomerResponse {
+        return new DeviceVendorResponse {
             Id = model.Id,
-            DevicevendorId = model.DevicevendorId;
-            Name = model.Name;
-            LegalName = model.LegalName;
-            HeadquartersCountry = model.HeadquartersCountry;
-            Website = model.Website;
-            DeviceModels = model.DeviceModels;
-            FirmwareReleases = model.FirmwareReleases;
-            HardwareModules = model.HardwareModules;
+            DevicevendorId = model.DevicevendorId,
+            Name = model.Name,
+            LegalName = model.LegalName,
+            HeadquartersCountry = model.HeadquartersCountry,
+            Website = model.Website,
+            DeviceModels = model.DeviceModels,
+            FirmwareReleases = model.FirmwareReleases,
+            HardwareModules = model.HardwareModules,
         };
     }
 }
@@ -60,13 +60,13 @@ public virtual DeviceVendor Vendor { get; set; }
 
 public class HardwareModuleResponse : HardwareModuleRequest {
     public static HardwareModuleResponse FromModel(HardwareModule model) {
-        return new CustomerResponse {
+        return new HardwareModuleResponse {
             Id = model.Id,
-            HardwaremoduleId = model.HardwaremoduleId;
-            ModuleCode = model.ModuleCode;
-            DatasheetUri = model.DatasheetUri;
-            Vendor = model.Vendor;
-            ModuleType = model.ModuleType;
+            HardwaremoduleId = model.HardwaremoduleId,
+            ModuleCode = model.ModuleCode,
+            DatasheetUri = model.DatasheetUri,
+            Vendor = model.Vendor,
+            ModuleType = model.ModuleType,
         };
     }
 }
@@ -89,19 +89,19 @@ public virtual CommandDefinition CommandDefinitions { get; set; }
 
 public class DeviceModelResponse : DeviceModelRequest {
     public static DeviceModelResponse FromModel(DeviceModel model) {
-        return new CustomerResponse {
+        return new DeviceModelResponse {
             Id = model.Id,
-            DevicemodelId = model.DevicemodelId;
-            Name = model.Name;
-            ModelNumber = model.ModelNumber;
-            HardwareRevision = model.HardwareRevision;
-            Vendor = model.Vendor;
-            HardwareModules = model.HardwareModules;
-            TwinTemplate = model.TwinTemplate;
-            FirmwareReleases = model.FirmwareReleases;
-            CommandDefinitions = model.CommandDefinitions;
-            SupportedConnectivity = model.SupportedConnectivity;
-            DefaultTelemetryEncoding = model.DefaultTelemetryEncoding;
+            DevicemodelId = model.DevicemodelId,
+            Name = model.Name,
+            ModelNumber = model.ModelNumber,
+            HardwareRevision = model.HardwareRevision,
+            Vendor = model.Vendor,
+            HardwareModules = model.HardwareModules,
+            TwinTemplate = model.TwinTemplate,
+            FirmwareReleases = model.FirmwareReleases,
+            CommandDefinitions = model.CommandDefinitions,
+            SupportedConnectivity = model.SupportedConnectivity,
+            DefaultTelemetryEncoding = model.DefaultTelemetryEncoding,
         };
     }
 }
@@ -119,14 +119,14 @@ public virtual DeviceModel DeviceModel { get; set; }
 
 public class FirmwareReleaseResponse : FirmwareReleaseRequest {
     public static FirmwareReleaseResponse FromModel(FirmwareRelease model) {
-        return new CustomerResponse {
+        return new FirmwareReleaseResponse {
             Id = model.Id,
-            FirmwarereleaseId = model.FirmwarereleaseId;
-            Version = model.Version;
-            ReleaseDate = model.ReleaseDate;
-            ReleaseNotes = model.ReleaseNotes;
-            Checksum = model.Checksum;
-            DeviceModel = model.DeviceModel;
+            FirmwarereleaseId = model.FirmwarereleaseId,
+            Version = model.Version,
+            ReleaseDate = model.ReleaseDate,
+            ReleaseNotes = model.ReleaseNotes,
+            Checksum = model.Checksum,
+            DeviceModel = model.DeviceModel,
         };
     }
 }
@@ -160,30 +160,30 @@ public virtual NetworkProfile NetworkProfiles { get; set; }
 
 public class IoTDeviceResponse : IoTDeviceRequest {
     public static IoTDeviceResponse FromModel(IoTDevice model) {
-        return new CustomerResponse {
+        return new IoTDeviceResponse {
             Id = model.Id,
-            IotdeviceId = model.IotdeviceId;
-            DeviceId = model.DeviceId;
-            SerialNumber = model.SerialNumber;
-            LastSeen = model.LastSeen;
-            FirmwareVersion = model.FirmwareVersion;
-            DeviceModel = model.DeviceModel;
-            Tenant = model.Tenant;
-            Site = model.Site;
-            Room = model.Room;
-            Gateway = model.Gateway;
-            Sensors = model.Sensors;
-            Actuators = model.Actuators;
-            Certificates = model.Certificates;
-            DigitalTwin = model.DigitalTwin;
-            TelemetryStreams = model.TelemetryStreams;
-            CommandInvocations = model.CommandInvocations;
-            Alerts = model.Alerts;
-            ProvisioningRecord = model.ProvisioningRecord;
-            DeviceGroups = model.DeviceGroups;
-            NetworkProfiles = model.NetworkProfiles;
-            Status = model.Status;
-            PowerSource = model.PowerSource;
+            IotdeviceId = model.IotdeviceId,
+            DeviceId = model.DeviceId,
+            SerialNumber = model.SerialNumber,
+            LastSeen = model.LastSeen,
+            FirmwareVersion = model.FirmwareVersion,
+            DeviceModel = model.DeviceModel,
+            Tenant = model.Tenant,
+            Site = model.Site,
+            Room = model.Room,
+            Gateway = model.Gateway,
+            Sensors = model.Sensors,
+            Actuators = model.Actuators,
+            Certificates = model.Certificates,
+            DigitalTwin = model.DigitalTwin,
+            TelemetryStreams = model.TelemetryStreams,
+            CommandInvocations = model.CommandInvocations,
+            Alerts = model.Alerts,
+            ProvisioningRecord = model.ProvisioningRecord,
+            DeviceGroups = model.DeviceGroups,
+            NetworkProfiles = model.NetworkProfiles,
+            Status = model.Status,
+            PowerSource = model.PowerSource,
         };
     }
 }
@@ -202,15 +202,15 @@ public virtual TelemetryStream TelemetryStreams { get; set; }
 
 public class SensorInstanceResponse : SensorInstanceRequest {
     public static SensorInstanceResponse FromModel(SensorInstance model) {
-        return new CustomerResponse {
+        return new SensorInstanceResponse {
             Id = model.Id,
-            SensorinstanceId = model.SensorinstanceId;
-            Name = model.Name;
-            Unit = model.Unit;
-            SamplingIntervalMs = model.SamplingIntervalMs;
-            Device = model.Device;
-            TelemetryStreams = model.TelemetryStreams;
-            SensorType = model.SensorType;
+            SensorinstanceId = model.SensorinstanceId,
+            Name = model.Name,
+            Unit = model.Unit,
+            SamplingIntervalMs = model.SamplingIntervalMs,
+            Device = model.Device,
+            TelemetryStreams = model.TelemetryStreams,
+            SensorType = model.SensorType,
         };
     }
 }
@@ -228,14 +228,14 @@ public virtual CommandDefinition SupportedCommands { get; set; }
 
 public class ActuatorInstanceResponse : ActuatorInstanceRequest {
     public static ActuatorInstanceResponse FromModel(ActuatorInstance model) {
-        return new CustomerResponse {
+        return new ActuatorInstanceResponse {
             Id = model.Id,
-            ActuatorinstanceId = model.ActuatorinstanceId;
-            Name = model.Name;
-            CommandTopic = model.CommandTopic;
-            Device = model.Device;
-            SupportedCommands = model.SupportedCommands;
-            ActuatorType = model.ActuatorType;
+            ActuatorinstanceId = model.ActuatorinstanceId,
+            Name = model.Name,
+            CommandTopic = model.CommandTopic,
+            Device = model.Device,
+            SupportedCommands = model.SupportedCommands,
+            ActuatorType = model.ActuatorType,
         };
     }
 }
@@ -252,13 +252,13 @@ public virtual TelemetryStream Streams { get; set; }
 
 public class TelemetrySchemaResponse : TelemetrySchemaRequest {
     public static TelemetrySchemaResponse FromModel(TelemetrySchema model) {
-        return new CustomerResponse {
+        return new TelemetrySchemaResponse {
             Id = model.Id,
-            TelemetryschemaId = model.TelemetryschemaId;
-            SchemaId = model.SchemaId;
-            SchemaUri = model.SchemaUri;
-            Streams = model.Streams;
-            Encoding = model.Encoding;
+            TelemetryschemaId = model.TelemetryschemaId,
+            SchemaId = model.SchemaId,
+            SchemaUri = model.SchemaUri,
+            Streams = model.Streams,
+            Encoding = model.Encoding,
         };
     }
 }
@@ -279,17 +279,17 @@ public virtual DataRetentionPolicy RetentionPolicy { get; set; }
 
 public class TelemetryStreamResponse : TelemetryStreamRequest {
     public static TelemetryStreamResponse FromModel(TelemetryStream model) {
-        return new CustomerResponse {
+        return new TelemetryStreamResponse {
             Id = model.Id,
-            TelemetrystreamId = model.TelemetrystreamId;
-            StreamName = model.StreamName;
-            RetentionDays = model.RetentionDays;
-            Device = model.Device;
-            Sensor = model.Sensor;
-            Schema = model.Schema;
-            MessagingEndpoint = model.MessagingEndpoint;
-            RetentionPolicy = model.RetentionPolicy;
-            Qos = model.Qos;
+            TelemetrystreamId = model.TelemetrystreamId,
+            StreamName = model.StreamName,
+            RetentionDays = model.RetentionDays,
+            Device = model.Device,
+            Sensor = model.Sensor,
+            Schema = model.Schema,
+            MessagingEndpoint = model.MessagingEndpoint,
+            RetentionPolicy = model.RetentionPolicy,
+            Qos = model.Qos,
         };
     }
 }
@@ -309,16 +309,16 @@ public virtual CommandInvocation CommandInvocations { get; set; }
 
 public class CommandDefinitionResponse : CommandDefinitionRequest {
     public static CommandDefinitionResponse FromModel(CommandDefinition model) {
-        return new CustomerResponse {
+        return new CommandDefinitionResponse {
             Id = model.Id,
-            CommanddefinitionId = model.CommanddefinitionId;
-            Name = model.Name;
-            RequestSchemaUri = model.RequestSchemaUri;
-            ResponseSchemaUri = model.ResponseSchemaUri;
-            TimeoutSeconds = model.TimeoutSeconds;
-            DeviceModel = model.DeviceModel;
-            Actuators = model.Actuators;
-            CommandInvocations = model.CommandInvocations;
+            CommanddefinitionId = model.CommanddefinitionId,
+            Name = model.Name,
+            RequestSchemaUri = model.RequestSchemaUri,
+            ResponseSchemaUri = model.ResponseSchemaUri,
+            TimeoutSeconds = model.TimeoutSeconds,
+            DeviceModel = model.DeviceModel,
+            Actuators = model.Actuators,
+            CommandInvocations = model.CommandInvocations,
         };
     }
 }
@@ -339,17 +339,17 @@ public virtual TenantUser User { get; set; }
 
 public class CommandInvocationResponse : CommandInvocationRequest {
     public static CommandInvocationResponse FromModel(CommandInvocation model) {
-        return new CustomerResponse {
+        return new CommandInvocationResponse {
             Id = model.Id,
-            CommandinvocationId = model.CommandinvocationId;
-            InvocationId = model.InvocationId;
-            RequestedAt = model.RequestedAt;
-            CompletedAt = model.CompletedAt;
-            Device = model.Device;
-            CommandDefinition = model.CommandDefinition;
-            Actuator = model.Actuator;
-            User = model.User;
-            Status = model.Status;
+            CommandinvocationId = model.CommandinvocationId,
+            InvocationId = model.InvocationId,
+            RequestedAt = model.RequestedAt,
+            CompletedAt = model.CompletedAt,
+            Device = model.Device,
+            CommandDefinition = model.CommandDefinition,
+            Actuator = model.Actuator,
+            User = model.User,
+            Status = model.Status,
         };
     }
 }
@@ -368,15 +368,15 @@ public virtual Alert Alerts { get; set; }
 
 public class AlertRuleResponse : AlertRuleRequest {
     public static AlertRuleResponse FromModel(AlertRule model) {
-        return new CustomerResponse {
+        return new AlertRuleResponse {
             Id = model.Id,
-            AlertruleId = model.AlertruleId;
-            Name = model.Name;
-            Expression = model.Expression;
-            Tenant = model.Tenant;
-            Streams = model.Streams;
-            Alerts = model.Alerts;
-            Severity = model.Severity;
+            AlertruleId = model.AlertruleId,
+            Name = model.Name,
+            Expression = model.Expression,
+            Tenant = model.Tenant,
+            Streams = model.Streams,
+            Alerts = model.Alerts,
+            Severity = model.Severity,
         };
     }
 }
@@ -395,15 +395,15 @@ public virtual AlertRule AlertRule { get; set; }
 
 public class AlertResponse : AlertRequest {
     public static AlertResponse FromModel(Alert model) {
-        return new CustomerResponse {
+        return new AlertResponse {
             Id = model.Id,
-            AlertId = model.AlertId;
-            RaisedAt = model.RaisedAt;
-            ClearedAt = model.ClearedAt;
-            Message = model.Message;
-            Device = model.Device;
-            AlertRule = model.AlertRule;
-            Status = model.Status;
+            AlertId = model.AlertId,
+            RaisedAt = model.RaisedAt,
+            ClearedAt = model.ClearedAt,
+            Message = model.Message,
+            Device = model.Device,
+            AlertRule = model.AlertRule,
+            Status = model.Status,
         };
     }
 }
@@ -430,23 +430,23 @@ public virtual UsageRecord UsageRecords { get; set; }
 
 public class TenantResponse : TenantRequest {
     public static TenantResponse FromModel(Tenant model) {
-        return new CustomerResponse {
+        return new TenantResponse {
             Id = model.Id,
-            TenantId = model.TenantId;
-            Name = model.Name;
-            Sites = model.Sites;
-            Users = model.Users;
-            Devices = model.Devices;
-            DataRetentionPolicies = model.DataRetentionPolicies;
-            ConnectivityPlans = model.ConnectivityPlans;
-            SimCards = model.SimCards;
-            MessagingEndpoints = model.MessagingEndpoints;
-            AccessPolicies = model.AccessPolicies;
-            DeviceGroups = model.DeviceGroups;
-            AlertRules = model.AlertRules;
-            MaintenanceTickets = model.MaintenanceTickets;
-            UsageRecords = model.UsageRecords;
-            TenantType = model.TenantType;
+            TenantId = model.TenantId,
+            Name = model.Name,
+            Sites = model.Sites,
+            Users = model.Users,
+            Devices = model.Devices,
+            DataRetentionPolicies = model.DataRetentionPolicies,
+            ConnectivityPlans = model.ConnectivityPlans,
+            SimCards = model.SimCards,
+            MessagingEndpoints = model.MessagingEndpoints,
+            AccessPolicies = model.AccessPolicies,
+            DeviceGroups = model.DeviceGroups,
+            AlertRules = model.AlertRules,
+            MaintenanceTickets = model.MaintenanceTickets,
+            UsageRecords = model.UsageRecords,
+            TenantType = model.TenantType,
         };
     }
 }
@@ -465,15 +465,15 @@ public virtual CommandInvocation CommandInvocations { get; set; }
 
 public class TenantUserResponse : TenantUserRequest {
     public static TenantUserResponse FromModel(TenantUser model) {
-        return new CustomerResponse {
+        return new TenantUserResponse {
             Id = model.Id,
-            TenantuserId = model.TenantuserId;
-            FirstName = model.FirstName;
-            LastName = model.LastName;
-            Email = model.Email;
-            Tenant = model.Tenant;
-            CommandInvocations = model.CommandInvocations;
-            Role = model.Role;
+            TenantuserId = model.TenantuserId,
+            FirstName = model.FirstName,
+            LastName = model.LastName,
+            Email = model.Email,
+            Tenant = model.Tenant,
+            CommandInvocations = model.CommandInvocations,
+            Role = model.Role,
         };
     }
 }
@@ -495,18 +495,18 @@ public virtual Gateway Gateways { get; set; }
 
 public class SiteResponse : SiteRequest {
     public static SiteResponse FromModel(Site model) {
-        return new CustomerResponse {
+        return new SiteResponse {
             Id = model.Id,
-            SiteId = model.SiteId;
-            Name = model.Name;
-            Address = model.Address;
-            Timezone = model.Timezone;
-            Latitude = model.Latitude;
-            Longitude = model.Longitude;
-            Tenant = model.Tenant;
-            Buildings = model.Buildings;
-            Devices = model.Devices;
-            Gateways = model.Gateways;
+            SiteId = model.SiteId,
+            Name = model.Name,
+            Address = model.Address,
+            Timezone = model.Timezone,
+            Latitude = model.Latitude,
+            Longitude = model.Longitude,
+            Tenant = model.Tenant,
+            Buildings = model.Buildings,
+            Devices = model.Devices,
+            Gateways = model.Gateways,
         };
     }
 }
@@ -522,12 +522,12 @@ public virtual Floor Floors { get; set; }
 
 public class BuildingResponse : BuildingRequest {
     public static BuildingResponse FromModel(Building model) {
-        return new CustomerResponse {
+        return new BuildingResponse {
             Id = model.Id,
-            BuildingId = model.BuildingId;
-            Name = model.Name;
-            Site = model.Site;
-            Floors = model.Floors;
+            BuildingId = model.BuildingId,
+            Name = model.Name,
+            Site = model.Site,
+            Floors = model.Floors,
         };
     }
 }
@@ -544,13 +544,13 @@ public virtual Room Rooms { get; set; }
 
 public class FloorResponse : FloorRequest {
     public static FloorResponse FromModel(Floor model) {
-        return new CustomerResponse {
+        return new FloorResponse {
             Id = model.Id,
-            FloorId = model.FloorId;
-            Name = model.Name;
-            Level = model.Level;
-            Building = model.Building;
-            Rooms = model.Rooms;
+            FloorId = model.FloorId,
+            Name = model.Name,
+            Level = model.Level,
+            Building = model.Building,
+            Rooms = model.Rooms,
         };
     }
 }
@@ -567,13 +567,13 @@ public virtual Gateway Gateways { get; set; }
 
 public class RoomResponse : RoomRequest {
     public static RoomResponse FromModel(Room model) {
-        return new CustomerResponse {
+        return new RoomResponse {
             Id = model.Id,
-            RoomId = model.RoomId;
-            Name = model.Name;
-            Floor = model.Floor;
-            Devices = model.Devices;
-            Gateways = model.Gateways;
+            RoomId = model.RoomId,
+            Name = model.Name,
+            Floor = model.Floor,
+            Devices = model.Devices,
+            Gateways = model.Gateways,
         };
     }
 }
@@ -595,18 +595,18 @@ public virtual NetworkProfile NetworkProfiles { get; set; }
 
 public class GatewayResponse : GatewayRequest {
     public static GatewayResponse FromModel(Gateway model) {
-        return new CustomerResponse {
+        return new GatewayResponse {
             Id = model.Id,
-            GatewayId = model.GatewayId;
-            SoftwareVersion = model.SoftwareVersion;
-            Site = model.Site;
-            Room = model.Room;
-            Devices = model.Devices;
-            EdgeApplications = model.EdgeApplications;
-            Certificates = model.Certificates;
-            DigitalTwin = model.DigitalTwin;
-            NetworkProfiles = model.NetworkProfiles;
-            Status = model.Status;
+            GatewayId = model.GatewayId,
+            SoftwareVersion = model.SoftwareVersion,
+            Site = model.Site,
+            Room = model.Room,
+            Devices = model.Devices,
+            EdgeApplications = model.EdgeApplications,
+            Certificates = model.Certificates,
+            DigitalTwin = model.DigitalTwin,
+            NetworkProfiles = model.NetworkProfiles,
+            Status = model.Status,
         };
     }
 }
@@ -624,14 +624,14 @@ public virtual Gateway Gateway { get; set; }
 
 public class EdgeApplicationResponse : EdgeApplicationRequest {
     public static EdgeApplicationResponse FromModel(EdgeApplication model) {
-        return new CustomerResponse {
+        return new EdgeApplicationResponse {
             Id = model.Id,
-            EdgeapplicationId = model.EdgeapplicationId;
-            Name = model.Name;
-            Version = model.Version;
-            Image = model.Image;
-            Gateway = model.Gateway;
-            Status = model.Status;
+            EdgeapplicationId = model.EdgeapplicationId,
+            Name = model.Name,
+            Version = model.Version,
+            Image = model.Image,
+            Gateway = model.Gateway,
+            Status = model.Status,
         };
     }
 }
@@ -651,16 +651,16 @@ public virtual SimCard SimCard { get; set; }
 
 public class NetworkProfileResponse : NetworkProfileRequest {
     public static NetworkProfileResponse FromModel(NetworkProfile model) {
-        return new CustomerResponse {
+        return new NetworkProfileResponse {
             Id = model.Id,
-            NetworkprofileId = model.NetworkprofileId;
-            ProfileName = model.ProfileName;
-            Ssid = model.Ssid;
-            Apn = model.Apn;
-            Device = model.Device;
-            Gateway = model.Gateway;
-            SimCard = model.SimCard;
-            ConnectivityType = model.ConnectivityType;
+            NetworkprofileId = model.NetworkprofileId,
+            ProfileName = model.ProfileName,
+            Ssid = model.Ssid,
+            Apn = model.Apn,
+            Device = model.Device,
+            Gateway = model.Gateway,
+            SimCard = model.SimCard,
+            ConnectivityType = model.ConnectivityType,
         };
     }
 }
@@ -680,16 +680,16 @@ public virtual ConnectivityPlan ConnectivityPlan { get; set; }
 
 public class SimCardResponse : SimCardRequest {
     public static SimCardResponse FromModel(SimCard model) {
-        return new CustomerResponse {
+        return new SimCardResponse {
             Id = model.Id,
-            SimcardId = model.SimcardId;
-            Iccid = model.Iccid;
-            Imsi = model.Imsi;
-            Carrier = model.Carrier;
-            NetworkProfiles = model.NetworkProfiles;
-            Tenant = model.Tenant;
-            ConnectivityPlan = model.ConnectivityPlan;
-            Status = model.Status;
+            SimcardId = model.SimcardId,
+            Iccid = model.Iccid,
+            Imsi = model.Imsi,
+            Carrier = model.Carrier,
+            NetworkProfiles = model.NetworkProfiles,
+            Tenant = model.Tenant,
+            ConnectivityPlan = model.ConnectivityPlan,
+            Status = model.Status,
         };
     }
 }
@@ -707,14 +707,14 @@ public virtual Tenant Tenant { get; set; }
 
 public class ConnectivityPlanResponse : ConnectivityPlanRequest {
     public static ConnectivityPlanResponse FromModel(ConnectivityPlan model) {
-        return new CustomerResponse {
+        return new ConnectivityPlanResponse {
             Id = model.Id,
-            ConnectivityplanId = model.ConnectivityplanId;
-            Name = model.Name;
-            DataCapMB = model.DataCapMB;
-            BillingCycleDays = model.BillingCycleDays;
-            SimCards = model.SimCards;
-            Tenant = model.Tenant;
+            ConnectivityplanId = model.ConnectivityplanId,
+            Name = model.Name,
+            DataCapMB = model.DataCapMB,
+            BillingCycleDays = model.BillingCycleDays,
+            SimCards = model.SimCards,
+            Tenant = model.Tenant,
         };
     }
 }
@@ -733,15 +733,15 @@ public virtual TelemetryStream Streams { get; set; }
 
 public class MessagingEndpointResponse : MessagingEndpointRequest {
     public static MessagingEndpointResponse FromModel(MessagingEndpoint model) {
-        return new CustomerResponse {
+        return new MessagingEndpointResponse {
             Id = model.Id,
-            MessagingendpointId = model.MessagingendpointId;
-            Host = model.Host;
-            Port = model.Port;
-            Secure = model.Secure;
-            Tenant = model.Tenant;
-            Streams = model.Streams;
-            Protocol = model.Protocol;
+            MessagingendpointId = model.MessagingendpointId,
+            Host = model.Host,
+            Port = model.Port,
+            Secure = model.Secure,
+            Tenant = model.Tenant,
+            Streams = model.Streams,
+            Protocol = model.Protocol,
         };
     }
 }
@@ -760,15 +760,15 @@ public virtual TenantUser Users { get; set; }
 
 public class AccessPolicyResponse : AccessPolicyRequest {
     public static AccessPolicyResponse FromModel(AccessPolicy model) {
-        return new CustomerResponse {
+        return new AccessPolicyResponse {
             Id = model.Id,
-            AccesspolicyId = model.AccesspolicyId;
-            Name = model.Name;
-            Scope = model.Scope;
-            ExpiresAt = model.ExpiresAt;
-            Tenant = model.Tenant;
-            ApiKeys = model.ApiKeys;
-            Users = model.Users;
+            AccesspolicyId = model.AccesspolicyId,
+            Name = model.Name,
+            Scope = model.Scope,
+            ExpiresAt = model.ExpiresAt,
+            Tenant = model.Tenant,
+            ApiKeys = model.ApiKeys,
+            Users = model.Users,
         };
     }
 }
@@ -786,14 +786,14 @@ public virtual AccessPolicy AccessPolicy { get; set; }
 
 public class ApiKeyResponse : ApiKeyRequest {
     public static ApiKeyResponse FromModel(ApiKey model) {
-        return new CustomerResponse {
+        return new ApiKeyResponse {
             Id = model.Id,
-            ApikeyId = model.ApikeyId;
-            KeyId = model.KeyId;
-            HashedSecret = model.HashedSecret;
-            CreatedAt = model.CreatedAt;
-            LastUsedAt = model.LastUsedAt;
-            AccessPolicy = model.AccessPolicy;
+            ApikeyId = model.ApikeyId,
+            KeyId = model.KeyId,
+            HashedSecret = model.HashedSecret,
+            CreatedAt = model.CreatedAt,
+            LastUsedAt = model.LastUsedAt,
+            AccessPolicy = model.AccessPolicy,
         };
     }
 }
@@ -813,16 +813,16 @@ public virtual Gateway Gateway { get; set; }
 
 public class DeviceCertificateResponse : DeviceCertificateRequest {
     public static DeviceCertificateResponse FromModel(DeviceCertificate model) {
-        return new CustomerResponse {
+        return new DeviceCertificateResponse {
             Id = model.Id,
-            DevicecertificateId = model.DevicecertificateId;
-            SerialNumber = model.SerialNumber;
-            NotBefore = model.NotBefore;
-            NotAfter = model.NotAfter;
-            Fingerprint = model.Fingerprint;
-            Device = model.Device;
-            Gateway = model.Gateway;
-            CertificateType = model.CertificateType;
+            DevicecertificateId = model.DevicecertificateId,
+            SerialNumber = model.SerialNumber,
+            NotBefore = model.NotBefore,
+            NotAfter = model.NotAfter,
+            Fingerprint = model.Fingerprint,
+            Device = model.Device,
+            Gateway = model.Gateway,
+            CertificateType = model.CertificateType,
         };
     }
 }
@@ -842,16 +842,16 @@ public virtual Tenant Tenant { get; set; }
 
 public class ProvisioningRecordResponse : ProvisioningRecordRequest {
     public static ProvisioningRecordResponse FromModel(ProvisioningRecord model) {
-        return new CustomerResponse {
+        return new ProvisioningRecordResponse {
             Id = model.Id,
-            ProvisioningrecordId = model.ProvisioningrecordId;
-            EnrolledAt = model.EnrolledAt;
-            ProvisioningService = model.ProvisioningService;
-            Device = model.Device;
-            Certificate = model.Certificate;
-            Tenant = model.Tenant;
-            Method = model.Method;
-            Status = model.Status;
+            ProvisioningrecordId = model.ProvisioningrecordId,
+            EnrolledAt = model.EnrolledAt,
+            ProvisioningService = model.ProvisioningService,
+            Device = model.Device,
+            Certificate = model.Certificate,
+            Tenant = model.Tenant,
+            Method = model.Method,
+            Status = model.Status,
         };
     }
 }
@@ -872,17 +872,17 @@ public virtual TwinChangeEvent ChangeEvents { get; set; }
 
 public class DigitalTwinResponse : DigitalTwinRequest {
     public static DigitalTwinResponse FromModel(DigitalTwin model) {
-        return new CustomerResponse {
+        return new DigitalTwinResponse {
             Id = model.Id,
-            DigitaltwinId = model.DigitaltwinId;
-            TwinId = model.TwinId;
-            DesiredStateVersion = model.DesiredStateVersion;
-            ReportedStateVersion = model.ReportedStateVersion;
-            LastSyncAt = model.LastSyncAt;
-            Device = model.Device;
-            Gateway = model.Gateway;
-            Template = model.Template;
-            ChangeEvents = model.ChangeEvents;
+            DigitaltwinId = model.DigitaltwinId,
+            TwinId = model.TwinId,
+            DesiredStateVersion = model.DesiredStateVersion,
+            ReportedStateVersion = model.ReportedStateVersion,
+            LastSyncAt = model.LastSyncAt,
+            Device = model.Device,
+            Gateway = model.Gateway,
+            Template = model.Template,
+            ChangeEvents = model.ChangeEvents,
         };
     }
 }
@@ -899,13 +899,13 @@ public virtual DeviceModel DeviceModels { get; set; }
 
 public class TwinTemplateResponse : TwinTemplateRequest {
     public static TwinTemplateResponse FromModel(TwinTemplate model) {
-        return new CustomerResponse {
+        return new TwinTemplateResponse {
             Id = model.Id,
-            TwintemplateId = model.TwintemplateId;
-            Name = model.Name;
-            SchemaUri = model.SchemaUri;
-            Version = model.Version;
-            DeviceModels = model.DeviceModels;
+            TwintemplateId = model.TwintemplateId,
+            Name = model.Name,
+            SchemaUri = model.SchemaUri,
+            Version = model.Version,
+            DeviceModels = model.DeviceModels,
         };
     }
 }
@@ -922,13 +922,13 @@ public virtual DigitalTwin Twin { get; set; }
 
 public class TwinChangeEventResponse : TwinChangeEventRequest {
     public static TwinChangeEventResponse FromModel(TwinChangeEvent model) {
-        return new CustomerResponse {
+        return new TwinChangeEventResponse {
             Id = model.Id,
-            TwinchangeeventId = model.TwinchangeeventId;
-            EventId = model.EventId;
-            OccurredAt = model.OccurredAt;
-            Twin = model.Twin;
-            ChangeType = model.ChangeType;
+            TwinchangeeventId = model.TwinchangeeventId,
+            EventId = model.EventId,
+            OccurredAt = model.OccurredAt,
+            Twin = model.Twin,
+            ChangeType = model.ChangeType,
         };
     }
 }
@@ -948,16 +948,16 @@ public virtual Tenant Tenant { get; set; }
 
 public class MaintenanceTicketResponse : MaintenanceTicketRequest {
     public static MaintenanceTicketResponse FromModel(MaintenanceTicket model) {
-        return new CustomerResponse {
+        return new MaintenanceTicketResponse {
             Id = model.Id,
-            MaintenanceticketId = model.MaintenanceticketId;
-            TicketNumber = model.TicketNumber;
-            OpenedAt = model.OpenedAt;
-            ClosedAt = model.ClosedAt;
-            Device = model.Device;
-            Tenant = model.Tenant;
-            Priority = model.Priority;
-            Status = model.Status;
+            MaintenanceticketId = model.MaintenanceticketId,
+            TicketNumber = model.TicketNumber,
+            OpenedAt = model.OpenedAt,
+            ClosedAt = model.ClosedAt,
+            Device = model.Device,
+            Tenant = model.Tenant,
+            Priority = model.Priority,
+            Status = model.Status,
         };
     }
 }
@@ -974,13 +974,13 @@ public virtual TelemetryStream Streams { get; set; }
 
 public class DataRetentionPolicyResponse : DataRetentionPolicyRequest {
     public static DataRetentionPolicyResponse FromModel(DataRetentionPolicy model) {
-        return new CustomerResponse {
+        return new DataRetentionPolicyResponse {
             Id = model.Id,
-            DataretentionpolicyId = model.DataretentionpolicyId;
-            Name = model.Name;
-            RetentionDays = model.RetentionDays;
-            Tenant = model.Tenant;
-            Streams = model.Streams;
+            DataretentionpolicyId = model.DataretentionpolicyId,
+            Name = model.Name,
+            RetentionDays = model.RetentionDays,
+            Tenant = model.Tenant,
+            Streams = model.Streams,
         };
     }
 }
@@ -1000,16 +1000,16 @@ public virtual SoftwareUpdateExecution Executions { get; set; }
 
 public class SoftwareUpdateCampaignResponse : SoftwareUpdateCampaignRequest {
     public static SoftwareUpdateCampaignResponse FromModel(SoftwareUpdateCampaign model) {
-        return new CustomerResponse {
+        return new SoftwareUpdateCampaignResponse {
             Id = model.Id,
-            SoftwareupdatecampaignId = model.SoftwareupdatecampaignId;
-            CampaignCode = model.CampaignCode;
-            ScheduledStart = model.ScheduledStart;
-            ScheduledEnd = model.ScheduledEnd;
-            FirmwareRelease = model.FirmwareRelease;
-            DeviceGroup = model.DeviceGroup;
-            Executions = model.Executions;
-            Status = model.Status;
+            SoftwareupdatecampaignId = model.SoftwareupdatecampaignId,
+            CampaignCode = model.CampaignCode,
+            ScheduledStart = model.ScheduledStart,
+            ScheduledEnd = model.ScheduledEnd,
+            FirmwareRelease = model.FirmwareRelease,
+            DeviceGroup = model.DeviceGroup,
+            Executions = model.Executions,
+            Status = model.Status,
         };
     }
 }
@@ -1027,14 +1027,14 @@ public virtual IoTDevice Device { get; set; }
 
 public class SoftwareUpdateExecutionResponse : SoftwareUpdateExecutionRequest {
     public static SoftwareUpdateExecutionResponse FromModel(SoftwareUpdateExecution model) {
-        return new CustomerResponse {
+        return new SoftwareUpdateExecutionResponse {
             Id = model.Id,
-            SoftwareupdateexecutionId = model.SoftwareupdateexecutionId;
-            StartedAt = model.StartedAt;
-            CompletedAt = model.CompletedAt;
-            Campaign = model.Campaign;
-            Device = model.Device;
-            Status = model.Status;
+            SoftwareupdateexecutionId = model.SoftwareupdateexecutionId,
+            StartedAt = model.StartedAt,
+            CompletedAt = model.CompletedAt,
+            Campaign = model.Campaign,
+            Device = model.Device,
+            Status = model.Status,
         };
     }
 }
@@ -1051,13 +1051,13 @@ public virtual IoTDevice Devices { get; set; }
 
 public class DeviceGroupResponse : DeviceGroupRequest {
     public static DeviceGroupResponse FromModel(DeviceGroup model) {
-        return new CustomerResponse {
+        return new DeviceGroupResponse {
             Id = model.Id,
-            DevicegroupId = model.DevicegroupId;
-            Name = model.Name;
-            Criteria = model.Criteria;
-            Tenant = model.Tenant;
-            Devices = model.Devices;
+            DevicegroupId = model.DevicegroupId,
+            Name = model.Name,
+            Criteria = model.Criteria,
+            Tenant = model.Tenant,
+            Devices = model.Devices,
         };
     }
 }
@@ -1077,16 +1077,16 @@ public virtual ConnectivityPlan ConnectivityPlan { get; set; }
 
 public class UsageRecordResponse : UsageRecordRequest {
     public static UsageRecordResponse FromModel(UsageRecord model) {
-        return new CustomerResponse {
+        return new UsageRecordResponse {
             Id = model.Id,
-            UsagerecordId = model.UsagerecordId;
-            PeriodStart = model.PeriodStart;
-            PeriodEnd = model.PeriodEnd;
-            MessagesSent = model.MessagesSent;
-            DataVolumeMB = model.DataVolumeMB;
-            Tenant = model.Tenant;
-            Device = model.Device;
-            ConnectivityPlan = model.ConnectivityPlan;
+            UsagerecordId = model.UsagerecordId,
+            PeriodStart = model.PeriodStart,
+            PeriodEnd = model.PeriodEnd,
+            MessagesSent = model.MessagesSent,
+            DataVolumeMB = model.DataVolumeMB,
+            Tenant = model.Tenant,
+            Device = model.Device,
+            ConnectivityPlan = model.ConnectivityPlan,
         };
     }
 }

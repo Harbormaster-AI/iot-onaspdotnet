@@ -126,12 +126,12 @@ public static class SensorInstanceEndpoints
         var model = new SensorInstance
         {
             Id = request.id,
-            Name = request.Name;
-            Unit = request.Unit;
-            SamplingIntervalMs = request.SamplingIntervalMs;
-            Device = request.Device;
-            TelemetryStreams = request.TelemetryStreams;
-            SensorType = request.SensorType;
+            Name = request.Name,
+            Unit = request.Unit,
+            SamplingIntervalMs = request.SamplingIntervalMs,
+            Device = request.Device,
+            TelemetryStreams = request.TelemetryStreams,
+            SensorType = request.SensorType,
         }
         return model;
     }

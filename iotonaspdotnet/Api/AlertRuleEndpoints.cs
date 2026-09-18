@@ -129,12 +129,12 @@ public static class AlertRuleEndpoints
         var model = new AlertRule
         {
             Id = request.id,
-            Name = request.Name;
-            Expression = request.Expression;
-            Tenant = request.Tenant;
-            Streams = request.Streams;
-            Alerts = request.Alerts;
-            Severity = request.Severity;
+            Name = request.Name,
+            Expression = request.Expression,
+            Tenant = request.Tenant,
+            Streams = request.Streams,
+            Alerts = request.Alerts,
+            Severity = request.Severity,
         }
         return model;
     }
@@ -158,12 +158,12 @@ public static class AlertRuleEndpoints
         var model = new AlertRule
         {
             Id = request.id,
-            Name = request.Name;
-            Expression = request.Expression;
-            Tenant = request.Tenant;
-            Streams = request.Streams;
-            Alerts = request.Alerts;
-            Severity = request.Severity;
+            Name = request.Name,
+            Expression = request.Expression,
+            Tenant = request.Tenant,
+            Streams = request.Streams,
+            Alerts = request.Alerts,
+            Severity = request.Severity,
         }
         return model;
     }

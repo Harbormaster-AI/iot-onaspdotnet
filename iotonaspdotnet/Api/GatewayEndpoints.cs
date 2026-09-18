@@ -171,15 +171,15 @@ public static class GatewayEndpoints
         var model = new Gateway
         {
             Id = request.id,
-            SoftwareVersion = request.SoftwareVersion;
-            Site = request.Site;
-            Room = request.Room;
-            Devices = request.Devices;
-            EdgeApplications = request.EdgeApplications;
-            Certificates = request.Certificates;
-            DigitalTwin = request.DigitalTwin;
-            NetworkProfiles = request.NetworkProfiles;
-            Status = request.Status;
+            SoftwareVersion = request.SoftwareVersion,
+            Site = request.Site,
+            Room = request.Room,
+            Devices = request.Devices,
+            EdgeApplications = request.EdgeApplications,
+            Certificates = request.Certificates,
+            DigitalTwin = request.DigitalTwin,
+            NetworkProfiles = request.NetworkProfiles,
+            Status = request.Status,
         }
         return model;
     }
@@ -203,15 +203,15 @@ public static class GatewayEndpoints
         var model = new Gateway
         {
             Id = request.id,
-            SoftwareVersion = request.SoftwareVersion;
-            Site = request.Site;
-            Room = request.Room;
-            Devices = request.Devices;
-            EdgeApplications = request.EdgeApplications;
-            Certificates = request.Certificates;
-            DigitalTwin = request.DigitalTwin;
-            NetworkProfiles = request.NetworkProfiles;
-            Status = request.Status;
+            SoftwareVersion = request.SoftwareVersion,
+            Site = request.Site,
+            Room = request.Room,
+            Devices = request.Devices,
+            EdgeApplications = request.EdgeApplications,
+            Certificates = request.Certificates,
+            DigitalTwin = request.DigitalTwin,
+            NetworkProfiles = request.NetworkProfiles,
+            Status = request.Status,
         }
         return model;
     }
@@ -235,15 +235,15 @@ public static class GatewayEndpoints
         var model = new Gateway
         {
             Id = request.id,
-            SoftwareVersion = request.SoftwareVersion;
-            Site = request.Site;
-            Room = request.Room;
-            Devices = request.Devices;
-            EdgeApplications = request.EdgeApplications;
-            Certificates = request.Certificates;
-            DigitalTwin = request.DigitalTwin;
-            NetworkProfiles = request.NetworkProfiles;
-            Status = request.Status;
+            SoftwareVersion = request.SoftwareVersion,
+            Site = request.Site,
+            Room = request.Room,
+            Devices = request.Devices,
+            EdgeApplications = request.EdgeApplications,
+            Certificates = request.Certificates,
+            DigitalTwin = request.DigitalTwin,
+            NetworkProfiles = request.NetworkProfiles,
+            Status = request.Status,
         }
         return model;
     }
@@ -267,15 +267,15 @@ public static class GatewayEndpoints
         var model = new Gateway
         {
             Id = request.id,
-            SoftwareVersion = request.SoftwareVersion;
-            Site = request.Site;
-            Room = request.Room;
-            Devices = request.Devices;
-            EdgeApplications = request.EdgeApplications;
-            Certificates = request.Certificates;
-            DigitalTwin = request.DigitalTwin;
-            NetworkProfiles = request.NetworkProfiles;
-            Status = request.Status;
+            SoftwareVersion = request.SoftwareVersion,
+            Site = request.Site,
+            Room = request.Room,
+            Devices = request.Devices,
+            EdgeApplications = request.EdgeApplications,
+            Certificates = request.Certificates,
+            DigitalTwin = request.DigitalTwin,
+            NetworkProfiles = request.NetworkProfiles,
+            Status = request.Status,
         }
         return model;
     }

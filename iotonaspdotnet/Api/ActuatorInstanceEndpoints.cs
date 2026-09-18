@@ -126,11 +126,11 @@ public static class ActuatorInstanceEndpoints
         var model = new ActuatorInstance
         {
             Id = request.id,
-            Name = request.Name;
-            CommandTopic = request.CommandTopic;
-            Device = request.Device;
-            SupportedCommands = request.SupportedCommands;
-            ActuatorType = request.ActuatorType;
+            Name = request.Name,
+            CommandTopic = request.CommandTopic,
+            Device = request.Device,
+            SupportedCommands = request.SupportedCommands,
+            ActuatorType = request.ActuatorType,
         }
         return model;
     }

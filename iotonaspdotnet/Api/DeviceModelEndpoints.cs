@@ -150,16 +150,16 @@ public static class DeviceModelEndpoints
         var model = new DeviceModel
         {
             Id = request.id,
-            Name = request.Name;
-            ModelNumber = request.ModelNumber;
-            HardwareRevision = request.HardwareRevision;
-            Vendor = request.Vendor;
-            HardwareModules = request.HardwareModules;
-            TwinTemplate = request.TwinTemplate;
-            FirmwareReleases = request.FirmwareReleases;
-            CommandDefinitions = request.CommandDefinitions;
-            SupportedConnectivity = request.SupportedConnectivity;
-            DefaultTelemetryEncoding = request.DefaultTelemetryEncoding;
+            Name = request.Name,
+            ModelNumber = request.ModelNumber,
+            HardwareRevision = request.HardwareRevision,
+            Vendor = request.Vendor,
+            HardwareModules = request.HardwareModules,
+            TwinTemplate = request.TwinTemplate,
+            FirmwareReleases = request.FirmwareReleases,
+            CommandDefinitions = request.CommandDefinitions,
+            SupportedConnectivity = request.SupportedConnectivity,
+            DefaultTelemetryEncoding = request.DefaultTelemetryEncoding,
         }
         return model;
     }
@@ -183,16 +183,16 @@ public static class DeviceModelEndpoints
         var model = new DeviceModel
         {
             Id = request.id,
-            Name = request.Name;
-            ModelNumber = request.ModelNumber;
-            HardwareRevision = request.HardwareRevision;
-            Vendor = request.Vendor;
-            HardwareModules = request.HardwareModules;
-            TwinTemplate = request.TwinTemplate;
-            FirmwareReleases = request.FirmwareReleases;
-            CommandDefinitions = request.CommandDefinitions;
-            SupportedConnectivity = request.SupportedConnectivity;
-            DefaultTelemetryEncoding = request.DefaultTelemetryEncoding;
+            Name = request.Name,
+            ModelNumber = request.ModelNumber,
+            HardwareRevision = request.HardwareRevision,
+            Vendor = request.Vendor,
+            HardwareModules = request.HardwareModules,
+            TwinTemplate = request.TwinTemplate,
+            FirmwareReleases = request.FirmwareReleases,
+            CommandDefinitions = request.CommandDefinitions,
+            SupportedConnectivity = request.SupportedConnectivity,
+            DefaultTelemetryEncoding = request.DefaultTelemetryEncoding,
         }
         return model;
     }
@@ -216,16 +216,16 @@ public static class DeviceModelEndpoints
         var model = new DeviceModel
         {
             Id = request.id,
-            Name = request.Name;
-            ModelNumber = request.ModelNumber;
-            HardwareRevision = request.HardwareRevision;
-            Vendor = request.Vendor;
-            HardwareModules = request.HardwareModules;
-            TwinTemplate = request.TwinTemplate;
-            FirmwareReleases = request.FirmwareReleases;
-            CommandDefinitions = request.CommandDefinitions;
-            SupportedConnectivity = request.SupportedConnectivity;
-            DefaultTelemetryEncoding = request.DefaultTelemetryEncoding;
+            Name = request.Name,
+            ModelNumber = request.ModelNumber,
+            HardwareRevision = request.HardwareRevision,
+            Vendor = request.Vendor,
+            HardwareModules = request.HardwareModules,
+            TwinTemplate = request.TwinTemplate,
+            FirmwareReleases = request.FirmwareReleases,
+            CommandDefinitions = request.CommandDefinitions,
+            SupportedConnectivity = request.SupportedConnectivity,
+            DefaultTelemetryEncoding = request.DefaultTelemetryEncoding,
         }
         return model;
     }

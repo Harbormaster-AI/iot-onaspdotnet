@@ -114,13 +114,13 @@ public static class DeviceVendorEndpoints
         var model = new DeviceVendor
         {
             Id = request.id,
-            Name = request.Name;
-            LegalName = request.LegalName;
-            HeadquartersCountry = request.HeadquartersCountry;
-            Website = request.Website;
-            DeviceModels = request.DeviceModels;
-            FirmwareReleases = request.FirmwareReleases;
-            HardwareModules = request.HardwareModules;
+            Name = request.Name,
+            LegalName = request.LegalName,
+            HeadquartersCountry = request.HeadquartersCountry,
+            Website = request.Website,
+            DeviceModels = request.DeviceModels,
+            FirmwareReleases = request.FirmwareReleases,
+            HardwareModules = request.HardwareModules,
         }
         return model;
     }
@@ -144,13 +144,13 @@ public static class DeviceVendorEndpoints
         var model = new DeviceVendor
         {
             Id = request.id,
-            Name = request.Name;
-            LegalName = request.LegalName;
-            HeadquartersCountry = request.HeadquartersCountry;
-            Website = request.Website;
-            DeviceModels = request.DeviceModels;
-            FirmwareReleases = request.FirmwareReleases;
-            HardwareModules = request.HardwareModules;
+            Name = request.Name,
+            LegalName = request.LegalName,
+            HeadquartersCountry = request.HeadquartersCountry,
+            Website = request.Website,
+            DeviceModels = request.DeviceModels,
+            FirmwareReleases = request.FirmwareReleases,
+            HardwareModules = request.HardwareModules,
         }
         return model;
     }
@@ -174,13 +174,13 @@ public static class DeviceVendorEndpoints
         var model = new DeviceVendor
         {
             Id = request.id,
-            Name = request.Name;
-            LegalName = request.LegalName;
-            HeadquartersCountry = request.HeadquartersCountry;
-            Website = request.Website;
-            DeviceModels = request.DeviceModels;
-            FirmwareReleases = request.FirmwareReleases;
-            HardwareModules = request.HardwareModules;
+            Name = request.Name,
+            LegalName = request.LegalName,
+            HeadquartersCountry = request.HeadquartersCountry,
+            Website = request.Website,
+            DeviceModels = request.DeviceModels,
+            FirmwareReleases = request.FirmwareReleases,
+            HardwareModules = request.HardwareModules,
         }
         return model;
     }

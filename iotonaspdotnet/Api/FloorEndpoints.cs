@@ -126,10 +126,10 @@ public static class FloorEndpoints
         var model = new Floor
         {
             Id = request.id,
-            Name = request.Name;
-            Level = request.Level;
-            Building = request.Building;
-            Rooms = request.Rooms;
+            Name = request.Name,
+            Level = request.Level,
+            Building = request.Building,
+            Rooms = request.Rooms,
         }
         return model;
     }

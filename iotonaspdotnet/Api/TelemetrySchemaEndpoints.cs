@@ -108,10 +108,10 @@ public static class TelemetrySchemaEndpoints
         var model = new TelemetrySchema
         {
             Id = request.id,
-            SchemaId = request.SchemaId;
-            SchemaUri = request.SchemaUri;
-            Streams = request.Streams;
-            Encoding = request.Encoding;
+            SchemaId = request.SchemaId,
+            SchemaUri = request.SchemaUri,
+            Streams = request.Streams,
+            Encoding = request.Encoding,
         }
         return model;
     }

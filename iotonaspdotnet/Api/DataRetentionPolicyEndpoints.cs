@@ -126,10 +126,10 @@ public static class DataRetentionPolicyEndpoints
         var model = new DataRetentionPolicy
         {
             Id = request.id,
-            Name = request.Name;
-            RetentionDays = request.RetentionDays;
-            Tenant = request.Tenant;
-            Streams = request.Streams;
+            Name = request.Name,
+            RetentionDays = request.RetentionDays,
+            Tenant = request.Tenant,
+            Streams = request.Streams,
         }
         return model;
     }

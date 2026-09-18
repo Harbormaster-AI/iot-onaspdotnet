@@ -126,12 +126,12 @@ public static class TenantUserEndpoints
         var model = new TenantUser
         {
             Id = request.id,
-            FirstName = request.FirstName;
-            LastName = request.LastName;
-            Email = request.Email;
-            Tenant = request.Tenant;
-            CommandInvocations = request.CommandInvocations;
-            Role = request.Role;
+            FirstName = request.FirstName,
+            LastName = request.LastName,
+            Email = request.Email,
+            Tenant = request.Tenant,
+            CommandInvocations = request.CommandInvocations,
+            Role = request.Role,
         }
         return model;
     }
