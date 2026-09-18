@@ -19,10 +19,10 @@ public class ProvisioningRecordConfiguration : IEntityTypeConfiguration<Provisio
 
 // Exactly one ProvisioningStatus per ProvisioningRecord (1:1)
         builder.Property(x => x.Device).IsRequired();
-        builder.HasIndex(x => x.Device.Id).IsUnique();
+//        builder.HasIndex(x => x.Device.Id).IsUnique();
         builder.Property(x => x.Certificate).IsRequired();
-        builder.HasIndex(x => x.Certificate.Id).IsUnique();
+//        builder.HasIndex(x => x.Certificate.Id).IsUnique();
         builder.Property(x => x.Tenant).IsRequired();
-        builder.HasIndex(x => x.Tenant.Id).IsUnique();
+//        builder.HasIndex(x => x.Tenant.Id).IsUnique();
     }
 }

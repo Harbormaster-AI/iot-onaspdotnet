@@ -10,11 +10,11 @@ public static class ActuatorInstanceEndpoints
     {
         var group = app.MapGroup("/api/actuatorInstance").WithTags("ActuatorInstances");
 
-        group.MapPost("/", Create);
-        group.MapGet("/", Get);
-        group.MapGet("/", GetAll);
-        group.MapPut("/", Update);
-        group.MapDelete("/", Delete);
+        group.MapPost("/create", Create);
+        group.MapPost("/get", Get);
+        group.MapGet("/getAll", GetAll);
+        group.MapPost("/update", Update);
+        group.MapPost("/delete", Delete);
 
         group.MapPut("/", AssignDevice);
         group.MapPut("/", UnassignDevice);

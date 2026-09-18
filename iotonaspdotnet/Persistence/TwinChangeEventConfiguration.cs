@@ -18,6 +18,6 @@ public class TwinChangeEventConfiguration : IEntityTypeConfiguration<TwinChangeE
 
 // Exactly one TwinChangeType per TwinChangeEvent (1:1)
         builder.Property(x => x.Twin).IsRequired();
-        builder.HasIndex(x => x.Twin.Id).IsUnique();
+//        builder.HasIndex(x => x.Twin.Id).IsUnique();
     }
 }

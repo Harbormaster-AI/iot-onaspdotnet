@@ -10,11 +10,11 @@ public static class FloorEndpoints
     {
         var group = app.MapGroup("/api/floor").WithTags("Floors");
 
-        group.MapPost("/", Create);
-        group.MapGet("/", Get);
-        group.MapGet("/", GetAll);
-        group.MapPut("/", Update);
-        group.MapDelete("/", Delete);
+        group.MapPost("/create", Create);
+        group.MapPost("/get", Get);
+        group.MapGet("/getAll", GetAll);
+        group.MapPost("/update", Update);
+        group.MapPost("/delete", Delete);
 
         group.MapPut("/", AssignBuilding);
         group.MapPut("/", UnassignBuilding);

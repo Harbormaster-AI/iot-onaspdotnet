@@ -10,11 +10,11 @@ public static class DataRetentionPolicyEndpoints
     {
         var group = app.MapGroup("/api/dataRetentionPolicy").WithTags("DataRetentionPolicys");
 
-        group.MapPost("/", Create);
-        group.MapGet("/", Get);
-        group.MapGet("/", GetAll);
-        group.MapPut("/", Update);
-        group.MapDelete("/", Delete);
+        group.MapPost("/create", Create);
+        group.MapPost("/get", Get);
+        group.MapGet("/getAll", GetAll);
+        group.MapPost("/update", Update);
+        group.MapPost("/delete", Delete);
 
         group.MapPut("/", AssignTenant);
         group.MapPut("/", UnassignTenant);

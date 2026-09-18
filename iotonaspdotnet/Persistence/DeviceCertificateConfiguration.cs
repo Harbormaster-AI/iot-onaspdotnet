@@ -20,8 +20,8 @@ public class DeviceCertificateConfiguration : IEntityTypeConfiguration<DeviceCer
 
 // Exactly one CertificateType per DeviceCertificate (1:1)
         builder.Property(x => x.Device).IsRequired();
-        builder.HasIndex(x => x.Device.Id).IsUnique();
+//        builder.HasIndex(x => x.Device.Id).IsUnique();
         builder.Property(x => x.Gateway).IsRequired();
-        builder.HasIndex(x => x.Gateway.Id).IsUnique();
+//        builder.HasIndex(x => x.Gateway.Id).IsUnique();
     }
 }

@@ -19,10 +19,10 @@ public class UsageRecordConfiguration : IEntityTypeConfiguration<UsageRecord>
 
 // Exactly one Integer per UsageRecord (1:1)
         builder.Property(x => x.Tenant).IsRequired();
-        builder.HasIndex(x => x.Tenant.Id).IsUnique();
+//        builder.HasIndex(x => x.Tenant.Id).IsUnique();
         builder.Property(x => x.Device).IsRequired();
-        builder.HasIndex(x => x.Device.Id).IsUnique();
+//        builder.HasIndex(x => x.Device.Id).IsUnique();
         builder.Property(x => x.ConnectivityPlan).IsRequired();
-        builder.HasIndex(x => x.ConnectivityPlan.Id).IsUnique();
+//        builder.HasIndex(x => x.ConnectivityPlan.Id).IsUnique();
     }
 }

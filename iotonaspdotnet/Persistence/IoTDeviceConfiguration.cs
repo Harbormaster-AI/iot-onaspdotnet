@@ -27,18 +27,18 @@ builder.OwnsOne(x => x.FirmwareVersion, FirmwareVersion =>
 
 // Exactly one PowerSource per IoTDevice (1:1)
         builder.Property(x => x.DeviceModel).IsRequired();
-        builder.HasIndex(x => x.DeviceModel.Id).IsUnique();
+//        builder.HasIndex(x => x.DeviceModel.Id).IsUnique();
         builder.Property(x => x.Tenant).IsRequired();
-        builder.HasIndex(x => x.Tenant.Id).IsUnique();
+//        builder.HasIndex(x => x.Tenant.Id).IsUnique();
         builder.Property(x => x.Site).IsRequired();
-        builder.HasIndex(x => x.Site.Id).IsUnique();
+//        builder.HasIndex(x => x.Site.Id).IsUnique();
         builder.Property(x => x.Room).IsRequired();
-        builder.HasIndex(x => x.Room.Id).IsUnique();
+//        builder.HasIndex(x => x.Room.Id).IsUnique();
         builder.Property(x => x.Gateway).IsRequired();
-        builder.HasIndex(x => x.Gateway.Id).IsUnique();
+//        builder.HasIndex(x => x.Gateway.Id).IsUnique();
         builder.Property(x => x.DigitalTwin).IsRequired();
-        builder.HasIndex(x => x.DigitalTwin.Id).IsUnique();
+//        builder.HasIndex(x => x.DigitalTwin.Id).IsUnique();
         builder.Property(x => x.ProvisioningRecord).IsRequired();
-        builder.HasIndex(x => x.ProvisioningRecord.Id).IsUnique();
+//        builder.HasIndex(x => x.ProvisioningRecord.Id).IsUnique();
     }
 }

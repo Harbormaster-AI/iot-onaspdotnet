@@ -10,11 +10,11 @@ public static class GatewayEndpoints
     {
         var group = app.MapGroup("/api/gateway").WithTags("Gateways");
 
-        group.MapPost("/", Create);
-        group.MapGet("/", Get);
-        group.MapGet("/", GetAll);
-        group.MapPut("/", Update);
-        group.MapDelete("/", Delete);
+        group.MapPost("/create", Create);
+        group.MapPost("/get", Get);
+        group.MapGet("/getAll", GetAll);
+        group.MapPost("/update", Update);
+        group.MapPost("/delete", Delete);
 
         group.MapPut("/", AssignSite);
         group.MapPut("/", UnassignSite);

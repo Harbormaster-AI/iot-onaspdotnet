@@ -19,8 +19,8 @@ public class SimCardConfiguration : IEntityTypeConfiguration<SimCard>
 
 // Exactly one SimStatus per SimCard (1:1)
         builder.Property(x => x.Tenant).IsRequired();
-        builder.HasIndex(x => x.Tenant.Id).IsUnique();
+//        builder.HasIndex(x => x.Tenant.Id).IsUnique();
         builder.Property(x => x.ConnectivityPlan).IsRequired();
-        builder.HasIndex(x => x.ConnectivityPlan.Id).IsUnique();
+//        builder.HasIndex(x => x.ConnectivityPlan.Id).IsUnique();
     }
 }

@@ -19,6 +19,6 @@ public class EdgeApplicationConfiguration : IEntityTypeConfiguration<EdgeApplica
 
 // Exactly one DeploymentStatus per EdgeApplication (1:1)
         builder.Property(x => x.Gateway).IsRequired();
-        builder.HasIndex(x => x.Gateway.Id).IsUnique();
+//        builder.HasIndex(x => x.Gateway.Id).IsUnique();
     }
 }

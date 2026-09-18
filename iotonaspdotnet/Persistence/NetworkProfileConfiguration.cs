@@ -19,10 +19,10 @@ public class NetworkProfileConfiguration : IEntityTypeConfiguration<NetworkProfi
 
 // Exactly one ConnectivityType per NetworkProfile (1:1)
         builder.Property(x => x.Device).IsRequired();
-        builder.HasIndex(x => x.Device.Id).IsUnique();
+//        builder.HasIndex(x => x.Device.Id).IsUnique();
         builder.Property(x => x.Gateway).IsRequired();
-        builder.HasIndex(x => x.Gateway.Id).IsUnique();
+//        builder.HasIndex(x => x.Gateway.Id).IsUnique();
         builder.Property(x => x.SimCard).IsRequired();
-        builder.HasIndex(x => x.SimCard.Id).IsUnique();
+//        builder.HasIndex(x => x.SimCard.Id).IsUnique();
     }
 }

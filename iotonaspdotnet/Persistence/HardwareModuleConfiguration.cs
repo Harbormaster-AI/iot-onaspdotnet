@@ -21,6 +21,6 @@ builder.OwnsOne(x => x.Uri_, DatasheetUri =>
 
 // Exactly one ModuleType per HardwareModule (1:1)
         builder.Property(x => x.Vendor).IsRequired();
-        builder.HasIndex(x => x.Vendor.Id).IsUnique();
+//        builder.HasIndex(x => x.Vendor.Id).IsUnique();
     }
 }

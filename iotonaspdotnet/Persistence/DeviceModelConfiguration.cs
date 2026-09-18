@@ -20,8 +20,8 @@ public class DeviceModelConfiguration : IEntityTypeConfiguration<DeviceModel>
 
 // Exactly one TelemetryEncoding per DeviceModel (1:1)
         builder.Property(x => x.Vendor).IsRequired();
-        builder.HasIndex(x => x.Vendor.Id).IsUnique();
+//        builder.HasIndex(x => x.Vendor.Id).IsUnique();
         builder.Property(x => x.TwinTemplate).IsRequired();
-        builder.HasIndex(x => x.TwinTemplate.Id).IsUnique();
+//        builder.HasIndex(x => x.TwinTemplate.Id).IsUnique();
     }
 }

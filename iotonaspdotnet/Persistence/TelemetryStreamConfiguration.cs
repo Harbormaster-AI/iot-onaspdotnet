@@ -18,14 +18,14 @@ public class TelemetryStreamConfiguration : IEntityTypeConfiguration<TelemetrySt
 
 // Exactly one MessageQoS per TelemetryStream (1:1)
         builder.Property(x => x.Device).IsRequired();
-        builder.HasIndex(x => x.Device.Id).IsUnique();
+//        builder.HasIndex(x => x.Device.Id).IsUnique();
         builder.Property(x => x.Sensor).IsRequired();
-        builder.HasIndex(x => x.Sensor.Id).IsUnique();
+//        builder.HasIndex(x => x.Sensor.Id).IsUnique();
         builder.Property(x => x.Schema).IsRequired();
-        builder.HasIndex(x => x.Schema.Id).IsUnique();
+//        builder.HasIndex(x => x.Schema.Id).IsUnique();
         builder.Property(x => x.MessagingEndpoint).IsRequired();
-        builder.HasIndex(x => x.MessagingEndpoint.Id).IsUnique();
+//        builder.HasIndex(x => x.MessagingEndpoint.Id).IsUnique();
         builder.Property(x => x.RetentionPolicy).IsRequired();
-        builder.HasIndex(x => x.RetentionPolicy.Id).IsUnique();
+//        builder.HasIndex(x => x.RetentionPolicy.Id).IsUnique();
     }
 }

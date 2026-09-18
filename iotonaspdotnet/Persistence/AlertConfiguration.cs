@@ -19,8 +19,8 @@ public class AlertConfiguration : IEntityTypeConfiguration<Alert>
 
 // Exactly one AlertStatus per Alert (1:1)
         builder.Property(x => x.Device).IsRequired();
-        builder.HasIndex(x => x.Device.Id).IsUnique();
+//        builder.HasIndex(x => x.Device.Id).IsUnique();
         builder.Property(x => x.AlertRule).IsRequired();
-        builder.HasIndex(x => x.AlertRule.Id).IsUnique();
+//        builder.HasIndex(x => x.AlertRule.Id).IsUnique();
     }
 }

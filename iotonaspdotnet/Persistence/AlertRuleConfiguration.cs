@@ -18,6 +18,6 @@ public class AlertRuleConfiguration : IEntityTypeConfiguration<AlertRule>
 
 // Exactly one AlertSeverity per AlertRule (1:1)
         builder.Property(x => x.Tenant).IsRequired();
-        builder.HasIndex(x => x.Tenant.Id).IsUnique();
+//        builder.HasIndex(x => x.Tenant.Id).IsUnique();
     }
 }

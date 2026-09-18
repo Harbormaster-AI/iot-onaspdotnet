@@ -19,12 +19,12 @@ public class CommandInvocationConfiguration : IEntityTypeConfiguration<CommandIn
 
 // Exactly one CommandStatus per CommandInvocation (1:1)
         builder.Property(x => x.Device).IsRequired();
-        builder.HasIndex(x => x.Device.Id).IsUnique();
+//        builder.HasIndex(x => x.Device.Id).IsUnique();
         builder.Property(x => x.CommandDefinition).IsRequired();
-        builder.HasIndex(x => x.CommandDefinition.Id).IsUnique();
+//        builder.HasIndex(x => x.CommandDefinition.Id).IsUnique();
         builder.Property(x => x.Actuator).IsRequired();
-        builder.HasIndex(x => x.Actuator.Id).IsUnique();
+//        builder.HasIndex(x => x.Actuator.Id).IsUnique();
         builder.Property(x => x.User).IsRequired();
-        builder.HasIndex(x => x.User.Id).IsUnique();
+//        builder.HasIndex(x => x.User.Id).IsUnique();
     }
 }

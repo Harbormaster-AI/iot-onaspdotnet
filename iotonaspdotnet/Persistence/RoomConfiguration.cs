@@ -16,6 +16,6 @@ public class RoomConfiguration : IEntityTypeConfiguration<Room>
 
 // Exactly one String per Room (1:1)
         builder.Property(x => x.Floor).IsRequired();
-        builder.HasIndex(x => x.Floor.Id).IsUnique();
+//        builder.HasIndex(x => x.Floor.Id).IsUnique();
     }
 }

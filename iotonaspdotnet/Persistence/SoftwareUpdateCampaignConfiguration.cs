@@ -19,8 +19,8 @@ public class SoftwareUpdateCampaignConfiguration : IEntityTypeConfiguration<Soft
 
 // Exactly one UpdateCampaignStatus per SoftwareUpdateCampaign (1:1)
         builder.Property(x => x.FirmwareRelease).IsRequired();
-        builder.HasIndex(x => x.FirmwareRelease.Id).IsUnique();
+//        builder.HasIndex(x => x.FirmwareRelease.Id).IsUnique();
         builder.Property(x => x.DeviceGroup).IsRequired();
-        builder.HasIndex(x => x.DeviceGroup.Id).IsUnique();
+//        builder.HasIndex(x => x.DeviceGroup.Id).IsUnique();
     }
 }

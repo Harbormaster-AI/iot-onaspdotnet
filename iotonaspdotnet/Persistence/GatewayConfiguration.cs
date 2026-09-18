@@ -17,10 +17,10 @@ public class GatewayConfiguration : IEntityTypeConfiguration<Gateway>
 
 // Exactly one DeviceStatus per Gateway (1:1)
         builder.Property(x => x.Site).IsRequired();
-        builder.HasIndex(x => x.Site.Id).IsUnique();
+//        builder.HasIndex(x => x.Site.Id).IsUnique();
         builder.Property(x => x.Room).IsRequired();
-        builder.HasIndex(x => x.Room.Id).IsUnique();
+//        builder.HasIndex(x => x.Room.Id).IsUnique();
         builder.Property(x => x.DigitalTwin).IsRequired();
-        builder.HasIndex(x => x.DigitalTwin.Id).IsUnique();
+//        builder.HasIndex(x => x.DigitalTwin.Id).IsUnique();
     }
 }
