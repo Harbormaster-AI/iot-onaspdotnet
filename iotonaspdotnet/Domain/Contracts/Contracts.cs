@@ -27,9 +27,6 @@ public class DeviceVendorRequest {
  public virtual string? LegalName { get; set; } 
  public virtual string? HeadquartersCountry { get; set; } 
  public virtual string? Website { get; set; } 
-public virtual ICollection<DeviceModel>? DeviceModels { get; set; } = new List<DeviceModel>()
-public virtual ICollection<FirmwareRelease>? FirmwareReleases { get; set; } = new List<FirmwareRelease>()
-public virtual ICollection<HardwareModule>? HardwareModules { get; set; } = new List<HardwareModule>()
 }
 
 public class DeviceVendorResponse : DeviceVendorRequest {
@@ -54,7 +51,6 @@ public class HardwareModuleRequest {
  public virtual long? HardwaremoduleId { get; set; } 
  public virtual string? ModuleCode { get; set; } 
  public virtual Uri_? DatasheetUri { get; set; } 
-public virtual DeviceVendor? Vendor { get; set; } 
  public virtual ModuleType? ModuleType { get; set; } 
 }
 
@@ -78,11 +74,6 @@ public class DeviceModelRequest {
  public virtual string? Name { get; set; } 
  public virtual string? ModelNumber { get; set; } 
  public virtual string? HardwareRevision { get; set; } 
-public virtual DeviceVendor? Vendor { get; set; } 
-public virtual ICollection<HardwareModule>? HardwareModules { get; set; } = new List<HardwareModule>()
-public virtual TwinTemplate? TwinTemplate { get; set; } 
-public virtual ICollection<FirmwareRelease>? FirmwareReleases { get; set; } = new List<FirmwareRelease>()
-public virtual ICollection<CommandDefinition>? CommandDefinitions { get; set; } = new List<CommandDefinition>()
  public virtual ConnectivityType? SupportedConnectivity { get; set; } 
  public virtual TelemetryEncoding? DefaultTelemetryEncoding { get; set; } 
 }
@@ -114,7 +105,6 @@ public class FirmwareReleaseRequest {
  public virtual DateOnly? ReleaseDate { get; set; } 
  public virtual string? ReleaseNotes { get; set; } 
  public virtual Checksum? Checksum { get; set; } 
-public virtual DeviceModel? DeviceModel { get; set; } 
 }
 
 public class FirmwareReleaseResponse : FirmwareReleaseRequest {
@@ -139,21 +129,6 @@ public class IoTDeviceRequest {
  public virtual string? SerialNumber { get; set; } 
  public virtual DateTime? LastSeen { get; set; } 
  public virtual FirmwareVersion? FirmwareVersion { get; set; } 
-public virtual DeviceModel? DeviceModel { get; set; } 
-public virtual Tenant? Tenant { get; set; } 
-public virtual Site? Site { get; set; } 
-public virtual Room? Room { get; set; } 
-public virtual Gateway? Gateway { get; set; } 
-public virtual ICollection<SensorInstance>? Sensors { get; set; } = new List<SensorInstance>()
-public virtual ICollection<ActuatorInstance>? Actuators { get; set; } = new List<ActuatorInstance>()
-public virtual ICollection<DeviceCertificate>? Certificates { get; set; } = new List<DeviceCertificate>()
-public virtual DigitalTwin? DigitalTwin { get; set; } 
-public virtual ICollection<TelemetryStream>? TelemetryStreams { get; set; } = new List<TelemetryStream>()
-public virtual ICollection<CommandInvocation>? CommandInvocations { get; set; } = new List<CommandInvocation>()
-public virtual ICollection<Alert>? Alerts { get; set; } = new List<Alert>()
-public virtual ProvisioningRecord? ProvisioningRecord { get; set; } 
-public virtual ICollection<DeviceGroup>? DeviceGroups { get; set; } = new List<DeviceGroup>()
-public virtual ICollection<NetworkProfile>? NetworkProfiles { get; set; } = new List<NetworkProfile>()
  public virtual DeviceStatus? Status { get; set; } 
  public virtual PowerSource? PowerSource { get; set; } 
 }
@@ -195,8 +170,6 @@ public class SensorInstanceRequest {
  public virtual string? Name { get; set; } 
  public virtual string? Unit { get; set; } 
  public virtual int? SamplingIntervalMs { get; set; } 
-public virtual IoTDevice? Device { get; set; } 
-public virtual ICollection<TelemetryStream>? TelemetryStreams { get; set; } = new List<TelemetryStream>()
  public virtual SensorType? SensorType { get; set; } 
 }
 
@@ -221,8 +194,6 @@ public class ActuatorInstanceRequest {
  public virtual long? ActuatorinstanceId { get; set; } 
  public virtual string? Name { get; set; } 
  public virtual TopicName? CommandTopic { get; set; } 
-public virtual IoTDevice? Device { get; set; } 
-public virtual ICollection<CommandDefinition>? SupportedCommands { get; set; } = new List<CommandDefinition>()
  public virtual ActuatorType? ActuatorType { get; set; } 
 }
 
@@ -246,7 +217,6 @@ public class TelemetrySchemaRequest {
  public virtual long? TelemetryschemaId { get; set; } 
  public virtual string? SchemaId { get; set; } 
  public virtual Uri_? SchemaUri { get; set; } 
-public virtual ICollection<TelemetryStream>? Streams { get; set; } = new List<TelemetryStream>()
  public virtual TelemetryEncoding? Encoding { get; set; } 
 }
 
@@ -269,11 +239,6 @@ public class TelemetryStreamRequest {
  public virtual long? TelemetrystreamId { get; set; } 
  public virtual string? StreamName { get; set; } 
  public virtual int? RetentionDays { get; set; } 
-public virtual IoTDevice? Device { get; set; } 
-public virtual SensorInstance? Sensor { get; set; } 
-public virtual TelemetrySchema? Schema { get; set; } 
-public virtual MessagingEndpoint? MessagingEndpoint { get; set; } 
-public virtual DataRetentionPolicy? RetentionPolicy { get; set; } 
  public virtual MessageQoS? Qos { get; set; } 
 }
 
@@ -302,9 +267,6 @@ public class CommandDefinitionRequest {
  public virtual Uri_? RequestSchemaUri { get; set; } 
  public virtual Uri_? ResponseSchemaUri { get; set; } 
  public virtual int? TimeoutSeconds { get; set; } 
-public virtual DeviceModel? DeviceModel { get; set; } 
-public virtual ICollection<ActuatorInstance>? Actuators { get; set; } = new List<ActuatorInstance>()
-public virtual ICollection<CommandInvocation>? CommandInvocations { get; set; } = new List<CommandInvocation>()
 }
 
 public class CommandDefinitionResponse : CommandDefinitionRequest {
@@ -330,10 +292,6 @@ public class CommandInvocationRequest {
  public virtual string? InvocationId { get; set; } 
  public virtual DateTime? RequestedAt { get; set; } 
  public virtual DateTime? CompletedAt { get; set; } 
-public virtual IoTDevice? Device { get; set; } 
-public virtual CommandDefinition? CommandDefinition { get; set; } 
-public virtual ActuatorInstance? Actuator { get; set; } 
-public virtual TenantUser? User { get; set; } 
  public virtual CommandStatus? Status { get; set; } 
 }
 
@@ -360,9 +318,6 @@ public class AlertRuleRequest {
  public virtual long? AlertruleId { get; set; } 
  public virtual string? Name { get; set; } 
  public virtual string? Expression { get; set; } 
-public virtual Tenant? Tenant { get; set; } 
-public virtual ICollection<TelemetryStream>? Streams { get; set; } = new List<TelemetryStream>()
-public virtual ICollection<Alert>? Alerts { get; set; } = new List<Alert>()
  public virtual AlertSeverity? Severity { get; set; } 
 }
 
@@ -388,8 +343,6 @@ public class AlertRequest {
  public virtual DateTime? RaisedAt { get; set; } 
  public virtual DateTime? ClearedAt { get; set; } 
  public virtual string? Message { get; set; } 
-public virtual IoTDevice? Device { get; set; } 
-public virtual AlertRule? AlertRule { get; set; } 
  public virtual AlertStatus? Status { get; set; } 
 }
 
@@ -413,18 +366,6 @@ public class TenantRequest {
     public Guid Id { get; set; } = Guid.NewGuid();
  public virtual long? TenantId { get; set; } 
  public virtual string? Name { get; set; } 
-public virtual ICollection<Site>? Sites { get; set; } = new List<Site>()
-public virtual ICollection<TenantUser>? Users { get; set; } = new List<TenantUser>()
-public virtual ICollection<IoTDevice>? Devices { get; set; } = new List<IoTDevice>()
-public virtual ICollection<DataRetentionPolicy>? DataRetentionPolicies { get; set; } = new List<DataRetentionPolicy>()
-public virtual ICollection<ConnectivityPlan>? ConnectivityPlans { get; set; } = new List<ConnectivityPlan>()
-public virtual ICollection<SimCard>? SimCards { get; set; } = new List<SimCard>()
-public virtual ICollection<MessagingEndpoint>? MessagingEndpoints { get; set; } = new List<MessagingEndpoint>()
-public virtual ICollection<AccessPolicy>? AccessPolicies { get; set; } = new List<AccessPolicy>()
-public virtual ICollection<DeviceGroup>? DeviceGroups { get; set; } = new List<DeviceGroup>()
-public virtual ICollection<AlertRule>? AlertRules { get; set; } = new List<AlertRule>()
-public virtual ICollection<MaintenanceTicket>? MaintenanceTickets { get; set; } = new List<MaintenanceTicket>()
-public virtual ICollection<UsageRecord>? UsageRecords { get; set; } = new List<UsageRecord>()
  public virtual TenantType? TenantType { get; set; } 
 }
 
@@ -458,8 +399,6 @@ public class TenantUserRequest {
  public virtual string? FirstName { get; set; } 
  public virtual string? LastName { get; set; } 
  public virtual string? Email { get; set; } 
-public virtual Tenant? Tenant { get; set; } 
-public virtual ICollection<CommandInvocation>? CommandInvocations { get; set; } = new List<CommandInvocation>()
  public virtual UserRole? Role { get; set; } 
 }
 
@@ -487,10 +426,6 @@ public class SiteRequest {
  public virtual string? Timezone { get; set; } 
  public virtual decimal? Latitude { get; set; } 
  public virtual decimal? Longitude { get; set; } 
-public virtual Tenant? Tenant { get; set; } 
-public virtual ICollection<Building>? Buildings { get; set; } = new List<Building>()
-public virtual ICollection<IoTDevice>? Devices { get; set; } = new List<IoTDevice>()
-public virtual ICollection<Gateway>? Gateways { get; set; } = new List<Gateway>()
 }
 
 public class SiteResponse : SiteRequest {
@@ -516,8 +451,6 @@ public class BuildingRequest {
     public Guid Id { get; set; } = Guid.NewGuid();
  public virtual long? BuildingId { get; set; } 
  public virtual string? Name { get; set; } 
-public virtual Site? Site { get; set; } 
-public virtual ICollection<Floor>? Floors { get; set; } = new List<Floor>()
 }
 
 public class BuildingResponse : BuildingRequest {
@@ -538,8 +471,6 @@ public class FloorRequest {
  public virtual long? FloorId { get; set; } 
  public virtual string? Name { get; set; } 
  public virtual int? Level { get; set; } 
-public virtual Building? Building { get; set; } 
-public virtual ICollection<Room>? Rooms { get; set; } = new List<Room>()
 }
 
 public class FloorResponse : FloorRequest {
@@ -560,9 +491,6 @@ public class RoomRequest {
     public Guid Id { get; set; } = Guid.NewGuid();
  public virtual long? RoomId { get; set; } 
  public virtual string? Name { get; set; } 
-public virtual Floor? Floor { get; set; } 
-public virtual ICollection<IoTDevice>? Devices { get; set; } = new List<IoTDevice>()
-public virtual ICollection<Gateway>? Gateways { get; set; } = new List<Gateway>()
 }
 
 public class RoomResponse : RoomRequest {
@@ -583,13 +511,6 @@ public class GatewayRequest {
     public Guid Id { get; set; } = Guid.NewGuid();
  public virtual long? GatewayId { get; set; } 
  public virtual string? SoftwareVersion { get; set; } 
-public virtual Site? Site { get; set; } 
-public virtual Room? Room { get; set; } 
-public virtual ICollection<IoTDevice>? Devices { get; set; } = new List<IoTDevice>()
-public virtual ICollection<EdgeApplication>? EdgeApplications { get; set; } = new List<EdgeApplication>()
-public virtual ICollection<DeviceCertificate>? Certificates { get; set; } = new List<DeviceCertificate>()
-public virtual DigitalTwin? DigitalTwin { get; set; } 
-public virtual ICollection<NetworkProfile>? NetworkProfiles { get; set; } = new List<NetworkProfile>()
  public virtual DeviceStatus? Status { get; set; } 
 }
 
@@ -618,7 +539,6 @@ public class EdgeApplicationRequest {
  public virtual string? Name { get; set; } 
  public virtual string? Version { get; set; } 
  public virtual string? Image { get; set; } 
-public virtual Gateway? Gateway { get; set; } 
  public virtual DeploymentStatus? Status { get; set; } 
 }
 
@@ -643,9 +563,6 @@ public class NetworkProfileRequest {
  public virtual string? ProfileName { get; set; } 
  public virtual string? Ssid { get; set; } 
  public virtual string? Apn { get; set; } 
-public virtual IoTDevice? Device { get; set; } 
-public virtual Gateway? Gateway { get; set; } 
-public virtual SimCard? SimCard { get; set; } 
  public virtual ConnectivityType? ConnectivityType { get; set; } 
 }
 
@@ -672,9 +589,6 @@ public class SimCardRequest {
  public virtual string? Iccid { get; set; } 
  public virtual string? Imsi { get; set; } 
  public virtual string? Carrier { get; set; } 
-public virtual ICollection<NetworkProfile>? NetworkProfiles { get; set; } = new List<NetworkProfile>()
-public virtual Tenant? Tenant { get; set; } 
-public virtual ConnectivityPlan? ConnectivityPlan { get; set; } 
  public virtual SimStatus? Status { get; set; } 
 }
 
@@ -701,8 +615,6 @@ public class ConnectivityPlanRequest {
  public virtual string? Name { get; set; } 
  public virtual int? DataCapMB { get; set; } 
  public virtual int? BillingCycleDays { get; set; } 
-public virtual ICollection<SimCard>? SimCards { get; set; } = new List<SimCard>()
-public virtual Tenant? Tenant { get; set; } 
 }
 
 public class ConnectivityPlanResponse : ConnectivityPlanRequest {
@@ -726,8 +638,6 @@ public class MessagingEndpointRequest {
  public virtual string? Host { get; set; } 
  public virtual int? Port { get; set; } 
  public virtual bool? Secure { get; set; } 
-public virtual Tenant? Tenant { get; set; } 
-public virtual ICollection<TelemetryStream>? Streams { get; set; } = new List<TelemetryStream>()
  public virtual MessagingProtocol? Protocol { get; set; } 
 }
 
@@ -753,9 +663,6 @@ public class AccessPolicyRequest {
  public virtual string? Name { get; set; } 
  public virtual string? Scope { get; set; } 
  public virtual DateTime? ExpiresAt { get; set; } 
-public virtual Tenant? Tenant { get; set; } 
-public virtual ICollection<ApiKey>? ApiKeys { get; set; } = new List<ApiKey>()
-public virtual ICollection<TenantUser>? Users { get; set; } = new List<TenantUser>()
 }
 
 public class AccessPolicyResponse : AccessPolicyRequest {
@@ -781,7 +688,6 @@ public class ApiKeyRequest {
  public virtual string? HashedSecret { get; set; } 
  public virtual DateTime? CreatedAt { get; set; } 
  public virtual DateTime? LastUsedAt { get; set; } 
-public virtual AccessPolicy? AccessPolicy { get; set; } 
 }
 
 public class ApiKeyResponse : ApiKeyRequest {
@@ -806,8 +712,6 @@ public class DeviceCertificateRequest {
  public virtual DateTime? NotBefore { get; set; } 
  public virtual DateTime? NotAfter { get; set; } 
  public virtual string? Fingerprint { get; set; } 
-public virtual IoTDevice? Device { get; set; } 
-public virtual Gateway? Gateway { get; set; } 
  public virtual CertificateType? CertificateType { get; set; } 
 }
 
@@ -833,9 +737,6 @@ public class ProvisioningRecordRequest {
  public virtual long? ProvisioningrecordId { get; set; } 
  public virtual DateTime? EnrolledAt { get; set; } 
  public virtual string? ProvisioningService { get; set; } 
-public virtual IoTDevice? Device { get; set; } 
-public virtual DeviceCertificate? Certificate { get; set; } 
-public virtual Tenant? Tenant { get; set; } 
  public virtual ProvisioningMethod? Method { get; set; } 
  public virtual ProvisioningStatus? Status { get; set; } 
 }
@@ -864,10 +765,6 @@ public class DigitalTwinRequest {
  public virtual int? DesiredStateVersion { get; set; } 
  public virtual int? ReportedStateVersion { get; set; } 
  public virtual DateTime? LastSyncAt { get; set; } 
-public virtual IoTDevice? Device { get; set; } 
-public virtual Gateway? Gateway { get; set; } 
-public virtual TwinTemplate? Template { get; set; } 
-public virtual ICollection<TwinChangeEvent>? ChangeEvents { get; set; } = new List<TwinChangeEvent>()
 }
 
 public class DigitalTwinResponse : DigitalTwinRequest {
@@ -894,7 +791,6 @@ public class TwinTemplateRequest {
  public virtual string? Name { get; set; } 
  public virtual Uri_? SchemaUri { get; set; } 
  public virtual string? Version { get; set; } 
-public virtual ICollection<DeviceModel>? DeviceModels { get; set; } = new List<DeviceModel>()
 }
 
 public class TwinTemplateResponse : TwinTemplateRequest {
@@ -916,7 +812,6 @@ public class TwinChangeEventRequest {
  public virtual long? TwinchangeeventId { get; set; } 
  public virtual string? EventId { get; set; } 
  public virtual DateTime? OccurredAt { get; set; } 
-public virtual DigitalTwin? Twin { get; set; } 
  public virtual TwinChangeType? ChangeType { get; set; } 
 }
 
@@ -940,8 +835,6 @@ public class MaintenanceTicketRequest {
  public virtual string? TicketNumber { get; set; } 
  public virtual DateTime? OpenedAt { get; set; } 
  public virtual DateTime? ClosedAt { get; set; } 
-public virtual IoTDevice? Device { get; set; } 
-public virtual Tenant? Tenant { get; set; } 
  public virtual MaintenancePriority? Priority { get; set; } 
  public virtual MaintenanceStatus? Status { get; set; } 
 }
@@ -968,8 +861,6 @@ public class DataRetentionPolicyRequest {
  public virtual long? DataretentionpolicyId { get; set; } 
  public virtual string? Name { get; set; } 
  public virtual int? RetentionDays { get; set; } 
-public virtual Tenant? Tenant { get; set; } 
-public virtual ICollection<TelemetryStream>? Streams { get; set; } = new List<TelemetryStream>()
 }
 
 public class DataRetentionPolicyResponse : DataRetentionPolicyRequest {
@@ -992,9 +883,6 @@ public class SoftwareUpdateCampaignRequest {
  public virtual string? CampaignCode { get; set; } 
  public virtual DateTime? ScheduledStart { get; set; } 
  public virtual DateTime? ScheduledEnd { get; set; } 
-public virtual FirmwareRelease? FirmwareRelease { get; set; } 
-public virtual DeviceGroup? DeviceGroup { get; set; } 
-public virtual ICollection<SoftwareUpdateExecution>? Executions { get; set; } = new List<SoftwareUpdateExecution>()
  public virtual UpdateCampaignStatus? Status { get; set; } 
 }
 
@@ -1020,8 +908,6 @@ public class SoftwareUpdateExecutionRequest {
  public virtual long? SoftwareupdateexecutionId { get; set; } 
  public virtual DateTime? StartedAt { get; set; } 
  public virtual DateTime? CompletedAt { get; set; } 
-public virtual SoftwareUpdateCampaign? Campaign { get; set; } 
-public virtual IoTDevice? Device { get; set; } 
  public virtual UpdateStatus? Status { get; set; } 
 }
 
@@ -1045,8 +931,6 @@ public class DeviceGroupRequest {
  public virtual long? DevicegroupId { get; set; } 
  public virtual string? Name { get; set; } 
  public virtual string? Criteria { get; set; } 
-public virtual Tenant? Tenant { get; set; } 
-public virtual ICollection<IoTDevice>? Devices { get; set; } = new List<IoTDevice>()
 }
 
 public class DeviceGroupResponse : DeviceGroupRequest {
@@ -1070,9 +954,6 @@ public class UsageRecordRequest {
  public virtual DateOnly? PeriodEnd { get; set; } 
  public virtual int? MessagesSent { get; set; } 
  public virtual int? DataVolumeMB { get; set; } 
-public virtual Tenant? Tenant { get; set; } 
-public virtual IoTDevice? Device { get; set; } 
-public virtual ConnectivityPlan? ConnectivityPlan { get; set; } 
 }
 
 public class UsageRecordResponse : UsageRecordRequest {

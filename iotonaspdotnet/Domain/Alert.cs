@@ -10,8 +10,8 @@ public class Alert
  public virtual DateTime? RaisedAt { get; set; } 
  public virtual DateTime? ClearedAt { get; set; } 
  public virtual string? Message { get; set; } 
-public virtual IoTDevice? Device { get; set; } 
-public virtual AlertRule? AlertRule { get; set; } 
+public virtual IoTDevice Device { get; set; } 
+public virtual AlertRule AlertRule { get; set; } 
  public virtual AlertStatus? Status { get; set; } 
 
     public static Alert FromRequest(AlertRequest request) {

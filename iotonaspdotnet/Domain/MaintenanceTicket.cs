@@ -10,8 +10,8 @@ public class MaintenanceTicket
  public virtual string? TicketNumber { get; set; } 
  public virtual DateTime? OpenedAt { get; set; } 
  public virtual DateTime? ClosedAt { get; set; } 
-public virtual IoTDevice? Device { get; set; } 
-public virtual Tenant? Tenant { get; set; } 
+public virtual IoTDevice Device { get; set; } 
+public virtual Tenant Tenant { get; set; } 
  public virtual MaintenancePriority? Priority { get; set; } 
  public virtual MaintenanceStatus? Status { get; set; } 
 

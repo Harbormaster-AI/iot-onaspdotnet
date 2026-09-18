@@ -9,11 +9,11 @@ public class TelemetryStream
  public virtual long? TelemetrystreamId { get; set; } 
  public virtual string? StreamName { get; set; } 
  public virtual int? RetentionDays { get; set; } 
-public virtual IoTDevice? Device { get; set; } 
-public virtual SensorInstance? Sensor { get; set; } 
-public virtual TelemetrySchema? Schema { get; set; } 
-public virtual MessagingEndpoint? MessagingEndpoint { get; set; } 
-public virtual DataRetentionPolicy? RetentionPolicy { get; set; } 
+public virtual IoTDevice Device { get; set; } 
+public virtual SensorInstance Sensor { get; set; } 
+public virtual TelemetrySchema Schema { get; set; } 
+public virtual MessagingEndpoint MessagingEndpoint { get; set; } 
+public virtual DataRetentionPolicy RetentionPolicy { get; set; } 
  public virtual MessageQoS? Qos { get; set; } 
 
     public static TelemetryStream FromRequest(TelemetryStreamRequest request) {

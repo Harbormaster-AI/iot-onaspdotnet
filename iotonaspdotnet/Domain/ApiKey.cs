@@ -11,7 +11,7 @@ public class ApiKey
  public virtual string? HashedSecret { get; set; } 
  public virtual DateTime? CreatedAt { get; set; } 
  public virtual DateTime? LastUsedAt { get; set; } 
-public virtual AccessPolicy? AccessPolicy { get; set; } 
+public virtual AccessPolicy AccessPolicy { get; set; } 
 
     public static ApiKey FromRequest(ApiKeyRequest request) {
         return new ApiKey {

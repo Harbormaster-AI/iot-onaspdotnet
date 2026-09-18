@@ -11,9 +11,9 @@ public class UsageRecord
  public virtual DateOnly? PeriodEnd { get; set; } 
  public virtual int? MessagesSent { get; set; } 
  public virtual int? DataVolumeMB { get; set; } 
-public virtual Tenant? Tenant { get; set; } 
-public virtual IoTDevice? Device { get; set; } 
-public virtual ConnectivityPlan? ConnectivityPlan { get; set; } 
+public virtual Tenant Tenant { get; set; } 
+public virtual IoTDevice Device { get; set; } 
+public virtual ConnectivityPlan ConnectivityPlan { get; set; } 
 
     public static UsageRecord FromRequest(UsageRecordRequest request) {
         return new UsageRecord {

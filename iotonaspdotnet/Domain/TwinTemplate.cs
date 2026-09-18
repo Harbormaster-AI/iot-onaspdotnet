@@ -10,7 +10,7 @@ public class TwinTemplate
  public virtual string? Name { get; set; } 
  public virtual Uri_? SchemaUri { get; set; } 
  public virtual string? Version { get; set; } 
-public virtual ICollection<DeviceModel>? DeviceModels { get; set; } = new List<DeviceModel>()
+public virtual ICollection<DeviceModel> DeviceModels { get; set; } = new List<DeviceModel>();
 
     public static TwinTemplate FromRequest(TwinTemplateRequest request) {
         return new TwinTemplate {

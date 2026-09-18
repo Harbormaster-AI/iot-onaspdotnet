@@ -10,8 +10,8 @@ public class MessagingEndpoint
  public virtual string? Host { get; set; } 
  public virtual int? Port { get; set; } 
  public virtual bool? Secure { get; set; } 
-public virtual Tenant? Tenant { get; set; } 
-public virtual ICollection<TelemetryStream>? Streams { get; set; } = new List<TelemetryStream>()
+public virtual Tenant Tenant { get; set; } 
+public virtual ICollection<TelemetryStream> Streams { get; set; } = new List<TelemetryStream>();
  public virtual MessagingProtocol? Protocol { get; set; } 
 
     public static MessagingEndpoint FromRequest(MessagingEndpointRequest request) {

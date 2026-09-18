@@ -10,7 +10,7 @@ public class EdgeApplication
  public virtual string? Name { get; set; } 
  public virtual string? Version { get; set; } 
  public virtual string? Image { get; set; } 
-public virtual Gateway? Gateway { get; set; } 
+public virtual Gateway Gateway { get; set; } 
  public virtual DeploymentStatus? Status { get; set; } 
 
     public static EdgeApplication FromRequest(EdgeApplicationRequest request) {

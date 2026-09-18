@@ -10,8 +10,8 @@ public class ConnectivityPlan
  public virtual string? Name { get; set; } 
  public virtual int? DataCapMB { get; set; } 
  public virtual int? BillingCycleDays { get; set; } 
-public virtual ICollection<SimCard>? SimCards { get; set; } = new List<SimCard>()
-public virtual Tenant? Tenant { get; set; } 
+public virtual ICollection<SimCard> SimCards { get; set; } = new List<SimCard>();
+public virtual Tenant Tenant { get; set; } 
 
     public static ConnectivityPlan FromRequest(ConnectivityPlanRequest request) {
         return new ConnectivityPlan {

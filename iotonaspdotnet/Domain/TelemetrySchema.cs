@@ -9,7 +9,7 @@ public class TelemetrySchema
  public virtual long? TelemetryschemaId { get; set; } 
  public virtual string? SchemaId { get; set; } 
  public virtual Uri_? SchemaUri { get; set; } 
-public virtual ICollection<TelemetryStream>? Streams { get; set; } = new List<TelemetryStream>()
+public virtual ICollection<TelemetryStream> Streams { get; set; } = new List<TelemetryStream>();
  public virtual TelemetryEncoding? Encoding { get; set; } 
 
     public static TelemetrySchema FromRequest(TelemetrySchemaRequest request) {
