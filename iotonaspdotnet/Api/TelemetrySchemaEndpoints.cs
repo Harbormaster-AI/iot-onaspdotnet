@@ -1,6 +1,6 @@
 using iotonaspdotnet.Service;
 using iotonaspdotnet.Domain;
-
+using iotonaspdotnet.Contracts;
 
 namespace iotonaspdotnet.Api;
 

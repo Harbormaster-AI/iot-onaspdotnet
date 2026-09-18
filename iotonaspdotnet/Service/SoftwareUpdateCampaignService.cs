@@ -1,5 +1,6 @@
 using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
+using iotonaspdotnet.Contracts;
 
 namespace iotonaspdotnet.Service;
 
