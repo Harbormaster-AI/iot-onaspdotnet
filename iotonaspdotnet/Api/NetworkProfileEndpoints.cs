@@ -151,7 +151,7 @@ public static class NetworkProfileEndpoints
             Gateway = request.Gateway,
             SimCard = request.SimCard,
             ConnectivityType = request.ConnectivityType,
-        }
+        };
         return model;
     }
 

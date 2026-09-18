@@ -130,7 +130,7 @@ public static class DeviceGroupEndpoints
             Criteria = request.Criteria,
             Tenant = request.Tenant,
             Devices = request.Devices,
-        }
+        };
         return model;
     }
 

@@ -148,7 +148,7 @@ public static class RoomEndpoints
             Floor = request.Floor,
             Devices = request.Devices,
             Gateways = request.Gateways,
-        }
+        };
         return model;
     }
 

@@ -225,7 +225,7 @@ public static class GatewayEndpoints
             DigitalTwin = request.DigitalTwin,
             NetworkProfiles = request.NetworkProfiles,
             Status = request.Status,
-        }
+        };
         return model;
     }
 

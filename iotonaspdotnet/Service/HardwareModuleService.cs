@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service;
 
-public interface IHardwareModuleService
+public interface IHardwareModuleService {
 
     Task Create(HardwareModuleRequest request , CancellationToken cancellationToken);
     Task<bool> Update(HardwareModuleRequest request, CancellationToken cancellationToken);

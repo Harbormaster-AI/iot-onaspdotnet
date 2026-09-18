@@ -151,7 +151,7 @@ public static class DeviceVendorEndpoints
             DeviceModels = request.DeviceModels,
             FirmwareReleases = request.FirmwareReleases,
             HardwareModules = request.HardwareModules,
-        }
+        };
         return model;
     }
 

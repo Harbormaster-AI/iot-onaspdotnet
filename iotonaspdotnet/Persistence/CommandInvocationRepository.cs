@@ -39,7 +39,8 @@ public class CommandInvocationRepository : ICommandInvocationRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task UpdateAsync(CommandInvocation commandInvocation, CancellationToken cancellationToken)
+    public async Task
+    (CommandInvocation commandInvocation, CancellationToken cancellationToken)
     {
         _db.CommandInvocations.Update(commandInvocation);
         await _db.SaveChangesAsync(cancellationToken);

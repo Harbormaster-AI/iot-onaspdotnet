@@ -188,7 +188,7 @@ public static class TelemetryStreamEndpoints
             MessagingEndpoint = request.MessagingEndpoint,
             RetentionPolicy = request.RetentionPolicy,
             Qos = request.Qos,
-        }
+        };
         return model;
     }
 

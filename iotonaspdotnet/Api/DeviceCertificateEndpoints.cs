@@ -133,7 +133,7 @@ public static class DeviceCertificateEndpoints
             Device = request.Device,
             Gateway = request.Gateway,
             CertificateType = request.CertificateType,
-        }
+        };
         return model;
     }
 

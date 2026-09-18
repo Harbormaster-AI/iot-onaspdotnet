@@ -41,7 +41,8 @@ public class TelemetryStreamRepository : ITelemetryStreamRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task UpdateAsync(TelemetryStream telemetryStream, CancellationToken cancellationToken)
+    public async Task
+    (TelemetryStream telemetryStream, CancellationToken cancellationToken)
     {
         _db.TelemetryStreams.Update(telemetryStream);
         await _db.SaveChangesAsync(cancellationToken);

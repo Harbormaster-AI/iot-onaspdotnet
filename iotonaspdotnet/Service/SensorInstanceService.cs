@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service;
 
-public interface ISensorInstanceService
+public interface ISensorInstanceService {
 
     Task Create(SensorInstanceRequest request , CancellationToken cancellationToken);
     Task<bool> Update(SensorInstanceRequest request, CancellationToken cancellationToken);

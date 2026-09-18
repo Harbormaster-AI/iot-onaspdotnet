@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service;
 
-public interface IDeviceVendorService
+public interface IDeviceVendorService {
 
     Task Create(DeviceVendorRequest request , CancellationToken cancellationToken);
     Task<bool> Update(DeviceVendorRequest request, CancellationToken cancellationToken);

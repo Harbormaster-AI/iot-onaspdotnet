@@ -35,7 +35,8 @@ public class MaintenanceTicketRepository : IMaintenanceTicketRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task UpdateAsync(MaintenanceTicket maintenanceTicket, CancellationToken cancellationToken)
+    public async Task
+    (MaintenanceTicket maintenanceTicket, CancellationToken cancellationToken)
     {
         _db.MaintenanceTickets.Update(maintenanceTicket);
         await _db.SaveChangesAsync(cancellationToken);

@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service;
 
-public interface IConnectivityPlanService
+public interface IConnectivityPlanService {
 
     Task Create(ConnectivityPlanRequest request , CancellationToken cancellationToken);
     Task<bool> Update(ConnectivityPlanRequest request, CancellationToken cancellationToken);

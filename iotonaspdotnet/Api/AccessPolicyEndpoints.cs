@@ -150,7 +150,7 @@ public static class AccessPolicyEndpoints
             Tenant = request.Tenant,
             ApiKeys = request.ApiKeys,
             Users = request.Users,
-        }
+        };
         return model;
     }
 

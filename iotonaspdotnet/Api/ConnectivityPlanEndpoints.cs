@@ -131,7 +131,7 @@ public static class ConnectivityPlanEndpoints
             BillingCycleDays = request.BillingCycleDays,
             SimCards = request.SimCards,
             Tenant = request.Tenant,
-        }
+        };
         return model;
     }
 

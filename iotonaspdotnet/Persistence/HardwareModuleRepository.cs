@@ -33,7 +33,8 @@ public class HardwareModuleRepository : IHardwareModuleRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task UpdateAsync(HardwareModule hardwareModule, CancellationToken cancellationToken)
+    public async Task
+    (HardwareModule hardwareModule, CancellationToken cancellationToken)
     {
         _db.HardwareModules.Update(hardwareModule);
         await _db.SaveChangesAsync(cancellationToken);

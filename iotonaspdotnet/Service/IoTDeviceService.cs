@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service;
 
-public interface IIoTDeviceService
+public interface IIoTDeviceService {
 
     Task Create(IoTDeviceRequest request , CancellationToken cancellationToken);
     Task<bool> Update(IoTDeviceRequest request, CancellationToken cancellationToken);

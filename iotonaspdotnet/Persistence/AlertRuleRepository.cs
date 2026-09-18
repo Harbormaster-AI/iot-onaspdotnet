@@ -33,7 +33,8 @@ public class AlertRuleRepository : IAlertRuleRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task UpdateAsync(AlertRule alertRule, CancellationToken cancellationToken)
+    public async Task
+    (AlertRule alertRule, CancellationToken cancellationToken)
     {
         _db.AlertRules.Update(alertRule);
         await _db.SaveChangesAsync(cancellationToken);

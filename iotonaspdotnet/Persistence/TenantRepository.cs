@@ -31,7 +31,8 @@ public class TenantRepository : ITenantRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task UpdateAsync(Tenant tenant, CancellationToken cancellationToken)
+    public async Task
+    (Tenant tenant, CancellationToken cancellationToken)
     {
         _db.Tenants.Update(tenant);
         await _db.SaveChangesAsync(cancellationToken);

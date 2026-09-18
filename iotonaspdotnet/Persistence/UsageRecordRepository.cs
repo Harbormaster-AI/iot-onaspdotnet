@@ -37,7 +37,8 @@ public class UsageRecordRepository : IUsageRecordRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task UpdateAsync(UsageRecord usageRecord, CancellationToken cancellationToken)
+    public async Task
+    (UsageRecord usageRecord, CancellationToken cancellationToken)
     {
         _db.UsageRecords.Update(usageRecord);
         await _db.SaveChangesAsync(cancellationToken);

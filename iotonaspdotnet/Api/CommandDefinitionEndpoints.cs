@@ -151,7 +151,7 @@ public static class CommandDefinitionEndpoints
             DeviceModel = request.DeviceModel,
             Actuators = request.Actuators,
             CommandInvocations = request.CommandInvocations,
-        }
+        };
         return model;
     }
 

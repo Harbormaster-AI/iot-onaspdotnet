@@ -33,7 +33,8 @@ public class ConnectivityPlanRepository : IConnectivityPlanRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task UpdateAsync(ConnectivityPlan connectivityPlan, CancellationToken cancellationToken)
+    public async Task
+    (ConnectivityPlan connectivityPlan, CancellationToken cancellationToken)
     {
         _db.ConnectivityPlans.Update(connectivityPlan);
         await _db.SaveChangesAsync(cancellationToken);

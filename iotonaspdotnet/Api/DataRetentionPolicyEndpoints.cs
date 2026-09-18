@@ -130,7 +130,7 @@ public static class DataRetentionPolicyEndpoints
             RetentionDays = request.RetentionDays,
             Tenant = request.Tenant,
             Streams = request.Streams,
-        }
+        };
         return model;
     }
 

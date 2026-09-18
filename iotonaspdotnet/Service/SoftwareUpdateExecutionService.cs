@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service;
 
-public interface ISoftwareUpdateExecutionService
+public interface ISoftwareUpdateExecutionService {
 
     Task Create(SoftwareUpdateExecutionRequest request , CancellationToken cancellationToken);
     Task<bool> Update(SoftwareUpdateExecutionRequest request, CancellationToken cancellationToken);

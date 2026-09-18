@@ -130,7 +130,7 @@ public static class FloorEndpoints
             Level = request.Level,
             Building = request.Building,
             Rooms = request.Rooms,
-        }
+        };
         return model;
     }
 

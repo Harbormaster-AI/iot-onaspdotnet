@@ -151,7 +151,7 @@ public static class UsageRecordEndpoints
             Tenant = request.Tenant,
             Device = request.Device,
             ConnectivityPlan = request.ConnectivityPlan,
-        }
+        };
         return model;
     }
 

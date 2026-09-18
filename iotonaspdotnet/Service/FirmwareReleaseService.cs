@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service;
 
-public interface IFirmwareReleaseService
+public interface IFirmwareReleaseService {
 
     Task Create(FirmwareReleaseRequest request , CancellationToken cancellationToken);
     Task<bool> Update(FirmwareReleaseRequest request, CancellationToken cancellationToken);

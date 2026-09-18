@@ -132,7 +132,7 @@ public static class TenantUserEndpoints
             Tenant = request.Tenant,
             CommandInvocations = request.CommandInvocations,
             Role = request.Role,
-        }
+        };
         return model;
     }
 

@@ -151,7 +151,7 @@ public static class SoftwareUpdateCampaignEndpoints
             DeviceGroup = request.DeviceGroup,
             Executions = request.Executions,
             Status = request.Status,
-        }
+        };
         return model;
     }
 

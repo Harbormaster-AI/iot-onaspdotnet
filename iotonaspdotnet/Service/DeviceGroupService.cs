@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service;
 
-public interface IDeviceGroupService
+public interface IDeviceGroupService {
 
     Task Create(DeviceGroupRequest request , CancellationToken cancellationToken);
     Task<bool> Update(DeviceGroupRequest request, CancellationToken cancellationToken);

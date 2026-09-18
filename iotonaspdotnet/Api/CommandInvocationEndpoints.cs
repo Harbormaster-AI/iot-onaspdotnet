@@ -170,7 +170,7 @@ public static class CommandInvocationEndpoints
             Actuator = request.Actuator,
             User = request.User,
             Status = request.Status,
-        }
+        };
         return model;
     }
 

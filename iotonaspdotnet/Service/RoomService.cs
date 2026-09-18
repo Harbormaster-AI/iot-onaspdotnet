@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service;
 
-public interface IRoomService
+public interface IRoomService {
 
     Task Create(RoomRequest request , CancellationToken cancellationToken);
     Task<bool> Update(RoomRequest request, CancellationToken cancellationToken);

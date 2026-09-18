@@ -129,7 +129,7 @@ public static class BuildingEndpoints
             Name = request.Name,
             Site = request.Site,
             Floors = request.Floors,
-        }
+        };
         return model;
     }
 

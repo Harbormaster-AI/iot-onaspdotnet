@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service;
 
-public interface IAccessPolicyService
+public interface IAccessPolicyService {
 
     Task Create(AccessPolicyRequest request , CancellationToken cancellationToken);
     Task<bool> Update(AccessPolicyRequest request, CancellationToken cancellationToken);

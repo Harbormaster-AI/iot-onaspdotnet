@@ -37,7 +37,8 @@ public class GatewayRepository : IGatewayRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task UpdateAsync(Gateway gateway, CancellationToken cancellationToken)
+    public async Task
+    (Gateway gateway, CancellationToken cancellationToken)
     {
         _db.Gateways.Update(gateway);
         await _db.SaveChangesAsync(cancellationToken);

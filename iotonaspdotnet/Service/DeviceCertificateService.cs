@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service;
 
-public interface IDeviceCertificateService
+public interface IDeviceCertificateService {
 
     Task Create(DeviceCertificateRequest request , CancellationToken cancellationToken);
     Task<bool> Update(DeviceCertificateRequest request, CancellationToken cancellationToken);

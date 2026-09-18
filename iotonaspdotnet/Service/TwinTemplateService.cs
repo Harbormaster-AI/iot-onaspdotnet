@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service;
 
-public interface ITwinTemplateService
+public interface ITwinTemplateService {
 
     Task Create(TwinTemplateRequest request , CancellationToken cancellationToken);
     Task<bool> Update(TwinTemplateRequest request, CancellationToken cancellationToken);

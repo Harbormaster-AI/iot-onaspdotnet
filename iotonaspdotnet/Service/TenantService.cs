@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service;
 
-public interface ITenantService
+public interface ITenantService {
 
     Task Create(TenantRequest request , CancellationToken cancellationToken);
     Task<bool> Update(TenantRequest request, CancellationToken cancellationToken);

@@ -151,7 +151,7 @@ public static class SimCardEndpoints
             Tenant = request.Tenant,
             ConnectivityPlan = request.ConnectivityPlan,
             Status = request.Status,
-        }
+        };
         return model;
     }
 

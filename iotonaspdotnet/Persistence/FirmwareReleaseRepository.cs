@@ -33,7 +33,8 @@ public class FirmwareReleaseRepository : IFirmwareReleaseRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task UpdateAsync(FirmwareRelease firmwareRelease, CancellationToken cancellationToken)
+    public async Task
+    (FirmwareRelease firmwareRelease, CancellationToken cancellationToken)
     {
         _db.FirmwareReleases.Update(firmwareRelease);
         await _db.SaveChangesAsync(cancellationToken);

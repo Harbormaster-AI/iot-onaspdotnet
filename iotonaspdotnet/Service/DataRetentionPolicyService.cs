@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service;
 
-public interface IDataRetentionPolicyService
+public interface IDataRetentionPolicyService {
 
     Task Create(DataRetentionPolicyRequest request , CancellationToken cancellationToken);
     Task<bool> Update(DataRetentionPolicyRequest request, CancellationToken cancellationToken);

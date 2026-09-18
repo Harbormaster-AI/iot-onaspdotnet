@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service;
 
-public interface ICommandDefinitionService
+public interface ICommandDefinitionService {
 
     Task Create(CommandDefinitionRequest request , CancellationToken cancellationToken);
     Task<bool> Update(CommandDefinitionRequest request, CancellationToken cancellationToken);

@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service;
 
-public interface IMessagingEndpointService
+public interface IMessagingEndpointService {
 
     Task Create(MessagingEndpointRequest request , CancellationToken cancellationToken);
     Task<bool> Update(MessagingEndpointRequest request, CancellationToken cancellationToken);

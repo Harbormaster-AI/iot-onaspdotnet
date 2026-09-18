@@ -150,7 +150,7 @@ public static class AlertRuleEndpoints
             Streams = request.Streams,
             Alerts = request.Alerts,
             Severity = request.Severity,
-        }
+        };
         return model;
     }
 

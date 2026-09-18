@@ -113,7 +113,7 @@ public static class ApiKeyEndpoints
             CreatedAt = request.CreatedAt,
             LastUsedAt = request.LastUsedAt,
             AccessPolicy = request.AccessPolicy,
-        }
+        };
         return model;
     }
 

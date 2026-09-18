@@ -132,7 +132,7 @@ public static class SensorInstanceEndpoints
             Device = request.Device,
             TelemetryStreams = request.TelemetryStreams,
             SensorType = request.SensorType,
-        }
+        };
         return model;
     }
 

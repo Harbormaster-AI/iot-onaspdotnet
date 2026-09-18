@@ -33,7 +33,8 @@ public class TenantUserRepository : ITenantUserRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task UpdateAsync(TenantUser tenantUser, CancellationToken cancellationToken)
+    public async Task
+    (TenantUser tenantUser, CancellationToken cancellationToken)
     {
         _db.TenantUsers.Update(tenantUser);
         await _db.SaveChangesAsync(cancellationToken);

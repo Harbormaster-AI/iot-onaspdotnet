@@ -35,7 +35,8 @@ public class SoftwareUpdateExecutionRepository : ISoftwareUpdateExecutionReposit
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task UpdateAsync(SoftwareUpdateExecution softwareUpdateExecution, CancellationToken cancellationToken)
+    public async Task
+    (SoftwareUpdateExecution softwareUpdateExecution, CancellationToken cancellationToken)
     {
         _db.SoftwareUpdateExecutions.Update(softwareUpdateExecution);
         await _db.SaveChangesAsync(cancellationToken);

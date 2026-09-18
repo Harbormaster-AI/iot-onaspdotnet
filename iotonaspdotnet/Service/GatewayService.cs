@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service;
 
-public interface IGatewayService
+public interface IGatewayService {
 
     Task Create(GatewayRequest request , CancellationToken cancellationToken);
     Task<bool> Update(GatewayRequest request, CancellationToken cancellationToken);

@@ -112,7 +112,7 @@ public static class TelemetrySchemaEndpoints
             SchemaUri = request.SchemaUri,
             Streams = request.Streams,
             Encoding = request.Encoding,
-        }
+        };
         return model;
     }
 

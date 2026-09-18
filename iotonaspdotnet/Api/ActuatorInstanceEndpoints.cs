@@ -131,7 +131,7 @@ public static class ActuatorInstanceEndpoints
             Device = request.Device,
             SupportedCommands = request.SupportedCommands,
             ActuatorType = request.ActuatorType,
-        }
+        };
         return model;
     }
 

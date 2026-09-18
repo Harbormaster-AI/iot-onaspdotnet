@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service;
 
-public interface ISiteService
+public interface ISiteService {
 
     Task Create(SiteRequest request , CancellationToken cancellationToken);
     Task<bool> Update(SiteRequest request, CancellationToken cancellationToken);

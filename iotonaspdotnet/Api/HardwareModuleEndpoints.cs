@@ -112,7 +112,7 @@ public static class HardwareModuleEndpoints
             DatasheetUri = request.DatasheetUri,
             Vendor = request.Vendor,
             ModuleType = request.ModuleType,
-        }
+        };
         return model;
     }
 

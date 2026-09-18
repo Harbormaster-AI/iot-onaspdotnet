@@ -33,7 +33,8 @@ public class FloorRepository : IFloorRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task UpdateAsync(Floor floor, CancellationToken cancellationToken)
+    public async Task
+    (Floor floor, CancellationToken cancellationToken)
     {
         _db.Floors.Update(floor);
         await _db.SaveChangesAsync(cancellationToken);

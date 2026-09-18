@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service;
 
-public interface IAlertRuleService
+public interface IAlertRuleService {
 
     Task Create(AlertRuleRequest request , CancellationToken cancellationToken);
     Task<bool> Update(AlertRuleRequest request, CancellationToken cancellationToken);

@@ -381,7 +381,7 @@ public static class IoTDeviceEndpoints
             NetworkProfiles = request.NetworkProfiles,
             Status = request.Status,
             PowerSource = request.PowerSource,
-        }
+        };
         return model;
     }
 

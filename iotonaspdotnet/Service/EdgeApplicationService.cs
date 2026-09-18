@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service;
 
-public interface IEdgeApplicationService
+public interface IEdgeApplicationService {
 
     Task Create(EdgeApplicationRequest request , CancellationToken cancellationToken);
     Task<bool> Update(EdgeApplicationRequest request, CancellationToken cancellationToken);

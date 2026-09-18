@@ -171,7 +171,7 @@ public static class SiteEndpoints
             Buildings = request.Buildings,
             Devices = request.Devices,
             Gateways = request.Gateways,
-        }
+        };
         return model;
     }
 

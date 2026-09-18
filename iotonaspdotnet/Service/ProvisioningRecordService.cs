@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service;
 
-public interface IProvisioningRecordService
+public interface IProvisioningRecordService {
 
     Task Create(ProvisioningRecordRequest request , CancellationToken cancellationToken);
     Task<bool> Update(ProvisioningRecordRequest request, CancellationToken cancellationToken);

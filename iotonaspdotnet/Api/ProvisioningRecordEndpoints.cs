@@ -151,7 +151,7 @@ public static class ProvisioningRecordEndpoints
             Tenant = request.Tenant,
             Method = request.Method,
             Status = request.Status,
-        }
+        };
         return model;
     }
 

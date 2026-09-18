@@ -33,7 +33,8 @@ public class CommandDefinitionRepository : ICommandDefinitionRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task UpdateAsync(CommandDefinition commandDefinition, CancellationToken cancellationToken)
+    public async Task
+    (CommandDefinition commandDefinition, CancellationToken cancellationToken)
     {
         _db.CommandDefinitions.Update(commandDefinition);
         await _db.SaveChangesAsync(cancellationToken);

@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service;
 
-public interface ISimCardService
+public interface ISimCardService {
 
     Task Create(SimCardRequest request , CancellationToken cancellationToken);
     Task<bool> Update(SimCardRequest request, CancellationToken cancellationToken);

@@ -170,7 +170,7 @@ public static class DigitalTwinEndpoints
             Gateway = request.Gateway,
             Template = request.Template,
             ChangeEvents = request.ChangeEvents,
-        }
+        };
         return model;
     }
 

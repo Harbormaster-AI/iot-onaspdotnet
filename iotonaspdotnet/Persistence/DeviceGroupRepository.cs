@@ -33,7 +33,8 @@ public class DeviceGroupRepository : IDeviceGroupRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task UpdateAsync(DeviceGroup deviceGroup, CancellationToken cancellationToken)
+    public async Task
+    (DeviceGroup deviceGroup, CancellationToken cancellationToken)
     {
         _db.DeviceGroups.Update(deviceGroup);
         await _db.SaveChangesAsync(cancellationToken);

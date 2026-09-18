@@ -113,7 +113,7 @@ public static class FirmwareReleaseEndpoints
             ReleaseNotes = request.ReleaseNotes,
             Checksum = request.Checksum,
             DeviceModel = request.DeviceModel,
-        }
+        };
         return model;
     }
 

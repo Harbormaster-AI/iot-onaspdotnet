@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service;
 
-public interface IUsageRecordService
+public interface IUsageRecordService {
 
     Task Create(UsageRecordRequest request , CancellationToken cancellationToken);
     Task<bool> Update(UsageRecordRequest request, CancellationToken cancellationToken);

@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service;
 
-public interface IBuildingService
+public interface IBuildingService {
 
     Task Create(BuildingRequest request , CancellationToken cancellationToken);
     Task<bool> Update(BuildingRequest request, CancellationToken cancellationToken);

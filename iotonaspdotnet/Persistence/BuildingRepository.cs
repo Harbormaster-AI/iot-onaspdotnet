@@ -33,7 +33,8 @@ public class BuildingRepository : IBuildingRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task UpdateAsync(Building building, CancellationToken cancellationToken)
+    public async Task
+    (Building building, CancellationToken cancellationToken)
     {
         _db.Buildings.Update(building);
         await _db.SaveChangesAsync(cancellationToken);

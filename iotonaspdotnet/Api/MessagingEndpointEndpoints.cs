@@ -132,7 +132,7 @@ public static class MessagingEndpointEndpoints
             Tenant = request.Tenant,
             Streams = request.Streams,
             Protocol = request.Protocol,
-        }
+        };
         return model;
     }
 

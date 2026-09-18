@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service;
 
-public interface INetworkProfileService
+public interface INetworkProfileService {
 
     Task Create(NetworkProfileRequest request , CancellationToken cancellationToken);
     Task<bool> Update(NetworkProfileRequest request, CancellationToken cancellationToken);

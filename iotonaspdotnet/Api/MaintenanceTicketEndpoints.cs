@@ -133,7 +133,7 @@ public static class MaintenanceTicketEndpoints
             Tenant = request.Tenant,
             Priority = request.Priority,
             Status = request.Status,
-        }
+        };
         return model;
     }
 

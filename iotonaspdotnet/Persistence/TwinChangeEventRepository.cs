@@ -33,7 +33,8 @@ public class TwinChangeEventRepository : ITwinChangeEventRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task UpdateAsync(TwinChangeEvent twinChangeEvent, CancellationToken cancellationToken)
+    public async Task
+    (TwinChangeEvent twinChangeEvent, CancellationToken cancellationToken)
     {
         _db.TwinChangeEvents.Update(twinChangeEvent);
         await _db.SaveChangesAsync(cancellationToken);

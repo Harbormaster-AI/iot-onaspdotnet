@@ -190,7 +190,7 @@ public static class DeviceModelEndpoints
             CommandDefinitions = request.CommandDefinitions,
             SupportedConnectivity = request.SupportedConnectivity,
             DefaultTelemetryEncoding = request.DefaultTelemetryEncoding,
-        }
+        };
         return model;
     }
 

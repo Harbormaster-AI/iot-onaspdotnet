@@ -35,7 +35,8 @@ public class DeviceCertificateRepository : IDeviceCertificateRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task UpdateAsync(DeviceCertificate deviceCertificate, CancellationToken cancellationToken)
+    public async Task
+    (DeviceCertificate deviceCertificate, CancellationToken cancellationToken)
     {
         _db.DeviceCertificates.Update(deviceCertificate);
         await _db.SaveChangesAsync(cancellationToken);

@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service;
 
-public interface ITwinChangeEventService
+public interface ITwinChangeEventService {
 
     Task Create(TwinChangeEventRequest request , CancellationToken cancellationToken);
     Task<bool> Update(TwinChangeEventRequest request, CancellationToken cancellationToken);

@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service;
 
-public interface IDigitalTwinService
+public interface IDigitalTwinService {
 
     Task Create(DigitalTwinRequest request , CancellationToken cancellationToken);
     Task<bool> Update(DigitalTwinRequest request, CancellationToken cancellationToken);

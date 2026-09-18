@@ -113,7 +113,7 @@ public static class EdgeApplicationEndpoints
             Image = request.Image,
             Gateway = request.Gateway,
             Status = request.Status,
-        }
+        };
         return model;
     }
 

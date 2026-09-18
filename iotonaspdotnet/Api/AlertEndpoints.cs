@@ -132,7 +132,7 @@ public static class AlertEndpoints
             Device = request.Device,
             AlertRule = request.AlertRule,
             Status = request.Status,
-        }
+        };
         return model;
     }
 

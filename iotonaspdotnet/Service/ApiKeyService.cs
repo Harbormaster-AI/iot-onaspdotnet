@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service;
 
-public interface IApiKeyService
+public interface IApiKeyService {
 
     Task Create(ApiKeyRequest request , CancellationToken cancellationToken);
     Task<bool> Update(ApiKeyRequest request, CancellationToken cancellationToken);

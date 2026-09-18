@@ -112,7 +112,7 @@ public static class TwinChangeEventEndpoints
             OccurredAt = request.OccurredAt,
             Twin = request.Twin,
             ChangeType = request.ChangeType,
-        }
+        };
         return model;
     }
 

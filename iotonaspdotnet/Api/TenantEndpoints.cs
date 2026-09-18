@@ -320,7 +320,7 @@ public static class TenantEndpoints
             MaintenanceTickets = request.MaintenanceTickets,
             UsageRecords = request.UsageRecords,
             TenantType = request.TenantType,
-        }
+        };
         return model;
     }
 

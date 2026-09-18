@@ -33,7 +33,8 @@ public class AccessPolicyRepository : IAccessPolicyRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task UpdateAsync(AccessPolicy accessPolicy, CancellationToken cancellationToken)
+    public async Task
+    (AccessPolicy accessPolicy, CancellationToken cancellationToken)
     {
         _db.AccessPolicys.Update(accessPolicy);
         await _db.SaveChangesAsync(cancellationToken);

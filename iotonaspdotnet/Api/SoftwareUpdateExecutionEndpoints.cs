@@ -131,7 +131,7 @@ public static class SoftwareUpdateExecutionEndpoints
             Campaign = request.Campaign,
             Device = request.Device,
             Status = request.Status,
-        }
+        };
         return model;
     }
 

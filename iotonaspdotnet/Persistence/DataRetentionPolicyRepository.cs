@@ -33,7 +33,8 @@ public class DataRetentionPolicyRepository : IDataRetentionPolicyRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task UpdateAsync(DataRetentionPolicy dataRetentionPolicy, CancellationToken cancellationToken)
+    public async Task
+    (DataRetentionPolicy dataRetentionPolicy, CancellationToken cancellationToken)
     {
         _db.DataRetentionPolicys.Update(dataRetentionPolicy);
         await _db.SaveChangesAsync(cancellationToken);

@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service;
 
-public interface ITelemetryStreamService
+public interface ITelemetryStreamService {
 
     Task Create(TelemetryStreamRequest request , CancellationToken cancellationToken);
     Task<bool> Update(TelemetryStreamRequest request, CancellationToken cancellationToken);

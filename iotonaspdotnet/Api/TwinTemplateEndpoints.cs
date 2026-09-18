@@ -112,7 +112,7 @@ public static class TwinTemplateEndpoints
             SchemaUri = request.SchemaUri,
             Version = request.Version,
             DeviceModels = request.DeviceModels,
-        }
+        };
         return model;
     }
 

@@ -31,7 +31,8 @@ public class TwinTemplateRepository : ITwinTemplateRepository
         await _db.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task UpdateAsync(TwinTemplate twinTemplate, CancellationToken cancellationToken)
+    public async Task
+    (TwinTemplate twinTemplate, CancellationToken cancellationToken)
     {
         _db.TwinTemplates.Update(twinTemplate);
         await _db.SaveChangesAsync(cancellationToken);

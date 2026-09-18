@@ -3,7 +3,7 @@ using iotonaspdotnet.Persistence;
 
 namespace iotonaspdotnet.Service;
 
-public interface IFloorService
+public interface IFloorService {
 
     Task Create(FloorRequest request , CancellationToken cancellationToken);
     Task<bool> Update(FloorRequest request, CancellationToken cancellationToken);
