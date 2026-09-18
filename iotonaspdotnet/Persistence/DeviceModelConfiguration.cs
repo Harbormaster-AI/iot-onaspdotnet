@@ -15,8 +15,8 @@ public class DeviceModelConfiguration : IEntityTypeConfiguration<DeviceModel>
         builder.Property(x => x.Name);
         builder.Property(x => x.ModelNumber);
         builder.Property(x => x.HardwareRevision);
-        builder.Property(x => x.ConnectivityType).HasConversion<string>();
-        builder.Property(x => x.TelemetryEncoding).HasConversion<string>();
+        builder.Property(x => x.SupportedConnectivity).HasConversion<string>();
+        builder.Property(x => x.DefaultTelemetryEncoding).HasConversion<string>();
 
 // Exactly one TelemetryEncoding per DeviceModel (1:1)
         builder.Property(x => x.Vendor).IsRequired();

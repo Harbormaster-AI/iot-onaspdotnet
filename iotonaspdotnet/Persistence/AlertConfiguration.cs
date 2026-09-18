@@ -15,7 +15,7 @@ public class AlertConfiguration : IEntityTypeConfiguration<Alert>
         builder.Property(x => x.RaisedAt);
         builder.Property(x => x.ClearedAt);
         builder.Property(x => x.Message);
-        builder.Property(x => x.AlertStatus).HasConversion<string>();
+        builder.Property(x => x.Status).HasConversion<string>();
 
 // Exactly one AlertStatus per Alert (1:1)
         builder.Property(x => x.Device).IsRequired();

@@ -15,7 +15,7 @@ public class SoftwareUpdateCampaignConfiguration : IEntityTypeConfiguration<Soft
         builder.Property(x => x.CampaignCode);
         builder.Property(x => x.ScheduledStart);
         builder.Property(x => x.ScheduledEnd);
-        builder.Property(x => x.UpdateCampaignStatus).HasConversion<string>();
+        builder.Property(x => x.Status).HasConversion<string>();
 
 // Exactly one UpdateCampaignStatus per SoftwareUpdateCampaign (1:1)
         builder.Property(x => x.FirmwareRelease).IsRequired();

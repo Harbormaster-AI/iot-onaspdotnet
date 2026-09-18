@@ -13,7 +13,7 @@ public class GatewayConfiguration : IEntityTypeConfiguration<Gateway>
         builder.Property(x => x.Id).ValueGeneratedNever();
 
         builder.Property(x => x.SoftwareVersion);
-        builder.Property(x => x.DeviceStatus).HasConversion<string>();
+        builder.Property(x => x.Status).HasConversion<string>();
 
 // Exactly one DeviceStatus per Gateway (1:1)
         builder.Property(x => x.Site).IsRequired();

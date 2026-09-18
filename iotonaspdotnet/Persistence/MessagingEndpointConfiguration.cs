@@ -15,7 +15,7 @@ public class MessagingEndpointConfiguration : IEntityTypeConfiguration<Messaging
         builder.Property(x => x.Host);
         builder.Property(x => x.Port);
         builder.Property(x => x.Secure);
-        builder.Property(x => x.MessagingProtocol).HasConversion<string>();
+        builder.Property(x => x.Protocol).HasConversion<string>();
 
 // Exactly one MessagingProtocol per MessagingEndpoint (1:1)
         builder.Property(x => x.Tenant).IsRequired();

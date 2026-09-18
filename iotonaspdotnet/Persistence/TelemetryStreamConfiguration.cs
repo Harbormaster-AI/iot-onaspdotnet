@@ -14,7 +14,7 @@ public class TelemetryStreamConfiguration : IEntityTypeConfiguration<TelemetrySt
 
         builder.Property(x => x.StreamName);
         builder.Property(x => x.RetentionDays);
-        builder.Property(x => x.MessageQoS).HasConversion<string>();
+        builder.Property(x => x.Qos).HasConversion<string>();
 
 // Exactly one MessageQoS per TelemetryStream (1:1)
         builder.Property(x => x.Device).IsRequired();

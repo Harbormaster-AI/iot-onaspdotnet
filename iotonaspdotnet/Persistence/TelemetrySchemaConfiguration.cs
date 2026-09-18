@@ -17,7 +17,7 @@ builder.OwnsOne(x => x.Uri_, SchemaUri =>
 {
     SchemaUri.Property(x => x.Value).HasColumnName("SchemaUri_value");
 });
-        builder.Property(x => x.TelemetryEncoding).HasConversion<string>();
+        builder.Property(x => x.Encoding).HasConversion<string>();
 
 // Exactly one TelemetryEncoding per TelemetrySchema (1:1)
     }

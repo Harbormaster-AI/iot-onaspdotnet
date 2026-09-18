@@ -22,7 +22,7 @@ builder.OwnsOne(x => x.FirmwareVersion, FirmwareVersion =>
 {
     FirmwareVersion.Property(x => x.Value).HasColumnName("FirmwareVersion_value");
 });
-        builder.Property(x => x.DeviceStatus).HasConversion<string>();
+        builder.Property(x => x.Status).HasConversion<string>();
         builder.Property(x => x.PowerSource).HasConversion<string>();
 
 // Exactly one PowerSource per IoTDevice (1:1)

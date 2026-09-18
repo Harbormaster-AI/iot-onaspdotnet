@@ -15,7 +15,7 @@ public class CommandInvocationConfiguration : IEntityTypeConfiguration<CommandIn
         builder.Property(x => x.InvocationId);
         builder.Property(x => x.RequestedAt);
         builder.Property(x => x.CompletedAt);
-        builder.Property(x => x.CommandStatus).HasConversion<string>();
+        builder.Property(x => x.Status).HasConversion<string>();
 
 // Exactly one CommandStatus per CommandInvocation (1:1)
         builder.Property(x => x.Device).IsRequired();

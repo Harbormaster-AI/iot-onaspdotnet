@@ -14,7 +14,7 @@ public class SoftwareUpdateExecutionConfiguration : IEntityTypeConfiguration<Sof
 
         builder.Property(x => x.StartedAt);
         builder.Property(x => x.CompletedAt);
-        builder.Property(x => x.UpdateStatus).HasConversion<string>();
+        builder.Property(x => x.Status).HasConversion<string>();
 
 // Exactly one UpdateStatus per SoftwareUpdateExecution (1:1)
         builder.Property(x => x.Campaign).IsRequired();
