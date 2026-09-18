@@ -13,11 +13,11 @@ public class CommandDefinitionConfiguration : IEntityTypeConfiguration<CommandDe
         builder.Property(x => x.Id).ValueGeneratedNever();
 
         builder.Property(x => x.Name);
-builder.OwnsOne(x => x.Uri_, RequestSchemaUri =>
+builder.OwnsOne(x => x.RequestSchemaUri, RequestSchemaUri =>
 {
     RequestSchemaUri.Property(x => x.Value).HasColumnName("RequestSchemaUri_value");
 });
-builder.OwnsOne(x => x.Uri_, ResponseSchemaUri =>
+builder.OwnsOne(x => x.ResponseSchemaUri, ResponseSchemaUri =>
 {
     ResponseSchemaUri.Property(x => x.Value).HasColumnName("ResponseSchemaUri_value");
 });

@@ -13,7 +13,7 @@ public class HardwareModuleConfiguration : IEntityTypeConfiguration<HardwareModu
         builder.Property(x => x.Id).ValueGeneratedNever();
 
         builder.Property(x => x.ModuleCode);
-builder.OwnsOne(x => x.Uri_, DatasheetUri =>
+builder.OwnsOne(x => x.DatasheetUri, DatasheetUri =>
 {
     DatasheetUri.Property(x => x.Value).HasColumnName("DatasheetUri_value");
 });

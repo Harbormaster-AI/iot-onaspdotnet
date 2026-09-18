@@ -13,7 +13,7 @@ public class ActuatorInstanceConfiguration : IEntityTypeConfiguration<ActuatorIn
         builder.Property(x => x.Id).ValueGeneratedNever();
 
         builder.Property(x => x.Name);
-builder.OwnsOne(x => x.TopicName, CommandTopic =>
+builder.OwnsOne(x => x.CommandTopic, CommandTopic =>
 {
     CommandTopic.Property(x => x.Value).HasColumnName("CommandTopic_value");
 });

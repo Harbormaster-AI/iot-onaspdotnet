@@ -12,7 +12,7 @@ public class FirmwareReleaseConfiguration : IEntityTypeConfiguration<FirmwareRel
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
 
-builder.OwnsOne(x => x.FirmwareVersion, Version =>
+builder.OwnsOne(x => x.Version, Version =>
 {
     Version.Property(x => x.Value).HasColumnName("Version_value");
 });
