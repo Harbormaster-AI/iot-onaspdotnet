@@ -12,65 +12,64 @@ builder.Services.AddHealthChecks()
     .AddDbContextCheck<ApplicationDbContext>();
 
 
+var dbEngineEnvironment = builder.Configuration["DB_ENGINE"];
+
+string dbEngine;
+string dbUserName;
+string dbPassword;
+string dbName;
+string dbHost;
+string dbPort;
+
+if (string.IsNullOrWhiteSpace(dbEngineEnvironment))
+{
+// Generation-time configuration
+dbEngine = "";
+dbUserName = "postgres";
+dbPassword = "${dbPassword}";
+dbName = "testDb";
+dbHost = "localhost";
+dbPort = "5432";
+}
+else
+{
+// Runtime environment configuration
+dbEngine = dbEngineEnvironment;
+dbUserName = builder.Configuration["DB_USER_NAME"]
+    ?? throw new InvalidOperationException("DB_USER_NAME is required when DB_ENGINE is provided.");
+
+dbPassword = builder.Configuration["DB_PASSWORD"]
+    ?? throw new InvalidOperationException("DB_PASSWORD is required when DB_ENGINE is provided.");
+
+dbName = builder.Configuration["DB_NAME"]
+    ?? throw new InvalidOperationException("DB_NAME is required when DB_ENGINE is provided.");
+
+dbHost = builder.Configuration["DB_HOST"]
+    ?? throw new InvalidOperationException("DB_HOST is required when DB_ENGINE is provided.");
+
+dbPort = builder.Configuration["DB_PORT"]
+    ?? throw new InvalidOperationException("DB_PORT is required when DB_ENGINE is provided.");
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-
-    var dbEngine = builder.Configuration["DB_ENGINE"] ?? "postgres";
-    var dbUserName = builder.Configuration["DB_USER_NAME"] ?? "";
-    var dbPassword = builder.Configuration["DB_PASSWORD"] ?? "postgres";
-    var dbName = builder.Configuration["DB_NAME"] ?? "testDb";
-    var dbHost = builder.Configuration["DB_HOST"] ?? "localhost";
-    var dbPort = builder.Configuration["DB_PORT"] ?? "5432";
-
-    var connectionString =
-        $"Host={dbHost};Port={dbPort};Database={dbName};Username={dbUserName};Password={dbPassword}";
-
     if (dbEngine.Equals("mysql", StringComparison.OrdinalIgnoreCase))
     {
+        var connectionString =
+            $"Server={dbHost};Port={dbPort};Database={dbName};User={dbUserName};Password={dbPassword}";
+
         options.UseMySql(
             connectionString,
             ServerVersion.Parse("8.4.0-mysql"));
     }
-    else if (dbEngine.Equals("mariadb", StringComparison.OrdinalIgnoreCase))
-    {
-        options.UseMySql(
-            connectionString,
-            ServerVersion.Parse("11.4.0-mariadb"));
-    }
-    else if (dbEngine.Equals("sqlite", StringComparison.OrdinalIgnoreCase))
-    {
-        options.UseSqlite(connectionString);
-    }
-    else if (dbEngine.Equals("sqlserver", StringComparison.OrdinalIgnoreCase) ||
-             dbEngine.Equals("azuresql", StringComparison.OrdinalIgnoreCase))
-    {
-        options.UseSqlServer(connectionString);
-    }
-    else if (dbEngine.Equals("oracle", StringComparison.OrdinalIgnoreCase))
-    {
-        options.UseOracle(connectionString);
-    }
-    else if (dbEngine.Equals("mongodb", StringComparison.OrdinalIgnoreCase))
-    {
-        options.UseMongoDB(connectionString);
-    }
-    else if (dbEngine.Equals("inmemory", StringComparison.OrdinalIgnoreCase))
-    {
-        options.UseInMemoryDatabase("iotonaspdotnet");
-    }
-    else if (dbEngine.Equals("cosmosdb", StringComparison.OrdinalIgnoreCase))
-    {
-        options.UseCosmos(connectionString);
-    }
     else if (dbEngine.Equals("postgres", StringComparison.OrdinalIgnoreCase))
     {
+        var connectionString =
+            $"Host={dbHost};Port={dbPort};Database={dbName};Username={dbUserName};Password={dbPassword}";
+
         options.UseNpgsql(connectionString);
     }
-    else
-    {
-        throw new InvalidOperationException(
-            "Unsupported or missing database engine configuration.");
-    }
+
+    // etc.
 });
 
                         builder.Services.AddScoped<IDeviceVendorRepository, DeviceVendorRepository>();
