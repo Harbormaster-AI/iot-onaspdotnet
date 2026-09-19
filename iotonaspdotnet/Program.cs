@@ -58,11 +58,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
     if (dbEngine.Equals("mysql", StringComparison.OrdinalIgnoreCase))
     {
-        options.UseMySql(connectionString);
+        options.UseMySQL(connectionString);
     }
     else if (dbEngine.Equals("mariadb", StringComparison.OrdinalIgnoreCase))
     {
-        options.UseMySql(connectionString);
+        options.UseMySQL(connectionString);
     }
     else if (dbEngine.Equals("sqlite", StringComparison.OrdinalIgnoreCase))
     {
