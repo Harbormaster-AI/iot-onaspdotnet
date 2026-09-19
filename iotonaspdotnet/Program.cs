@@ -13,7 +13,7 @@ builder.Services.AddHealthChecks()
     .AddDbContextCheck<ApplicationDbContext>();
 
 
-var dbEngineEnvironment = builder.Configuration["DB_ENGINE"];
+var dbEngineEnvironment = builder.Configuration["DB_TYPE"];
 
 string dbEngine;
 string dbUserName;
