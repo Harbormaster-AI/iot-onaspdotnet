@@ -25,9 +25,9 @@ string dbPort;
 if (string.IsNullOrWhiteSpace(dbEngineEnvironment))
 {
     // Generation-time configuration
-    dbEngine = "";
+    dbEngine = "mysql";
     dbUserName = "postgres";
-    dbPassword = "${dbPassword}";
+    dbPassword = "no_password";
     dbName = "testDb";
     dbHost = "localhost";
     dbPort = "5432";
