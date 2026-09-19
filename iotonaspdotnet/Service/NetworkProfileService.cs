@@ -28,11 +28,13 @@ public interface INetworkProfileService {
 public class NetworkProfileService : INetworkProfileService
 {
     private readonly INetworkProfileRepository _repository;
+    private readonly ILogger<NetworkProfileService> _logger;
 
     public NetworkProfileService(
-        INetworkProfileRepository repository )
+        INetworkProfileRepository repository, ILogger<NetworkProfileService> logger )
     {
         _repository = repository;
+        _logger = logger;
     }
 
 
@@ -41,22 +43,36 @@ public class NetworkProfileService : INetworkProfileService
 
  
  
-         await _repository.AddAsync(model, cancellationToken);
+         try
+        {
+            await _repository.AddAsync(model, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+        }
     }
 
     public async Task<bool> Update(NetworkProfile model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
-        if (existing is null)
+        try {
+            var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
+            if (existing is null)
+            {
+                return false;
+            }
+            existing.ProfileName = model.ProfileName;
+            existing.Ssid = model.Ssid;
+            existing.Apn = model.Apn;
+            existing.ConnectivityType = model.ConnectivityType;
+
+            await _repository.UpdateAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
         {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
             return false;
         }
-        existing.ProfileName = model.ProfileName;
-        existing.Ssid = model.Ssid;
-        existing.Apn = model.Apn;
-        existing.ConnectivityType = model.ConnectivityType;
-
-        await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
 
@@ -74,8 +90,17 @@ public class NetworkProfileService : INetworkProfileService
             return false;
         }
 
-        await _repository.DeleteAsync(existing, cancellationToken);
+        try
+        {
+            await _repository.DeleteAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+            return false;
+        }
         return true;
+
     }
 
     public async Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken) {

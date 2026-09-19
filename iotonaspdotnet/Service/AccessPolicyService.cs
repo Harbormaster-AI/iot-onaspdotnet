@@ -28,32 +28,48 @@ public interface IAccessPolicyService {
 public class AccessPolicyService : IAccessPolicyService
 {
     private readonly IAccessPolicyRepository _repository;
+    private readonly ILogger<AccessPolicyService> _logger;
 
     public AccessPolicyService(
-        IAccessPolicyRepository repository )
+        IAccessPolicyRepository repository, ILogger<AccessPolicyService> logger )
     {
         _repository = repository;
+        _logger = logger;
     }
 
 
     public async Task Create(AccessPolicy model, CancellationToken cancellationToken)
     {
 
-         await _repository.AddAsync(model, cancellationToken);
+         try
+        {
+            await _repository.AddAsync(model, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+        }
     }
 
     public async Task<bool> Update(AccessPolicy model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
-        if (existing is null)
+        try {
+            var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
+            if (existing is null)
+            {
+                return false;
+            }
+            existing.Name = model.Name;
+            existing.Scope = model.Scope;
+            existing.ExpiresAt = model.ExpiresAt;
+
+            await _repository.UpdateAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
         {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
             return false;
         }
-        existing.Name = model.Name;
-        existing.Scope = model.Scope;
-        existing.ExpiresAt = model.ExpiresAt;
-
-        await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
 
@@ -71,8 +87,17 @@ public class AccessPolicyService : IAccessPolicyService
             return false;
         }
 
-        await _repository.DeleteAsync(existing, cancellationToken);
+        try
+        {
+            await _repository.DeleteAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+            return false;
+        }
         return true;
+
     }
 
     public async Task<bool> AssignTenant(AssociationRequest request, CancellationToken cancellationToken) {

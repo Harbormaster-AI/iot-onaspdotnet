@@ -28,11 +28,13 @@ public interface IProvisioningRecordService {
 public class ProvisioningRecordService : IProvisioningRecordService
 {
     private readonly IProvisioningRecordRepository _repository;
+    private readonly ILogger<ProvisioningRecordService> _logger;
 
     public ProvisioningRecordService(
-        IProvisioningRecordRepository repository )
+        IProvisioningRecordRepository repository, ILogger<ProvisioningRecordService> logger )
     {
         _repository = repository;
+        _logger = logger;
     }
 
 
@@ -41,22 +43,36 @@ public class ProvisioningRecordService : IProvisioningRecordService
 
  
  
-         await _repository.AddAsync(model, cancellationToken);
+         try
+        {
+            await _repository.AddAsync(model, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+        }
     }
 
     public async Task<bool> Update(ProvisioningRecord model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
-        if (existing is null)
+        try {
+            var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
+            if (existing is null)
+            {
+                return false;
+            }
+            existing.EnrolledAt = model.EnrolledAt;
+            existing.ProvisioningService = model.ProvisioningService;
+            existing.Method = model.Method;
+            existing.Status = model.Status;
+
+            await _repository.UpdateAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
         {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
             return false;
         }
-        existing.EnrolledAt = model.EnrolledAt;
-        existing.ProvisioningService = model.ProvisioningService;
-        existing.Method = model.Method;
-        existing.Status = model.Status;
-
-        await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
 
@@ -74,8 +90,17 @@ public class ProvisioningRecordService : IProvisioningRecordService
             return false;
         }
 
-        await _repository.DeleteAsync(existing, cancellationToken);
+        try
+        {
+            await _repository.DeleteAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+            return false;
+        }
         return true;
+
     }
 
     public async Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken) {

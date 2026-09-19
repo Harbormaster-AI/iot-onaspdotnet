@@ -28,11 +28,13 @@ public interface ISimCardService {
 public class SimCardService : ISimCardService
 {
     private readonly ISimCardRepository _repository;
+    private readonly ILogger<SimCardService> _logger;
 
     public SimCardService(
-        ISimCardRepository repository )
+        ISimCardRepository repository, ILogger<SimCardService> logger )
     {
         _repository = repository;
+        _logger = logger;
     }
 
 
@@ -40,22 +42,36 @@ public class SimCardService : ISimCardService
     {
 
  
-         await _repository.AddAsync(model, cancellationToken);
+         try
+        {
+            await _repository.AddAsync(model, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+        }
     }
 
     public async Task<bool> Update(SimCard model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
-        if (existing is null)
+        try {
+            var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
+            if (existing is null)
+            {
+                return false;
+            }
+            existing.Iccid = model.Iccid;
+            existing.Imsi = model.Imsi;
+            existing.Carrier = model.Carrier;
+            existing.Status = model.Status;
+
+            await _repository.UpdateAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
         {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
             return false;
         }
-        existing.Iccid = model.Iccid;
-        existing.Imsi = model.Imsi;
-        existing.Carrier = model.Carrier;
-        existing.Status = model.Status;
-
-        await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
 
@@ -73,8 +89,17 @@ public class SimCardService : ISimCardService
             return false;
         }
 
-        await _repository.DeleteAsync(existing, cancellationToken);
+        try
+        {
+            await _repository.DeleteAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+            return false;
+        }
         return true;
+
     }
 
     public async Task<bool> AssignTenant(AssociationRequest request, CancellationToken cancellationToken) {

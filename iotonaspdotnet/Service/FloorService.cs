@@ -26,31 +26,47 @@ public interface IFloorService {
 public class FloorService : IFloorService
 {
     private readonly IFloorRepository _repository;
+    private readonly ILogger<FloorService> _logger;
 
     public FloorService(
-        IFloorRepository repository )
+        IFloorRepository repository, ILogger<FloorService> logger )
     {
         _repository = repository;
+        _logger = logger;
     }
 
 
     public async Task Create(Floor model, CancellationToken cancellationToken)
     {
 
-         await _repository.AddAsync(model, cancellationToken);
+         try
+        {
+            await _repository.AddAsync(model, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+        }
     }
 
     public async Task<bool> Update(Floor model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
-        if (existing is null)
+        try {
+            var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
+            if (existing is null)
+            {
+                return false;
+            }
+            existing.Name = model.Name;
+            existing.Level = model.Level;
+
+            await _repository.UpdateAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
         {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
             return false;
         }
-        existing.Name = model.Name;
-        existing.Level = model.Level;
-
-        await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
 
@@ -68,8 +84,17 @@ public class FloorService : IFloorService
             return false;
         }
 
-        await _repository.DeleteAsync(existing, cancellationToken);
+        try
+        {
+            await _repository.DeleteAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+            return false;
+        }
         return true;
+
     }
 
     public async Task<bool> AssignBuilding(AssociationRequest request, CancellationToken cancellationToken) {

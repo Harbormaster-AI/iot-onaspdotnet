@@ -52,11 +52,13 @@ public interface IIoTDeviceService {
 public class IoTDeviceService : IIoTDeviceService
 {
     private readonly IIoTDeviceRepository _repository;
+    private readonly ILogger<IoTDeviceService> _logger;
 
     public IoTDeviceService(
-        IIoTDeviceRepository repository )
+        IIoTDeviceRepository repository, ILogger<IoTDeviceService> logger )
     {
         _repository = repository;
+        _logger = logger;
     }
 
 
@@ -69,24 +71,38 @@ public class IoTDeviceService : IIoTDeviceService
  
  
  
-         await _repository.AddAsync(model, cancellationToken);
+         try
+        {
+            await _repository.AddAsync(model, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+        }
     }
 
     public async Task<bool> Update(IoTDevice model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
-        if (existing is null)
+        try {
+            var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
+            if (existing is null)
+            {
+                return false;
+            }
+            existing.DeviceId = model.DeviceId;
+            existing.SerialNumber = model.SerialNumber;
+            existing.LastSeen = model.LastSeen;
+            existing.FirmwareVersion = model.FirmwareVersion;
+            existing.Status = model.Status;
+            existing.PowerSource = model.PowerSource;
+
+            await _repository.UpdateAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
         {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
             return false;
         }
-        existing.DeviceId = model.DeviceId;
-        existing.SerialNumber = model.SerialNumber;
-        existing.LastSeen = model.LastSeen;
-        existing.FirmwareVersion = model.FirmwareVersion;
-        existing.Status = model.Status;
-        existing.PowerSource = model.PowerSource;
-
-        await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
 
@@ -104,8 +120,17 @@ public class IoTDeviceService : IIoTDeviceService
             return false;
         }
 
-        await _repository.DeleteAsync(existing, cancellationToken);
+        try
+        {
+            await _repository.DeleteAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+            return false;
+        }
         return true;
+
     }
 
     public async Task<bool> AssignDeviceModel(AssociationRequest request, CancellationToken cancellationToken) {

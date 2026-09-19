@@ -26,11 +26,13 @@ public interface IMaintenanceTicketService {
 public class MaintenanceTicketService : IMaintenanceTicketService
 {
     private readonly IMaintenanceTicketRepository _repository;
+    private readonly ILogger<MaintenanceTicketService> _logger;
 
     public MaintenanceTicketService(
-        IMaintenanceTicketRepository repository )
+        IMaintenanceTicketRepository repository, ILogger<MaintenanceTicketService> logger )
     {
         _repository = repository;
+        _logger = logger;
     }
 
 
@@ -38,23 +40,37 @@ public class MaintenanceTicketService : IMaintenanceTicketService
     {
 
  
-         await _repository.AddAsync(model, cancellationToken);
+         try
+        {
+            await _repository.AddAsync(model, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+        }
     }
 
     public async Task<bool> Update(MaintenanceTicket model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
-        if (existing is null)
+        try {
+            var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
+            if (existing is null)
+            {
+                return false;
+            }
+            existing.TicketNumber = model.TicketNumber;
+            existing.OpenedAt = model.OpenedAt;
+            existing.ClosedAt = model.ClosedAt;
+            existing.Priority = model.Priority;
+            existing.Status = model.Status;
+
+            await _repository.UpdateAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
         {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
             return false;
         }
-        existing.TicketNumber = model.TicketNumber;
-        existing.OpenedAt = model.OpenedAt;
-        existing.ClosedAt = model.ClosedAt;
-        existing.Priority = model.Priority;
-        existing.Status = model.Status;
-
-        await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
 
@@ -72,8 +88,17 @@ public class MaintenanceTicketService : IMaintenanceTicketService
             return false;
         }
 
-        await _repository.DeleteAsync(existing, cancellationToken);
+        try
+        {
+            await _repository.DeleteAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+            return false;
+        }
         return true;
+
     }
 
     public async Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken) {

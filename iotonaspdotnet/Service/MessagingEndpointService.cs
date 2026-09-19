@@ -26,33 +26,49 @@ public interface IMessagingEndpointService {
 public class MessagingEndpointService : IMessagingEndpointService
 {
     private readonly IMessagingEndpointRepository _repository;
+    private readonly ILogger<MessagingEndpointService> _logger;
 
     public MessagingEndpointService(
-        IMessagingEndpointRepository repository )
+        IMessagingEndpointRepository repository, ILogger<MessagingEndpointService> logger )
     {
         _repository = repository;
+        _logger = logger;
     }
 
 
     public async Task Create(MessagingEndpoint model, CancellationToken cancellationToken)
     {
 
-         await _repository.AddAsync(model, cancellationToken);
+         try
+        {
+            await _repository.AddAsync(model, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+        }
     }
 
     public async Task<bool> Update(MessagingEndpoint model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
-        if (existing is null)
+        try {
+            var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
+            if (existing is null)
+            {
+                return false;
+            }
+            existing.Host = model.Host;
+            existing.Port = model.Port;
+            existing.Secure = model.Secure;
+            existing.Protocol = model.Protocol;
+
+            await _repository.UpdateAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
         {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
             return false;
         }
-        existing.Host = model.Host;
-        existing.Port = model.Port;
-        existing.Secure = model.Secure;
-        existing.Protocol = model.Protocol;
-
-        await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
 
@@ -70,8 +86,17 @@ public class MessagingEndpointService : IMessagingEndpointService
             return false;
         }
 
-        await _repository.DeleteAsync(existing, cancellationToken);
+        try
+        {
+            await _repository.DeleteAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+            return false;
+        }
         return true;
+
     }
 
     public async Task<bool> AssignTenant(AssociationRequest request, CancellationToken cancellationToken) {

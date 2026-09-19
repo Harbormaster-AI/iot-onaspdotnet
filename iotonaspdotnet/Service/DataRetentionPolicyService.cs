@@ -26,31 +26,47 @@ public interface IDataRetentionPolicyService {
 public class DataRetentionPolicyService : IDataRetentionPolicyService
 {
     private readonly IDataRetentionPolicyRepository _repository;
+    private readonly ILogger<DataRetentionPolicyService> _logger;
 
     public DataRetentionPolicyService(
-        IDataRetentionPolicyRepository repository )
+        IDataRetentionPolicyRepository repository, ILogger<DataRetentionPolicyService> logger )
     {
         _repository = repository;
+        _logger = logger;
     }
 
 
     public async Task Create(DataRetentionPolicy model, CancellationToken cancellationToken)
     {
 
-         await _repository.AddAsync(model, cancellationToken);
+         try
+        {
+            await _repository.AddAsync(model, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+        }
     }
 
     public async Task<bool> Update(DataRetentionPolicy model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
-        if (existing is null)
+        try {
+            var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
+            if (existing is null)
+            {
+                return false;
+            }
+            existing.Name = model.Name;
+            existing.RetentionDays = model.RetentionDays;
+
+            await _repository.UpdateAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
         {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
             return false;
         }
-        existing.Name = model.Name;
-        existing.RetentionDays = model.RetentionDays;
-
-        await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
 
@@ -68,8 +84,17 @@ public class DataRetentionPolicyService : IDataRetentionPolicyService
             return false;
         }
 
-        await _repository.DeleteAsync(existing, cancellationToken);
+        try
+        {
+            await _repository.DeleteAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+            return false;
+        }
         return true;
+
     }
 
     public async Task<bool> AssignTenant(AssociationRequest request, CancellationToken cancellationToken) {

@@ -28,33 +28,49 @@ public interface ICommandDefinitionService {
 public class CommandDefinitionService : ICommandDefinitionService
 {
     private readonly ICommandDefinitionRepository _repository;
+    private readonly ILogger<CommandDefinitionService> _logger;
 
     public CommandDefinitionService(
-        ICommandDefinitionRepository repository )
+        ICommandDefinitionRepository repository, ILogger<CommandDefinitionService> logger )
     {
         _repository = repository;
+        _logger = logger;
     }
 
 
     public async Task Create(CommandDefinition model, CancellationToken cancellationToken)
     {
 
-         await _repository.AddAsync(model, cancellationToken);
+         try
+        {
+            await _repository.AddAsync(model, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+        }
     }
 
     public async Task<bool> Update(CommandDefinition model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
-        if (existing is null)
+        try {
+            var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
+            if (existing is null)
+            {
+                return false;
+            }
+            existing.Name = model.Name;
+            existing.RequestSchemaUri = model.RequestSchemaUri;
+            existing.ResponseSchemaUri = model.ResponseSchemaUri;
+            existing.TimeoutSeconds = model.TimeoutSeconds;
+
+            await _repository.UpdateAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
         {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
             return false;
         }
-        existing.Name = model.Name;
-        existing.RequestSchemaUri = model.RequestSchemaUri;
-        existing.ResponseSchemaUri = model.ResponseSchemaUri;
-        existing.TimeoutSeconds = model.TimeoutSeconds;
-
-        await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
 
@@ -72,8 +88,17 @@ public class CommandDefinitionService : ICommandDefinitionService
             return false;
         }
 
-        await _repository.DeleteAsync(existing, cancellationToken);
+        try
+        {
+            await _repository.DeleteAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+            return false;
+        }
         return true;
+
     }
 
     public async Task<bool> AssignDeviceModel(AssociationRequest request, CancellationToken cancellationToken) {

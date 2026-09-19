@@ -28,11 +28,13 @@ public interface ISoftwareUpdateCampaignService {
 public class SoftwareUpdateCampaignService : ISoftwareUpdateCampaignService
 {
     private readonly ISoftwareUpdateCampaignRepository _repository;
+    private readonly ILogger<SoftwareUpdateCampaignService> _logger;
 
     public SoftwareUpdateCampaignService(
-        ISoftwareUpdateCampaignRepository repository )
+        ISoftwareUpdateCampaignRepository repository, ILogger<SoftwareUpdateCampaignService> logger )
     {
         _repository = repository;
+        _logger = logger;
     }
 
 
@@ -40,22 +42,36 @@ public class SoftwareUpdateCampaignService : ISoftwareUpdateCampaignService
     {
 
  
-         await _repository.AddAsync(model, cancellationToken);
+         try
+        {
+            await _repository.AddAsync(model, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+        }
     }
 
     public async Task<bool> Update(SoftwareUpdateCampaign model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
-        if (existing is null)
+        try {
+            var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
+            if (existing is null)
+            {
+                return false;
+            }
+            existing.CampaignCode = model.CampaignCode;
+            existing.ScheduledStart = model.ScheduledStart;
+            existing.ScheduledEnd = model.ScheduledEnd;
+            existing.Status = model.Status;
+
+            await _repository.UpdateAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
         {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
             return false;
         }
-        existing.CampaignCode = model.CampaignCode;
-        existing.ScheduledStart = model.ScheduledStart;
-        existing.ScheduledEnd = model.ScheduledEnd;
-        existing.Status = model.Status;
-
-        await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
 
@@ -73,8 +89,17 @@ public class SoftwareUpdateCampaignService : ISoftwareUpdateCampaignService
             return false;
         }
 
-        await _repository.DeleteAsync(existing, cancellationToken);
+        try
+        {
+            await _repository.DeleteAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+            return false;
+        }
         return true;
+
     }
 
     public async Task<bool> AssignFirmwareRelease(AssociationRequest request, CancellationToken cancellationToken) {

@@ -24,31 +24,47 @@ public interface ITelemetrySchemaService {
 public class TelemetrySchemaService : ITelemetrySchemaService
 {
     private readonly ITelemetrySchemaRepository _repository;
+    private readonly ILogger<TelemetrySchemaService> _logger;
 
     public TelemetrySchemaService(
-        ITelemetrySchemaRepository repository )
+        ITelemetrySchemaRepository repository, ILogger<TelemetrySchemaService> logger )
     {
         _repository = repository;
+        _logger = logger;
     }
 
 
     public async Task Create(TelemetrySchema model, CancellationToken cancellationToken)
     {
-        await _repository.AddAsync(model, cancellationToken);
+        try
+        {
+            await _repository.AddAsync(model, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+        }
     }
 
     public async Task<bool> Update(TelemetrySchema model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
-        if (existing is null)
+        try {
+            var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
+            if (existing is null)
+            {
+                return false;
+            }
+            existing.SchemaId = model.SchemaId;
+            existing.SchemaUri = model.SchemaUri;
+            existing.Encoding = model.Encoding;
+
+            await _repository.UpdateAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
         {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
             return false;
         }
-        existing.SchemaId = model.SchemaId;
-        existing.SchemaUri = model.SchemaUri;
-        existing.Encoding = model.Encoding;
-
-        await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
 
@@ -66,8 +82,17 @@ public class TelemetrySchemaService : ITelemetrySchemaService
             return false;
         }
 
-        await _repository.DeleteAsync(existing, cancellationToken);
+        try
+        {
+            await _repository.DeleteAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+            return false;
+        }
         return true;
+
     }
 
 

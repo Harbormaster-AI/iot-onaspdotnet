@@ -26,11 +26,13 @@ public interface IDeviceCertificateService {
 public class DeviceCertificateService : IDeviceCertificateService
 {
     private readonly IDeviceCertificateRepository _repository;
+    private readonly ILogger<DeviceCertificateService> _logger;
 
     public DeviceCertificateService(
-        IDeviceCertificateRepository repository )
+        IDeviceCertificateRepository repository, ILogger<DeviceCertificateService> logger )
     {
         _repository = repository;
+        _logger = logger;
     }
 
 
@@ -38,23 +40,37 @@ public class DeviceCertificateService : IDeviceCertificateService
     {
 
  
-         await _repository.AddAsync(model, cancellationToken);
+         try
+        {
+            await _repository.AddAsync(model, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+        }
     }
 
     public async Task<bool> Update(DeviceCertificate model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
-        if (existing is null)
+        try {
+            var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
+            if (existing is null)
+            {
+                return false;
+            }
+            existing.SerialNumber = model.SerialNumber;
+            existing.NotBefore = model.NotBefore;
+            existing.NotAfter = model.NotAfter;
+            existing.Fingerprint = model.Fingerprint;
+            existing.CertificateType = model.CertificateType;
+
+            await _repository.UpdateAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
         {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
             return false;
         }
-        existing.SerialNumber = model.SerialNumber;
-        existing.NotBefore = model.NotBefore;
-        existing.NotAfter = model.NotAfter;
-        existing.Fingerprint = model.Fingerprint;
-        existing.CertificateType = model.CertificateType;
-
-        await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
 
@@ -72,8 +88,17 @@ public class DeviceCertificateService : IDeviceCertificateService
             return false;
         }
 
-        await _repository.DeleteAsync(existing, cancellationToken);
+        try
+        {
+            await _repository.DeleteAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+            return false;
+        }
         return true;
+
     }
 
     public async Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken) {

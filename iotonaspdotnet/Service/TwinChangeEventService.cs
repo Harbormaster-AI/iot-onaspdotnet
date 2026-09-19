@@ -24,32 +24,48 @@ public interface ITwinChangeEventService {
 public class TwinChangeEventService : ITwinChangeEventService
 {
     private readonly ITwinChangeEventRepository _repository;
+    private readonly ILogger<TwinChangeEventService> _logger;
 
     public TwinChangeEventService(
-        ITwinChangeEventRepository repository )
+        ITwinChangeEventRepository repository, ILogger<TwinChangeEventService> logger )
     {
         _repository = repository;
+        _logger = logger;
     }
 
 
     public async Task Create(TwinChangeEvent model, CancellationToken cancellationToken)
     {
 
-         await _repository.AddAsync(model, cancellationToken);
+         try
+        {
+            await _repository.AddAsync(model, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+        }
     }
 
     public async Task<bool> Update(TwinChangeEvent model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
-        if (existing is null)
+        try {
+            var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
+            if (existing is null)
+            {
+                return false;
+            }
+            existing.EventId = model.EventId;
+            existing.OccurredAt = model.OccurredAt;
+            existing.ChangeType = model.ChangeType;
+
+            await _repository.UpdateAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
         {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
             return false;
         }
-        existing.EventId = model.EventId;
-        existing.OccurredAt = model.OccurredAt;
-        existing.ChangeType = model.ChangeType;
-
-        await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
 
@@ -67,8 +83,17 @@ public class TwinChangeEventService : ITwinChangeEventService
             return false;
         }
 
-        await _repository.DeleteAsync(existing, cancellationToken);
+        try
+        {
+            await _repository.DeleteAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+            return false;
+        }
         return true;
+
     }
 
     public async Task<bool> AssignTwin(AssociationRequest request, CancellationToken cancellationToken) {

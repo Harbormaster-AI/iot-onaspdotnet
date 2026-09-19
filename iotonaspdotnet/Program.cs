@@ -3,6 +3,7 @@ using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Service;
 
 using Microsoft.EntityFrameworkCore;
+using Oracle.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -87,7 +88,18 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     }
     else if (dbEngine.Equals("cosmosdb", StringComparison.OrdinalIgnoreCase))
     {
-        options.UseCosmos(connectionString);
+        var cosmosEndpoint = builder.Configuration["DB_ENDPOINT"]
+            ?? throw new InvalidOperationException(
+                "DB_ENDPOINT is required for Cosmos DB.");
+
+        var cosmosKey = builder.Configuration["DB_KEY"]
+            ?? throw new InvalidOperationException(
+                "DB_KEY is required for Cosmos DB.");
+
+        options.UseCosmos(
+            cosmosEndpoint,
+            cosmosKey,
+            dbName);
     }
     else if (dbEngine.Equals("postgres", StringComparison.OrdinalIgnoreCase))
     {

@@ -24,33 +24,49 @@ public interface IEdgeApplicationService {
 public class EdgeApplicationService : IEdgeApplicationService
 {
     private readonly IEdgeApplicationRepository _repository;
+    private readonly ILogger<EdgeApplicationService> _logger;
 
     public EdgeApplicationService(
-        IEdgeApplicationRepository repository )
+        IEdgeApplicationRepository repository, ILogger<EdgeApplicationService> logger )
     {
         _repository = repository;
+        _logger = logger;
     }
 
 
     public async Task Create(EdgeApplication model, CancellationToken cancellationToken)
     {
 
-         await _repository.AddAsync(model, cancellationToken);
+         try
+        {
+            await _repository.AddAsync(model, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+        }
     }
 
     public async Task<bool> Update(EdgeApplication model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
-        if (existing is null)
+        try {
+            var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
+            if (existing is null)
+            {
+                return false;
+            }
+            existing.Name = model.Name;
+            existing.Version = model.Version;
+            existing.Image = model.Image;
+            existing.Status = model.Status;
+
+            await _repository.UpdateAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
         {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
             return false;
         }
-        existing.Name = model.Name;
-        existing.Version = model.Version;
-        existing.Image = model.Image;
-        existing.Status = model.Status;
-
-        await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
 
@@ -68,8 +84,17 @@ public class EdgeApplicationService : IEdgeApplicationService
             return false;
         }
 
-        await _repository.DeleteAsync(existing, cancellationToken);
+        try
+        {
+            await _repository.DeleteAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+            return false;
+        }
         return true;
+
     }
 
     public async Task<bool> AssignGateway(AssociationRequest request, CancellationToken cancellationToken) {

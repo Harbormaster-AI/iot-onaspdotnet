@@ -24,33 +24,49 @@ public interface IApiKeyService {
 public class ApiKeyService : IApiKeyService
 {
     private readonly IApiKeyRepository _repository;
+    private readonly ILogger<ApiKeyService> _logger;
 
     public ApiKeyService(
-        IApiKeyRepository repository )
+        IApiKeyRepository repository, ILogger<ApiKeyService> logger )
     {
         _repository = repository;
+        _logger = logger;
     }
 
 
     public async Task Create(ApiKey model, CancellationToken cancellationToken)
     {
 
-         await _repository.AddAsync(model, cancellationToken);
+         try
+        {
+            await _repository.AddAsync(model, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+        }
     }
 
     public async Task<bool> Update(ApiKey model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
-        if (existing is null)
+        try {
+            var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
+            if (existing is null)
+            {
+                return false;
+            }
+            existing.KeyId = model.KeyId;
+            existing.HashedSecret = model.HashedSecret;
+            existing.CreatedAt = model.CreatedAt;
+            existing.LastUsedAt = model.LastUsedAt;
+
+            await _repository.UpdateAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
         {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
             return false;
         }
-        existing.KeyId = model.KeyId;
-        existing.HashedSecret = model.HashedSecret;
-        existing.CreatedAt = model.CreatedAt;
-        existing.LastUsedAt = model.LastUsedAt;
-
-        await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
 
@@ -68,8 +84,17 @@ public class ApiKeyService : IApiKeyService
             return false;
         }
 
-        await _repository.DeleteAsync(existing, cancellationToken);
+        try
+        {
+            await _repository.DeleteAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+            return false;
+        }
         return true;
+
     }
 
     public async Task<bool> AssignAccessPolicy(AssociationRequest request, CancellationToken cancellationToken) {

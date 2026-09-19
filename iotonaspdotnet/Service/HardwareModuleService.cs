@@ -24,32 +24,48 @@ public interface IHardwareModuleService {
 public class HardwareModuleService : IHardwareModuleService
 {
     private readonly IHardwareModuleRepository _repository;
+    private readonly ILogger<HardwareModuleService> _logger;
 
     public HardwareModuleService(
-        IHardwareModuleRepository repository )
+        IHardwareModuleRepository repository, ILogger<HardwareModuleService> logger )
     {
         _repository = repository;
+        _logger = logger;
     }
 
 
     public async Task Create(HardwareModule model, CancellationToken cancellationToken)
     {
 
-         await _repository.AddAsync(model, cancellationToken);
+         try
+        {
+            await _repository.AddAsync(model, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+        }
     }
 
     public async Task<bool> Update(HardwareModule model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
-        if (existing is null)
+        try {
+            var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
+            if (existing is null)
+            {
+                return false;
+            }
+            existing.ModuleCode = model.ModuleCode;
+            existing.DatasheetUri = model.DatasheetUri;
+            existing.ModuleType = model.ModuleType;
+
+            await _repository.UpdateAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
         {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
             return false;
         }
-        existing.ModuleCode = model.ModuleCode;
-        existing.DatasheetUri = model.DatasheetUri;
-        existing.ModuleType = model.ModuleType;
-
-        await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
 
@@ -67,8 +83,17 @@ public class HardwareModuleService : IHardwareModuleService
             return false;
         }
 
-        await _repository.DeleteAsync(existing, cancellationToken);
+        try
+        {
+            await _repository.DeleteAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+            return false;
+        }
         return true;
+
     }
 
     public async Task<bool> AssignVendor(AssociationRequest request, CancellationToken cancellationToken) {

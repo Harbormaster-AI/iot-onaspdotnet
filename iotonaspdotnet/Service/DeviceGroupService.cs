@@ -26,31 +26,47 @@ public interface IDeviceGroupService {
 public class DeviceGroupService : IDeviceGroupService
 {
     private readonly IDeviceGroupRepository _repository;
+    private readonly ILogger<DeviceGroupService> _logger;
 
     public DeviceGroupService(
-        IDeviceGroupRepository repository )
+        IDeviceGroupRepository repository, ILogger<DeviceGroupService> logger )
     {
         _repository = repository;
+        _logger = logger;
     }
 
 
     public async Task Create(DeviceGroup model, CancellationToken cancellationToken)
     {
 
-         await _repository.AddAsync(model, cancellationToken);
+         try
+        {
+            await _repository.AddAsync(model, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+        }
     }
 
     public async Task<bool> Update(DeviceGroup model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
-        if (existing is null)
+        try {
+            var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
+            if (existing is null)
+            {
+                return false;
+            }
+            existing.Name = model.Name;
+            existing.Criteria = model.Criteria;
+
+            await _repository.UpdateAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
         {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
             return false;
         }
-        existing.Name = model.Name;
-        existing.Criteria = model.Criteria;
-
-        await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
 
@@ -68,8 +84,17 @@ public class DeviceGroupService : IDeviceGroupService
             return false;
         }
 
-        await _repository.DeleteAsync(existing, cancellationToken);
+        try
+        {
+            await _repository.DeleteAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+            return false;
+        }
         return true;
+
     }
 
     public async Task<bool> AssignTenant(AssociationRequest request, CancellationToken cancellationToken) {

@@ -26,11 +26,13 @@ public interface ISoftwareUpdateExecutionService {
 public class SoftwareUpdateExecutionService : ISoftwareUpdateExecutionService
 {
     private readonly ISoftwareUpdateExecutionRepository _repository;
+    private readonly ILogger<SoftwareUpdateExecutionService> _logger;
 
     public SoftwareUpdateExecutionService(
-        ISoftwareUpdateExecutionRepository repository )
+        ISoftwareUpdateExecutionRepository repository, ILogger<SoftwareUpdateExecutionService> logger )
     {
         _repository = repository;
+        _logger = logger;
     }
 
 
@@ -38,21 +40,35 @@ public class SoftwareUpdateExecutionService : ISoftwareUpdateExecutionService
     {
 
  
-         await _repository.AddAsync(model, cancellationToken);
+         try
+        {
+            await _repository.AddAsync(model, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+        }
     }
 
     public async Task<bool> Update(SoftwareUpdateExecution model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
-        if (existing is null)
+        try {
+            var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
+            if (existing is null)
+            {
+                return false;
+            }
+            existing.StartedAt = model.StartedAt;
+            existing.CompletedAt = model.CompletedAt;
+            existing.Status = model.Status;
+
+            await _repository.UpdateAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
         {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
             return false;
         }
-        existing.StartedAt = model.StartedAt;
-        existing.CompletedAt = model.CompletedAt;
-        existing.Status = model.Status;
-
-        await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
 
@@ -70,8 +86,17 @@ public class SoftwareUpdateExecutionService : ISoftwareUpdateExecutionService
             return false;
         }
 
-        await _repository.DeleteAsync(existing, cancellationToken);
+        try
+        {
+            await _repository.DeleteAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+            return false;
+        }
         return true;
+
     }
 
     public async Task<bool> AssignCampaign(AssociationRequest request, CancellationToken cancellationToken) {

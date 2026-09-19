@@ -30,11 +30,13 @@ public interface ICommandInvocationService {
 public class CommandInvocationService : ICommandInvocationService
 {
     private readonly ICommandInvocationRepository _repository;
+    private readonly ILogger<CommandInvocationService> _logger;
 
     public CommandInvocationService(
-        ICommandInvocationRepository repository )
+        ICommandInvocationRepository repository, ILogger<CommandInvocationService> logger )
     {
         _repository = repository;
+        _logger = logger;
     }
 
 
@@ -44,22 +46,36 @@ public class CommandInvocationService : ICommandInvocationService
  
  
  
-         await _repository.AddAsync(model, cancellationToken);
+         try
+        {
+            await _repository.AddAsync(model, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+        }
     }
 
     public async Task<bool> Update(CommandInvocation model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
-        if (existing is null)
+        try {
+            var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
+            if (existing is null)
+            {
+                return false;
+            }
+            existing.InvocationId = model.InvocationId;
+            existing.RequestedAt = model.RequestedAt;
+            existing.CompletedAt = model.CompletedAt;
+            existing.Status = model.Status;
+
+            await _repository.UpdateAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
         {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
             return false;
         }
-        existing.InvocationId = model.InvocationId;
-        existing.RequestedAt = model.RequestedAt;
-        existing.CompletedAt = model.CompletedAt;
-        existing.Status = model.Status;
-
-        await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
 
@@ -77,8 +93,17 @@ public class CommandInvocationService : ICommandInvocationService
             return false;
         }
 
-        await _repository.DeleteAsync(existing, cancellationToken);
+        try
+        {
+            await _repository.DeleteAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+            return false;
+        }
         return true;
+
     }
 
     public async Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken) {

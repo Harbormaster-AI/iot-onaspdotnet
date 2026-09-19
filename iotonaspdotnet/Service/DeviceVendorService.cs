@@ -28,32 +28,48 @@ public interface IDeviceVendorService {
 public class DeviceVendorService : IDeviceVendorService
 {
     private readonly IDeviceVendorRepository _repository;
+    private readonly ILogger<DeviceVendorService> _logger;
 
     public DeviceVendorService(
-        IDeviceVendorRepository repository )
+        IDeviceVendorRepository repository, ILogger<DeviceVendorService> logger )
     {
         _repository = repository;
+        _logger = logger;
     }
 
 
     public async Task Create(DeviceVendor model, CancellationToken cancellationToken)
     {
-        await _repository.AddAsync(model, cancellationToken);
+        try
+        {
+            await _repository.AddAsync(model, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+        }
     }
 
     public async Task<bool> Update(DeviceVendor model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
-        if (existing is null)
+        try {
+            var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
+            if (existing is null)
+            {
+                return false;
+            }
+            existing.Name = model.Name;
+            existing.LegalName = model.LegalName;
+            existing.HeadquartersCountry = model.HeadquartersCountry;
+            existing.Website = model.Website;
+
+            await _repository.UpdateAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
         {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
             return false;
         }
-        existing.Name = model.Name;
-        existing.LegalName = model.LegalName;
-        existing.HeadquartersCountry = model.HeadquartersCountry;
-        existing.Website = model.Website;
-
-        await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
 
@@ -71,8 +87,17 @@ public class DeviceVendorService : IDeviceVendorService
             return false;
         }
 
-        await _repository.DeleteAsync(existing, cancellationToken);
+        try
+        {
+            await _repository.DeleteAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+            return false;
+        }
         return true;
+
     }
 
 

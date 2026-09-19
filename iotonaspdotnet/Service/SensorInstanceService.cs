@@ -26,33 +26,49 @@ public interface ISensorInstanceService {
 public class SensorInstanceService : ISensorInstanceService
 {
     private readonly ISensorInstanceRepository _repository;
+    private readonly ILogger<SensorInstanceService> _logger;
 
     public SensorInstanceService(
-        ISensorInstanceRepository repository )
+        ISensorInstanceRepository repository, ILogger<SensorInstanceService> logger )
     {
         _repository = repository;
+        _logger = logger;
     }
 
 
     public async Task Create(SensorInstance model, CancellationToken cancellationToken)
     {
 
-         await _repository.AddAsync(model, cancellationToken);
+         try
+        {
+            await _repository.AddAsync(model, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+        }
     }
 
     public async Task<bool> Update(SensorInstance model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
-        if (existing is null)
+        try {
+            var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
+            if (existing is null)
+            {
+                return false;
+            }
+            existing.Name = model.Name;
+            existing.Unit = model.Unit;
+            existing.SamplingIntervalMs = model.SamplingIntervalMs;
+            existing.SensorType = model.SensorType;
+
+            await _repository.UpdateAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
         {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
             return false;
         }
-        existing.Name = model.Name;
-        existing.Unit = model.Unit;
-        existing.SamplingIntervalMs = model.SamplingIntervalMs;
-        existing.SensorType = model.SensorType;
-
-        await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
 
@@ -70,8 +86,17 @@ public class SensorInstanceService : ISensorInstanceService
             return false;
         }
 
-        await _repository.DeleteAsync(existing, cancellationToken);
+        try
+        {
+            await _repository.DeleteAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+            return false;
+        }
         return true;
+
     }
 
     public async Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken) {

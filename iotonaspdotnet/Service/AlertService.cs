@@ -26,11 +26,13 @@ public interface IAlertService {
 public class AlertService : IAlertService
 {
     private readonly IAlertRepository _repository;
+    private readonly ILogger<AlertService> _logger;
 
     public AlertService(
-        IAlertRepository repository )
+        IAlertRepository repository, ILogger<AlertService> logger )
     {
         _repository = repository;
+        _logger = logger;
     }
 
 
@@ -38,22 +40,36 @@ public class AlertService : IAlertService
     {
 
  
-         await _repository.AddAsync(model, cancellationToken);
+         try
+        {
+            await _repository.AddAsync(model, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+        }
     }
 
     public async Task<bool> Update(Alert model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
-        if (existing is null)
+        try {
+            var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
+            if (existing is null)
+            {
+                return false;
+            }
+            existing.RaisedAt = model.RaisedAt;
+            existing.ClearedAt = model.ClearedAt;
+            existing.Message = model.Message;
+            existing.Status = model.Status;
+
+            await _repository.UpdateAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
         {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
             return false;
         }
-        existing.RaisedAt = model.RaisedAt;
-        existing.ClearedAt = model.ClearedAt;
-        existing.Message = model.Message;
-        existing.Status = model.Status;
-
-        await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
 
@@ -71,8 +87,17 @@ public class AlertService : IAlertService
             return false;
         }
 
-        await _repository.DeleteAsync(existing, cancellationToken);
+        try
+        {
+            await _repository.DeleteAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+            return false;
+        }
         return true;
+
     }
 
     public async Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken) {

@@ -24,31 +24,47 @@ public interface ITwinTemplateService {
 public class TwinTemplateService : ITwinTemplateService
 {
     private readonly ITwinTemplateRepository _repository;
+    private readonly ILogger<TwinTemplateService> _logger;
 
     public TwinTemplateService(
-        ITwinTemplateRepository repository )
+        ITwinTemplateRepository repository, ILogger<TwinTemplateService> logger )
     {
         _repository = repository;
+        _logger = logger;
     }
 
 
     public async Task Create(TwinTemplate model, CancellationToken cancellationToken)
     {
-        await _repository.AddAsync(model, cancellationToken);
+        try
+        {
+            await _repository.AddAsync(model, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+        }
     }
 
     public async Task<bool> Update(TwinTemplate model, CancellationToken cancellationToken)
     {
-        var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
-        if (existing is null)
+        try {
+            var existing = await _repository.GetByIdAsync(model.Id, cancellationToken);
+            if (existing is null)
+            {
+                return false;
+            }
+            existing.Name = model.Name;
+            existing.SchemaUri = model.SchemaUri;
+            existing.Version = model.Version;
+
+            await _repository.UpdateAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
         {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
             return false;
         }
-        existing.Name = model.Name;
-        existing.SchemaUri = model.SchemaUri;
-        existing.Version = model.Version;
-
-        await _repository.UpdateAsync(existing, cancellationToken);
         return true;
     }
 
@@ -66,8 +82,17 @@ public class TwinTemplateService : ITwinTemplateService
             return false;
         }
 
-        await _repository.DeleteAsync(existing, cancellationToken);
+        try
+        {
+            await _repository.DeleteAsync(existing, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Unexpected Error: {ex.Message}");
+            return false;
+        }
         return true;
+
     }
 
 
