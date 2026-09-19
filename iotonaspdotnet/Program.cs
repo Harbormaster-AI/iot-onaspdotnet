@@ -52,23 +52,51 @@ dbPort = builder.Configuration["DB_PORT"]
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
+    var connectionString =
+        $"Host={dbHost};Port={dbPort};Database={dbName};Username={dbUserName};Password={dbPassword}";
+
     if (dbEngine.Equals("mysql", StringComparison.OrdinalIgnoreCase))
     {
-        var connectionString =
-            $"Server={dbHost};Port={dbPort};Database={dbName};User={dbUserName};Password={dbPassword}";
-
-        options.UseMySql(
-            connectionString,
-            ServerVersion.Parse("8.4.0-mysql"));
+        options.UseMySql(connectionString);
+    }
+    else if (dbEngine.Equals("mariadb", StringComparison.OrdinalIgnoreCase))
+    {
+        options.UseMySql(connectionString);
+    }
+    else if (dbEngine.Equals("sqlite", StringComparison.OrdinalIgnoreCase))
+    {
+        options.UseSqlite(connectionString);
+    }
+    else if (dbEngine.Equals("sqlserver", StringComparison.OrdinalIgnoreCase) ||
+             dbEngine.Equals("azuresql", StringComparison.OrdinalIgnoreCase))
+    {
+        options.UseSqlServer(connectionString);
+    }
+    else if (dbEngine.Equals("oracle", StringComparison.OrdinalIgnoreCase))
+    {
+        options.UseOracle(connectionString);
+    }
+    else if (dbEngine.Equals("mongodb", StringComparison.OrdinalIgnoreCase))
+    {
+        options.UseMongoDB(connectionString);
+    }
+    else if (dbEngine.Equals("inmemory", StringComparison.OrdinalIgnoreCase))
+    {
+        options.UseInMemoryDatabase("iotonaspdotnet");
+    }
+    else if (dbEngine.Equals("cosmosdb", StringComparison.OrdinalIgnoreCase))
+    {
+        options.UseCosmos(connectionString);
     }
     else if (dbEngine.Equals("postgres", StringComparison.OrdinalIgnoreCase))
     {
-        var connectionString =
-            $"Host={dbHost};Port={dbPort};Database={dbName};Username={dbUserName};Password={dbPassword}";
-
         options.UseNpgsql(connectionString);
     }
-
+    else
+    {
+        throw new InvalidOperationException(
+            "Unsupported or missing database engine configuration.");
+    }
     // etc.
 });
 
