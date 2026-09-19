@@ -23,32 +23,33 @@ string dbPort;
 
 if (string.IsNullOrWhiteSpace(dbEngineEnvironment))
 {
-// Generation-time configuration
-dbEngine = "";
-dbUserName = "postgres";
-dbPassword = "${dbPassword}";
-dbName = "testDb";
-dbHost = "localhost";
-dbPort = "5432";
+    // Generation-time configuration
+    dbEngine = "";
+    dbUserName = "postgres";
+    dbPassword = "${dbPassword}";
+    dbName = "testDb";
+    dbHost = "localhost";
+    dbPort = "5432";
 }
 else
 {
-// Runtime environment configuration
-dbEngine = dbEngineEnvironment;
-dbUserName = builder.Configuration["DB_USER_NAME"]
-    ?? throw new InvalidOperationException("DB_USER_NAME is required when DB_ENGINE is provided.");
+    // Runtime environment configuration
+    dbEngine = dbEngineEnvironment;
+    dbUserName = builder.Configuration["DB_USER_NAME"]
+        ?? throw new InvalidOperationException("DB_USER_NAME is required when DB_ENGINE is provided.");
 
-dbPassword = builder.Configuration["DB_PASSWORD"]
-    ?? throw new InvalidOperationException("DB_PASSWORD is required when DB_ENGINE is provided.");
+    dbPassword = builder.Configuration["DB_PASSWORD"]
+        ?? throw new InvalidOperationException("DB_PASSWORD is required when DB_ENGINE is provided.");
 
-dbName = builder.Configuration["DB_NAME"]
-    ?? throw new InvalidOperationException("DB_NAME is required when DB_ENGINE is provided.");
+    dbName = builder.Configuration["DB_NAME"]
+        ?? throw new InvalidOperationException("DB_NAME is required when DB_ENGINE is provided.");
 
-dbHost = builder.Configuration["DB_HOST"]
-    ?? throw new InvalidOperationException("DB_HOST is required when DB_ENGINE is provided.");
+    dbHost = builder.Configuration["DB_HOST"]
+        ?? throw new InvalidOperationException("DB_HOST is required when DB_ENGINE is provided.");
 
-dbPort = builder.Configuration["DB_PORT"]
-    ?? throw new InvalidOperationException("DB_PORT is required when DB_ENGINE is provided.");
+    dbPort = builder.Configuration["DB_PORT"]
+        ?? throw new InvalidOperationException("DB_PORT is required when DB_ENGINE is provided.");
+}
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
