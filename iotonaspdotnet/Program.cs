@@ -191,9 +191,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
                     builder.Services.AddScoped<IDeviceGroupService, DeviceGroupService>();
                     builder.Services.AddScoped<IUsageRecordService, UsageRecordService>();
             
-builder.Services.AddHealthChecks()
-    .AddDbContextCheck<ApplicationDbContext>();
-
 var app = builder.Build();
 
 // Health endpoint
