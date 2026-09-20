@@ -8,8 +8,8 @@ public class SoftwareUpdateCampaign
 
  public virtual long? SoftwareupdatecampaignId { get; set; } 
  public virtual string? CampaignCode { get; set; } 
- public virtual DateTime? ScheduledStart { get; set; } 
- public virtual DateTime? ScheduledEnd { get; set; } 
+ public virtual DateTime_? ScheduledStart { get; set; } 
+ public virtual DateTime_? ScheduledEnd { get; set; } 
 public virtual FirmwareRelease? FirmwareRelease { get; set; } 
 public virtual DeviceGroup? DeviceGroup { get; set; } 
 public virtual ICollection<SoftwareUpdateExecution> Executions { get; set; } = new List<SoftwareUpdateExecution>();

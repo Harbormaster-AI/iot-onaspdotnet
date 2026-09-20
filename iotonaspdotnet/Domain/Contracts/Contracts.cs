@@ -103,7 +103,7 @@ public class IoTDeviceRequest {
     public Guid Id { get; set; } = Guid.NewGuid();
  public virtual DeviceId? DeviceId { get; set; } 
  public virtual string? SerialNumber { get; set; } 
- public virtual DateTime? LastSeen { get; set; } 
+ public virtual DateTime_? LastSeen { get; set; } 
  public virtual FirmwareVersion? FirmwareVersion { get; set; } 
  public virtual DeviceStatus? Status { get; set; } 
  public virtual PowerSource? PowerSource { get; set; } 
@@ -220,8 +220,8 @@ public class CommandDefinitionResponse : CommandDefinitionRequest {
 public class CommandInvocationRequest {
     public Guid Id { get; set; } = Guid.NewGuid();
  public virtual string? InvocationId { get; set; } 
- public virtual DateTime? RequestedAt { get; set; } 
- public virtual DateTime? CompletedAt { get; set; } 
+ public virtual DateTime_? RequestedAt { get; set; } 
+ public virtual DateTime_? CompletedAt { get; set; } 
  public virtual CommandStatus? Status { get; set; } 
 }
 
@@ -257,8 +257,8 @@ public class AlertRuleResponse : AlertRuleRequest {
 
 public class AlertRequest {
     public Guid Id { get; set; } = Guid.NewGuid();
- public virtual DateTime? RaisedAt { get; set; } 
- public virtual DateTime? ClearedAt { get; set; } 
+ public virtual DateTime_? RaisedAt { get; set; } 
+ public virtual DateTime_? ClearedAt { get; set; } 
  public virtual string? Message { get; set; } 
  public virtual AlertStatus? Status { get; set; } 
 }
@@ -495,7 +495,7 @@ public class AccessPolicyRequest {
     public Guid Id { get; set; } = Guid.NewGuid();
  public virtual string? Name { get; set; } 
  public virtual string? Scope { get; set; } 
- public virtual DateTime? ExpiresAt { get; set; } 
+ public virtual DateTime_? ExpiresAt { get; set; } 
 }
 
 public class AccessPolicyResponse : AccessPolicyRequest {
@@ -513,8 +513,8 @@ public class ApiKeyRequest {
     public Guid Id { get; set; } = Guid.NewGuid();
  public virtual string? KeyId { get; set; } 
  public virtual string? HashedSecret { get; set; } 
- public virtual DateTime? CreatedAt { get; set; } 
- public virtual DateTime? LastUsedAt { get; set; } 
+ public virtual DateTime_? CreatedAt { get; set; } 
+ public virtual DateTime_? LastUsedAt { get; set; } 
 }
 
 public class ApiKeyResponse : ApiKeyRequest {
@@ -532,8 +532,8 @@ public class ApiKeyResponse : ApiKeyRequest {
 public class DeviceCertificateRequest {
     public Guid Id { get; set; } = Guid.NewGuid();
  public virtual string? SerialNumber { get; set; } 
- public virtual DateTime? NotBefore { get; set; } 
- public virtual DateTime? NotAfter { get; set; } 
+ public virtual DateTime_? NotBefore { get; set; } 
+ public virtual DateTime_? NotAfter { get; set; } 
  public virtual string? Fingerprint { get; set; } 
  public virtual CertificateType? CertificateType { get; set; } 
 }
@@ -553,7 +553,7 @@ public class DeviceCertificateResponse : DeviceCertificateRequest {
 
 public class ProvisioningRecordRequest {
     public Guid Id { get; set; } = Guid.NewGuid();
- public virtual DateTime? EnrolledAt { get; set; } 
+ public virtual DateTime_? EnrolledAt { get; set; } 
  public virtual string? ProvisioningService { get; set; } 
  public virtual ProvisioningMethod? Method { get; set; } 
  public virtual ProvisioningStatus? Status { get; set; } 
@@ -576,7 +576,7 @@ public class DigitalTwinRequest {
  public virtual string? TwinId { get; set; } 
  public virtual int? DesiredStateVersion { get; set; } 
  public virtual int? ReportedStateVersion { get; set; } 
- public virtual DateTime? LastSyncAt { get; set; } 
+ public virtual DateTime_? LastSyncAt { get; set; } 
 }
 
 public class DigitalTwinResponse : DigitalTwinRequest {
@@ -612,7 +612,7 @@ public class TwinTemplateResponse : TwinTemplateRequest {
 public class TwinChangeEventRequest {
     public Guid Id { get; set; } = Guid.NewGuid();
  public virtual string? EventId { get; set; } 
- public virtual DateTime? OccurredAt { get; set; } 
+ public virtual DateTime_? OccurredAt { get; set; } 
  public virtual TwinChangeType? ChangeType { get; set; } 
 }
 
@@ -630,8 +630,8 @@ public class TwinChangeEventResponse : TwinChangeEventRequest {
 public class MaintenanceTicketRequest {
     public Guid Id { get; set; } = Guid.NewGuid();
  public virtual string? TicketNumber { get; set; } 
- public virtual DateTime? OpenedAt { get; set; } 
- public virtual DateTime? ClosedAt { get; set; } 
+ public virtual DateTime_? OpenedAt { get; set; } 
+ public virtual DateTime_? ClosedAt { get; set; } 
  public virtual MaintenancePriority? Priority { get; set; } 
  public virtual MaintenanceStatus? Status { get; set; } 
 }
@@ -668,8 +668,8 @@ public class DataRetentionPolicyResponse : DataRetentionPolicyRequest {
 public class SoftwareUpdateCampaignRequest {
     public Guid Id { get; set; } = Guid.NewGuid();
  public virtual string? CampaignCode { get; set; } 
- public virtual DateTime? ScheduledStart { get; set; } 
- public virtual DateTime? ScheduledEnd { get; set; } 
+ public virtual DateTime_? ScheduledStart { get; set; } 
+ public virtual DateTime_? ScheduledEnd { get; set; } 
  public virtual UpdateCampaignStatus? Status { get; set; } 
 }
 
@@ -687,8 +687,8 @@ public class SoftwareUpdateCampaignResponse : SoftwareUpdateCampaignRequest {
 
 public class SoftwareUpdateExecutionRequest {
     public Guid Id { get; set; } = Guid.NewGuid();
- public virtual DateTime? StartedAt { get; set; } 
- public virtual DateTime? CompletedAt { get; set; } 
+ public virtual DateTime_? StartedAt { get; set; } 
+ public virtual DateTime_? CompletedAt { get; set; } 
  public virtual UpdateStatus? Status { get; set; } 
 }
 

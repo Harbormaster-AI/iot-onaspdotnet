@@ -59,294 +59,294 @@ public DbSet<UsageRecord> UsageRecords => Set<UsageRecord>();
         modelBuilder.Entity<DeviceModel>()
             .HasOne<DeviceVendor>()
             .WithMany(parent => parent.DeviceModels)
-            .HasForeignKey("DeviceModelsId");
+            .HasForeignKey("DeviceModels_Id");
 
         // DeviceVendor has one or more FirmwareReleases of type FirmwareRelease
         modelBuilder.Entity<FirmwareRelease>()
             .HasOne<DeviceVendor>()
             .WithMany(parent => parent.FirmwareReleases)
-            .HasForeignKey("FirmwareReleasesId");
+            .HasForeignKey("FirmwareReleases_Id");
 
         // DeviceVendor has one or more HardwareModules of type HardwareModule
         modelBuilder.Entity<HardwareModule>()
             .HasOne<DeviceVendor>()
             .WithMany(parent => parent.HardwareModules)
-            .HasForeignKey("HardwareModulesId");
+            .HasForeignKey("HardwareModules_Id");
 
         // HardwareModule has one Vendor of type DeviceVendor
         modelBuilder.Entity<HardwareModule>()
             .HasOne(x => x.Vendor)
             .WithMany()
-            .HasForeignKey("VendorId");
+            .HasForeignKey("Vendor_Id");
 
 
         // DeviceModel has one Vendor of type DeviceVendor
         modelBuilder.Entity<DeviceModel>()
             .HasOne(x => x.Vendor)
             .WithMany()
-            .HasForeignKey("VendorId");
+            .HasForeignKey("Vendor_Id");
 
         // DeviceModel has one TwinTemplate of type TwinTemplate
         modelBuilder.Entity<DeviceModel>()
             .HasOne(x => x.TwinTemplate)
             .WithMany()
-            .HasForeignKey("TwinTemplateId");
+            .HasForeignKey("TwinTemplate_Id");
 
 
         // DeviceModel has one or more HardwareModules of type HardwareModule
         modelBuilder.Entity<HardwareModule>()
             .HasOne<DeviceModel>()
             .WithMany(parent => parent.HardwareModules)
-            .HasForeignKey("HardwareModulesId");
+            .HasForeignKey("HardwareModules_Id");
 
         // DeviceModel has one or more FirmwareReleases of type FirmwareRelease
         modelBuilder.Entity<FirmwareRelease>()
             .HasOne<DeviceModel>()
             .WithMany(parent => parent.FirmwareReleases)
-            .HasForeignKey("FirmwareReleasesId");
+            .HasForeignKey("FirmwareReleases_Id");
 
         // DeviceModel has one or more CommandDefinitions of type CommandDefinition
         modelBuilder.Entity<CommandDefinition>()
             .HasOne<DeviceModel>()
             .WithMany(parent => parent.CommandDefinitions)
-            .HasForeignKey("CommandDefinitionsId");
+            .HasForeignKey("CommandDefinitions_Id");
 
         // FirmwareRelease has one DeviceModel of type DeviceModel
         modelBuilder.Entity<FirmwareRelease>()
             .HasOne(x => x.DeviceModel)
             .WithMany()
-            .HasForeignKey("DeviceModelId");
+            .HasForeignKey("DeviceModel_Id");
 
 
         // IoTDevice has one DeviceModel of type DeviceModel
         modelBuilder.Entity<IoTDevice>()
             .HasOne(x => x.DeviceModel)
             .WithMany()
-            .HasForeignKey("DeviceModelId");
+            .HasForeignKey("DeviceModel_Id");
 
         // IoTDevice has one Tenant of type Tenant
         modelBuilder.Entity<IoTDevice>()
             .HasOne(x => x.Tenant)
             .WithMany()
-            .HasForeignKey("TenantId");
+            .HasForeignKey("Tenant_Id");
 
         // IoTDevice has one Site of type Site
         modelBuilder.Entity<IoTDevice>()
             .HasOne(x => x.Site)
             .WithMany()
-            .HasForeignKey("SiteId");
+            .HasForeignKey("Site_Id");
 
         // IoTDevice has one Room of type Room
         modelBuilder.Entity<IoTDevice>()
             .HasOne(x => x.Room)
             .WithMany()
-            .HasForeignKey("RoomId");
+            .HasForeignKey("Room_Id");
 
         // IoTDevice has one Gateway of type Gateway
         modelBuilder.Entity<IoTDevice>()
             .HasOne(x => x.Gateway)
             .WithMany()
-            .HasForeignKey("GatewayId");
+            .HasForeignKey("Gateway_Id");
 
         // IoTDevice has one DigitalTwin of type DigitalTwin
         modelBuilder.Entity<IoTDevice>()
             .HasOne(x => x.DigitalTwin)
             .WithMany()
-            .HasForeignKey("DigitalTwinId");
+            .HasForeignKey("DigitalTwin_Id");
 
         // IoTDevice has one ProvisioningRecord of type ProvisioningRecord
         modelBuilder.Entity<IoTDevice>()
             .HasOne(x => x.ProvisioningRecord)
             .WithMany()
-            .HasForeignKey("ProvisioningRecordId");
+            .HasForeignKey("ProvisioningRecord_Id");
 
 
         // IoTDevice has one or more Sensors of type SensorInstance
         modelBuilder.Entity<SensorInstance>()
             .HasOne<IoTDevice>()
             .WithMany(parent => parent.Sensors)
-            .HasForeignKey("SensorsId");
+            .HasForeignKey("Sensors_Id");
 
         // IoTDevice has one or more Actuators of type ActuatorInstance
         modelBuilder.Entity<ActuatorInstance>()
             .HasOne<IoTDevice>()
             .WithMany(parent => parent.Actuators)
-            .HasForeignKey("ActuatorsId");
+            .HasForeignKey("Actuators_Id");
 
         // IoTDevice has one or more Certificates of type DeviceCertificate
         modelBuilder.Entity<DeviceCertificate>()
             .HasOne<IoTDevice>()
             .WithMany(parent => parent.Certificates)
-            .HasForeignKey("CertificatesId");
+            .HasForeignKey("Certificates_Id");
 
         // IoTDevice has one or more TelemetryStreams of type TelemetryStream
         modelBuilder.Entity<TelemetryStream>()
             .HasOne<IoTDevice>()
             .WithMany(parent => parent.TelemetryStreams)
-            .HasForeignKey("TelemetryStreamsId");
+            .HasForeignKey("TelemetryStreams_Id");
 
         // IoTDevice has one or more CommandInvocations of type CommandInvocation
         modelBuilder.Entity<CommandInvocation>()
             .HasOne<IoTDevice>()
             .WithMany(parent => parent.CommandInvocations)
-            .HasForeignKey("CommandInvocationsId");
+            .HasForeignKey("CommandInvocations_Id");
 
         // IoTDevice has one or more Alerts of type Alert
         modelBuilder.Entity<Alert>()
             .HasOne<IoTDevice>()
             .WithMany(parent => parent.Alerts)
-            .HasForeignKey("AlertsId");
+            .HasForeignKey("Alerts_Id");
 
         // IoTDevice has one or more DeviceGroups of type DeviceGroup
         modelBuilder.Entity<DeviceGroup>()
             .HasOne<IoTDevice>()
             .WithMany(parent => parent.DeviceGroups)
-            .HasForeignKey("DeviceGroupsId");
+            .HasForeignKey("DeviceGroups_Id");
 
         // IoTDevice has one or more NetworkProfiles of type NetworkProfile
         modelBuilder.Entity<NetworkProfile>()
             .HasOne<IoTDevice>()
             .WithMany(parent => parent.NetworkProfiles)
-            .HasForeignKey("NetworkProfilesId");
+            .HasForeignKey("NetworkProfiles_Id");
 
         // SensorInstance has one Device of type IoTDevice
         modelBuilder.Entity<SensorInstance>()
             .HasOne(x => x.Device)
             .WithMany()
-            .HasForeignKey("DeviceId");
+            .HasForeignKey("Device_Id");
 
 
         // SensorInstance has one or more TelemetryStreams of type TelemetryStream
         modelBuilder.Entity<TelemetryStream>()
             .HasOne<SensorInstance>()
             .WithMany(parent => parent.TelemetryStreams)
-            .HasForeignKey("TelemetryStreamsId");
+            .HasForeignKey("TelemetryStreams_Id");
 
         // ActuatorInstance has one Device of type IoTDevice
         modelBuilder.Entity<ActuatorInstance>()
             .HasOne(x => x.Device)
             .WithMany()
-            .HasForeignKey("DeviceId");
+            .HasForeignKey("Device_Id");
 
 
         // ActuatorInstance has one or more SupportedCommands of type CommandDefinition
         modelBuilder.Entity<CommandDefinition>()
             .HasOne<ActuatorInstance>()
             .WithMany(parent => parent.SupportedCommands)
-            .HasForeignKey("SupportedCommandsId");
+            .HasForeignKey("SupportedCommands_Id");
 
 
         // TelemetrySchema has one or more Streams of type TelemetryStream
         modelBuilder.Entity<TelemetryStream>()
             .HasOne<TelemetrySchema>()
             .WithMany(parent => parent.Streams)
-            .HasForeignKey("StreamsId");
+            .HasForeignKey("Streams_Id");
 
         // TelemetryStream has one Device of type IoTDevice
         modelBuilder.Entity<TelemetryStream>()
             .HasOne(x => x.Device)
             .WithMany()
-            .HasForeignKey("DeviceId");
+            .HasForeignKey("Device_Id");
 
         // TelemetryStream has one Sensor of type SensorInstance
         modelBuilder.Entity<TelemetryStream>()
             .HasOne(x => x.Sensor)
             .WithMany()
-            .HasForeignKey("SensorId");
+            .HasForeignKey("Sensor_Id");
 
         // TelemetryStream has one Schema of type TelemetrySchema
         modelBuilder.Entity<TelemetryStream>()
             .HasOne(x => x.Schema)
             .WithMany()
-            .HasForeignKey("SchemaId");
+            .HasForeignKey("Schema_Id");
 
         // TelemetryStream has one MessagingEndpoint of type MessagingEndpoint
         modelBuilder.Entity<TelemetryStream>()
             .HasOne(x => x.MessagingEndpoint)
             .WithMany()
-            .HasForeignKey("MessagingEndpointId");
+            .HasForeignKey("MessagingEndpoint_Id");
 
         // TelemetryStream has one RetentionPolicy of type DataRetentionPolicy
         modelBuilder.Entity<TelemetryStream>()
             .HasOne(x => x.RetentionPolicy)
             .WithMany()
-            .HasForeignKey("RetentionPolicyId");
+            .HasForeignKey("RetentionPolicy_Id");
 
 
         // CommandDefinition has one DeviceModel of type DeviceModel
         modelBuilder.Entity<CommandDefinition>()
             .HasOne(x => x.DeviceModel)
             .WithMany()
-            .HasForeignKey("DeviceModelId");
+            .HasForeignKey("DeviceModel_Id");
 
 
         // CommandDefinition has one or more Actuators of type ActuatorInstance
         modelBuilder.Entity<ActuatorInstance>()
             .HasOne<CommandDefinition>()
             .WithMany(parent => parent.Actuators)
-            .HasForeignKey("ActuatorsId");
+            .HasForeignKey("Actuators_Id");
 
         // CommandDefinition has one or more CommandInvocations of type CommandInvocation
         modelBuilder.Entity<CommandInvocation>()
             .HasOne<CommandDefinition>()
             .WithMany(parent => parent.CommandInvocations)
-            .HasForeignKey("CommandInvocationsId");
+            .HasForeignKey("CommandInvocations_Id");
 
         // CommandInvocation has one Device of type IoTDevice
         modelBuilder.Entity<CommandInvocation>()
             .HasOne(x => x.Device)
             .WithMany()
-            .HasForeignKey("DeviceId");
+            .HasForeignKey("Device_Id");
 
         // CommandInvocation has one CommandDefinition of type CommandDefinition
         modelBuilder.Entity<CommandInvocation>()
             .HasOne(x => x.CommandDefinition)
             .WithMany()
-            .HasForeignKey("CommandDefinitionId");
+            .HasForeignKey("CommandDefinition_Id");
 
         // CommandInvocation has one Actuator of type ActuatorInstance
         modelBuilder.Entity<CommandInvocation>()
             .HasOne(x => x.Actuator)
             .WithMany()
-            .HasForeignKey("ActuatorId");
+            .HasForeignKey("Actuator_Id");
 
         // CommandInvocation has one User of type TenantUser
         modelBuilder.Entity<CommandInvocation>()
             .HasOne(x => x.User)
             .WithMany()
-            .HasForeignKey("UserId");
+            .HasForeignKey("User_Id");
 
 
         // AlertRule has one Tenant of type Tenant
         modelBuilder.Entity<AlertRule>()
             .HasOne(x => x.Tenant)
             .WithMany()
-            .HasForeignKey("TenantId");
+            .HasForeignKey("Tenant_Id");
 
 
         // AlertRule has one or more Streams of type TelemetryStream
         modelBuilder.Entity<TelemetryStream>()
             .HasOne<AlertRule>()
             .WithMany(parent => parent.Streams)
-            .HasForeignKey("StreamsId");
+            .HasForeignKey("Streams_Id");
 
         // AlertRule has one or more Alerts of type Alert
         modelBuilder.Entity<Alert>()
             .HasOne<AlertRule>()
             .WithMany(parent => parent.Alerts)
-            .HasForeignKey("AlertsId");
+            .HasForeignKey("Alerts_Id");
 
         // Alert has one Device of type IoTDevice
         modelBuilder.Entity<Alert>()
             .HasOne(x => x.Device)
             .WithMany()
-            .HasForeignKey("DeviceId");
+            .HasForeignKey("Device_Id");
 
         // Alert has one AlertRule of type AlertRule
         modelBuilder.Entity<Alert>()
             .HasOne(x => x.AlertRule)
             .WithMany()
-            .HasForeignKey("AlertRuleId");
+            .HasForeignKey("AlertRule_Id");
 
 
 
@@ -354,456 +354,456 @@ public DbSet<UsageRecord> UsageRecords => Set<UsageRecord>();
         modelBuilder.Entity<Site>()
             .HasOne<Tenant>()
             .WithMany(parent => parent.Sites)
-            .HasForeignKey("SitesId");
+            .HasForeignKey("Sites_Id");
 
         // Tenant has one or more Users of type TenantUser
         modelBuilder.Entity<TenantUser>()
             .HasOne<Tenant>()
             .WithMany(parent => parent.Users)
-            .HasForeignKey("UsersId");
+            .HasForeignKey("Users_Id");
 
         // Tenant has one or more Devices of type IoTDevice
         modelBuilder.Entity<IoTDevice>()
             .HasOne<Tenant>()
             .WithMany(parent => parent.Devices)
-            .HasForeignKey("DevicesId");
+            .HasForeignKey("Devices_Id");
 
         // Tenant has one or more DataRetentionPolicies of type DataRetentionPolicy
         modelBuilder.Entity<DataRetentionPolicy>()
             .HasOne<Tenant>()
             .WithMany(parent => parent.DataRetentionPolicies)
-            .HasForeignKey("DataRetentionPoliciesId");
+            .HasForeignKey("DataRetentionPolicies_Id");
 
         // Tenant has one or more ConnectivityPlans of type ConnectivityPlan
         modelBuilder.Entity<ConnectivityPlan>()
             .HasOne<Tenant>()
             .WithMany(parent => parent.ConnectivityPlans)
-            .HasForeignKey("ConnectivityPlansId");
+            .HasForeignKey("ConnectivityPlans_Id");
 
         // Tenant has one or more SimCards of type SimCard
         modelBuilder.Entity<SimCard>()
             .HasOne<Tenant>()
             .WithMany(parent => parent.SimCards)
-            .HasForeignKey("SimCardsId");
+            .HasForeignKey("SimCards_Id");
 
         // Tenant has one or more MessagingEndpoints of type MessagingEndpoint
         modelBuilder.Entity<MessagingEndpoint>()
             .HasOne<Tenant>()
             .WithMany(parent => parent.MessagingEndpoints)
-            .HasForeignKey("MessagingEndpointsId");
+            .HasForeignKey("MessagingEndpoints_Id");
 
         // Tenant has one or more AccessPolicies of type AccessPolicy
         modelBuilder.Entity<AccessPolicy>()
             .HasOne<Tenant>()
             .WithMany(parent => parent.AccessPolicies)
-            .HasForeignKey("AccessPoliciesId");
+            .HasForeignKey("AccessPolicies_Id");
 
         // Tenant has one or more DeviceGroups of type DeviceGroup
         modelBuilder.Entity<DeviceGroup>()
             .HasOne<Tenant>()
             .WithMany(parent => parent.DeviceGroups)
-            .HasForeignKey("DeviceGroupsId");
+            .HasForeignKey("DeviceGroups_Id");
 
         // Tenant has one or more AlertRules of type AlertRule
         modelBuilder.Entity<AlertRule>()
             .HasOne<Tenant>()
             .WithMany(parent => parent.AlertRules)
-            .HasForeignKey("AlertRulesId");
+            .HasForeignKey("AlertRules_Id");
 
         // Tenant has one or more MaintenanceTickets of type MaintenanceTicket
         modelBuilder.Entity<MaintenanceTicket>()
             .HasOne<Tenant>()
             .WithMany(parent => parent.MaintenanceTickets)
-            .HasForeignKey("MaintenanceTicketsId");
+            .HasForeignKey("MaintenanceTickets_Id");
 
         // Tenant has one or more UsageRecords of type UsageRecord
         modelBuilder.Entity<UsageRecord>()
             .HasOne<Tenant>()
             .WithMany(parent => parent.UsageRecords)
-            .HasForeignKey("UsageRecordsId");
+            .HasForeignKey("UsageRecords_Id");
 
         // TenantUser has one Tenant of type Tenant
         modelBuilder.Entity<TenantUser>()
             .HasOne(x => x.Tenant)
             .WithMany()
-            .HasForeignKey("TenantId");
+            .HasForeignKey("Tenant_Id");
 
 
         // TenantUser has one or more CommandInvocations of type CommandInvocation
         modelBuilder.Entity<CommandInvocation>()
             .HasOne<TenantUser>()
             .WithMany(parent => parent.CommandInvocations)
-            .HasForeignKey("CommandInvocationsId");
+            .HasForeignKey("CommandInvocations_Id");
 
         // Site has one Tenant of type Tenant
         modelBuilder.Entity<Site>()
             .HasOne(x => x.Tenant)
             .WithMany()
-            .HasForeignKey("TenantId");
+            .HasForeignKey("Tenant_Id");
 
 
         // Site has one or more Buildings of type Building
         modelBuilder.Entity<Building>()
             .HasOne<Site>()
             .WithMany(parent => parent.Buildings)
-            .HasForeignKey("BuildingsId");
+            .HasForeignKey("Buildings_Id");
 
         // Site has one or more Devices of type IoTDevice
         modelBuilder.Entity<IoTDevice>()
             .HasOne<Site>()
             .WithMany(parent => parent.Devices)
-            .HasForeignKey("DevicesId");
+            .HasForeignKey("Devices_Id");
 
         // Site has one or more Gateways of type Gateway
         modelBuilder.Entity<Gateway>()
             .HasOne<Site>()
             .WithMany(parent => parent.Gateways)
-            .HasForeignKey("GatewaysId");
+            .HasForeignKey("Gateways_Id");
 
         // Building has one Site of type Site
         modelBuilder.Entity<Building>()
             .HasOne(x => x.Site)
             .WithMany()
-            .HasForeignKey("SiteId");
+            .HasForeignKey("Site_Id");
 
 
         // Building has one or more Floors of type Floor
         modelBuilder.Entity<Floor>()
             .HasOne<Building>()
             .WithMany(parent => parent.Floors)
-            .HasForeignKey("FloorsId");
+            .HasForeignKey("Floors_Id");
 
         // Floor has one Building of type Building
         modelBuilder.Entity<Floor>()
             .HasOne(x => x.Building)
             .WithMany()
-            .HasForeignKey("BuildingId");
+            .HasForeignKey("Building_Id");
 
 
         // Floor has one or more Rooms of type Room
         modelBuilder.Entity<Room>()
             .HasOne<Floor>()
             .WithMany(parent => parent.Rooms)
-            .HasForeignKey("RoomsId");
+            .HasForeignKey("Rooms_Id");
 
         // Room has one Floor of type Floor
         modelBuilder.Entity<Room>()
             .HasOne(x => x.Floor)
             .WithMany()
-            .HasForeignKey("FloorId");
+            .HasForeignKey("Floor_Id");
 
 
         // Room has one or more Devices of type IoTDevice
         modelBuilder.Entity<IoTDevice>()
             .HasOne<Room>()
             .WithMany(parent => parent.Devices)
-            .HasForeignKey("DevicesId");
+            .HasForeignKey("Devices_Id");
 
         // Room has one or more Gateways of type Gateway
         modelBuilder.Entity<Gateway>()
             .HasOne<Room>()
             .WithMany(parent => parent.Gateways)
-            .HasForeignKey("GatewaysId");
+            .HasForeignKey("Gateways_Id");
 
         // Gateway has one Site of type Site
         modelBuilder.Entity<Gateway>()
             .HasOne(x => x.Site)
             .WithMany()
-            .HasForeignKey("SiteId");
+            .HasForeignKey("Site_Id");
 
         // Gateway has one Room of type Room
         modelBuilder.Entity<Gateway>()
             .HasOne(x => x.Room)
             .WithMany()
-            .HasForeignKey("RoomId");
+            .HasForeignKey("Room_Id");
 
         // Gateway has one DigitalTwin of type DigitalTwin
         modelBuilder.Entity<Gateway>()
             .HasOne(x => x.DigitalTwin)
             .WithMany()
-            .HasForeignKey("DigitalTwinId");
+            .HasForeignKey("DigitalTwin_Id");
 
 
         // Gateway has one or more Devices of type IoTDevice
         modelBuilder.Entity<IoTDevice>()
             .HasOne<Gateway>()
             .WithMany(parent => parent.Devices)
-            .HasForeignKey("DevicesId");
+            .HasForeignKey("Devices_Id");
 
         // Gateway has one or more EdgeApplications of type EdgeApplication
         modelBuilder.Entity<EdgeApplication>()
             .HasOne<Gateway>()
             .WithMany(parent => parent.EdgeApplications)
-            .HasForeignKey("EdgeApplicationsId");
+            .HasForeignKey("EdgeApplications_Id");
 
         // Gateway has one or more Certificates of type DeviceCertificate
         modelBuilder.Entity<DeviceCertificate>()
             .HasOne<Gateway>()
             .WithMany(parent => parent.Certificates)
-            .HasForeignKey("CertificatesId");
+            .HasForeignKey("Certificates_Id");
 
         // Gateway has one or more NetworkProfiles of type NetworkProfile
         modelBuilder.Entity<NetworkProfile>()
             .HasOne<Gateway>()
             .WithMany(parent => parent.NetworkProfiles)
-            .HasForeignKey("NetworkProfilesId");
+            .HasForeignKey("NetworkProfiles_Id");
 
         // EdgeApplication has one Gateway of type Gateway
         modelBuilder.Entity<EdgeApplication>()
             .HasOne(x => x.Gateway)
             .WithMany()
-            .HasForeignKey("GatewayId");
+            .HasForeignKey("Gateway_Id");
 
 
         // NetworkProfile has one Device of type IoTDevice
         modelBuilder.Entity<NetworkProfile>()
             .HasOne(x => x.Device)
             .WithMany()
-            .HasForeignKey("DeviceId");
+            .HasForeignKey("Device_Id");
 
         // NetworkProfile has one Gateway of type Gateway
         modelBuilder.Entity<NetworkProfile>()
             .HasOne(x => x.Gateway)
             .WithMany()
-            .HasForeignKey("GatewayId");
+            .HasForeignKey("Gateway_Id");
 
         // NetworkProfile has one SimCard of type SimCard
         modelBuilder.Entity<NetworkProfile>()
             .HasOne(x => x.SimCard)
             .WithMany()
-            .HasForeignKey("SimCardId");
+            .HasForeignKey("SimCard_Id");
 
 
         // SimCard has one Tenant of type Tenant
         modelBuilder.Entity<SimCard>()
             .HasOne(x => x.Tenant)
             .WithMany()
-            .HasForeignKey("TenantId");
+            .HasForeignKey("Tenant_Id");
 
         // SimCard has one ConnectivityPlan of type ConnectivityPlan
         modelBuilder.Entity<SimCard>()
             .HasOne(x => x.ConnectivityPlan)
             .WithMany()
-            .HasForeignKey("ConnectivityPlanId");
+            .HasForeignKey("ConnectivityPlan_Id");
 
 
         // SimCard has one or more NetworkProfiles of type NetworkProfile
         modelBuilder.Entity<NetworkProfile>()
             .HasOne<SimCard>()
             .WithMany(parent => parent.NetworkProfiles)
-            .HasForeignKey("NetworkProfilesId");
+            .HasForeignKey("NetworkProfiles_Id");
 
         // ConnectivityPlan has one Tenant of type Tenant
         modelBuilder.Entity<ConnectivityPlan>()
             .HasOne(x => x.Tenant)
             .WithMany()
-            .HasForeignKey("TenantId");
+            .HasForeignKey("Tenant_Id");
 
 
         // ConnectivityPlan has one or more SimCards of type SimCard
         modelBuilder.Entity<SimCard>()
             .HasOne<ConnectivityPlan>()
             .WithMany(parent => parent.SimCards)
-            .HasForeignKey("SimCardsId");
+            .HasForeignKey("SimCards_Id");
 
         // MessagingEndpoint has one Tenant of type Tenant
         modelBuilder.Entity<MessagingEndpoint>()
             .HasOne(x => x.Tenant)
             .WithMany()
-            .HasForeignKey("TenantId");
+            .HasForeignKey("Tenant_Id");
 
 
         // MessagingEndpoint has one or more Streams of type TelemetryStream
         modelBuilder.Entity<TelemetryStream>()
             .HasOne<MessagingEndpoint>()
             .WithMany(parent => parent.Streams)
-            .HasForeignKey("StreamsId");
+            .HasForeignKey("Streams_Id");
 
         // AccessPolicy has one Tenant of type Tenant
         modelBuilder.Entity<AccessPolicy>()
             .HasOne(x => x.Tenant)
             .WithMany()
-            .HasForeignKey("TenantId");
+            .HasForeignKey("Tenant_Id");
 
 
         // AccessPolicy has one or more ApiKeys of type ApiKey
         modelBuilder.Entity<ApiKey>()
             .HasOne<AccessPolicy>()
             .WithMany(parent => parent.ApiKeys)
-            .HasForeignKey("ApiKeysId");
+            .HasForeignKey("ApiKeys_Id");
 
         // AccessPolicy has one or more Users of type TenantUser
         modelBuilder.Entity<TenantUser>()
             .HasOne<AccessPolicy>()
             .WithMany(parent => parent.Users)
-            .HasForeignKey("UsersId");
+            .HasForeignKey("Users_Id");
 
         // ApiKey has one AccessPolicy of type AccessPolicy
         modelBuilder.Entity<ApiKey>()
             .HasOne(x => x.AccessPolicy)
             .WithMany()
-            .HasForeignKey("AccessPolicyId");
+            .HasForeignKey("AccessPolicy_Id");
 
 
         // DeviceCertificate has one Device of type IoTDevice
         modelBuilder.Entity<DeviceCertificate>()
             .HasOne(x => x.Device)
             .WithMany()
-            .HasForeignKey("DeviceId");
+            .HasForeignKey("Device_Id");
 
         // DeviceCertificate has one Gateway of type Gateway
         modelBuilder.Entity<DeviceCertificate>()
             .HasOne(x => x.Gateway)
             .WithMany()
-            .HasForeignKey("GatewayId");
+            .HasForeignKey("Gateway_Id");
 
 
         // ProvisioningRecord has one Device of type IoTDevice
         modelBuilder.Entity<ProvisioningRecord>()
             .HasOne(x => x.Device)
             .WithMany()
-            .HasForeignKey("DeviceId");
+            .HasForeignKey("Device_Id");
 
         // ProvisioningRecord has one Certificate of type DeviceCertificate
         modelBuilder.Entity<ProvisioningRecord>()
             .HasOne(x => x.Certificate)
             .WithMany()
-            .HasForeignKey("CertificateId");
+            .HasForeignKey("Certificate_Id");
 
         // ProvisioningRecord has one Tenant of type Tenant
         modelBuilder.Entity<ProvisioningRecord>()
             .HasOne(x => x.Tenant)
             .WithMany()
-            .HasForeignKey("TenantId");
+            .HasForeignKey("Tenant_Id");
 
 
         // DigitalTwin has one Device of type IoTDevice
         modelBuilder.Entity<DigitalTwin>()
             .HasOne(x => x.Device)
             .WithMany()
-            .HasForeignKey("DeviceId");
+            .HasForeignKey("Device_Id");
 
         // DigitalTwin has one Gateway of type Gateway
         modelBuilder.Entity<DigitalTwin>()
             .HasOne(x => x.Gateway)
             .WithMany()
-            .HasForeignKey("GatewayId");
+            .HasForeignKey("Gateway_Id");
 
         // DigitalTwin has one Template of type TwinTemplate
         modelBuilder.Entity<DigitalTwin>()
             .HasOne(x => x.Template)
             .WithMany()
-            .HasForeignKey("TemplateId");
+            .HasForeignKey("Template_Id");
 
 
         // DigitalTwin has one or more ChangeEvents of type TwinChangeEvent
         modelBuilder.Entity<TwinChangeEvent>()
             .HasOne<DigitalTwin>()
             .WithMany(parent => parent.ChangeEvents)
-            .HasForeignKey("ChangeEventsId");
+            .HasForeignKey("ChangeEvents_Id");
 
 
         // TwinTemplate has one or more DeviceModels of type DeviceModel
         modelBuilder.Entity<DeviceModel>()
             .HasOne<TwinTemplate>()
             .WithMany(parent => parent.DeviceModels)
-            .HasForeignKey("DeviceModelsId");
+            .HasForeignKey("DeviceModels_Id");
 
         // TwinChangeEvent has one Twin of type DigitalTwin
         modelBuilder.Entity<TwinChangeEvent>()
             .HasOne(x => x.Twin)
             .WithMany()
-            .HasForeignKey("TwinId");
+            .HasForeignKey("Twin_Id");
 
 
         // MaintenanceTicket has one Device of type IoTDevice
         modelBuilder.Entity<MaintenanceTicket>()
             .HasOne(x => x.Device)
             .WithMany()
-            .HasForeignKey("DeviceId");
+            .HasForeignKey("Device_Id");
 
         // MaintenanceTicket has one Tenant of type Tenant
         modelBuilder.Entity<MaintenanceTicket>()
             .HasOne(x => x.Tenant)
             .WithMany()
-            .HasForeignKey("TenantId");
+            .HasForeignKey("Tenant_Id");
 
 
         // DataRetentionPolicy has one Tenant of type Tenant
         modelBuilder.Entity<DataRetentionPolicy>()
             .HasOne(x => x.Tenant)
             .WithMany()
-            .HasForeignKey("TenantId");
+            .HasForeignKey("Tenant_Id");
 
 
         // DataRetentionPolicy has one or more Streams of type TelemetryStream
         modelBuilder.Entity<TelemetryStream>()
             .HasOne<DataRetentionPolicy>()
             .WithMany(parent => parent.Streams)
-            .HasForeignKey("StreamsId");
+            .HasForeignKey("Streams_Id");
 
         // SoftwareUpdateCampaign has one FirmwareRelease of type FirmwareRelease
         modelBuilder.Entity<SoftwareUpdateCampaign>()
             .HasOne(x => x.FirmwareRelease)
             .WithMany()
-            .HasForeignKey("FirmwareReleaseId");
+            .HasForeignKey("FirmwareRelease_Id");
 
         // SoftwareUpdateCampaign has one DeviceGroup of type DeviceGroup
         modelBuilder.Entity<SoftwareUpdateCampaign>()
             .HasOne(x => x.DeviceGroup)
             .WithMany()
-            .HasForeignKey("DeviceGroupId");
+            .HasForeignKey("DeviceGroup_Id");
 
 
         // SoftwareUpdateCampaign has one or more Executions of type SoftwareUpdateExecution
         modelBuilder.Entity<SoftwareUpdateExecution>()
             .HasOne<SoftwareUpdateCampaign>()
             .WithMany(parent => parent.Executions)
-            .HasForeignKey("ExecutionsId");
+            .HasForeignKey("Executions_Id");
 
         // SoftwareUpdateExecution has one Campaign of type SoftwareUpdateCampaign
         modelBuilder.Entity<SoftwareUpdateExecution>()
             .HasOne(x => x.Campaign)
             .WithMany()
-            .HasForeignKey("CampaignId");
+            .HasForeignKey("Campaign_Id");
 
         // SoftwareUpdateExecution has one Device of type IoTDevice
         modelBuilder.Entity<SoftwareUpdateExecution>()
             .HasOne(x => x.Device)
             .WithMany()
-            .HasForeignKey("DeviceId");
+            .HasForeignKey("Device_Id");
 
 
         // DeviceGroup has one Tenant of type Tenant
         modelBuilder.Entity<DeviceGroup>()
             .HasOne(x => x.Tenant)
             .WithMany()
-            .HasForeignKey("TenantId");
+            .HasForeignKey("Tenant_Id");
 
 
         // DeviceGroup has one or more Devices of type IoTDevice
         modelBuilder.Entity<IoTDevice>()
             .HasOne<DeviceGroup>()
             .WithMany(parent => parent.Devices)
-            .HasForeignKey("DevicesId");
+            .HasForeignKey("Devices_Id");
 
         // UsageRecord has one Tenant of type Tenant
         modelBuilder.Entity<UsageRecord>()
             .HasOne(x => x.Tenant)
             .WithMany()
-            .HasForeignKey("TenantId");
+            .HasForeignKey("Tenant_Id");
 
         // UsageRecord has one Device of type IoTDevice
         modelBuilder.Entity<UsageRecord>()
             .HasOne(x => x.Device)
             .WithMany()
-            .HasForeignKey("DeviceId");
+            .HasForeignKey("Device_Id");
 
         // UsageRecord has one ConnectivityPlan of type ConnectivityPlan
         modelBuilder.Entity<UsageRecord>()
             .HasOne(x => x.ConnectivityPlan)
             .WithMany()
-            .HasForeignKey("ConnectivityPlanId");
+            .HasForeignKey("ConnectivityPlan_Id");
 
 
     }

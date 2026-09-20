@@ -8,8 +8,8 @@ public class DeviceCertificate
 
  public virtual long? DevicecertificateId { get; set; } 
  public virtual string? SerialNumber { get; set; } 
- public virtual DateTime? NotBefore { get; set; } 
- public virtual DateTime? NotAfter { get; set; } 
+ public virtual DateTime_? NotBefore { get; set; } 
+ public virtual DateTime_? NotAfter { get; set; } 
  public virtual string? Fingerprint { get; set; } 
 public virtual IoTDevice? Device { get; set; } 
 public virtual Gateway? Gateway { get; set; } 

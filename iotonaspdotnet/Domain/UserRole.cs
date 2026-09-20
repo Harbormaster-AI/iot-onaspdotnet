@@ -35,7 +35,7 @@ namespace iotonaspdotnet.Domain;
 
 public enum UserRole
 {
-    Admin=1,Operator=2,Viewer=3,Integrator=4
+    Admin=1,Operator_=2,Viewer=3,Integrator=4
 }
 
 /// <summary>
