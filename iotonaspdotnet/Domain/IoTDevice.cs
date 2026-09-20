@@ -9,7 +9,7 @@ public class IoTDevice
  public virtual long? IotdeviceId { get; set; } 
  public virtual DeviceId? DeviceId { get; set; } 
  public virtual string? SerialNumber { get; set; } 
- public virtual DateTime_? LastSeen { get; set; } 
+ public virtual DateTime? LastSeen { get; set; } 
  public virtual FirmwareVersion? FirmwareVersion { get; set; } 
 public virtual DeviceModel? DeviceModel { get; set; } 
 public virtual Tenant? Tenant { get; set; } 

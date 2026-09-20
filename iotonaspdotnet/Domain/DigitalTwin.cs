@@ -10,7 +10,7 @@ public class DigitalTwin
  public virtual string? TwinId { get; set; } 
  public virtual int? DesiredStateVersion { get; set; } 
  public virtual int? ReportedStateVersion { get; set; } 
- public virtual DateTime_? LastSyncAt { get; set; } 
+ public virtual DateTime? LastSyncAt { get; set; } 
 public virtual IoTDevice? Device { get; set; } 
 public virtual Gateway? Gateway { get; set; } 
 public virtual TwinTemplate? Template { get; set; } 
