@@ -10,7 +10,7 @@ resource "kubernetes_service" "app-master" {
         port {
             name        = "http"
             port        = 80
-            target_port = #DefaultPort()
+            target_port = 8080
         }
 
         port {
@@ -20,8 +20,8 @@ resource "kubernetes_service" "app-master" {
         }
 
         port {
-            port        = #DefaultPort()
-            target_port = #DefaultPort()
+            port        = 8080
+            target_port = 8080
             name        = "app-port"
         }
 
