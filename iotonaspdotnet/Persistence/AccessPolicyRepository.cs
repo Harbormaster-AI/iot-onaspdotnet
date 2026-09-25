@@ -1,4 +1,7 @@
+
+using iotonaspdotnet.Contracts;
 using iotonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace iotonaspdotnet.Persistence;
@@ -44,4 +47,77 @@ public class AccessPolicyRepository : IAccessPolicyRepository
         _db.AccessPolicys.Remove(accessPolicy);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
+
+    public async Task AddToApiKeysAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.ApiKeys
+            .Where(apiKey =>
+                request.ChildIds.Contains(apiKey.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    apiKey =>
+                        EF.Property<Guid?>(
+                            apiKey,
+                            "UsageRecord_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromApiKeysAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.ApiKeys
+            .Where(apiKey =>
+                request.ChildIds.Contains(apiKey.Id) &&
+                EF.Property<Guid?>(
+                    apiKey,
+                    "UsageRecord_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    apiKey =>
+                        EF.Property<Guid?>(
+                            apiKey,
+                            "UsageRecord_Id"),
+                    (Guid?)null));
+    }
+
+
+    public async Task AddToUsersAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.TenantUsers
+            .Where(tenantUser =>
+                request.ChildIds.Contains(tenantUser.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    tenantUser =>
+                        EF.Property<Guid?>(
+                            tenantUser,
+                            "UsageRecord_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromUsersAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.TenantUsers
+            .Where(tenantUser =>
+                request.ChildIds.Contains(tenantUser.Id) &&
+                EF.Property<Guid?>(
+                    tenantUser,
+                    "UsageRecord_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    tenantUser =>
+                        EF.Property<Guid?>(
+                            tenantUser,
+                            "UsageRecord_Id"),
+                    (Guid?)null));
+    }
+
 }

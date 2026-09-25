@@ -1,4 +1,7 @@
+
+using iotonaspdotnet.Contracts;
 using iotonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace iotonaspdotnet.Persistence;
@@ -44,4 +47,113 @@ public class SiteRepository : ISiteRepository
         _db.Sites.Remove(site);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
+
+    public async Task AddToBuildingsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.Buildings
+            .Where(building =>
+                request.ChildIds.Contains(building.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    building =>
+                        EF.Property<Guid?>(
+                            building,
+                            "UsageRecord_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromBuildingsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.Buildings
+            .Where(building =>
+                request.ChildIds.Contains(building.Id) &&
+                EF.Property<Guid?>(
+                    building,
+                    "UsageRecord_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    building =>
+                        EF.Property<Guid?>(
+                            building,
+                            "UsageRecord_Id"),
+                    (Guid?)null));
+    }
+
+
+    public async Task AddToDevicesAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.IoTDevices
+            .Where(ioTDevice =>
+                request.ChildIds.Contains(ioTDevice.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    ioTDevice =>
+                        EF.Property<Guid?>(
+                            ioTDevice,
+                            "UsageRecord_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromDevicesAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.IoTDevices
+            .Where(ioTDevice =>
+                request.ChildIds.Contains(ioTDevice.Id) &&
+                EF.Property<Guid?>(
+                    ioTDevice,
+                    "UsageRecord_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    ioTDevice =>
+                        EF.Property<Guid?>(
+                            ioTDevice,
+                            "UsageRecord_Id"),
+                    (Guid?)null));
+    }
+
+
+    public async Task AddToGatewaysAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.Gateways
+            .Where(gateway =>
+                request.ChildIds.Contains(gateway.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    gateway =>
+                        EF.Property<Guid?>(
+                            gateway,
+                            "UsageRecord_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromGatewaysAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.Gateways
+            .Where(gateway =>
+                request.ChildIds.Contains(gateway.Id) &&
+                EF.Property<Guid?>(
+                    gateway,
+                    "UsageRecord_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    gateway =>
+                        EF.Property<Guid?>(
+                            gateway,
+                            "UsageRecord_Id"),
+                    (Guid?)null));
+    }
+
 }

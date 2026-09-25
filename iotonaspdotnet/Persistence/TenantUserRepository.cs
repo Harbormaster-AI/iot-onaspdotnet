@@ -1,4 +1,7 @@
+
+using iotonaspdotnet.Contracts;
 using iotonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace iotonaspdotnet.Persistence;
@@ -44,4 +47,41 @@ public class TenantUserRepository : ITenantUserRepository
         _db.TenantUsers.Remove(tenantUser);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
+
+    public async Task AddToCommandInvocationsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.CommandInvocations
+            .Where(commandInvocation =>
+                request.ChildIds.Contains(commandInvocation.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    commandInvocation =>
+                        EF.Property<Guid?>(
+                            commandInvocation,
+                            "UsageRecord_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromCommandInvocationsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.CommandInvocations
+            .Where(commandInvocation =>
+                request.ChildIds.Contains(commandInvocation.Id) &&
+                EF.Property<Guid?>(
+                    commandInvocation,
+                    "UsageRecord_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    commandInvocation =>
+                        EF.Property<Guid?>(
+                            commandInvocation,
+                            "UsageRecord_Id"),
+                    (Guid?)null));
+    }
+
 }

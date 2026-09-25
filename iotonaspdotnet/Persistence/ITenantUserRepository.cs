@@ -1,4 +1,5 @@
 using iotonaspdotnet.Domain;
+using iotonaspdotnet.Contracts;
 
 namespace iotonaspdotnet.Persistence;
 
@@ -9,4 +10,8 @@ public interface ITenantUserRepository
     Task AddAsync(TenantUser tenantUser, CancellationToken cancellationToken);
     Task UpdateAsync(TenantUser tenantUser, CancellationToken cancellationToken);
     Task DeleteAsync(TenantUser tenantUser, CancellationToken cancellationToken);
+
+    Task AddToCommandInvocationsAsync( MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task RemoveFromCommandInvocationsAsync( MultipleAssociationRequest request, CancellationToken cancellationToken);
+
 }

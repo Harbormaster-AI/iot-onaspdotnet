@@ -1,4 +1,7 @@
+
+using iotonaspdotnet.Contracts;
 using iotonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace iotonaspdotnet.Persistence;
@@ -46,4 +49,5 @@ public class SoftwareUpdateExecutionRepository : ISoftwareUpdateExecutionReposit
         _db.SoftwareUpdateExecutions.Remove(softwareUpdateExecution);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
 }

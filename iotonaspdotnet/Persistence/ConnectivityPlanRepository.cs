@@ -1,4 +1,7 @@
+
+using iotonaspdotnet.Contracts;
 using iotonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace iotonaspdotnet.Persistence;
@@ -44,4 +47,41 @@ public class ConnectivityPlanRepository : IConnectivityPlanRepository
         _db.ConnectivityPlans.Remove(connectivityPlan);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
+
+    public async Task AddToSimCardsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.SimCards
+            .Where(simCard =>
+                request.ChildIds.Contains(simCard.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    simCard =>
+                        EF.Property<Guid?>(
+                            simCard,
+                            "UsageRecord_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromSimCardsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.SimCards
+            .Where(simCard =>
+                request.ChildIds.Contains(simCard.Id) &&
+                EF.Property<Guid?>(
+                    simCard,
+                    "UsageRecord_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    simCard =>
+                        EF.Property<Guid?>(
+                            simCard,
+                            "UsageRecord_Id"),
+                    (Guid?)null));
+    }
+
 }

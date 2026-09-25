@@ -1,4 +1,5 @@
 using iotonaspdotnet.Domain;
+using iotonaspdotnet.Contracts;
 
 namespace iotonaspdotnet.Persistence;
 
@@ -9,4 +10,6 @@ public interface INetworkProfileRepository
     Task AddAsync(NetworkProfile networkProfile, CancellationToken cancellationToken);
     Task UpdateAsync(NetworkProfile networkProfile, CancellationToken cancellationToken);
     Task DeleteAsync(NetworkProfile networkProfile, CancellationToken cancellationToken);
+
+
 }

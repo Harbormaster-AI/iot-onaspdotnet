@@ -1,6 +1,8 @@
+
 using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Contracts;
+using iotonaspdotnet.Telemetry;
 
 namespace iotonaspdotnet.Service;
 
@@ -11,7 +13,6 @@ public interface ISensorInstanceService {
     Task<SensorInstance?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
     Task<IReadOnlyList<SensorInstance>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
-
     // ------------------------------
     // Single Associations
     // -------------------------------
@@ -25,27 +26,38 @@ public interface ISensorInstanceService {
 
 public class SensorInstanceService : ISensorInstanceService
 {
+    private readonly ApplicationTelemetry _telemetry;
     private readonly ISensorInstanceRepository _repository;
     private readonly ILogger<SensorInstanceService> _logger;
+    private readonly IServiceResolver _serviceResolver;
+
 
     public SensorInstanceService(
-        ISensorInstanceRepository repository, ILogger<SensorInstanceService> logger )
+        ApplicationTelemetry telemetry,
+        ISensorInstanceRepository repository,
+        ILogger<SensorInstanceService> logger,
+        IServiceResolver serviceResolver)
     {
+        _telemetry = telemetry;
         _repository = repository;
         _logger = logger;
+        _serviceResolver = serviceResolver;
     }
-
 
     public async Task Create(SensorInstance model, CancellationToken cancellationToken)
     {
-
-         try
+        try
         {
-            await _repository.AddAsync(model, cancellationToken);
+            await _telemetry.Execute(
+                "SensorInstance",
+                "CreateSensorInstance",
+                () => _repository.AddAsync(model, cancellationToken));
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Unexpected Error: {ex.Message}");
+            _logger.LogError(
+                    ex,
+                    "Unexpected error while creating Transaction.");
         }
     }
 
@@ -62,11 +74,16 @@ public class SensorInstanceService : ISensorInstanceService
             existing.SamplingIntervalMs = model.SamplingIntervalMs;
             existing.SensorType = model.SensorType;
 
-            await _repository.UpdateAsync(existing, cancellationToken);
+            await _telemetry.Execute(
+                "SensorInstance",
+                "UpdateSensorInstance",
+                () => _repository.UpdateAsync(existing, cancellationToken));
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Unexpected Error: {ex.Message}");
+            _logger.LogError(
+                    ex,
+                    "Unexpected error while creating Transaction.");
             return false;
         }
         return true;
@@ -88,29 +105,106 @@ public class SensorInstanceService : ISensorInstanceService
 
         try
         {
-            await _repository.DeleteAsync(existing, cancellationToken);
+            await _telemetry.Execute(
+                "SensorInstance",
+                "UpdateSensorInstance",
+                () => _repository.DeleteAsync(existing, cancellationToken));
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Unexpected Error: {ex.Message}");
+            _logger.LogError(
+                    ex,
+                    "Unexpected error while creating Transaction.");
             return false;
         }
         return true;
-
     }
 
     public async Task<bool> AssignDevice(AssociationRequest request, CancellationToken cancellationToken) {
+
+        var parent = await _repository.GetByIdAsync(request.ParentId, cancellationToken);
+        if (parent is null)
+        {
+            _logger.LogError("No SensorInstance found using Id {ParentId}", request.ParentId);
+            return false;
+        }
+
+        try
+        {
+            var childRequest = new IdentifierRequest
+            {
+                Id = request.ChildId,
+            };
+
+            var child = await _serviceResolver.Get<IoTDeviceService>().Get(childRequest, cancellationToken);
+            parent.Device = child;
+            await Update( parent, cancellationToken );
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(
+                    ex,
+                    "Unexpected error while creating Transaction.");
+            return false;
+        }
         return true;
     }
+
     public async Task<bool> UnassignDevice(AssociationRequest request, CancellationToken cancellationToken) {
+        var parent = await _repository.GetByIdAsync(request.ParentId, cancellationToken);
+        if (parent is null)
+        {
+            _logger.LogError("No SensorInstance found using Id {ParentId}", request.ParentId);
+            return false;
+        }
+
+        try
+        {
+            parent.Device = null;
+            await Update( parent, cancellationToken );
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(
+                    ex,
+                    "Unexpected error while creating Transaction.");
+            return false;
+        }
         return true;
     }
 
 
     public async Task<bool> AddToTelemetryStreams(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        try {
+            await _telemetry.Execute(
+                "SensorInstance",
+                "AddToTelemetryStreams",
+                () => _repository.AddToTelemetryStreamsAsync(request, cancellationToken));
+        }
+        catch (Exception ex)
+        {
+           _logger.LogError(
+                   ex,
+                   "Unexpected error while creating Transaction.");
+            return false;
+        }
         return true;
     }
+
     public async Task<bool> RemoveFromTelemetryStreams(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        try {
+            await _telemetry.Execute(
+                "SensorInstance",
+                "RemoveFromTelemetryStreams",
+                () => _repository.RemoveFromTelemetryStreamsAsync(request, cancellationToken));
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(
+                    ex,
+                    "Unexpected error while creating Transaction.");
+            return false;
+        }
         return true;
     }
 

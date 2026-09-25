@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace iotonaspdotnet.Domain;
 
+
     [ComplexType]
     public record DeviceId(
     string Value

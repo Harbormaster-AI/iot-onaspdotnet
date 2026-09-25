@@ -1,4 +1,5 @@
 using iotonaspdotnet.Domain;
+using iotonaspdotnet.Contracts;
 
 namespace iotonaspdotnet.Persistence;
 
@@ -9,4 +10,6 @@ public interface ITelemetryStreamRepository
     Task AddAsync(TelemetryStream telemetryStream, CancellationToken cancellationToken);
     Task UpdateAsync(TelemetryStream telemetryStream, CancellationToken cancellationToken);
     Task DeleteAsync(TelemetryStream telemetryStream, CancellationToken cancellationToken);
+
+
 }

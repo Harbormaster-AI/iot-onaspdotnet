@@ -1,4 +1,5 @@
 using iotonaspdotnet.Domain;
+using iotonaspdotnet.Contracts;
 
 namespace iotonaspdotnet.Persistence;
 
@@ -9,4 +10,8 @@ public interface ISimCardRepository
     Task AddAsync(SimCard simCard, CancellationToken cancellationToken);
     Task UpdateAsync(SimCard simCard, CancellationToken cancellationToken);
     Task DeleteAsync(SimCard simCard, CancellationToken cancellationToken);
+
+    Task AddToNetworkProfilesAsync( MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task RemoveFromNetworkProfilesAsync( MultipleAssociationRequest request, CancellationToken cancellationToken);
+
 }

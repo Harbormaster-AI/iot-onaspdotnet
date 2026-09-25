@@ -1,4 +1,7 @@
+
+using iotonaspdotnet.Contracts;
 using iotonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace iotonaspdotnet.Persistence;
@@ -42,4 +45,41 @@ public class TwinTemplateRepository : ITwinTemplateRepository
         _db.TwinTemplates.Remove(twinTemplate);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
+
+    public async Task AddToDeviceModelsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.DeviceModels
+            .Where(deviceModel =>
+                request.ChildIds.Contains(deviceModel.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    deviceModel =>
+                        EF.Property<Guid?>(
+                            deviceModel,
+                            "UsageRecord_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromDeviceModelsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.DeviceModels
+            .Where(deviceModel =>
+                request.ChildIds.Contains(deviceModel.Id) &&
+                EF.Property<Guid?>(
+                    deviceModel,
+                    "UsageRecord_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    deviceModel =>
+                        EF.Property<Guid?>(
+                            deviceModel,
+                            "UsageRecord_Id"),
+                    (Guid?)null));
+    }
+
 }

@@ -1,4 +1,7 @@
+
+using iotonaspdotnet.Contracts;
 using iotonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace iotonaspdotnet.Persistence;
@@ -44,4 +47,77 @@ public class AlertRuleRepository : IAlertRuleRepository
         _db.AlertRules.Remove(alertRule);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
+
+    public async Task AddToStreamsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.TelemetryStreams
+            .Where(telemetryStream =>
+                request.ChildIds.Contains(telemetryStream.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    telemetryStream =>
+                        EF.Property<Guid?>(
+                            telemetryStream,
+                            "UsageRecord_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromStreamsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.TelemetryStreams
+            .Where(telemetryStream =>
+                request.ChildIds.Contains(telemetryStream.Id) &&
+                EF.Property<Guid?>(
+                    telemetryStream,
+                    "UsageRecord_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    telemetryStream =>
+                        EF.Property<Guid?>(
+                            telemetryStream,
+                            "UsageRecord_Id"),
+                    (Guid?)null));
+    }
+
+
+    public async Task AddToAlertsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.Alerts
+            .Where(alert =>
+                request.ChildIds.Contains(alert.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    alert =>
+                        EF.Property<Guid?>(
+                            alert,
+                            "UsageRecord_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromAlertsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.Alerts
+            .Where(alert =>
+                request.ChildIds.Contains(alert.Id) &&
+                EF.Property<Guid?>(
+                    alert,
+                    "UsageRecord_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    alert =>
+                        EF.Property<Guid?>(
+                            alert,
+                            "UsageRecord_Id"),
+                    (Guid?)null));
+    }
+
 }

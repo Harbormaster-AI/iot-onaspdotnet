@@ -1,4 +1,5 @@
 using iotonaspdotnet.Domain;
+using iotonaspdotnet.Contracts;
 
 namespace iotonaspdotnet.Persistence;
 
@@ -9,4 +10,6 @@ public interface IDeviceCertificateRepository
     Task AddAsync(DeviceCertificate deviceCertificate, CancellationToken cancellationToken);
     Task UpdateAsync(DeviceCertificate deviceCertificate, CancellationToken cancellationToken);
     Task DeleteAsync(DeviceCertificate deviceCertificate, CancellationToken cancellationToken);
+
+
 }

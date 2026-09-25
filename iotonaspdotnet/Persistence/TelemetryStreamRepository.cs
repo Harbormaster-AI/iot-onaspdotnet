@@ -1,4 +1,7 @@
+
+using iotonaspdotnet.Contracts;
 using iotonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace iotonaspdotnet.Persistence;
@@ -52,4 +55,5 @@ public class TelemetryStreamRepository : ITelemetryStreamRepository
         _db.TelemetryStreams.Remove(telemetryStream);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
 }

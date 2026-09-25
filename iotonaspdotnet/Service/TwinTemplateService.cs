@@ -1,6 +1,8 @@
+
 using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Contracts;
+using iotonaspdotnet.Telemetry;
 
 namespace iotonaspdotnet.Service;
 
@@ -11,7 +13,6 @@ public interface ITwinTemplateService {
     Task<TwinTemplate?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
     Task<IReadOnlyList<TwinTemplate>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
-
     // ------------------------------
     // Single Associations
     // -------------------------------
@@ -23,26 +24,38 @@ public interface ITwinTemplateService {
 
 public class TwinTemplateService : ITwinTemplateService
 {
+    private readonly ApplicationTelemetry _telemetry;
     private readonly ITwinTemplateRepository _repository;
     private readonly ILogger<TwinTemplateService> _logger;
+    private readonly IServiceResolver _serviceResolver;
+
 
     public TwinTemplateService(
-        ITwinTemplateRepository repository, ILogger<TwinTemplateService> logger )
+        ApplicationTelemetry telemetry,
+        ITwinTemplateRepository repository,
+        ILogger<TwinTemplateService> logger,
+        IServiceResolver serviceResolver)
     {
+        _telemetry = telemetry;
         _repository = repository;
         _logger = logger;
+        _serviceResolver = serviceResolver;
     }
-
 
     public async Task Create(TwinTemplate model, CancellationToken cancellationToken)
     {
         try
         {
-            await _repository.AddAsync(model, cancellationToken);
+            await _telemetry.Execute(
+                "TwinTemplate",
+                "CreateTwinTemplate",
+                () => _repository.AddAsync(model, cancellationToken));
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Unexpected Error: {ex.Message}");
+            _logger.LogError(
+                    ex,
+                    "Unexpected error while creating Transaction.");
         }
     }
 
@@ -58,11 +71,16 @@ public class TwinTemplateService : ITwinTemplateService
             existing.SchemaUri = model.SchemaUri;
             existing.Version = model.Version;
 
-            await _repository.UpdateAsync(existing, cancellationToken);
+            await _telemetry.Execute(
+                "TwinTemplate",
+                "UpdateTwinTemplate",
+                () => _repository.UpdateAsync(existing, cancellationToken));
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Unexpected Error: {ex.Message}");
+            _logger.LogError(
+                    ex,
+                    "Unexpected error while creating Transaction.");
             return false;
         }
         return true;
@@ -84,22 +102,53 @@ public class TwinTemplateService : ITwinTemplateService
 
         try
         {
-            await _repository.DeleteAsync(existing, cancellationToken);
+            await _telemetry.Execute(
+                "TwinTemplate",
+                "UpdateTwinTemplate",
+                () => _repository.DeleteAsync(existing, cancellationToken));
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Unexpected Error: {ex.Message}");
+            _logger.LogError(
+                    ex,
+                    "Unexpected error while creating Transaction.");
             return false;
         }
         return true;
-
     }
 
 
     public async Task<bool> AddToDeviceModels(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        try {
+            await _telemetry.Execute(
+                "TwinTemplate",
+                "AddToDeviceModels",
+                () => _repository.AddToDeviceModelsAsync(request, cancellationToken));
+        }
+        catch (Exception ex)
+        {
+           _logger.LogError(
+                   ex,
+                   "Unexpected error while creating Transaction.");
+            return false;
+        }
         return true;
     }
+
     public async Task<bool> RemoveFromDeviceModels(MultipleAssociationRequest request, CancellationToken cancellationToken) {
+        try {
+            await _telemetry.Execute(
+                "TwinTemplate",
+                "RemoveFromDeviceModels",
+                () => _repository.RemoveFromDeviceModelsAsync(request, cancellationToken));
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(
+                    ex,
+                    "Unexpected error while creating Transaction.");
+            return false;
+        }
         return true;
     }
 

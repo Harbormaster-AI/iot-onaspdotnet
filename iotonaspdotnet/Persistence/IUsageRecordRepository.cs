@@ -1,4 +1,5 @@
 using iotonaspdotnet.Domain;
+using iotonaspdotnet.Contracts;
 
 namespace iotonaspdotnet.Persistence;
 
@@ -9,4 +10,6 @@ public interface IUsageRecordRepository
     Task AddAsync(UsageRecord usageRecord, CancellationToken cancellationToken);
     Task UpdateAsync(UsageRecord usageRecord, CancellationToken cancellationToken);
     Task DeleteAsync(UsageRecord usageRecord, CancellationToken cancellationToken);
+
+
 }

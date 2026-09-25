@@ -1,6 +1,8 @@
+
 using iotonaspdotnet.Domain;
 using iotonaspdotnet.Persistence;
 using iotonaspdotnet.Contracts;
+using iotonaspdotnet.Telemetry;
 
 namespace iotonaspdotnet.Service;
 
@@ -11,7 +13,6 @@ public interface ITwinChangeEventService {
     Task<TwinChangeEvent?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
     Task<IReadOnlyList<TwinChangeEvent>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
-
     // ------------------------------
     // Single Associations
     // -------------------------------
@@ -23,27 +24,38 @@ public interface ITwinChangeEventService {
 
 public class TwinChangeEventService : ITwinChangeEventService
 {
+    private readonly ApplicationTelemetry _telemetry;
     private readonly ITwinChangeEventRepository _repository;
     private readonly ILogger<TwinChangeEventService> _logger;
+    private readonly IServiceResolver _serviceResolver;
+
 
     public TwinChangeEventService(
-        ITwinChangeEventRepository repository, ILogger<TwinChangeEventService> logger )
+        ApplicationTelemetry telemetry,
+        ITwinChangeEventRepository repository,
+        ILogger<TwinChangeEventService> logger,
+        IServiceResolver serviceResolver)
     {
+        _telemetry = telemetry;
         _repository = repository;
         _logger = logger;
+        _serviceResolver = serviceResolver;
     }
-
 
     public async Task Create(TwinChangeEvent model, CancellationToken cancellationToken)
     {
-
-         try
+        try
         {
-            await _repository.AddAsync(model, cancellationToken);
+            await _telemetry.Execute(
+                "TwinChangeEvent",
+                "CreateTwinChangeEvent",
+                () => _repository.AddAsync(model, cancellationToken));
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Unexpected Error: {ex.Message}");
+            _logger.LogError(
+                    ex,
+                    "Unexpected error while creating Transaction.");
         }
     }
 
@@ -59,11 +71,16 @@ public class TwinChangeEventService : ITwinChangeEventService
             existing.OccurredAt = model.OccurredAt;
             existing.ChangeType = model.ChangeType;
 
-            await _repository.UpdateAsync(existing, cancellationToken);
+            await _telemetry.Execute(
+                "TwinChangeEvent",
+                "UpdateTwinChangeEvent",
+                () => _repository.UpdateAsync(existing, cancellationToken));
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Unexpected Error: {ex.Message}");
+            _logger.LogError(
+                    ex,
+                    "Unexpected error while creating Transaction.");
             return false;
         }
         return true;
@@ -85,21 +102,71 @@ public class TwinChangeEventService : ITwinChangeEventService
 
         try
         {
-            await _repository.DeleteAsync(existing, cancellationToken);
+            await _telemetry.Execute(
+                "TwinChangeEvent",
+                "UpdateTwinChangeEvent",
+                () => _repository.DeleteAsync(existing, cancellationToken));
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Unexpected Error: {ex.Message}");
+            _logger.LogError(
+                    ex,
+                    "Unexpected error while creating Transaction.");
             return false;
         }
         return true;
-
     }
 
     public async Task<bool> AssignTwin(AssociationRequest request, CancellationToken cancellationToken) {
+
+        var parent = await _repository.GetByIdAsync(request.ParentId, cancellationToken);
+        if (parent is null)
+        {
+            _logger.LogError("No TwinChangeEvent found using Id {ParentId}", request.ParentId);
+            return false;
+        }
+
+        try
+        {
+            var childRequest = new IdentifierRequest
+            {
+                Id = request.ChildId,
+            };
+
+            var child = await _serviceResolver.Get<DigitalTwinService>().Get(childRequest, cancellationToken);
+            parent.Twin = child;
+            await Update( parent, cancellationToken );
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(
+                    ex,
+                    "Unexpected error while creating Transaction.");
+            return false;
+        }
         return true;
     }
+
     public async Task<bool> UnassignTwin(AssociationRequest request, CancellationToken cancellationToken) {
+        var parent = await _repository.GetByIdAsync(request.ParentId, cancellationToken);
+        if (parent is null)
+        {
+            _logger.LogError("No TwinChangeEvent found using Id {ParentId}", request.ParentId);
+            return false;
+        }
+
+        try
+        {
+            parent.Twin = null;
+            await Update( parent, cancellationToken );
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(
+                    ex,
+                    "Unexpected error while creating Transaction.");
+            return false;
+        }
         return true;
     }
 

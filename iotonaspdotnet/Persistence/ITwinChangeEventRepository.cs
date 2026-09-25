@@ -1,4 +1,5 @@
 using iotonaspdotnet.Domain;
+using iotonaspdotnet.Contracts;
 
 namespace iotonaspdotnet.Persistence;
 
@@ -9,4 +10,6 @@ public interface ITwinChangeEventRepository
     Task AddAsync(TwinChangeEvent twinChangeEvent, CancellationToken cancellationToken);
     Task UpdateAsync(TwinChangeEvent twinChangeEvent, CancellationToken cancellationToken);
     Task DeleteAsync(TwinChangeEvent twinChangeEvent, CancellationToken cancellationToken);
+
+
 }

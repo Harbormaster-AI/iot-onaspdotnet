@@ -1,4 +1,5 @@
 using iotonaspdotnet.Domain;
+using iotonaspdotnet.Contracts;
 
 namespace iotonaspdotnet.Persistence;
 
@@ -9,4 +10,6 @@ public interface IMaintenanceTicketRepository
     Task AddAsync(MaintenanceTicket maintenanceTicket, CancellationToken cancellationToken);
     Task UpdateAsync(MaintenanceTicket maintenanceTicket, CancellationToken cancellationToken);
     Task DeleteAsync(MaintenanceTicket maintenanceTicket, CancellationToken cancellationToken);
+
+
 }

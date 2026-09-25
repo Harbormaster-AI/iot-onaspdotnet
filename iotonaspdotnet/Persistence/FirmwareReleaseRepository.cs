@@ -1,4 +1,7 @@
+
+using iotonaspdotnet.Contracts;
 using iotonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace iotonaspdotnet.Persistence;
@@ -44,4 +47,5 @@ public class FirmwareReleaseRepository : IFirmwareReleaseRepository
         _db.FirmwareReleases.Remove(firmwareRelease);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
 }

@@ -1,4 +1,7 @@
+
+using iotonaspdotnet.Contracts;
 using iotonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace iotonaspdotnet.Persistence;
@@ -46,4 +49,5 @@ public class DeviceCertificateRepository : IDeviceCertificateRepository
         _db.DeviceCertificates.Remove(deviceCertificate);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
 }

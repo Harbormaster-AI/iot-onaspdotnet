@@ -1,4 +1,7 @@
+
+using iotonaspdotnet.Contracts;
 using iotonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace iotonaspdotnet.Persistence;
@@ -46,4 +49,41 @@ public class SoftwareUpdateCampaignRepository : ISoftwareUpdateCampaignRepositor
         _db.SoftwareUpdateCampaigns.Remove(softwareUpdateCampaign);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
+
+    public async Task AddToExecutionsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.SoftwareUpdateExecutions
+            .Where(softwareUpdateExecution =>
+                request.ChildIds.Contains(softwareUpdateExecution.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    softwareUpdateExecution =>
+                        EF.Property<Guid?>(
+                            softwareUpdateExecution,
+                            "UsageRecord_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromExecutionsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.SoftwareUpdateExecutions
+            .Where(softwareUpdateExecution =>
+                request.ChildIds.Contains(softwareUpdateExecution.Id) &&
+                EF.Property<Guid?>(
+                    softwareUpdateExecution,
+                    "UsageRecord_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    softwareUpdateExecution =>
+                        EF.Property<Guid?>(
+                            softwareUpdateExecution,
+                            "UsageRecord_Id"),
+                    (Guid?)null));
+    }
+
 }

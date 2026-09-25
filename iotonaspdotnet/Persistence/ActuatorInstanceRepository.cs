@@ -1,4 +1,7 @@
+
+using iotonaspdotnet.Contracts;
 using iotonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace iotonaspdotnet.Persistence;
@@ -44,4 +47,41 @@ public class ActuatorInstanceRepository : IActuatorInstanceRepository
         _db.ActuatorInstances.Remove(actuatorInstance);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
+
+    public async Task AddToSupportedCommandsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.CommandDefinitions
+            .Where(commandDefinition =>
+                request.ChildIds.Contains(commandDefinition.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    commandDefinition =>
+                        EF.Property<Guid?>(
+                            commandDefinition,
+                            "UsageRecord_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromSupportedCommandsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.CommandDefinitions
+            .Where(commandDefinition =>
+                request.ChildIds.Contains(commandDefinition.Id) &&
+                EF.Property<Guid?>(
+                    commandDefinition,
+                    "UsageRecord_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    commandDefinition =>
+                        EF.Property<Guid?>(
+                            commandDefinition,
+                            "UsageRecord_Id"),
+                    (Guid?)null));
+    }
+
 }

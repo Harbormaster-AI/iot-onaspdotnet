@@ -1,4 +1,7 @@
+
+using iotonaspdotnet.Contracts;
 using iotonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace iotonaspdotnet.Persistence;
@@ -44,4 +47,41 @@ public class FloorRepository : IFloorRepository
         _db.Floors.Remove(floor);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
+
+    public async Task AddToRoomsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.Rooms
+            .Where(room =>
+                request.ChildIds.Contains(room.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    room =>
+                        EF.Property<Guid?>(
+                            room,
+                            "UsageRecord_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromRoomsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.Rooms
+            .Where(room =>
+                request.ChildIds.Contains(room.Id) &&
+                EF.Property<Guid?>(
+                    room,
+                    "UsageRecord_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    room =>
+                        EF.Property<Guid?>(
+                            room,
+                            "UsageRecord_Id"),
+                    (Guid?)null));
+    }
+
 }

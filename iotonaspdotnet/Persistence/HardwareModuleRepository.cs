@@ -1,4 +1,7 @@
+
+using iotonaspdotnet.Contracts;
 using iotonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace iotonaspdotnet.Persistence;
@@ -44,4 +47,5 @@ public class HardwareModuleRepository : IHardwareModuleRepository
         _db.HardwareModules.Remove(hardwareModule);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
 }

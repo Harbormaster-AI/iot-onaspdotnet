@@ -1,4 +1,5 @@
 using iotonaspdotnet.Domain;
+using iotonaspdotnet.Contracts;
 
 namespace iotonaspdotnet.Persistence;
 
@@ -9,4 +10,6 @@ public interface ICommandInvocationRepository
     Task AddAsync(CommandInvocation commandInvocation, CancellationToken cancellationToken);
     Task UpdateAsync(CommandInvocation commandInvocation, CancellationToken cancellationToken);
     Task DeleteAsync(CommandInvocation commandInvocation, CancellationToken cancellationToken);
+
+
 }

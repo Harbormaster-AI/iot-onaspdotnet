@@ -1,4 +1,5 @@
 using iotonaspdotnet.Domain;
+using iotonaspdotnet.Contracts;
 
 namespace iotonaspdotnet.Persistence;
 
@@ -9,4 +10,8 @@ public interface IDataRetentionPolicyRepository
     Task AddAsync(DataRetentionPolicy dataRetentionPolicy, CancellationToken cancellationToken);
     Task UpdateAsync(DataRetentionPolicy dataRetentionPolicy, CancellationToken cancellationToken);
     Task DeleteAsync(DataRetentionPolicy dataRetentionPolicy, CancellationToken cancellationToken);
+
+    Task AddToStreamsAsync( MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task RemoveFromStreamsAsync( MultipleAssociationRequest request, CancellationToken cancellationToken);
+
 }

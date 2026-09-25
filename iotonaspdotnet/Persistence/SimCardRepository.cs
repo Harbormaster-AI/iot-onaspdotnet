@@ -1,4 +1,7 @@
+
+using iotonaspdotnet.Contracts;
 using iotonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace iotonaspdotnet.Persistence;
@@ -46,4 +49,41 @@ public class SimCardRepository : ISimCardRepository
         _db.SimCards.Remove(simCard);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
+
+    public async Task AddToNetworkProfilesAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.NetworkProfiles
+            .Where(networkProfile =>
+                request.ChildIds.Contains(networkProfile.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    networkProfile =>
+                        EF.Property<Guid?>(
+                            networkProfile,
+                            "UsageRecord_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromNetworkProfilesAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.NetworkProfiles
+            .Where(networkProfile =>
+                request.ChildIds.Contains(networkProfile.Id) &&
+                EF.Property<Guid?>(
+                    networkProfile,
+                    "UsageRecord_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    networkProfile =>
+                        EF.Property<Guid?>(
+                            networkProfile,
+                            "UsageRecord_Id"),
+                    (Guid?)null));
+    }
+
 }

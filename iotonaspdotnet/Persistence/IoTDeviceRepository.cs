@@ -1,4 +1,7 @@
+
+using iotonaspdotnet.Contracts;
 using iotonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace iotonaspdotnet.Persistence;
@@ -56,4 +59,293 @@ public class IoTDeviceRepository : IIoTDeviceRepository
         _db.IoTDevices.Remove(ioTDevice);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
+
+    public async Task AddToSensorsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.SensorInstances
+            .Where(sensorInstance =>
+                request.ChildIds.Contains(sensorInstance.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    sensorInstance =>
+                        EF.Property<Guid?>(
+                            sensorInstance,
+                            "UsageRecord_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromSensorsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.SensorInstances
+            .Where(sensorInstance =>
+                request.ChildIds.Contains(sensorInstance.Id) &&
+                EF.Property<Guid?>(
+                    sensorInstance,
+                    "UsageRecord_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    sensorInstance =>
+                        EF.Property<Guid?>(
+                            sensorInstance,
+                            "UsageRecord_Id"),
+                    (Guid?)null));
+    }
+
+
+    public async Task AddToActuatorsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.ActuatorInstances
+            .Where(actuatorInstance =>
+                request.ChildIds.Contains(actuatorInstance.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    actuatorInstance =>
+                        EF.Property<Guid?>(
+                            actuatorInstance,
+                            "UsageRecord_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromActuatorsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.ActuatorInstances
+            .Where(actuatorInstance =>
+                request.ChildIds.Contains(actuatorInstance.Id) &&
+                EF.Property<Guid?>(
+                    actuatorInstance,
+                    "UsageRecord_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    actuatorInstance =>
+                        EF.Property<Guid?>(
+                            actuatorInstance,
+                            "UsageRecord_Id"),
+                    (Guid?)null));
+    }
+
+
+    public async Task AddToCertificatesAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.DeviceCertificates
+            .Where(deviceCertificate =>
+                request.ChildIds.Contains(deviceCertificate.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    deviceCertificate =>
+                        EF.Property<Guid?>(
+                            deviceCertificate,
+                            "UsageRecord_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromCertificatesAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.DeviceCertificates
+            .Where(deviceCertificate =>
+                request.ChildIds.Contains(deviceCertificate.Id) &&
+                EF.Property<Guid?>(
+                    deviceCertificate,
+                    "UsageRecord_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    deviceCertificate =>
+                        EF.Property<Guid?>(
+                            deviceCertificate,
+                            "UsageRecord_Id"),
+                    (Guid?)null));
+    }
+
+
+    public async Task AddToTelemetryStreamsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.TelemetryStreams
+            .Where(telemetryStream =>
+                request.ChildIds.Contains(telemetryStream.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    telemetryStream =>
+                        EF.Property<Guid?>(
+                            telemetryStream,
+                            "UsageRecord_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromTelemetryStreamsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.TelemetryStreams
+            .Where(telemetryStream =>
+                request.ChildIds.Contains(telemetryStream.Id) &&
+                EF.Property<Guid?>(
+                    telemetryStream,
+                    "UsageRecord_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    telemetryStream =>
+                        EF.Property<Guid?>(
+                            telemetryStream,
+                            "UsageRecord_Id"),
+                    (Guid?)null));
+    }
+
+
+    public async Task AddToCommandInvocationsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.CommandInvocations
+            .Where(commandInvocation =>
+                request.ChildIds.Contains(commandInvocation.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    commandInvocation =>
+                        EF.Property<Guid?>(
+                            commandInvocation,
+                            "UsageRecord_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromCommandInvocationsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.CommandInvocations
+            .Where(commandInvocation =>
+                request.ChildIds.Contains(commandInvocation.Id) &&
+                EF.Property<Guid?>(
+                    commandInvocation,
+                    "UsageRecord_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    commandInvocation =>
+                        EF.Property<Guid?>(
+                            commandInvocation,
+                            "UsageRecord_Id"),
+                    (Guid?)null));
+    }
+
+
+    public async Task AddToAlertsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.Alerts
+            .Where(alert =>
+                request.ChildIds.Contains(alert.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    alert =>
+                        EF.Property<Guid?>(
+                            alert,
+                            "UsageRecord_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromAlertsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.Alerts
+            .Where(alert =>
+                request.ChildIds.Contains(alert.Id) &&
+                EF.Property<Guid?>(
+                    alert,
+                    "UsageRecord_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    alert =>
+                        EF.Property<Guid?>(
+                            alert,
+                            "UsageRecord_Id"),
+                    (Guid?)null));
+    }
+
+
+    public async Task AddToDeviceGroupsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.DeviceGroups
+            .Where(deviceGroup =>
+                request.ChildIds.Contains(deviceGroup.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    deviceGroup =>
+                        EF.Property<Guid?>(
+                            deviceGroup,
+                            "UsageRecord_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromDeviceGroupsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.DeviceGroups
+            .Where(deviceGroup =>
+                request.ChildIds.Contains(deviceGroup.Id) &&
+                EF.Property<Guid?>(
+                    deviceGroup,
+                    "UsageRecord_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    deviceGroup =>
+                        EF.Property<Guid?>(
+                            deviceGroup,
+                            "UsageRecord_Id"),
+                    (Guid?)null));
+    }
+
+
+    public async Task AddToNetworkProfilesAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.NetworkProfiles
+            .Where(networkProfile =>
+                request.ChildIds.Contains(networkProfile.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    networkProfile =>
+                        EF.Property<Guid?>(
+                            networkProfile,
+                            "UsageRecord_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromNetworkProfilesAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.NetworkProfiles
+            .Where(networkProfile =>
+                request.ChildIds.Contains(networkProfile.Id) &&
+                EF.Property<Guid?>(
+                    networkProfile,
+                    "UsageRecord_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    networkProfile =>
+                        EF.Property<Guid?>(
+                            networkProfile,
+                            "UsageRecord_Id"),
+                    (Guid?)null));
+    }
+
 }

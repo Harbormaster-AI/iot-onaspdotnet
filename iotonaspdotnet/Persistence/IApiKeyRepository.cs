@@ -1,4 +1,5 @@
 using iotonaspdotnet.Domain;
+using iotonaspdotnet.Contracts;
 
 namespace iotonaspdotnet.Persistence;
 
@@ -9,4 +10,6 @@ public interface IApiKeyRepository
     Task AddAsync(ApiKey apiKey, CancellationToken cancellationToken);
     Task UpdateAsync(ApiKey apiKey, CancellationToken cancellationToken);
     Task DeleteAsync(ApiKey apiKey, CancellationToken cancellationToken);
+
+
 }

@@ -1,4 +1,7 @@
+
+using iotonaspdotnet.Contracts;
 using iotonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace iotonaspdotnet.Persistence;
@@ -48,4 +51,5 @@ public class ProvisioningRecordRepository : IProvisioningRecordRepository
         _db.ProvisioningRecords.Remove(provisioningRecord);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
 }
